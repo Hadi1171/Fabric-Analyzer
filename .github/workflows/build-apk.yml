@@ -13,65 +13,53 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      # 1. Download project files
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      # 2. Install Java
       - name: Set up Java 17
         uses: actions/setup-java@v4
         with:
           distribution: temurin
           java-version: '17'
 
-      # 3. Configure Gradle
       - name: Set up Gradle
         uses: gradle/actions/setup-gradle@v4
         with:
           gradle-version: '8.11.1'
 
-      # 4. Install Android SDK
       - name: Set up Android SDK
-        uses: android-actions/setup-android@v3
+        uses: android-actions/setup-android@v4.0.2
+        with:
+          packages: 'platform-tools'
 
-      # 5. Accept Android SDK licenses
-      - name: Accept Android SDK licenses
-        run: |
-          yes | sdkmanager --licenses || true
-
-      # 6. Install required Android packages
       - name: Install Android SDK packages
         run: |
           sdkmanager --install \
             "platforms;android-35" \
             "build-tools;35.0.0"
 
-      # 7. Extract project ZIP
-      - name: Extract Fabric Analyzer project
+      - name: Extract project
         run: |
           mkdir -p source
           unzip -q FabricAnalyzer_Android_Project.zip -d source
 
-      # 8. Find project directory
-      - name: Locate Android project
+      - name: Locate project
         id: project
+        shell: bash
         run: |
           PROJECT_DIR=$(dirname "$(find source -name settings.gradle -print -quit)")
-          if [ -z "$PROJECT_DIR" ] || [ ! -f "$PROJECT_DIR/app/build.gradle" ]; then
-            echo "Android project files not found!"
+          if [ ! -f "$PROJECT_DIR/app/build.gradle" ]; then
+            echo "Android project not found"
             exit 1
           fi
           echo "dir=$PROJECT_DIR" >> "$GITHUB_OUTPUT"
 
-      # 9. Build APK
-      - name: Build Debug APK
-        working-directory: .
+      - name: Build APK
         run: |
           cd "${{ steps.project.outputs.dir }}"
           gradle --no-daemon assembleDebug
 
-      # 10. Upload APK
-      - name: Upload APK artifact
+      - name: Upload APK
         uses: actions/upload-artifact@v4
         with:
           name: FabricAnalyzer-APK
