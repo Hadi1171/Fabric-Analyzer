@@ -49,10 +49,72 @@ jobs:
         run: |
           PROJECT_DIR=$(dirname "$(find source -name settings.gradle -print -quit)")
           if [ ! -f "$PROJECT_DIR/app/build.gradle" ]; then
-            echo "Android project not found"
+            echo "Project not found"
             exit 1
           fi
           echo "dir=$PROJECT_DIR" >> "$GITHUB_OUTPUT"
+
+      - name: Fix Java and Kotlin versions
+        env:
+          PROJECT_DIR: ${{ steps.project.outputs.dir }}
+        run: |
+          python3 - <<'PY'
+          import os
+          import re
+          from pathlib import Path
+
+          path = Path(os.environ["PROJECT_DIR"]) / "app" / "build.gradle"
+          content = path.read_text()
+
+          if re.search(r'compileOptions\s*\{', content):
+              content = re.sub(
+                  r'compileOptions\s*\{.*?\}',
+                  """compileOptions {
+                      sourceCompatibility JavaVersion.VERSION_17
+                      targetCompatibility JavaVersion.VERSION_17
+                  }""",
+                  content,
+                  count=1,
+                  flags=re.S
+              )
+          else:
+              content = re.sub(
+                  r'(android\s*\{)',
+                  r'''\1
+              compileOptions {
+                  sourceCompatibility JavaVersion.VERSION_17
+                  targetCompatibility JavaVersion.VERSION_17
+              }
+              ''',
+                  content,
+                  count=1
+              )
+
+          if re.search(r'kotlinOptions\s*\{', content):
+              content = re.sub(
+                  r'kotlinOptions\s*\{.*?\}',
+                  """kotlinOptions {
+                      jvmTarget = '17'
+                  }""",
+                  content,
+                  count=1,
+                  flags=re.S
+              )
+          else:
+              content = re.sub(
+                  r'(android\s*\{)',
+                  r'''\1
+              kotlinOptions {
+                  jvmTarget = '17'
+              }
+              ''',
+                  content,
+                  count=1
+              )
+
+          path.write_text(content)
+          print("Java and Kotlin targets set to 17")
+          PY
 
       - name: Build APK
         run: |
