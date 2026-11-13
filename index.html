@@ -1,6 +1,6 @@
 
 <!DOCTYPE html>
-<html lang="fa" dir="rtl">
+<html lang="en" dir="ltr">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
@@ -12,12 +12,13 @@
   --top:#191e29;
   --panel:#202633;
   --panel2:#282f3e;
-  --panel3:#333d4f;
+  --panel3:#354154;
   --text:#edf1f8;
   --muted:#9ba8bb;
   --accent:#d8ad68;
   --border:#394456;
-  --danger:#a9424b;
+  --danger:#c45c68;
+  --success:#8fc9a8;
 }
 
 *{box-sizing:border-box}
@@ -32,11 +33,11 @@ html,body{
 body{
   background:var(--bg);
   color:var(--text);
-  font-family:Tahoma,"Segoe UI",Arial,sans-serif;
+  font-family:Inter,"Segoe UI",Arial,sans-serif;
   font-size:13px;
 }
 
-button,input{font-family:inherit}
+button,input{font:inherit}
 
 button{
   border:1px solid var(--border);
@@ -67,7 +68,7 @@ button:disabled{opacity:.3;cursor:not-allowed;transform:none}
   display:flex;
   align-items:center;
   justify-content:space-between;
-  padding:0 16px;
+  padding:0 17px;
   background:var(--top);
   border-bottom:1px solid #30394a;
 }
@@ -75,315 +76,54 @@ button:disabled{opacity:.3;cursor:not-allowed;transform:none}
 .brand{
   font-size:16px;
   font-weight:800;
-  letter-spacing:.5px;
-  white-space:nowrap;
+  letter-spacing:1px;
 }
 
 .brand span{color:var(--accent)}
 
-.topbar-right,.topbar-left{
+.topbar-right{
   display:flex;
   align-items:center;
   gap:12px;
 }
 
-.save-status{
-  color:#8fc9a8;
-  font-size:11px;
-}
-
-.topbar-label{
+.workspace-label{
   color:var(--muted);
   font-size:11px;
 }
 
-/* MENUBAR */
-
-.menubar{
-  height:35px;
-  flex-shrink:0;
-  display:flex;
-  align-items:center;
-  gap:2px;
-  padding:0 10px;
-  background:#202633;
-  border-bottom:1px solid #394456;
-  position:relative;
-  z-index:20;
-}
-
-.menu-group{position:relative;height:100%}
-
-.menu-trigger{
-  height:100%;
-  padding:0 12px;
-  border:0;
-  border-radius:0;
-  background:transparent;
-  color:#d6deea;
-  font-size:12px;
-  white-space:nowrap;
-}
-
-.menu-trigger:hover,
-.menu-group.open .menu-trigger{
-  background:#354052;
-  color:white;
-}
-
-.dropdown{
-  display:none;
-  position:absolute;
-  top:calc(100% + 1px);
-  right:0;
-  width:225px;
-  padding:5px;
-  background:#252d3b;
-  border:1px solid #46536a;
-  border-radius:7px;
-  box-shadow:0 12px 30px rgba(0,0,0,.4);
-  z-index:50;
-}
-
-.menu-group.open .dropdown{display:block}
-
-.menu-item{
-  width:100%;
-  min-height:34px;
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  gap:12px;
-  padding:0 10px;
-  border:0;
-  background:transparent;
-  border-radius:5px;
-  color:#e5eaf2;
-  text-align:right;
+.save-status{
+  color:var(--success);
   font-size:11px;
 }
 
-.menu-item:hover{
-  background:#39465a;
-  color:white;
-}
+/* MAIN WORKSPACE */
 
-.menu-item:disabled{opacity:.35}
-
-.menu-shortcut{
-  color:#9ba8bb;
-  font-size:10px;
-  direction:ltr;
-  white-space:nowrap;
-}
-
-.menu-separator{
-  height:1px;
-  background:#414d60;
-  margin:5px 4px;
-}
-
-.menu-item.danger-item{color:#f09ba4}
-
-.menu-check{
-  color:var(--accent);
-  font-weight:bold;
-}
-
-/* MAIN LAYOUT */
-
-.main-layout{
+.workspace{
   flex:1;
   min-height:0;
   display:grid;
-  grid-template-columns:58px minmax(0,1fr) 300px;
+  grid-template-columns:270px minmax(0,1fr) 250px;
   direction:ltr;
   overflow:hidden;
 }
 
-/* TOOLBAR */
+/* LEFT PANEL */
 
-.left-toolbar{
-  min-height:0;
-  background:var(--top);
-  border-right:1px solid #30394a;
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  gap:7px;
-  padding:12px 7px;
-  direction:rtl;
-  overflow:hidden;
-}
-
-.tool-button{
-  width:42px;
-  height:42px;
-  flex-shrink:0;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  border:1px solid transparent;
-  background:transparent;
-  color:#b8c3d3;
-  border-radius:8px;
-  padding:0;
-}
-
-.tool-button:hover{
-  background:#30394a;
-  color:white;
-}
-
-.tool-button.active{
-  background:#3c4657;
-  border-color:var(--accent);
-  color:var(--accent);
-}
-
-.tool-button svg{
-  width:21px;
-  height:21px;
-  stroke:currentColor;
-  fill:none;
-  stroke-width:1.8;
-  stroke-linecap:round;
-  stroke-linejoin:round;
-}
-
-.tool-divider{
-  width:28px;
-  height:1px;
-  flex-shrink:0;
-  background:#3a4557;
-  margin:5px 0;
-}
-
-.tool-spacer{flex:1}
-
-.tool-button.danger{color:#e58c98}
-.tool-button.success{color:#9ed9bb}
-
-/* CENTER */
-
-.center-stage{
+.left-dock{
   min-width:0;
   min-height:0;
   display:flex;
   flex-direction:column;
-  background:#111722;
-  direction:rtl;
-  overflow:hidden;
-}
-
-.stage-header{
-  height:39px;
-  flex-shrink:0;
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  padding:0 15px;
-  background:#1b2230;
-  border-bottom:1px solid #30394a;
-}
-
-.stage-title{
-  color:#c7d1df;
-  font-size:12px;
-  font-weight:700;
-}
-
-.stage-hint{
-  color:#8492a7;
-  font-size:10px;
-}
-
-.canvas-area{
-  flex:1;
-  min-height:0;
-  min-width:0;
-  padding:12px;
-  display:flex;
-  overflow:hidden;
-  background-color:#101b35;
-  background-image:
-    radial-gradient(rgba(255,255,255,.035) .7px,transparent .7px);
-  background-size:18px 18px;
-}
-
-.canvas-wrap{
-  flex:1;
-  min-width:0;
-  min-height:0;
-  overflow:auto;
-  direction:ltr;
-  display:flex;
-  align-items:flex-start;
-  justify-content:flex-start;
-  background:#101b35;
-  border:1px solid #34445f;
-  border-radius:8px;
-  padding:12px;
-  touch-action:pan-x pan-y;
-  -webkit-overflow-scrolling:touch;
-  overscroll-behavior:contain;
-  scrollbar-width:thin;
-  scrollbar-color:#53627a #172239;
-}
-
-.canvas-wrap canvas{
-  display:block;
-  flex-shrink:0;
-  max-width:none;
-  height:auto;
-  cursor:crosshair;
-  touch-action:pan-x pan-y;
-  margin:auto;
-}
-
-.stage-footer{
-  min-height:29px;
-  flex-shrink:0;
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  padding:4px 14px;
-  background:#1b2230;
-  border-top:1px solid #30394a;
-  color:#8592a5;
-  font-size:10px;
-}
-
-.zoom-controls{
-  display:flex;
-  align-items:center;
-  gap:5px;
-  direction:ltr;
-}
-
-.zoom-button{
-  width:23px;
-  height:22px;
-  padding:0;
-  font-size:14px;
-  line-height:1;
-}
-
-.zoom-value{
-  min-width:42px;
-  text-align:center;
-  color:#c6d0df;
-  font-size:10px;
-}
-
-/* RIGHT DOCK */
-
-.right-dock{
-  min-width:0;
-  min-height:0;
   background:var(--panel);
-  border-left:1px solid #30394a;
-  direction:rtl;
+  border-right:1px solid #30394a;
+  overflow:hidden;
+  direction:ltr;
+}
+
+.dock-scroll{
+  flex:1;
+  min-height:0;
   overflow-y:auto;
   overflow-x:hidden;
   padding:12px;
@@ -419,7 +159,7 @@ button:disabled{opacity:.3;cursor:not-allowed;transform:none}
 }
 
 .dock-panel summary{
-  height:42px;
+  min-height:42px;
   padding:0 12px;
   display:flex;
   align-items:center;
@@ -450,52 +190,7 @@ button:disabled{opacity:.3;cursor:not-allowed;transform:none}
   border-top:1px solid #394456;
 }
 
-/* DIMENSIONS */
-
-.dimension-row{
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  gap:8px;
-  margin-bottom:11px;
-}
-
-.dimension-row:last-child{margin-bottom:0}
-
-.dimension-row label{
-  color:#b9c5d6;
-  font-size:11px;
-  min-width:48px;
-}
-
-.dimension-row input{
-  width:76px;
-  height:34px;
-  background:#171e2a;
-  color:white;
-  border:1px solid #45536a;
-  border-radius:6px;
-  text-align:center;
-  font-size:13px;
-  outline:none;
-}
-
-.dimension-row input:focus{border-color:var(--accent)}
-
-.apply-button{
-  width:100%;
-  margin-top:13px;
-  height:36px;
-  background:var(--accent);
-  color:#202633;
-  border:0;
-  font-weight:800;
-  border-radius:6px;
-}
-
-.apply-button:hover{background:#e7c181}
-
-/* COLORS */
+/* COLOR CONTROLS */
 
 .color-grid{
   display:grid;
@@ -505,7 +200,7 @@ button:disabled{opacity:.3;cursor:not-allowed;transform:none}
 
 .color-item{
   min-width:0;
-  min-height:61px;
+  min-height:64px;
   display:flex;
   flex-direction:column;
   align-items:center;
@@ -531,15 +226,6 @@ button:disabled{opacity:.3;cursor:not-allowed;transform:none}
   box-shadow:inset 0 0 0 1px var(--accent);
 }
 
-.color-select{
-  width:27px;
-  height:27px;
-  padding:0;
-  border:2px solid rgba(255,255,255,.5);
-  border-radius:6px;
-  pointer-events:none;
-}
-
 .color-item input[type=color]{
   width:29px;
   height:27px;
@@ -555,47 +241,313 @@ button:disabled{opacity:.3;cursor:not-allowed;transform:none}
   font-size:10px;
 }
 
-.export-button{
-  width:100%;
-  height:38px;
-  background:#303b4d;
-  border:1px solid #53627a;
-  color:#f0f3f8;
-  font-size:12px;
+/* PROJECT ACTIONS */
+
+.project-actions{
+  flex-shrink:0;
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:8px;
+  padding:11px 12px;
+  background:#191f2b;
+  border-top:1px solid #30394a;
+}
+
+.project-button{
+  height:39px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:7px;
+  font-size:11px;
   font-weight:700;
 }
 
-.export-button:hover{
+.project-button svg{
+  width:17px;
+  height:17px;
+  fill:none;
+  stroke:currentColor;
+  stroke-width:1.8;
+  stroke-linecap:round;
+  stroke-linejoin:round;
+}
+
+.open-project{background:#303b4d}
+.save-project{
+  background:var(--accent);
+  color:#202633;
+  border-color:var(--accent);
+}
+
+/* CENTER STAGE */
+
+.center-stage{
+  min-width:0;
+  min-height:0;
+  display:flex;
+  flex-direction:column;
+  background:#111722;
+  overflow:hidden;
+}
+
+/* TOP TOOLBAR */
+
+.toolbar{
+  min-height:58px;
+  flex-shrink:0;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:7px;
+  padding:8px 12px;
+  background:#1b2230;
+  border-bottom:1px solid #30394a;
+}
+
+.tool-group{
+  display:flex;
+  align-items:center;
+  gap:5px;
+  padding:4px 7px;
+  background:#252d3b;
+  border:1px solid #394456;
+  border-radius:9px;
+}
+
+.tool-button{
+  width:37px;
+  height:37px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  border:1px solid transparent;
+  background:transparent;
+  color:#b8c3d3;
+  border-radius:7px;
+  padding:0;
+}
+
+.tool-button:hover{
+  background:#39465a;
+  color:white;
+}
+
+.tool-button.active{
+  background:#3c4657;
   border-color:var(--accent);
   color:var(--accent);
 }
 
-/* HIDDEN PANELS */
-
-.main-layout.hide-toolbar{
-  grid-template-columns:minmax(0,1fr) 300px;
+.tool-button svg{
+  width:20px;
+  height:20px;
+  stroke:currentColor;
+  fill:none;
+  stroke-width:1.8;
+  stroke-linecap:round;
+  stroke-linejoin:round;
 }
 
-.main-layout.hide-toolbar .left-toolbar{display:none}
+.tool-button.danger{color:#e58c98}
+.tool-button.success{color:#9ed9bb}
 
-.main-layout.hide-dock{
-  grid-template-columns:58px minmax(0,1fr);
+.tool-divider{
+  width:1px;
+  height:25px;
+  background:#46536a;
+  margin:0 3px;
 }
 
-.main-layout.hide-dock .right-dock{display:none}
-
-.main-layout.hide-toolbar.hide-dock{
-  grid-template-columns:minmax(0,1fr);
+.toolbar-label{
+  color:#8795aa;
+  font-size:9px;
+  padding:0 3px;
 }
 
-/* HELP DIALOG */
+/* CANVAS */
+
+.canvas-area{
+  flex:1;
+  min-height:0;
+  min-width:0;
+  padding:12px;
+  display:flex;
+  overflow:hidden;
+  background-color:#101b35;
+  background-image:radial-gradient(
+    rgba(255,255,255,.035) .7px,
+    transparent .7px
+  );
+  background-size:18px 18px;
+}
+
+.canvas-wrap{
+  flex:1;
+  min-width:0;
+  min-height:0;
+  overflow:auto;
+  direction:ltr;
+  background:#101b35;
+  border:1px solid #34445f;
+  border-radius:8px;
+  padding:12px;
+  touch-action:pan-x pan-y;
+  -webkit-overflow-scrolling:touch;
+  overscroll-behavior:contain;
+  scrollbar-width:thin;
+  scrollbar-color:#53627a #172239;
+}
+
+.canvas-holder{
+  width:max-content;
+  min-width:100%;
+  min-height:100%;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+
+.canvas-wrap canvas{
+  display:block;
+  flex-shrink:0;
+  max-width:none;
+  height:auto;
+  cursor:crosshair;
+  touch-action:pan-x pan-y;
+}
+
+/* FOOTER */
+
+.stage-footer{
+  min-height:32px;
+  flex-shrink:0;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:10px;
+  padding:4px 13px;
+  background:#1b2230;
+  border-top:1px solid #30394a;
+  color:#8592a5;
+  font-size:10px;
+}
+
+.zoom-controls{
+  display:flex;
+  align-items:center;
+  gap:5px;
+  direction:ltr;
+}
+
+.zoom-button{
+  width:27px;
+  height:24px;
+  padding:0;
+  font-size:15px;
+  line-height:1;
+}
+
+.zoom-value{
+  min-width:45px;
+  text-align:center;
+  color:#c6d0df;
+  font-size:11px;
+}
+
+/* RIGHT PANEL */
+
+.right-dock{
+  min-width:0;
+  min-height:0;
+  background:var(--panel);
+  border-left:1px solid #30394a;
+  overflow-y:auto;
+  overflow-x:hidden;
+  padding:12px;
+  scrollbar-width:thin;
+  scrollbar-color:#53627a #202633;
+}
+
+.dimension-row{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:8px;
+  margin-bottom:11px;
+}
+
+.dimension-row:last-child{margin-bottom:0}
+
+.dimension-row label{
+  color:#b9c5d6;
+  font-size:11px;
+  min-width:55px;
+}
+
+.dimension-row input{
+  width:82px;
+  height:34px;
+  background:#171e2a;
+  color:white;
+  border:1px solid #45536a;
+  border-radius:6px;
+  text-align:center;
+  font-size:13px;
+  outline:none;
+}
+
+.dimension-row input:focus{border-color:var(--accent)}
+
+.apply-button{
+  width:100%;
+  margin-top:13px;
+  height:37px;
+  background:var(--accent);
+  color:#202633;
+  border:0;
+  font-weight:800;
+  border-radius:6px;
+}
+
+.apply-button:hover{background:#e7c181}
+
+.info-card{
+  background:#252d3b;
+  border:1px solid #394456;
+  border-radius:9px;
+  padding:12px;
+  margin-top:10px;
+}
+
+.info-card-title{
+  color:#e5eaf2;
+  font-size:11px;
+  font-weight:700;
+  margin-bottom:9px;
+}
+
+.info-line{
+  display:flex;
+  justify-content:space-between;
+  gap:8px;
+  color:#aab6c7;
+  font-size:10px;
+  padding:5px 0;
+  border-bottom:1px solid #394456;
+}
+
+.info-line:last-child{border:0}
+.info-line strong{color:#e2e8f0;font-weight:600}
+
+/* DIALOG */
 
 .dialog-backdrop{
   display:none;
   position:fixed;
   inset:0;
   z-index:100;
-  background:rgba(0,0,0,.65);
+  background:rgba(0,0,0,.68);
   align-items:center;
   justify-content:center;
   padding:18px;
@@ -604,209 +556,199 @@ button:disabled{opacity:.3;cursor:not-allowed;transform:none}
 .dialog-backdrop.show{display:flex}
 
 .dialog{
-  width:min(440px,100%);
-  max-height:85dvh;
-  overflow:auto;
+  width:min(390px,100%);
   background:#252d3b;
   border:1px solid #4a5870;
-  border-radius:12px;
-  padding:18px;
-  box-shadow:0 20px 60px #0008;
+  border-radius:13px;
+  padding:22px;
+  box-shadow:0 20px 60px #0009;
+  text-align:center;
+}
+
+.dialog-icon{
+  width:48px;
+  height:48px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  margin:0 auto 13px;
+  border-radius:50%;
+  background:#49323a;
+  color:#f09ba4;
+  font-size:23px;
 }
 
 .dialog h3{
-  margin:0 0 15px;
-  color:var(--accent);
+  margin:0 0 9px;
+  color:#f0f3f8;
+  font-size:16px;
 }
 
-.shortcut-row{
-  display:flex;
-  justify-content:space-between;
-  gap:12px;
-  padding:9px 2px;
-  border-bottom:1px solid #394456;
+.dialog p{
+  margin:0;
+  color:#aeb9c9;
   font-size:12px;
+  line-height:1.7;
 }
 
-.shortcut-row span:last-child{
-  color:#c6d0df;
-  direction:ltr;
+.dialog-actions{
+  display:flex;
+  gap:9px;
+  margin-top:22px;
 }
 
-.dialog-close{
-  width:100%;
-  height:36px;
-  margin-top:15px;
+.dialog-actions button{
+  flex:1;
+  height:39px;
+  font-weight:700;
+}
+
+.confirm-button{
+  background:var(--danger);
+  border-color:var(--danger);
+  color:white;
+}
+
+.cancel-button{
+  background:#394456;
 }
 
 /* RESPONSIVE */
 
-@media(max-width:850px){
-  .main-layout{
-    grid-template-columns:52px minmax(0,1fr) 260px;
+@media(max-width:900px){
+  .workspace{
+    grid-template-columns:230px minmax(0,1fr) 220px;
   }
 
-  .right-dock{padding:9px}
-  .canvas-area{padding:8px}
+  .left-dock,.right-dock{padding:8px}
+  .color-grid{grid-template-columns:repeat(3,minmax(0,1fr))}
 }
 
 @media(max-width:650px){
 
   .topbar{
-    height:44px;
+    height:43px;
     padding:0 10px;
   }
 
   .brand{font-size:14px}
-  .topbar-label{display:none}
+  .workspace-label{display:none}
 
-  .menubar{
-    height:34px;
-    padding:0 5px;
-    overflow-x:auto;
-    overflow-y:visible;
-    scrollbar-width:none;
-    flex-shrink:0;
-  }
-
-  .menubar::-webkit-scrollbar{display:none}
-
-  .menu-trigger{
-    padding:0 9px;
-    font-size:11px;
-  }
-
-  .dropdown{
-    position:fixed;
-    top:82px;
-    right:5px;
-    width:220px;
-  }
-
-  .main-layout{
-    display:flex;
-    flex:1;
+  .workspace{
+    display:grid;
+    grid-template-columns:1fr;
+    grid-template-rows:minmax(0,1fr) minmax(145px,30dvh);
     min-height:0;
-    flex-direction:column;
     overflow:hidden;
   }
-
-  .left-toolbar{
-    order:0;
-    height:49px;
-    min-height:49px;
-    flex-shrink:0;
-    flex-direction:row;
-    justify-content:center;
-    padding:4px 6px;
-    border-right:0;
-    border-bottom:1px solid #30394a;
-    gap:4px;
-  }
-
-  .tool-button{
-    width:37px;
-    height:37px;
-  }
-
-  .tool-divider{
-    width:1px;
-    height:24px;
-    margin:0 3px;
-  }
-
-  .tool-spacer{display:none}
 
   .center-stage{
-    order:1;
-    flex:1;
+    grid-row:1;
     min-height:0;
-    overflow:hidden;
   }
 
-  .stage-header{
-    height:33px;
-    min-height:33px;
-    padding:0 9px;
+  .toolbar{
+    min-height:51px;
+    padding:5px 4px;
+    gap:3px;
+    overflow-x:auto;
+    justify-content:center;
   }
 
-  .canvas-area{
-    flex:1;
-    min-height:0;
-    padding:6px;
-    overflow:hidden;
+  .tool-group{
+    gap:2px;
+    padding:3px;
   }
 
-  .canvas-wrap{
-    width:100%;
-    height:100%;
-    min-height:0;
-    padding:8px;
-    justify-content:flex-start;
-    align-items:flex-start;
-  }
-
-  .stage-footer{
-    min-height:28px;
-    padding:3px 8px;
-  }
-
-  .right-dock{
-    order:2;
-    flex:0 0 auto;
-    height:27dvh;
-    max-height:27dvh;
-    min-height:105px;
-    border-left:0;
-    border-top:1px solid #30394a;
-    padding:7px;
-    overflow-y:auto;
-    overscroll-behavior:contain;
-  }
-
-  .dock-heading{
-    padding:2px 3px 7px;
-    margin-bottom:7px;
-  }
-
-  .dock-panel{margin-bottom:6px}
-  .dock-panel summary{height:36px}
-  .panel-content{padding:8px}
-
-  .color-grid{
-    grid-template-columns:repeat(4,minmax(0,1fr));
-  }
-
-  .color-item{min-height:53px}
-  .dimension-row{margin-bottom:7px}
-  .dimension-row input{height:31px}
-  .apply-button{margin-top:8px;height:33px}
-
-  .main-layout.hide-toolbar{
-    display:flex;
-  }
-
-  .main-layout.hide-toolbar .center-stage{order:0}
-
-  .main-layout.hide-dock{
-    display:flex;
-  }
-
-  .main-layout.hide-dock .center-stage{order:1}
-}
-
-@media(max-width:380px){
   .tool-button{
-    width:33px;
+    width:34px;
     height:35px;
   }
 
   .tool-button svg{
-    width:19px;
-    height:19px;
+    width:18px;
+    height:18px;
   }
 
-  .color-grid{grid-template-columns:repeat(3,minmax(0,1fr))}
+  .toolbar-label{display:none}
+
+  .canvas-area{
+    padding:5px;
+    min-height:0;
+  }
+
+  .canvas-wrap{padding:8px}
+
+  .stage-footer{
+    min-height:29px;
+    padding:3px 8px;
+  }
+
+  .left-dock{
+    grid-row:2;
+    display:grid;
+    grid-template-columns:minmax(0,1fr) minmax(0,1fr);
+    min-height:0;
+    border-right:0;
+    border-top:1px solid #30394a;
+    overflow:hidden;
+  }
+
+  .left-dock .dock-scroll{
+    min-width:0;
+    overflow-y:auto;
+    padding:7px;
+  }
+
+  .left-dock .dock-heading{
+    padding-bottom:7px;
+    margin-bottom:7px;
+  }
+
+  .left-dock .dock-panel{margin-bottom:6px}
+  .left-dock .dock-panel summary{min-height:34px}
+  .left-dock .panel-content{padding:7px}
+
+  .left-dock .color-grid{
+    grid-template-columns:repeat(3,minmax(0,1fr));
+    gap:4px;
+  }
+
+  .left-dock .color-item{min-height:48px}
+  .left-dock .color-item input[type=color]{
+    width:25px;
+    height:23px;
+  }
+
+  .left-dock .color-name{font-size:9px}
+
+  .project-actions{
+    grid-column:1 / -1;
+    padding:6px 8px;
+    gap:7px;
+  }
+
+  .project-button{
+    height:32px;
+    font-size:10px;
+  }
+
+  .right-dock{
+    display:none;
+  }
+
+  .dimension-row input{height:30px}
+}
+
+@media(max-width:380px){
+  .tool-button{
+    width:30px;
+    height:33px;
+  }
+
+  .left-dock .color-grid{
+    grid-template-columns:repeat(2,minmax(0,1fr));
+  }
 }
 </style>
 </head>
@@ -815,210 +757,123 @@ button:disabled{opacity:.3;cursor:not-allowed;transform:none}
 <div class="app">
 
 <header class="topbar">
+  <div class="brand">FABRIC <span>ANALYZER</span></div>
   <div class="topbar-right">
-    <div class="brand">FABRIC <span>ANALYZER</span></div>
-  </div>
-  <div class="topbar-left">
-    <span class="topbar-label">Workspace</span>
-    <span class="save-status" id="saveStatus">✓ ذخیره شد</span>
+    <span class="workspace-label">Design Workspace</span>
+    <span class="save-status" id="saveStatus">✓ Saved</span>
   </div>
 </header>
 
-<!-- MENU BAR -->
-<nav class="menubar" id="menubar">
+<div class="workspace">
 
-  <div class="menu-group">
-    <button class="menu-trigger">فایل</button>
-    <div class="dropdown">
-      <button class="menu-item" data-action="save-project">
-        <span>ذخیره پروژه</span><span class="menu-shortcut">Ctrl + S</span>
+  <!-- LEFT: WARP AND WEFT SETTINGS -->
+  <aside class="left-dock">
+
+    <div class="dock-scroll">
+      <div class="dock-heading">
+        <strong>Yarn Settings</strong>
+        <span>Warp & Weft</span>
+      </div>
+
+      <details class="dock-panel" id="warpPanel" open>
+        <summary>Warp Colors</summary>
+        <div class="panel-content">
+          <div class="color-grid" id="warpGrid"></div>
+        </div>
+      </details>
+
+      <details class="dock-panel" id="weftPanel" open>
+        <summary>Weft Colors</summary>
+        <div class="panel-content">
+          <div class="color-grid" id="weftGrid"></div>
+        </div>
+      </details>
+    </div>
+
+    <div class="project-actions">
+      <button class="project-button open-project" id="openProjectBtn" title="Open Project">
+        <svg viewBox="0 0 24 24">
+          <path d="M3 7a2 2 0 0 1 2-2h5l2 2h7a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+          <path d="M12 16V10m-3 3 3-3 3 3"></path>
+        </svg>
+        Open
       </button>
-      <button class="menu-item" data-action="open-project">
-        <span>باز کردن پروژه</span><span class="menu-shortcut">JSON</span>
-      </button>
-      <div class="menu-separator"></div>
-      <button class="menu-item" data-action="export-jpg">
-        <span>خروجی تصویر JPG</span><span class="menu-shortcut">JPG</span>
-      </button>
-      <button class="menu-item" data-action="export-png">
-        <span>خروجی تصویر PNG</span><span class="menu-shortcut">PNG</span>
+
+      <button class="project-button save-project" id="saveProjectBtn" title="Save Project">
+        <svg viewBox="0 0 24 24">
+          <path d="M5 3h12l4 4v14H3V3z"></path>
+          <path d="M7 3v6h10V3M7 21v-8h10v8"></path>
+        </svg>
+        Save
       </button>
     </div>
-  </div>
-
-  <div class="menu-group">
-    <button class="menu-trigger">ویرایش</button>
-    <div class="dropdown">
-      <button class="menu-item" data-action="undo">
-        <span>بازگشت</span><span class="menu-shortcut">Ctrl + Z</span>
-      </button>
-      <button class="menu-item" data-action="redo">
-        <span>انجام دوباره</span><span class="menu-shortcut">Ctrl + Y</span>
-      </button>
-      <div class="menu-separator"></div>
-      <button class="menu-item danger-item" data-action="clear">
-        <span>پاک کردن کامل طرح</span><span class="menu-shortcut">—</span>
-      </button>
-    </div>
-  </div>
-
-  <div class="menu-group">
-    <button class="menu-trigger">تصویر</button>
-    <div class="dropdown">
-      <button class="menu-item" data-action="apply">
-        <span>اعمال ابعاد جدید</span><span class="menu-shortcut">Enter</span>
-      </button>
-      <button class="menu-item" data-action="clear-marks">
-        <span>پاک کردن رنگ‌های بوم</span>
-      </button>
-    </div>
-  </div>
-
-  <div class="menu-group">
-    <button class="menu-trigger">بافت</button>
-    <div class="dropdown">
-      <button class="menu-item" data-action="warp-panel">
-        <span>رفتن به رنگ‌های تار</span>
-      </button>
-      <button class="menu-item" data-action="weft-panel">
-        <span>رفتن به رنگ‌های پود</span>
-      </button>
-      <button class="menu-item" data-action="dimensions-panel">
-        <span>تنظیمات ابعاد</span>
-      </button>
-    </div>
-  </div>
-
-  <div class="menu-group">
-    <button class="menu-trigger">انتخاب</button>
-    <div class="dropdown">
-      <button class="menu-item" data-action="next-color">
-        <span>رنگ پود بعدی</span>
-      </button>
-      <button class="menu-item" data-action="previous-color">
-        <span>رنگ پود قبلی</span>
-      </button>
-    </div>
-  </div>
-
-  <div class="menu-group">
-    <button class="menu-trigger">نمایش</button>
-    <div class="dropdown">
-      <button class="menu-item" data-action="zoom-in">
-        <span>بزرگ‌نمایی</span><span class="menu-shortcut">+</span>
-      </button>
-      <button class="menu-item" data-action="zoom-out">
-        <span>کوچک‌نمایی</span><span class="menu-shortcut">−</span>
-      </button>
-      <button class="menu-item" data-action="zoom-reset">
-        <span>اندازه واقعی</span><span class="menu-shortcut">100%</span>
-      </button>
-      <div class="menu-separator"></div>
-      <button class="menu-item" data-action="toggle-toolbar">
-        <span>نمایش / مخفی ابزارها</span><span class="menu-shortcut">✓</span>
-      </button>
-      <button class="menu-item" data-action="toggle-dock">
-        <span>نمایش / مخفی Properties</span><span class="menu-shortcut">✓</span>
-      </button>
-    </div>
-  </div>
-
-  <div class="menu-group">
-    <button class="menu-trigger">پنجره</button>
-    <div class="dropdown">
-      <button class="menu-item" data-action="show-all">
-        <span>نمایش همه پنل‌ها</span>
-      </button>
-      <button class="menu-item" data-action="toggle-lock">
-        <span>قفل رنگ‌گذاری</span>
-      </button>
-    </div>
-  </div>
-
-  <div class="menu-group">
-    <button class="menu-trigger">راهنما</button>
-    <div class="dropdown">
-      <button class="menu-item" data-action="help">
-        <span>میانبرهای صفحه‌کلید</span>
-      </button>
-      <button class="menu-item" data-action="about">
-        <span>درباره Fabric Analyzer</span>
-      </button>
-    </div>
-  </div>
-
-</nav>
-
-<div class="main-layout" id="mainLayout">
-
-  <!-- TOOLBAR -->
-  <aside class="left-toolbar">
-
-    <button class="tool-button active" id="paintTool" title="ابزار رنگ‌آمیزی">
-      <svg viewBox="0 0 24 24">
-        <path d="m14 4 6 6"></path>
-        <path d="m12 6 6 6"></path>
-        <path d="m4 20 4.5-1 10-10a2.1 2.1 0 0 0-3-3l-10 10L4 20Z"></path>
-        <path d="M3 21h18"></path>
-      </svg>
-    </button>
-
-    <div class="tool-divider"></div>
-
-    <button class="tool-button success" id="lockBtn" title="قفل رنگ‌گذاری">
-      <svg id="lockIcon" viewBox="0 0 24 24">
-        <rect x="4" y="10" width="16" height="11" rx="2"></rect>
-        <path d="M8 10V7a4 4 0 0 1 7.5-2"></path>
-      </svg>
-    </button>
-
-    <button class="tool-button danger" id="clearBtn" title="پاک کردن کامل طرح">
-      <svg viewBox="0 0 24 24">
-        <path d="M3 6h18"></path>
-        <path d="M8 6V4h8v2"></path>
-        <path d="M19 6l-1 14H6L5 6"></path>
-        <path d="M10 11v5M14 11v5"></path>
-      </svg>
-    </button>
-
-    <div class="tool-divider"></div>
-
-    <button class="tool-button" id="undoBtn" title="Undo - Ctrl + Z" disabled>
-      <svg viewBox="0 0 24 24">
-        <path d="M9 14 4 9l5-5"></path>
-        <path d="M4 9h10a6 6 0 0 1 0 12h-2"></path>
-      </svg>
-    </button>
-
-    <button class="tool-button" id="redoBtn" title="Redo - Ctrl + Y" disabled>
-      <svg viewBox="0 0 24 24">
-        <path d="m15 14 5-5-5-5"></path>
-        <path d="M20 9H10a6 6 0 0 0 0 12h2"></path>
-      </svg>
-    </button>
-
-    <div class="tool-spacer"></div>
-
-    <button class="tool-button" id="jpgBtn" title="ذخیره خروجی JPG">
-      <svg viewBox="0 0 24 24">
-        <path d="M12 3v12"></path>
-        <path d="m7 10 5 5 5-5"></path>
-        <path d="M5 19h14"></path>
-      </svg>
-    </button>
   </aside>
 
-  <!-- CENTER -->
+  <!-- CENTER: TOOLS AND CANVAS -->
   <main class="center-stage">
 
-    <div class="stage-header">
-      <span class="stage-title">فضای طراحی</span>
-      <span class="stage-hint">FABRIC CANVAS</span>
+    <div class="toolbar">
+
+      <div class="tool-group">
+        <button class="tool-button active" id="paintTool" title="Paint Tool">
+          <svg viewBox="0 0 24 24">
+            <path d="m14 4 6 6"></path>
+            <path d="m12 6 6 6"></path>
+            <path d="m4 20 4.5-1 10-10a2.1 2.1 0 0 0-3-3l-10 10L4 20Z"></path>
+            <path d="M3 21h18"></path>
+          </svg>
+        </button>
+
+        <button class="tool-button success" id="lockBtn" title="Lock Painting">
+          <svg id="lockIcon" viewBox="0 0 24 24">
+            <rect x="4" y="10" width="16" height="11" rx="2"></rect>
+            <path d="M8 10V7a4 4 0 0 1 7.5-2"></path>
+          </svg>
+        </button>
+      </div>
+
+      <div class="tool-group">
+        <button class="tool-button" id="undoBtn" title="Undo (Ctrl + Z)" disabled>
+          <svg viewBox="0 0 24 24">
+            <path d="M9 14 4 9l5-5"></path>
+            <path d="M4 9h10a6 6 0 0 1 0 12h-2"></path>
+          </svg>
+        </button>
+
+        <button class="tool-button" id="redoBtn" title="Redo (Ctrl + Y)" disabled>
+          <svg viewBox="0 0 24 24">
+            <path d="m15 14 5-5-5-5"></path>
+            <path d="M20 9H10a6 6 0 0 0 0 12h2"></path>
+          </svg>
+        </button>
+
+        <button class="tool-button danger" id="clearBtn" title="Clear Design">
+          <svg viewBox="0 0 24 24">
+            <path d="M3 6h18"></path>
+            <path d="M8 6V4h8v2"></path>
+            <path d="M19 6l-1 14H6L5 6"></path>
+            <path d="M10 11v5M14 11v5"></path>
+          </svg>
+        </button>
+      </div>
+
+      <div class="tool-group">
+        <button class="tool-button" id="jpgBtn" title="Export JPG">
+          <svg viewBox="0 0 24 24">
+            <path d="M12 3v12"></path>
+            <path d="m7 10 5 5 5-5"></path>
+            <path d="M5 19h14"></path>
+          </svg>
+        </button>
+      </div>
+
     </div>
 
     <div class="canvas-area">
       <div class="canvas-wrap" id="canvasWrap">
-        <canvas id="fabricCanvas"></canvas>
+        <div class="canvas-holder">
+          <canvas id="fabricCanvas"></canvas>
+        </div>
       </div>
     </div>
 
@@ -1029,91 +884,101 @@ button:disabled{opacity:.3;cursor:not-allowed;transform:none}
         <button class="zoom-button" id="zoomOutBtn">−</button>
         <span class="zoom-value" id="zoomValue">100%</span>
         <button class="zoom-button" id="zoomInBtn">+</button>
-        <button class="zoom-button" id="zoomResetBtn" title="اندازه واقعی">⌂</button>
+        <button class="zoom-button" id="zoomResetBtn" title="Reset Zoom">100%</button>
       </div>
 
       <span>Fabric Analyzer</span>
     </div>
-
   </main>
 
-  <!-- RIGHT DOCK -->
-  <aside class="right-dock" id="rightDock">
-
+  <!-- RIGHT: PAGE SETTINGS -->
+  <aside class="right-dock">
     <div class="dock-heading">
-      <strong>Properties</strong>
-      <span>تنظیمات طرح</span>
+      <strong>Page Settings</strong>
+      <span>Canvas Properties</span>
     </div>
 
-    <details class="dock-panel" id="dimensionsPanel" open>
-      <summary>ابعاد و ساختار</summary>
+    <details class="dock-panel" open>
+      <summary>Canvas Dimensions</summary>
       <div class="panel-content">
 
         <div class="dimension-row">
-          <label for="cols">ستون</label>
+          <label for="cols">Columns</label>
           <input id="cols" type="number" min="1" max="40" value="10">
         </div>
 
         <div class="dimension-row">
-          <label for="rows">ردیف</label>
+          <label for="rows">Rows</label>
           <input id="rows" type="number" min="1" max="40" value="10">
         </div>
 
+        <button class="apply-button" id="applyBtn">Apply Dimensions</button>
+      </div>
+    </details>
+
+    <details class="dock-panel" open>
+      <summary>Yarn Structure</summary>
+      <div class="panel-content">
+
         <div class="dimension-row">
-          <label for="warps">تار</label>
+          <label for="warps">Warp Count</label>
           <input id="warps" type="number" min="1" max="16" value="16">
         </div>
 
         <div class="dimension-row">
-          <label for="wefts">پود</label>
+          <label for="wefts">Weft Count</label>
           <input id="wefts" type="number" min="1" max="16" value="3">
         </div>
 
-        <button class="apply-button" id="applyBtn">اعمال تغییرات</button>
+        <button class="apply-button" id="applyYarnBtn">Apply Structure</button>
       </div>
     </details>
 
-    <details class="dock-panel" id="warpPanel" open>
-      <summary>رنگ‌های تار</summary>
-      <div class="panel-content">
-        <div class="color-grid" id="warpGrid"></div>
+    <div class="info-card">
+      <div class="info-card-title">Document Information</div>
+      <div class="info-line">
+        <span>Canvas Size</span>
+        <strong id="infoDimensions">10 × 10</strong>
       </div>
-    </details>
-
-    <details class="dock-panel" id="weftPanel" open>
-      <summary>رنگ‌های پود</summary>
-      <div class="panel-content">
-        <div class="color-grid" id="weftGrid"></div>
+      <div class="info-line">
+        <span>Warp Repeat</span>
+        <strong id="infoWarps">16</strong>
       </div>
-    </details>
-
-    <button class="export-button" id="exportBtn">ذخیره خروجی JPG</button>
-
+      <div class="info-line">
+        <span>Weft Repeat</span>
+        <strong id="infoWefts">3</strong>
+      </div>
+      <div class="info-line">
+        <span>Zoom</span>
+        <strong id="infoZoom">100%</strong>
+      </div>
+    </div>
   </aside>
+
 </div>
 </div>
 
-<!-- FILE INPUT -->
 <input type="file" id="projectInput" accept=".json,application/json" hidden>
 
-<!-- HELP DIALOG -->
-<div class="dialog-backdrop" id="helpDialog">
+<!-- CLEAR CONFIRMATION -->
+<div class="dialog-backdrop" id="clearDialog">
   <div class="dialog">
-    <h3>راهنمای میانبرها</h3>
-    <div class="shortcut-row"><span>ذخیره خروجی JPG</span><span>Ctrl + S</span></div>
-    <div class="shortcut-row"><span>بازگشت</span><span>Ctrl + Z</span></div>
-    <div class="shortcut-row"><span>انجام دوباره</span><span>Ctrl + Y</span></div>
-    <div class="shortcut-row"><span>اعمال تنظیمات</span><span>Enter</span></div>
-    <div class="shortcut-row"><span>بزرگ‌نمایی</span><span>+</span></div>
-    <div class="shortcut-row"><span>کوچک‌نمایی</span><span>-</span></div>
-    <button class="dialog-close" id="closeHelp">بستن</button>
+    <div class="dialog-icon">!</div>
+    <h3>Clear Entire Design?</h3>
+    <p>
+      Are you sure you want to clear the entire design?
+      This action will remove all painted cells. Your page settings and yarn colors will remain unchanged.
+    </p>
+    <div class="dialog-actions">
+      <button class="cancel-button" id="cancelClear">No</button>
+      <button class="confirm-button" id="confirmClear">Yes, Clear</button>
+    </div>
   </div>
 </div>
 
 <script>
 const canvas=document.getElementById("fabricCanvas");
 const ctx=canvas.getContext("2d");
-const canvasWrap=document.getElementById("canvasWrap");
 
 const defaultWarpColors=[
  "#e63946","#457b9d","#2a9d8f","#e9c46a",
@@ -1153,10 +1018,6 @@ const MAX_HISTORY=100;
 let undoHistory=[];
 let redoHistory=[];
 let colorEditSnapshot=null;
-let clearArmed=false;
-let clearTimer=null;
-
-/* HISTORY */
 
 function makeSnapshot(){
  return JSON.parse(JSON.stringify({
@@ -1177,9 +1038,7 @@ function snapshotsEqual(a,b){
 
 function pushHistory(snapshot){
  undoHistory.push(snapshot);
-
  if(undoHistory.length>MAX_HISTORY)undoHistory.shift();
-
  redoHistory=[];
  updateHistoryButtons();
 }
@@ -1190,24 +1049,19 @@ function startColorEdit(){
 
 function finishColorEdit(){
  if(!colorEditSnapshot)return;
-
  const before=colorEditSnapshot;
  const after=makeSnapshot();
-
  colorEditSnapshot=null;
-
  if(!snapshotsEqual(before,after))pushHistory(before);
 }
 
 function restoreSnapshot(snapshot){
  const locked=state.paintLocked;
-
  state={
   ...state,
   ...JSON.parse(JSON.stringify(snapshot)),
   paintLocked:locked
  };
-
  syncInputs();
  renderWarpControls();
  renderWeftControls();
@@ -1219,7 +1073,6 @@ function restoreSnapshot(snapshot){
 function undo(){
  finishColorEdit();
  if(!undoHistory.length)return;
-
  redoHistory.push(makeSnapshot());
  restoreSnapshot(undoHistory.pop());
 }
@@ -1227,11 +1080,8 @@ function undo(){
 function redo(){
  finishColorEdit();
  if(!redoHistory.length)return;
-
  undoHistory.push(makeSnapshot());
-
  if(undoHistory.length>MAX_HISTORY)undoHistory.shift();
-
  restoreSnapshot(redoHistory.pop());
 }
 
@@ -1248,9 +1098,9 @@ document.getElementById("redoBtn").addEventListener("click",redo);
 function saveState(){
  try{
   localStorage.setItem("fabricAnalyzerState",JSON.stringify(state));
-  document.getElementById("saveStatus").textContent="✓ ذخیره شد";
+  document.getElementById("saveStatus").textContent="✓ Saved";
  }catch(e){
-  document.getElementById("saveStatus").textContent="خطا در ذخیره";
+  document.getElementById("saveStatus").textContent="Save Error";
  }
 }
 
@@ -1261,30 +1111,19 @@ function loadState(){
 
   const p=JSON.parse(saved);
 
-  const oldWeftColors=Array.isArray(p.weftColors)
-   ?p.weftColors
-   :(Array.isArray(p.weftPalette)?p.weftPalette:defaultWeftColors);
-
   state={
    ...state,
    ...p,
-
    cols:Math.max(1,Math.min(40,Number(p.cols)||10)),
    rows:Math.max(1,Math.min(40,Number(p.rows)||10)),
    warps:Math.max(1,Math.min(16,Number(p.warps)||16)),
    wefts:Math.max(1,Math.min(16,Number(p.wefts)||3)),
-
-   warpColors:Array.from({length:16},
-    (_,i)=>p.warpColors?.[i]||defaultWarpColors[i]),
-
-   weftColors:Array.from({length:16},
-    (_,i)=>oldWeftColors[i]||defaultWeftColors[i]),
-
+   warpColors:Array.from({length:16},(_,i)=>p.warpColors?.[i]||defaultWarpColors[i]),
+   weftColors:Array.from({length:16},(_,i)=>p.weftColors?.[i]||defaultWeftColors[i]),
    selectedWeft:Math.max(0,Math.min(15,Number(p.selectedWeft)||0)),
    marks:p.marks||{},
    paintLocked:false
   };
-
  }catch(e){
   console.warn("Saved data could not be loaded.");
  }
@@ -1300,16 +1139,12 @@ function syncInputs(){
 /* COLOR CONTROLS */
 
 function renderColorItem(container,index,color,type){
-
  const item=document.createElement("div");
  item.className="color-item";
 
- if(type==="weft"&&state.selectedWeft===index)item.classList.add("active");
-
- const select=document.createElement("button");
- select.className="color-select";
- select.style.background=color;
- select.title="انتخاب رنگ";
+ if(type==="weft"&&state.selectedWeft===index){
+  item.classList.add("active");
+ }
 
  if(type==="weft"){
   item.addEventListener("click",()=>{
@@ -1322,15 +1157,13 @@ function renderColorItem(container,index,color,type){
  const picker=document.createElement("input");
  picker.type="color";
  picker.value=color;
- picker.title="تغییر رنگ";
+ picker.title=type==="warp"?"Change warp color":"Change weft color";
 
  picker.addEventListener("click",event=>event.stopPropagation());
-
  picker.addEventListener("pointerdown",event=>{
   event.stopPropagation();
   startColorEdit();
  });
-
  picker.addEventListener("focus",startColorEdit);
 
  picker.addEventListener("input",()=>{
@@ -1340,7 +1173,6 @@ function renderColorItem(container,index,color,type){
    state.warpColors[index]=picker.value;
   }else{
    state.weftColors[index]=picker.value;
-   select.style.background=picker.value;
   }
 
   draw();
@@ -1352,16 +1184,15 @@ function renderColorItem(container,index,color,type){
 
  const name=document.createElement("span");
  name.className="color-name";
- name.textContent=String(index+1);
+ name.textContent=(type==="warp"?"Warp ":"Weft ")+(index+1);
 
- item.append(select,picker,name);
+ item.append(picker,name);
  container.appendChild(item);
 }
 
 function renderWarpControls(){
  const box=document.getElementById("warpGrid");
  box.innerHTML="";
-
  for(let i=0;i<state.warps;i++){
   renderColorItem(box,i,state.warpColors[i],"warp");
  }
@@ -1370,7 +1201,6 @@ function renderWarpControls(){
 function renderWeftControls(){
  const box=document.getElementById("weftGrid");
  box.innerHTML="";
-
  for(let i=0;i<state.wefts;i++){
   renderColorItem(box,i,state.weftColors[i],"weft");
  }
@@ -1384,22 +1214,18 @@ function updateLockUI(){
 
  if(state.paintLocked){
   button.classList.add("active");
-
   icon.innerHTML=`
    <rect x="4" y="10" width="16" height="11" rx="2"></rect>
    <path d="M7 10V7a5 5 0 0 1 10 0v3"></path>
   `;
-
-  button.title="باز کردن قفل";
+  button.title="Unlock Painting";
  }else{
   button.classList.remove("active");
-
   icon.innerHTML=`
    <rect x="4" y="10" width="16" height="11" rx="2"></rect>
    <path d="M8 10V7a4 4 0 0 1 7.5-2"></path>
   `;
-
-  button.title="قفل رنگ‌گذاری";
+  button.title="Lock Painting";
  }
 }
 
@@ -1411,19 +1237,29 @@ function toggleLock(){
 
 document.getElementById("lockBtn").addEventListener("click",toggleLock);
 
-/* CLEAR */
+/* CLEAR CONFIRMATION */
 
-function resetClearButton(){
- clearArmed=false;
- clearTimer=null;
+document.getElementById("clearBtn").addEventListener("click",()=>{
+ document.getElementById("clearDialog").classList.add("show");
+});
 
- const button=document.getElementById("clearBtn");
- button.classList.remove("active");
-}
+document.getElementById("cancelClear").addEventListener("click",()=>{
+ document.getElementById("clearDialog").classList.remove("show");
+});
+
+document.getElementById("clearDialog").addEventListener("click",event=>{
+ if(event.target.id==="clearDialog"){
+  event.currentTarget.classList.remove("show");
+ }
+});
+
+document.getElementById("confirmClear").addEventListener("click",()=>{
+ document.getElementById("clearDialog").classList.remove("show");
+ clearDesign();
+});
 
 function clearDesign(){
  finishColorEdit();
-
  if(Object.keys(state.marks).length===0)return;
 
  const before=makeSnapshot();
@@ -1434,29 +1270,6 @@ function clearDesign(){
  saveState();
 }
 
-document.getElementById("clearBtn").addEventListener("click",()=>{
-
- const button=document.getElementById("clearBtn");
-
- if(!clearArmed){
-  clearArmed=true;
-  button.classList.add("active");
-  button.title="برای تأیید، دوباره کلیک کن";
-
-  clearTimer=setTimeout(()=>{
-   resetClearButton();
-   button.title="پاک کردن کامل طرح";
-  },5000);
-
-  return;
- }
-
- clearTimeout(clearTimer);
- resetClearButton();
- button.title="پاک کردن کامل طرح";
- clearDesign();
-});
-
 /* DRAW */
 
 function updateCellSize(){
@@ -1464,17 +1277,14 @@ function updateCellSize(){
 }
 
 function draw(){
-
  updateCellSize();
 
  const width=LEFT+state.cols*CELL+RIGHT;
  const height=TOP+state.rows*CELL+BOTTOM;
-
  const dpr=Math.max(1,window.devicePixelRatio||1);
 
  canvas.width=Math.round(width*dpr);
  canvas.height=Math.round(height*dpr);
-
  canvas.style.width=(width*zoom)+"px";
  canvas.style.height=(height*zoom)+"px";
 
@@ -1485,7 +1295,7 @@ function draw(){
  ctx.fillRect(0,0,width,height);
 
  ctx.fillStyle="#dce5f3";
- ctx.font="bold 11px Tahoma, Arial";
+ ctx.font="bold 11px Arial";
  ctx.textAlign="center";
  ctx.textBaseline="middle";
 
@@ -1499,7 +1309,6 @@ function draw(){
 
  for(let r=0;r<state.rows;r++){
   for(let c=0;c<state.cols;c++){
-
    const x=LEFT+c*CELL;
    const y=TOP+r*CELL;
 
@@ -1509,13 +1318,11 @@ function draw(){
    const partHeight=CELL/state.wefts;
 
    for(let k=0;k<state.wefts;k++){
-
     const key=`${r},${c},${k}`;
     const color=state.marks[key];
 
     if(color){
      ctx.fillStyle=color;
-
      ctx.fillRect(
       x+4,
       y+k*partHeight+2,
@@ -1526,18 +1333,16 @@ function draw(){
    }
 
    ctx.save();
-   ctx.strokeStyle="rgba(0,0,0,0.42)";
+   ctx.strokeStyle="rgba(0,0,0,0.35)";
    ctx.lineWidth=.8;
 
    for(let k=1;k<state.wefts;k++){
     const lineY=y+k*partHeight;
-
     ctx.beginPath();
     ctx.moveTo(x+3,lineY);
     ctx.lineTo(x+CELL-3,lineY);
     ctx.stroke();
    }
-
    ctx.restore();
 
    const warpColor=state.warpColors[c%state.warps];
@@ -1557,15 +1362,22 @@ function draw(){
  }
 
  document.getElementById("canvasInfo").textContent=
-  `${state.cols} × ${state.rows}  |  تار ${state.warps}  |  پود ${state.wefts}`;
+  `${state.cols} × ${state.rows}`;
 
- document.getElementById("zoomValue").textContent=Math.round(zoom*100)+"%";
+ document.getElementById("zoomValue").textContent=
+  Math.round(zoom*100)+"%";
+
+ document.getElementById("infoDimensions").textContent=
+  `${state.cols} × ${state.rows}`;
+
+ document.getElementById("infoWarps").textContent=state.warps;
+ document.getElementById("infoWefts").textContent=state.wefts;
+ document.getElementById("infoZoom").textContent=Math.round(zoom*100)+"%";
 }
 
 /* POINTER */
 
 function getCellFromPointer(event){
-
  const rect=canvas.getBoundingClientRect();
 
  const x=(event.clientX-rect.left)*
@@ -1592,7 +1404,6 @@ function getCellFromPointer(event){
 /* PAINT */
 
 canvas.addEventListener("pointerdown",event=>{
-
  if(state.paintLocked)return;
  if(event.button!==undefined&&event.button!==0)return;
 
@@ -1619,9 +1430,9 @@ canvas.addEventListener("pointerdown",event=>{
 /* APPLY SETTINGS */
 
 document.getElementById("applyBtn").addEventListener("click",applySettings);
+document.getElementById("applyYarnBtn").addEventListener("click",applySettings);
 
 function applySettings(){
-
  const cols=Number(document.getElementById("cols").value);
  const rows=Number(document.getElementById("rows").value);
  const warps=Number(document.getElementById("warps").value);
@@ -1633,29 +1444,25 @@ function applySettings(){
   !Number.isInteger(warps)||warps<1||warps>16||
   !Number.isInteger(wefts)||wefts<1||wefts>16
  ){
-  alert("تعداد تار و پود باید بین ۱ تا ۱۶ و ردیف و ستون بین ۱ تا ۴۰ باشد.");
+  alert("Columns and rows must be between 1 and 40. Warp and weft counts must be between 1 and 16.");
   return;
  }
 
  finishColorEdit();
-
  const before=makeSnapshot();
 
  state.cols=cols;
  state.rows=rows;
  state.warps=warps;
  state.wefts=wefts;
-
  state.selectedWeft=Math.min(state.selectedWeft,wefts-1);
 
  for(const key of Object.keys(state.marks)){
   const [r,c,k]=key.split(",").map(Number);
-
   if(r>=rows||c>=cols||k>=wefts)delete state.marks[key];
  }
 
  const after=makeSnapshot();
-
  if(!snapshotsEqual(before,after))pushHistory(before);
 
  renderWarpControls();
@@ -1664,7 +1471,7 @@ function applySettings(){
  saveState();
 }
 
-/* EXPORT */
+/* EXPORT IMAGE */
 
 function downloadCanvas(type){
  const link=document.createElement("a");
@@ -1674,13 +1481,13 @@ function downloadCanvas(type){
  link.click();
 }
 
-function exportJPG(){downloadCanvas("image/jpeg")}
-function exportPNG(){downloadCanvas("image/png")}
+function exportJPG(){
+ downloadCanvas("image/jpeg");
+}
 
 document.getElementById("jpgBtn").addEventListener("click",exportJPG);
-document.getElementById("exportBtn").addEventListener("click",exportJPG);
 
-/* PROJECT SAVE / LOAD */
+/* PROJECT SAVE / OPEN */
 
 function saveProject(){
  finishColorEdit();
@@ -1703,15 +1510,17 @@ function saveProject(){
  link.download="Fabric-Analyzer-Project.json";
  link.click();
 
- URL.revokeObjectURL(url);
+ setTimeout(()=>URL.revokeObjectURL(url),1000);
 }
 
 function openProject(){
  document.getElementById("projectInput").click();
 }
 
-document.getElementById("projectInput").addEventListener("change",event=>{
+document.getElementById("saveProjectBtn").addEventListener("click",saveProject);
+document.getElementById("openProjectBtn").addEventListener("click",openProject);
 
+document.getElementById("projectInput").addEventListener("change",event=>{
  const file=event.target.files[0];
  if(!file)return;
 
@@ -1757,7 +1566,7 @@ document.getElementById("projectInput").addEventListener("change",event=>{
    saveState();
 
   }catch(error){
-   alert("فایل پروژه معتبر نیست یا قابل خواندن نیست.");
+   alert("The selected project file is invalid or cannot be opened.");
   }
 
   event.target.value="";
@@ -1781,150 +1590,9 @@ document.getElementById("zoomInBtn").addEventListener("click",zoomIn);
 document.getElementById("zoomOutBtn").addEventListener("click",zoomOut);
 document.getElementById("zoomResetBtn").addEventListener("click",zoomReset);
 
-/* PANELS */
-
-const mainLayout=document.getElementById("mainLayout");
-
-function toggleToolbar(){
- mainLayout.classList.toggle("hide-toolbar");
-}
-
-function toggleDock(){
- mainLayout.classList.toggle("hide-dock");
-}
-
-function showAllPanels(){
- mainLayout.classList.remove("hide-toolbar","hide-dock");
-}
-
-function openPanel(id){
- const panel=document.getElementById(id);
- if(!panel)return;
-
- panel.open=true;
- panel.scrollIntoView({behavior:"smooth",block:"nearest"});
-}
-
-/* MENU ACTIONS */
-
-function runAction(action){
-
- switch(action){
-
-  case "save-project":saveProject();break;
-  case "open-project":openProject();break;
-  case "export-jpg":exportJPG();break;
-  case "export-png":exportPNG();break;
-
-  case "undo":undo();break;
-  case "redo":redo();break;
-  case "clear":document.getElementById("clearBtn").click();break;
-
-  case "apply":applySettings();break;
-  case "clear-marks":clearDesign();break;
-
-  case "warp-panel":
-   showAllPanels();
-   openPanel("warpPanel");
-   break;
-
-  case "weft-panel":
-   showAllPanels();
-   openPanel("weftPanel");
-   break;
-
-  case "dimensions-panel":
-   showAllPanels();
-   openPanel("dimensionsPanel");
-   break;
-
-  case "next-color":
-   state.selectedWeft=(state.selectedWeft+1)%state.wefts;
-   renderWeftControls();
-   saveState();
-   break;
-
-  case "previous-color":
-   state.selectedWeft=(state.selectedWeft-1+state.wefts)%state.wefts;
-   renderWeftControls();
-   saveState();
-   break;
-
-  case "zoom-in":zoomIn();break;
-  case "zoom-out":zoomOut();break;
-  case "zoom-reset":zoomReset();break;
-
-  case "toggle-toolbar":toggleToolbar();break;
-  case "toggle-dock":toggleDock();break;
-  case "show-all":showAllPanels();break;
-  case "toggle-lock":toggleLock();break;
-
-  case "help":
-   document.getElementById("helpDialog").classList.add("show");
-   break;
-
-  case "about":
-   alert("FABRIC ANALYZER\nابزار طراحی و تحلیل ساختار پارچه");
-   break;
- }
-}
-
-/* MENU OPEN / CLOSE */
-
-document.querySelectorAll(".menu-trigger").forEach(trigger=>{
-
- trigger.addEventListener("click",event=>{
-  event.stopPropagation();
-
-  const group=trigger.parentElement;
-  const wasOpen=group.classList.contains("open");
-
-  document.querySelectorAll(".menu-group").forEach(item=>{
-   item.classList.remove("open");
-  });
-
-  if(!wasOpen)group.classList.add("open");
- });
-});
-
-document.querySelectorAll(".menu-item").forEach(item=>{
- item.addEventListener("click",()=>{
-  runAction(item.dataset.action);
-
-  document.querySelectorAll(".menu-group").forEach(group=>{
-   group.classList.remove("open");
-  });
- });
-});
-
-document.addEventListener("click",event=>{
- if(!event.target.closest(".menu-group")){
-  document.querySelectorAll(".menu-group").forEach(group=>{
-   group.classList.remove("open");
-  });
- }
-});
-
-document.getElementById("closeHelp").addEventListener("click",()=>{
- document.getElementById("helpDialog").classList.remove("show");
-});
-
-document.getElementById("helpDialog").addEventListener("click",event=>{
- if(event.target.id==="helpDialog"){
-  event.currentTarget.classList.remove("show");
- }
-});
-
-/* PAINT TOOL */
-
-document.getElementById("paintTool").addEventListener("click",()=>{
- document.getElementById("paintTool").classList.add("active");
-});
-
 /* KEYBOARD SHORTCUTS */
 
 document.addEventListener("keydown",event=>{
-
  const key=event.key.toLowerCase();
  const ctrl=event.ctrlKey||event.metaKey;
  const target=event.target;
@@ -1938,28 +1606,22 @@ document.addEventListener("keydown",event=>{
   target.isContentEditable;
 
  if(event.key==="Escape"){
-  document.querySelectorAll(".menu-group").forEach(group=>group.classList.remove("open"));
-  document.getElementById("helpDialog").classList.remove("show");
+  document.getElementById("clearDialog").classList.remove("show");
   return;
  }
 
- if(
-  event.key==="Enter"&&
-  !event.shiftKey&&
-  !event.altKey&&
-  !isColorInput&&
-  target.tagName!=="BUTTON"
- ){
-  event.preventDefault();
-  applySettings();
-  return;
+ if(event.key==="Enter"&&!event.shiftKey&&!event.altKey&&!isColorInput){
+  if(target.tagName!=="BUTTON"){
+   event.preventDefault();
+   applySettings();
+   return;
+  }
  }
 
  if(ctrl){
-
   if(key==="s"){
    event.preventDefault();
-   exportJPG();
+   saveProject();
    return;
   }
 
@@ -1985,7 +1647,6 @@ document.addEventListener("keydown",event=>{
  }
 
  if(!ctrl&&!isEditable&&!isColorInput){
-
   if(event.key==="+"){zoomIn();return}
   if(event.key==="-"){zoomOut();return}
   if(event.key==="0"){zoomReset();return}
@@ -1996,13 +1657,10 @@ document.addEventListener("keydown",event=>{
 
 loadState();
 syncInputs();
-
 renderWarpControls();
 renderWeftControls();
-
 updateLockUI();
 updateHistoryButtons();
-
 draw();
 
 window.addEventListener("resize",draw);
