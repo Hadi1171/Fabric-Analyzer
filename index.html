@@ -911,7 +911,7 @@ html[dir="rtl"] .wizard-dialog{direction:rtl}
 </div>
 </div>
 
-<input type="file" id="projectInput" accept=".json,application/json" hidden>
+<input type="file" id="projectInput" accept=".jfa,.json,application/octet-stream" hidden>
 
 <!-- CLEAR DIALOG -->
 <div class="dialog-backdrop" id="clearDialog">
@@ -1623,9 +1623,24 @@ saveDialog.addEventListener("click",e=>{
 function buildProjectFile(){
  finishColorEdit();
  return {
+  format:"JFA",formatName:"Jacquard Fabric Analysis",formatVersion:1,
   app:"Fabric Analyzer",version:1,projectName,
   savedAt:new Date().toISOString(),state:makeSnapshot()
  };
+}
+function encodeJFA(project){
+ const bytes=new TextEncoder().encode(JSON.stringify(project));
+ let binary="";
+ for(let i=0;i<bytes.length;i++)binary+=String.fromCharCode(bytes[i]);
+ return "JFA1:"+btoa(binary);
+}
+function decodeJFA(raw){
+ if(!raw.startsWith("JFA1:")) return JSON.parse(raw.replace(/^\\uFEFF/,""));
+ const binary=atob(raw.slice(5));
+ const bytes=Uint8Array.from(binary,ch=>ch.charCodeAt(0));
+ const parsed=JSON.parse(new TextDecoder().decode(bytes));
+ if(parsed.format!=="JFA"||parsed.formatVersion!==1||parsed.app!=="Fabric Analyzer") throw new Error("Invalid JFA project");
+ return parsed;
 }
 
 async function saveProject(){
@@ -1633,15 +1648,16 @@ async function saveProject(){
  if(!entered){alert("Please enter a project name.");projectNameInput.focus();return}
 
  projectName=entered;
- const fileName=entered.toLowerCase().endsWith(".json")?entered:entered+".json";
- const blob=new Blob(["\uFEFF",JSON.stringify(buildProjectFile(),null,2)],{type:"application/json;charset=utf-8"});
+ const fileName=entered.replace(/\.(jfa|json)$/i,"")+".jfa";
+ projectName=fileName.replace(/\.jfa$/i,"");
+ const blob=new Blob([encodeJFA(buildProjectFile())],{type:"application/x-jfa"});
  closeSaveDialog();
 
  if(window.showSaveFilePicker){
   try{
    const handle=await window.showSaveFilePicker({
     suggestedName:fileName,
-    types:[{description:"Fabric Analyzer Project",accept:{"application/json":[".json"]}}]
+    types:[{description:"Jacquard Fabric Analysis Project",accept:{"application/x-jfa":[".jfa"]}}]
    });
    const w=await handle.createWritable();
    await w.write(blob);await w.close();
@@ -1678,7 +1694,7 @@ document.getElementById("projectInput").addEventListener("change",e=>{
 
  reader.onload=()=>{
   try{
-   const parsed=JSON.parse(reader.result.replace(/^\uFEFF/,""));
+   const parsed=decodeJFA(String(reader.result||""));
    const p=parsed.state||parsed;
 
    if(!p||
@@ -1704,7 +1720,7 @@ document.getElementById("projectInput").addEventListener("change",e=>{
     paintLocked:true
    };
 
-   projectName=parsed.projectName?String(parsed.projectName):file.name.replace(/\.json$/i,"");
+   projectName=parsed.projectName?String(parsed.projectName):file.name.replace(/\.(jfa|json)$/i,"");
 
    undoHistory=[];redoHistory=[];colorEditSnapshot=null;
    if(!startupImportPending)pushHistory(before);
