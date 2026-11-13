@@ -8,141 +8,405 @@
 
 <style>
 :root{
-  --bg:#111318;
-  --panel:#1b1e25;
-  --panel2:#252a34;
-  --text:#f4f5f7;
-  --muted:#b0b6c2;
-  --accent:#d5a85c;
-  --border:#3a404d;
+  --bg:#101b35;
+  --panel:#192743;
+  --panel2:#233553;
+  --panel3:#2b4163;
+  --text:#f3f6fc;
+  --muted:#aab8ce;
+  --accent:#d9ae68;
+  --border:#344967;
+  --danger:#a9424b;
 }
+
 *{box-sizing:border-box}
+
 body{
-  margin:0;padding:10px;background:var(--bg);color:var(--text);
-  font-family:Tahoma,"Segoe UI",Arial,sans-serif;font-size:14px;
+  margin:0;
+  padding:12px;
+  background:var(--bg);
+  color:var(--text);
+  font-family:Tahoma,"Segoe UI",Arial,sans-serif;
+  font-size:14px;
 }
-.app{width:100%;max-width:1500px;margin:auto}
+
+.app{
+  width:100%;
+  max-width:1500px;
+  margin:auto;
+}
+
 header{
-  display:flex;align-items:center;justify-content:space-between;
-  margin-bottom:11px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  margin-bottom:12px;
 }
-.brand{font-size:20px;font-weight:800}
+
+.brand{
+  font-size:20px;
+  font-weight:800;
+  letter-spacing:.5px;
+}
+
 .brand span{color:var(--accent)}
-.status{color:var(--muted);font-size:11px}
+
+.status{
+  color:var(--muted);
+  font-size:11px;
+}
+
 .panel{
-  background:var(--panel);border:1px solid var(--border);
-  border-radius:13px;padding:11px;margin-bottom:10px;
+  background:var(--panel);
+  border:1px solid var(--border);
+  border-radius:15px;
+  padding:13px;
+  margin-bottom:12px;
+  box-shadow:0 5px 18px rgba(0,0,0,.12);
 }
-.toolbar{display:flex;flex-wrap:wrap;align-items:center;gap:10px}
-.group{display:flex;align-items:center;gap:7px;flex-wrap:wrap}
-.group-title{color:var(--muted);font-size:13px;font-weight:600}
+
+.toolbar{
+  display:flex;
+  flex-wrap:wrap;
+  align-items:center;
+  gap:12px;
+}
+
+.group{
+  display:flex;
+  align-items:center;
+  gap:8px;
+  flex-wrap:wrap;
+}
+
+.group-title{
+  color:var(--muted);
+  font-size:13px;
+  font-weight:600;
+}
+
 input,button{font-family:inherit}
+
 input[type=number]{
-  width:54px;height:36px;border:1px solid var(--border);
-  background:var(--panel2);color:white;border-radius:8px;
-  padding:4px;text-align:center;font-size:15px;
+  width:58px;
+  height:38px;
+  border:1px solid var(--border);
+  background:var(--panel2);
+  color:white;
+  border-radius:9px;
+  padding:4px;
+  text-align:center;
+  font-size:15px;
+  outline:none;
 }
+
+input[type=number]:focus{
+  border-color:var(--accent);
+}
+
 button{
-  border:1px solid var(--border);background:var(--panel2);
-  color:var(--text);border-radius:8px;padding:9px 12px;
-  cursor:pointer;font-size:13px;font-weight:600;
+  border:1px solid var(--border);
+  background:var(--panel2);
+  color:var(--text);
+  border-radius:9px;
+  padding:9px 13px;
+  cursor:pointer;
+  font-size:13px;
+  font-weight:600;
   transition:background .15s,border-color .15s,opacity .15s;
 }
-button:active{transform:scale(.97)}
-button:disabled{opacity:.35;cursor:not-allowed;transform:none}
+
+button:active{transform:scale(.96)}
+
+button:disabled{
+  opacity:.35;
+  cursor:not-allowed;
+  transform:none;
+}
+
 button.primary{
-  background:var(--accent);border-color:var(--accent);color:#171717;
+  background:var(--accent);
+  border-color:var(--accent);
+  color:#18243a;
 }
-details{margin-top:11px;border-top:1px solid var(--border);padding-top:10px}
+
+button.primary:hover{
+  background:#e8c17f;
+}
+
+details{
+  margin-top:13px;
+  border-top:1px solid var(--border);
+  padding-top:11px;
+}
+
 summary{
-  cursor:pointer;color:#e7e9ee;font-size:13px;font-weight:700;
-  padding:4px 0;list-style:none;display:flex;align-items:center;
+  cursor:pointer;
+  color:#edf2fb;
+  font-size:14px;
+  font-weight:700;
+  padding:5px 2px;
+  list-style:none;
+  display:flex;
+  align-items:center;
   justify-content:space-between;
+  user-select:none;
 }
-summary::after{content:"＋";color:var(--accent);font-size:17px}
+
+summary::-webkit-details-marker{display:none}
+
+summary::after{
+  content:"＋";
+  color:var(--accent);
+  font-size:18px;
+  font-weight:400;
+}
+
 details[open] summary::after{content:"−"}
+
 .color-grid{
-  display:grid;grid-template-columns:repeat(4,minmax(0,1fr));
-  gap:8px;margin-top:12px;
+  display:grid;
+  grid-template-columns:repeat(4,minmax(0,1fr));
+  gap:9px;
+  margin-top:13px;
 }
+
 .color-item{
-  display:flex;align-items:center;gap:6px;padding:6px;
-  background:var(--panel2);border:1px solid var(--border);
-  border-radius:9px;min-width:0;
+  display:flex;
+  align-items:center;
+  gap:9px;
+  padding:8px;
+  background:var(--panel2);
+  border:1px solid var(--border);
+  border-radius:11px;
+  min-width:0;
+  min-height:48px;
+  cursor:pointer;
+  transition:border-color .15s,background .15s;
+  user-select:none;
 }
+
+.color-item:hover{
+  background:var(--panel3);
+  border-color:#657c9e;
+}
+
 .color-item.active{
-  border-color:var(--accent);box-shadow:0 0 0 1px var(--accent);
+  border-color:var(--accent);
+  background:#34425b;
+  box-shadow:0 0 0 1px var(--accent);
 }
+
 .color-select{
-  width:31px;height:31px;border:2px solid rgba(255,255,255,.25);
-  border-radius:7px;padding:0;flex-shrink:0;
+  width:32px;
+  height:32px;
+  border:2px solid rgba(255,255,255,.35);
+  border-radius:8px;
+  padding:0;
+  flex-shrink:0;
+  pointer-events:none;
 }
+
 .color-item input[type=color]{
-  width:29px;height:29px;border:0;padding:0;
-  background:transparent;flex-shrink:0;
+  width:31px;
+  height:31px;
+  border:0;
+  padding:0;
+  background:transparent;
+  flex-shrink:0;
+  cursor:pointer;
+  border-radius:7px;
 }
-.color-name{font-size:11px;color:#e2e5ea;white-space:nowrap}
-.color-help{color:var(--muted);font-size:11px;margin-top:10px;line-height:1.8}
-.workspace{background:#e8e8e8;border-radius:12px;padding:5px;overflow:hidden}
+
+.color-name{
+  font-size:12px;
+  color:#e8edf7;
+  white-space:nowrap;
+  flex:1;
+}
+
+.workspace{
+  background:var(--bg);
+  border:1px solid var(--border);
+  border-radius:15px;
+  padding:10px;
+  overflow:hidden;
+}
+
 .canvas-tools{
-  display:flex;justify-content:space-between;align-items:center;
-  gap:7px;margin-bottom:6px;direction:rtl;flex-wrap:wrap;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:8px;
+  margin-bottom:9px;
+  direction:rtl;
+  flex-wrap:wrap;
 }
-.tools-right,.history-tools{display:flex;align-items:center;gap:5px}
+
+.tools-right,.history-tools{
+  display:flex;
+  align-items:center;
+  gap:7px;
+}
+
 .history-tools{direction:ltr}
-.history-button{
-  min-width:43px;min-height:39px;padding:7px 10px;
-  display:flex;align-items:center;justify-content:center;
-  gap:5px;background:#343a45;border-color:#737b89;
-  color:white;font-size:17px;
+
+.icon-button{
+  width:43px;
+  height:42px;
+  padding:0;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background:var(--panel2);
+  border:1px solid var(--border);
+  color:white;
+  border-radius:10px;
 }
-.history-button span{font-size:11px}
+
+.icon-button svg{
+  width:21px;
+  height:21px;
+  stroke:currentColor;
+  fill:none;
+  stroke-width:2;
+  stroke-linecap:round;
+  stroke-linejoin:round;
+}
+
 .lock-button{
-  display:flex;align-items:center;justify-content:center;gap:7px;
-  min-width:145px;padding:9px 12px;background:#263b32;
-  border:1px solid #477b5e;color:#c9f1d6;font-size:12px;
+  width:45px;
+  height:42px;
+  padding:0;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background:#244b42;
+  border:1px solid #397e69;
+  color:#c9f5e4;
+  border-radius:10px;
 }
+
 .lock-button.locked{
-  background:#4a302b;border-color:#a85e4e;color:#ffe0d8;
+  background:#59363d;
+  border-color:#a65a62;
+  color:#ffe1e3;
 }
+
+.lock-button svg{
+  width:21px;
+  height:21px;
+  stroke:currentColor;
+  fill:none;
+  stroke-width:2;
+  stroke-linecap:round;
+  stroke-linejoin:round;
+}
+
 .clear-button{
-  background:#542e2e;border-color:#a95858;color:#ffe0e0;
-  min-height:39px;
+  width:45px;
+  height:42px;
+  padding:0;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background:#512e3b;
+  border:1px solid #9d5260;
+  color:#ffe0e5;
+  border-radius:10px;
 }
+
+.clear-button svg{
+  width:21px;
+  height:21px;
+  stroke:currentColor;
+  fill:none;
+  stroke-width:2;
+  stroke-linecap:round;
+  stroke-linejoin:round;
+}
+
 .clear-button.armed{
-  background:#a83232;border-color:#ff7777;color:white;
+  background:#a83242;
+  border-color:#ff7b8b;
+  color:white;
   animation:pulse .8s infinite alternate;
 }
-@keyframes pulse{from{opacity:1}to{opacity:.72}}
+
+@keyframes pulse{
+  from{opacity:1}
+  to{opacity:.65}
+}
+
 .canvas-wrap{
-  width:100%;overflow-x:auto;overflow-y:hidden;direction:ltr;
-  touch-action:pan-x pan-y;-webkit-overflow-scrolling:touch;
+  width:100%;
+  overflow-x:auto;
+  overflow-y:hidden;
+  direction:ltr;
+  touch-action:pan-x pan-y;
+  -webkit-overflow-scrolling:touch;
   overscroll-behavior-x:contain;
+  background:var(--bg);
+  border-radius:9px;
 }
+
 canvas{
-  display:block;height:auto;max-width:none;
-  touch-action:pan-x pan-y;cursor:crosshair;
+  display:block;
+  height:auto;
+  max-width:none;
+  margin-left:auto;
+  margin-right:auto;
+  touch-action:pan-x pan-y;
+  cursor:crosshair;
 }
-.footer{
-  display:flex;justify-content:space-between;align-items:center;
-  gap:8px;flex-wrap:wrap;color:var(--muted);
-  font-size:11px;margin-top:10px;
+
+.bottom-actions{
+  display:flex;
+  justify-content:center;
+  margin:14px 0 5px;
 }
-.bottom-actions{display:flex;justify-content:center;margin:16px 0 8px}
-.bottom-actions button{min-width:180px;font-size:14px;padding:12px 20px}
-@media(max-width:600px){
+
+.bottom-actions button{
+  min-width:190px;
+  font-size:14px;
+  padding:12px 20px;
+}
+
+@media(max-width:700px){
   body{padding:7px}
+
   .brand{font-size:18px}
-  .panel{padding:9px}
-  .toolbar{gap:10px}
-  .group{width:100%;gap:7px}
-  .color-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
-  .workspace{padding:4px}
+
+  .panel{padding:10px}
+
+  .toolbar{gap:12px}
+
+  .group{
+    width:100%;
+    gap:7px;
+  }
+
+  .color-grid{
+    grid-template-columns:repeat(2,minmax(0,1fr));
+    gap:7px;
+  }
+
+  .color-item{
+    padding:7px;
+    gap:7px;
+  }
+
+  .workspace{padding:7px}
+
   .canvas-tools{gap:6px}
-  .tools-right{width:100%;justify-content:space-between}
-  .lock-button{min-width:145px;min-height:40px}
-  .history-button{min-width:45px;min-height:40px}
-  .clear-button{width:100%}
+
+  .tools-right{
+    width:auto;
+    justify-content:flex-start;
+  }
+
+  .history-tools{margin-right:auto}
+
   .bottom-actions button{width:100%}
 }
 </style>
@@ -153,13 +417,16 @@ canvas{
 
 <header>
   <div class="brand">FABRIC <span>ANALYZER</span></div>
+  <div class="status" id="saveStatus">✓</div>
 </header>
 
 <section class="panel">
+
   <div class="toolbar">
     <div class="group">
       <span class="group-title">ستون</span>
       <input id="cols" type="number" min="1" max="40" value="10">
+
       <span class="group-title">ردیف</span>
       <input id="rows" type="number" min="1" max="40" value="10">
     </div>
@@ -167,8 +434,10 @@ canvas{
     <div class="group">
       <span class="group-title">تار</span>
       <input id="warps" type="number" min="1" max="16" value="16">
+
       <span class="group-title">پود</span>
       <input id="wefts" type="number" min="1" max="16" value="3">
+
       <button class="primary" id="applyBtn">اعمال</button>
     </div>
   </div>
@@ -182,47 +451,64 @@ canvas{
     <summary>رنگ‌های پود</summary>
     <div class="color-grid" id="weftGrid"></div>
   </details>
+
 </section>
 
 <section class="workspace">
+
   <div class="canvas-tools">
 
     <div class="tools-right">
-      <button class="lock-button" id="lockBtn">
-        <span id="lockIcon">🔓</span>
-        <span id="lockText">اذیت غیرعال</span>
+
+      <button class="lock-button" id="lockBtn"
+        title="قفل رنگ‌گذاری" aria-label="قفل رنگ‌گذاری">
+        <svg id="lockIcon" viewBox="0 0 24 24">
+          <rect x="4" y="10" width="16" height="11" rx="2"></rect>
+          <path d="M8 10V7a4 4 0 0 1 7.5-2"></path>
+        </svg>
       </button>
 
-      <button class="clear-button" id="clearBtn">
-        🗑
+      <button class="clear-button" id="clearBtn"
+        title="پاک کردن کامل طرح" aria-label="پاک کردن کامل طرح">
+        <svg viewBox="0 0 24 24">
+          <path d="M3 6h18"></path>
+          <path d="M8 6V4h8v2"></path>
+          <path d="M19 6l-1 14H6L5 6"></path>
+          <path d="M10 11v5M14 11v5"></path>
+        </svg>
       </button>
+
     </div>
 
     <div class="history-tools">
-      <button class="history-button" id="undoBtn"
-        title="Undo - Ctrl + Z" disabled>
-        ↶ <span>Undo</span>
+
+      <button class="icon-button" id="undoBtn"
+        title="Undo - Ctrl + Z" aria-label="Undo" disabled>
+        <svg viewBox="0 0 24 24">
+          <path d="M9 14L4 9l5-5"></path>
+          <path d="M4 9h10a6 6 0 0 1 0 12h-2"></path>
+        </svg>
       </button>
 
-      <button class="history-button" id="redoBtn"
-        title="Redo - Ctrl + Y" disabled>
-        ↷ <span>Redo</span>
+      <button class="icon-button" id="redoBtn"
+        title="Redo - Ctrl + Y" aria-label="Redo" disabled>
+        <svg viewBox="0 0 24 24">
+          <path d="M15 14l5-5-5-5"></path>
+          <path d="M20 9H10a6 6 0 0 0 0 12h2"></path>
+        </svg>
       </button>
+
     </div>
   </div>
 
   <div class="canvas-wrap" id="canvasWrap">
     <canvas id="fabricCanvas"></canvas>
   </div>
+
 </section>
 
-<div class="footer">
-  <span id="gridInfo"></span>
-  <span id="modeInfo">ادیت فعال</span>
-</div>
-
 <div class="bottom-actions">
-  <button class="primary" id="jpgBtn">ذخیره JPG</button>
+  <button class="primary" id="jpgBtn">ذخیره خروجی JPG</button>
 </div>
 
 </div>
@@ -246,7 +532,10 @@ const defaultWeftColors=[
 ];
 
 let state={
- cols:10,rows:10,warps:16,wefts:3,
+ cols:10,
+ rows:10,
+ warps:16,
+ wefts:3,
  warpColors:[...defaultWarpColors],
  weftColors:[...defaultWeftColors],
  selectedWeft:0,
@@ -255,7 +544,11 @@ let state={
 };
 
 let CELL=48;
-const LEFT=35,TOP=31,RIGHT=12,BOTTOM=18;
+
+const LEFT=35;
+const TOP=31;
+const RIGHT=12;
+const BOTTOM=18;
 const MAX_HISTORY=100;
 
 let undoHistory=[];
@@ -305,6 +598,7 @@ function finishColorEdit(){
 
  const before=colorEditSnapshot;
  const after=makeSnapshot();
+
  colorEditSnapshot=null;
 
  if(!snapshotsEqual(before,after)){
@@ -324,10 +618,9 @@ function restoreSnapshot(snapshot){
  syncInputs();
  renderWarpControls();
  renderWeftControls();
- updateGridInfo();
- updateHistoryButtons();
  draw();
  saveState();
+ updateHistoryButtons();
 }
 
 function undo(){
@@ -336,6 +629,7 @@ function undo(){
  if(!undoHistory.length)return;
 
  redoHistory.push(makeSnapshot());
+
  const previous=undoHistory.pop();
  restoreSnapshot(previous);
 }
@@ -368,9 +662,9 @@ document.getElementById("redoBtn").addEventListener("click",redo);
 function saveState(){
  try{
   localStorage.setItem("fabricAnalyzerState",JSON.stringify(state));
-  document.getElementById("saveStatus").textContent="ذخیره شد ✓";
+  document.getElementById("saveStatus").textContent="✓";
  }catch(e){
-  document.getElementById("saveStatus").textContent="خطا در ذخیره";
+  document.getElementById("saveStatus").textContent="!";
  }
 }
 
@@ -388,6 +682,7 @@ function loadState(){
   state={
    ...state,
    ...p,
+
    cols:Math.max(1,Math.min(40,Number(p.cols)||10)),
    rows:Math.max(1,Math.min(40,Number(p.rows)||10)),
    warps:Math.max(1,Math.min(16,Number(p.warps)||16)),
@@ -403,6 +698,7 @@ function loadState(){
    marks:p.marks||{},
    paintLocked:false
   };
+
  }catch(e){
   console.warn("Saved data could not be loaded.");
  }
@@ -415,14 +711,10 @@ function syncInputs(){
  document.getElementById("wefts").value=state.wefts;
 }
 
-function updateGridInfo(){
- document.getElementById("gridInfo").textContent=
-  `${state.cols} ستون · ${state.rows} ردیف · ${state.warps} تار · ${state.wefts} پود`;
-}
-
 /* رنگ‌ها */
 
 function renderColorItem(container,index,color,type){
+
  const item=document.createElement("div");
  item.className="color-item";
 
@@ -436,14 +728,11 @@ function renderColorItem(container,index,color,type){
  select.title="انتخاب رنگ";
 
  if(type==="weft"){
-  select.addEventListener("click",()=>{
+  item.addEventListener("click",()=>{
    state.selectedWeft=index;
    renderWeftControls();
    saveState();
   });
- }else{
-  select.style.cursor="default";
-  select.disabled=true;
  }
 
  const picker=document.createElement("input");
@@ -451,7 +740,16 @@ function renderColorItem(container,index,color,type){
  picker.value=color;
  picker.title="تغییر رنگ";
 
- picker.addEventListener("pointerdown",startColorEdit);
+ /* کلیک روی انتخابگر، انتخاب کارت را اجرا نکند */
+ picker.addEventListener("click",event=>{
+  event.stopPropagation();
+ });
+
+ picker.addEventListener("pointerdown",event=>{
+  event.stopPropagation();
+  startColorEdit();
+ });
+
  picker.addEventListener("focus",startColorEdit);
 
  picker.addEventListener("input",()=>{
@@ -473,7 +771,7 @@ function renderColorItem(container,index,color,type){
 
  const name=document.createElement("span");
  name.className="color-name";
- name.textContent=(type==="warp"?"تار ":"پود ")+(index+1);
+ name.textContent=String(index+1);
 
  item.append(select,picker,name);
  container.appendChild(item);
@@ -502,19 +800,28 @@ function renderWeftControls(){
 function updateLockUI(){
  const button=document.getElementById("lockBtn");
  const icon=document.getElementById("lockIcon");
- const text=document.getElementById("lockText");
- const info=document.getElementById("modeInfo");
 
  if(state.paintLocked){
   button.classList.add("locked");
-  icon.textContent="🔒";
-  text.textContent="قفل رنگ‌گذاری: روشن";
-  info.textContent="رنگ‌گذاری غیرفعال · اسکرول آزاد";
+
+  icon.innerHTML=`
+   <rect x="4" y="10" width="16" height="11" rx="2"></rect>
+   <path d="M7 10V7a5 5 0 0 1 10 0v3"></path>
+  `;
+
+  button.title="باز کردن قفل";
+  button.setAttribute("aria-label","باز کردن قفل");
+
  }else{
   button.classList.remove("locked");
-  icon.textContent="🔓";
-  text.textContent="قفل رنگ‌گذاری: خاموش";
-  info.textContent="حالت رنگ‌گذاری فعال است";
+
+  icon.innerHTML=`
+   <rect x="4" y="10" width="16" height="11" rx="2"></rect>
+   <path d="M8 10V7a4 4 0 0 1 7.5-2"></path>
+  `;
+
+  button.title="قفل رنگ‌گذاری";
+  button.setAttribute("aria-label","قفل رنگ‌گذاری");
  }
 }
 
@@ -532,19 +839,20 @@ function resetClearButton(){
 
  const button=document.getElementById("clearBtn");
  button.classList.remove("armed");
- button.textContent="🗑 پاک کردن کامل طرح";
 }
 
 document.getElementById("clearBtn").addEventListener("click",()=>{
+
  const button=document.getElementById("clearBtn");
 
  if(!clearArmed){
   clearArmed=true;
   button.classList.add("armed");
-  button.textContent="⚠️ برای تأیید دوباره بزن";
+  button.title="برای تأیید، دوباره کلیک کن";
 
   clearTimer=setTimeout(()=>{
    resetClearButton();
+   button.title="پاک کردن کامل طرح";
   },5000);
 
   return;
@@ -552,9 +860,9 @@ document.getElementById("clearBtn").addEventListener("click",()=>{
 
  clearTimeout(clearTimer);
  resetClearButton();
+ button.title="پاک کردن کامل طرح";
 
  if(Object.keys(state.marks).length===0){
-  document.getElementById("saveStatus").textContent="طرح از قبل خالی است";
   return;
  }
 
@@ -572,55 +880,74 @@ document.getElementById("clearBtn").addEventListener("click",()=>{
 /* رسم شبکه */
 
 function updateCellSize(){
- CELL=window.innerWidth<=600?48:62;
+ CELL=window.innerWidth<=700?48:62;
 }
 
 function draw(){
+
  updateCellSize();
 
  const width=LEFT+state.cols*CELL+RIGHT;
  const height=TOP+state.rows*CELL+BOTTOM;
+
  const dpr=Math.max(1,window.devicePixelRatio||1);
 
  canvas.width=Math.round(width*dpr);
  canvas.height=Math.round(height*dpr);
+
  canvas.style.width=width+"px";
  canvas.style.height=height+"px";
 
  ctx.setTransform(dpr,0,0,dpr,0,0);
  ctx.clearRect(0,0,width,height);
- ctx.fillStyle="#e8e8e8";
+
+ /* زمینه خود بوم سورمه‌ای */
+ ctx.fillStyle="#101b35";
  ctx.fillRect(0,0,width,height);
 
- ctx.fillStyle="#222";
+ ctx.fillStyle="#dce5f3";
  ctx.font="bold 11px Tahoma, Arial";
  ctx.textAlign="center";
  ctx.textBaseline="middle";
 
+ /* شماره ستون‌ها */
  for(let c=0;c<state.cols;c++){
-  ctx.fillText(String(c+1),LEFT+c*CELL+CELL/2,15);
+  ctx.fillText(
+   String(c+1),
+   LEFT+c*CELL+CELL/2,
+   15
+  );
  }
 
+ /* شماره ردیف‌ها */
  for(let r=0;r<state.rows;r++){
-  ctx.fillText(String(r+1),17,TOP+r*CELL+CELL/2);
+  ctx.fillText(
+   String(r+1),
+   17,
+   TOP+r*CELL+CELL/2
+  );
  }
 
  for(let r=0;r<state.rows;r++){
   for(let c=0;c<state.cols;c++){
+
    const x=LEFT+c*CELL;
    const y=TOP+r*CELL;
 
-   ctx.fillStyle="#fff";
+   ctx.fillStyle="#f8f9fc";
    ctx.fillRect(x,y,CELL,CELL);
 
    const partHeight=CELL/state.wefts;
 
+   /* رنگ پود */
    for(let k=0;k<state.wefts;k++){
+
     const key=`${r},${c},${k}`;
     const color=state.marks[key];
 
     if(color){
      ctx.fillStyle=color;
+
      ctx.fillRect(
       x+4,
       y+k*partHeight+2,
@@ -630,30 +957,38 @@ function draw(){
     }
    }
 
+   /* خطوط تقسیم پود */
    ctx.save();
+
    ctx.strokeStyle="rgba(0,0,0,0.42)";
-   ctx.lineWidth=0.8;
+   ctx.lineWidth=.8;
 
    for(let k=1;k<state.wefts;k++){
     const lineY=y+k*partHeight;
+
     ctx.beginPath();
     ctx.moveTo(x+3,lineY);
     ctx.lineTo(x+CELL-3,lineY);
     ctx.stroke();
    }
+
    ctx.restore();
 
+   /* رنگ تار */
    const warpColor=state.warpColors[c%state.warps];
 
    ctx.beginPath();
    ctx.roundRect(x+1,y+1,CELL-2,CELL-2,6);
+
    ctx.strokeStyle=warpColor;
    ctx.lineWidth=4;
    ctx.stroke();
 
+   /* مرز اصلی سلول */
    ctx.beginPath();
    ctx.roundRect(x+1,y+1,CELL-2,CELL-2,6);
-   ctx.strokeStyle="#111";
+
+   ctx.strokeStyle="#111827";
    ctx.lineWidth=1.4;
    ctx.stroke();
   }
@@ -663,6 +998,7 @@ function draw(){
 /* تشخیص خانه انتخاب‌شده */
 
 function getCellFromPointer(event){
+
  const rect=canvas.getBoundingClientRect();
 
  const x=(event.clientX-rect.left)*
@@ -691,6 +1027,7 @@ function getCellFromPointer(event){
 /* رنگ‌آمیزی و ثبت در تاریخچه */
 
 canvas.addEventListener("pointerdown",event=>{
+
  if(state.paintLocked)return;
  if(event.button!==undefined&&event.button!==0)return;
 
@@ -716,9 +1053,11 @@ canvas.addEventListener("pointerdown",event=>{
 
 /* اعمال تنظیمات */
 
-document.getElementById("applyBtn").addEventListener("click",applySettings);
+document.getElementById("applyBtn")
+ .addEventListener("click",applySettings);
 
 function applySettings(){
+
  const cols=Number(document.getElementById("cols").value);
  const rows=Number(document.getElementById("rows").value);
  const warps=Number(document.getElementById("warps").value);
@@ -742,9 +1081,14 @@ function applySettings(){
  state.rows=rows;
  state.warps=warps;
  state.wefts=wefts;
- state.selectedWeft=Math.min(state.selectedWeft,wefts-1);
+
+ state.selectedWeft=Math.min(
+  state.selectedWeft,
+  wefts-1
+ );
 
  for(const key of Object.keys(state.marks)){
+
   const [r,c,k]=key.split(",").map(Number);
 
   if(r>=rows||c>=cols||k>=wefts){
@@ -760,7 +1104,6 @@ function applySettings(){
 
  renderWarpControls();
  renderWeftControls();
- updateGridInfo();
  draw();
  saveState();
 }
@@ -768,27 +1111,48 @@ function applySettings(){
 /* خروجی JPG */
 
 function exportJPG(){
+
  const link=document.createElement("a");
+
  link.download="Fabric-Analyzer.jpg";
  link.href=canvas.toDataURL("image/jpeg",0.98);
+
  link.click();
 }
 
-document.getElementById("jpgBtn").addEventListener("click",exportJPG);
+document.getElementById("jpgBtn")
+ .addEventListener("click",exportJPG);
 
 /* میانبرهای صفحه‌کلید */
 
 document.addEventListener("keydown",event=>{
+
  const key=event.key.toLowerCase();
  const ctrl=event.ctrlKey||event.metaKey;
-
- if(!ctrl)return;
-
  const target=event.target;
- const isColorInput=target instanceof HTMLInputElement&&target.type==="color";
- const isEditable=target instanceof HTMLInputElement||
+
+ const isColorInput=
+  target instanceof HTMLInputElement&&
+  target.type==="color";
+
+ const isEditable=
+  target instanceof HTMLInputElement||
   target instanceof HTMLTextAreaElement||
   target.isContentEditable;
+
+ /* Enter برای اعمال تنظیمات */
+ if(
+  event.key==="Enter"&&
+  !event.shiftKey&&
+  !event.altKey&&
+  !isColorInput
+ ){
+  event.preventDefault();
+  applySettings();
+  return;
+ }
+
+ if(!ctrl)return;
 
  if(key==="s"){
   event.preventDefault();
@@ -803,14 +1167,18 @@ document.addEventListener("keydown",event=>{
  }
 
  if(key==="z"&&!event.shiftKey){
+
   if(isEditable&&!isColorInput)return;
+
   event.preventDefault();
   undo();
   return;
  }
 
  if(key==="y"||(key==="z"&&event.shiftKey)){
+
   if(isEditable&&!isColorInput)return;
+
   event.preventDefault();
   redo();
  }
@@ -820,15 +1188,17 @@ document.addEventListener("keydown",event=>{
 
 loadState();
 syncInputs();
-updateGridInfo();
 
 renderWarpControls();
 renderWeftControls();
+
 updateLockUI();
 updateHistoryButtons();
+
 draw();
 
 window.addEventListener("resize",draw);
+
 </script>
 </body>
 </html>
