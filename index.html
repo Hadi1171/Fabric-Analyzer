@@ -1,0 +1,846 @@
+
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#101827">
+<title>Fabric Analyzer</title>
+
+<style>
+:root {
+  --bg: #0b1220;
+  --panel: #142238;
+  --edge: #35465d;
+  --gold: #edc477;
+  --text: #f4f1e9;
+  --muted: #9eacc0;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  background: radial-gradient(ellipse at top, #243653, #101a2a 48%, #0a111d);
+  color: var(--text);
+  font-family: Tahoma, Arial, sans-serif;
+}
+
+.app {
+  max-width: 1500px;
+  margin: auto;
+  padding: 10px;
+}
+
+header {
+  position: sticky;
+  top: 5px;
+  z-index: 8;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 10px 13px;
+  border: 1px solid var(--edge);
+  border-radius: 16px;
+  background: #101b2cee;
+  backdrop-filter: blur(12px);
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+}
+
+.logo {
+  width: 37px;
+  height: 37px;
+  border-radius: 11px;
+  background: linear-gradient(145deg, #f6d28c, #bd873c);
+  display: grid;
+  place-items: center;
+  color: #172438;
+  font-size: 22px;
+}
+
+h1 {
+  font-size: 17px;
+  color: var(--gold);
+  margin: 0;
+}
+
+.brand small {
+  display: block;
+  font-size: 9px;
+  color: var(--muted);
+  margin-top: 3px;
+}
+
+.actions {
+  display: flex;
+  gap: 6px;
+}
+
+button {
+  cursor: pointer;
+  font-family: inherit;
+}
+
+.btn {
+  border: 1px solid #42536a;
+  background: #1b2a40;
+  color: white;
+  padding: 9px 11px;
+  border-radius: 10px;
+  font-size: 11px;
+}
+
+.btn.primary {
+  background: linear-gradient(135deg, #f4d28f, #dfa94f);
+  color: #192437;
+  border: 0;
+  font-weight: bold;
+}
+
+.menu {
+  position: relative;
+}
+
+.drop {
+  display: none;
+  position: absolute;
+  top: calc(100% + 8px);
+  right: 0;
+  width: min(340px, calc(100vw - 24px));
+  max-height: 72vh;
+  overflow: auto;
+  padding: 14px;
+  background: #142238;
+  border: 1px solid #465871;
+  border-radius: 15px;
+  z-index: 10;
+}
+
+.drop.open { display: block; }
+
+.drop h3 {
+  margin: 0 0 12px;
+  color: var(--gold);
+  font-size: 14px;
+}
+
+.fields {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 9px;
+}
+
+.field label {
+  display: block;
+  font-size: 10px;
+  color: var(--muted);
+  margin-bottom: 5px;
+}
+
+.field input {
+  width: 100%;
+  background: #0b1626;
+  color: white;
+  border: 1px solid #40516a;
+  border-radius: 8px;
+  padding: 9px;
+}
+
+.colors {
+  display: grid;
+  gap: 7px;
+  margin-top: 12px;
+}
+
+.colorrow {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: #0d1929;
+  border: 1px solid #304159;
+  border-radius: 9px;
+  padding: 5px 8px;
+}
+
+.colorrow span {
+  flex: 1;
+  font-size: 11px;
+  color: var(--muted);
+}
+
+.colorrow input {
+  width: 37px;
+  height: 32px;
+  border: 0;
+  background: none;
+  padding: 0;
+}
+
+.stats {
+  display: flex;
+  gap: 7px;
+  flex-wrap: wrap;
+  margin: 10px 0;
+}
+
+.stat {
+  font-size: 10px;
+  color: var(--muted);
+  background: #101c2d;
+  border: 1px solid var(--edge);
+  border-radius: 9px;
+  padding: 7px 10px;
+}
+
+.stat b { color: white; }
+
+.workspace {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 230px;
+  gap: 10px;
+  align-items: start;
+}
+
+.panel {
+  background: linear-gradient(145deg, #17263b, #101a2a);
+  border: 1px solid var(--edge);
+  border-radius: 16px;
+  padding: 11px;
+}
+
+.panelhead {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.panelhead h2 {
+  font-size: 13px;
+  color: var(--gold);
+  margin: 0;
+}
+
+.muted {
+  font-size: 9px;
+  color: var(--muted);
+}
+
+.canvasbox {
+  background: #09111d;
+  border: 1px solid #35465b;
+  border-radius: 13px;
+  padding: 8px;
+  overflow: auto;
+}
+
+canvas {
+  display: block;
+  width: 100%;
+  height: auto;
+  cursor: pointer;
+  touch-action: manipulation;
+}
+
+.side {
+  display: grid;
+  gap: 9px;
+}
+
+.tools {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 7px;
+}
+
+.tool {
+  padding: 12px 7px;
+  font-size: 11px;
+}
+
+.tool.active {
+  background: linear-gradient(135deg, #f4d28f, #dfa94f);
+  color: #152238;
+  border-color: #f4d28f;
+  font-weight: bold;
+}
+
+.help {
+  font-size: 10px;
+  color: var(--muted);
+  line-height: 1.9;
+  margin: 8px 1px 0;
+}
+
+.status {
+  font-size: 10px;
+  color: #9fe0b2;
+  min-height: 17px;
+  margin-top: 7px;
+}
+
+@media(max-width:780px) {
+  .workspace { grid-template-columns: 1fr; }
+  .side { grid-template-columns: 1fr 1fr; }
+  .side .panel:last-child { grid-column: 1/-1; }
+}
+
+@media(max-width:520px) {
+  .app { padding: 6px; }
+  .brand small { display: none; }
+  h1 { font-size: 15px; }
+  .logo { width: 33px; height: 33px; }
+  .btn { padding: 8px 9px; font-size: 10px; }
+  .workspace { gap: 7px; }
+  .side { grid-template-columns: 1fr 1fr; }
+  .side .panel:last-child { grid-column: 1/-1; }
+  .panel { padding: 8px; }
+  .canvasbox { padding: 5px; }
+  header { padding: 8px; }
+  .drop {
+    position: fixed;
+    top: 64px;
+    right: 8px;
+    left: 8px;
+    width: auto;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<div class="app">
+
+<header>
+  <div class="brand">
+    <div class="logo">✥</div>
+    <div>
+      <h1>Fabric Analyzer</h1>
+      <small>TEXTILE DESIGN STUDIO</small>
+    </div>
+  </div>
+
+  <div class="actions">
+
+    <div class="menu">
+      <button class="btn" id="settingsBtn">⚙ تنظیمات</button>
+
+      <div class="drop" id="settings">
+
+        <h3>تنظیمات شبکه و رنگ</h3>
+
+        <div class="fields">
+          <div class="field">
+            <label>ستون‌ها</label>
+            <input id="cols" type="number" min="1" max="40" value="10">
+          </div>
+
+          <div class="field">
+            <label>ردیف‌ها</label>
+            <input id="rows" type="number" min="1" max="40" value="10">
+          </div>
+
+          <div class="field">
+            <label>تعداد رنگ تار</label>
+            <input id="warpCount" type="number" min="1" max="16" value="2">
+          </div>
+
+          <div class="field">
+            <label>تعداد پود / تقسیم هر خانه</label>
+            <input id="weftCount" type="number" min="1" max="20" value="3">
+          </div>
+        </div>
+
+        <div class="colors">
+          <b class="muted">رنگ‌های تار</b>
+          <div id="warpColors"></div>
+        </div>
+
+        <button class="btn primary" style="width:100%;margin-top:12px"
+          id="applySettings">اعمال تنظیمات</button>
+
+      </div>
+    </div>
+
+    <button class="btn" id="save">💾 ذخیره</button>
+    <button class="btn primary" id="jpg">JPG</button>
+
+  </div>
+</header>
+
+<div class="stats">
+  <div class="stat">شبکه <b id="size">10 × 10</b></div>
+  <div class="stat">تار <b id="wc">2</b></div>
+  <div class="stat">پود <b id="fc">3</b></div>
+  <div class="stat">ابزار <b id="modeLabel">رو تار</b></div>
+</div>
+
+<div class="workspace">
+
+  <section class="panel">
+
+    <div class="panelhead">
+      <h2>شبکه طراحی و بافت</h2>
+      <span class="muted">شماره ستون بالا · شماره ردیف کنار شبکه</span>
+    </div>
+
+    <div class="canvasbox">
+      <canvas id="board" width="1200" height="1050"></canvas>
+    </div>
+
+    <div class="status" id="status">
+      برای ثبت وضعیت، روی یکی از بخش‌های داخل خانه لمس کن.
+    </div>
+
+  </section>
+
+  <aside class="side">
+
+    <section class="panel">
+      <div class="panelhead">
+        <h2>ابزار انتخاب</h2>
+        <span class="muted">لمس خانه‌ها</span>
+      </div>
+
+      <div class="tools">
+        <button class="btn tool active" data-mode="up">رو تار</button>
+        <button class="btn tool" data-mode="down">زیر تار</button>
+        <button class="btn tool" data-mode="erase">پاک‌کن</button>
+        <button class="btn tool" data-mode="none">انتخاب</button>
+      </div>
+
+      <p class="help">
+        هر خانه اصلی با تعداد پودها به بخش‌های افقی تقسیم می‌شود.
+        روی هر بخش بزن تا وضعیتش ثبت شود.
+        لمس دوباره همان بخش با همان وضعیت، آن را پاک می‌کند.
+        انتخاب وضعیت جدید، مقدار قبلی را جایگزین می‌کند.
+      </p>
+    </section>
+
+  </aside>
+
+</div>
+</div>
+
+<script>
+
+const $ = id => document.getElementById(id);
+
+const base = () => ({
+  cols: 10,
+  rows: 10,
+  warpColors: ['#f8f5ed', '#f5df9b'],
+  weftCount: 3,
+  mode: 'up',
+  cells: {}
+});
+
+let S = base();
+let mode = 'up';
+
+const canvas = $('board');
+const ctx = canvas.getContext('2d');
+
+function clamp(v, min, max) {
+  return Math.max(min, Math.min(max, parseInt(v) || min));
+}
+
+function key(r, c, k) {
+  return r + ',' + c + ',' + k;
+}
+
+function say(text) {
+  $('status').textContent = text;
+}
+
+function renderColors() {
+
+  const box = $('warpColors');
+  box.replaceChildren();
+
+  S.warpColors.forEach((color, i) => {
+
+    const row = document.createElement('div');
+    row.className = 'colorrow';
+
+    const name = document.createElement('span');
+    name.textContent = 'تار ' + (i + 1);
+
+    const picker = document.createElement('input');
+    picker.type = 'color';
+    picker.value = color;
+
+    picker.oninput = () => {
+      S.warpColors[i] = picker.value;
+      draw();
+    };
+
+    row.append(name, picker);
+    box.append(row);
+
+  });
+
+}
+
+function sync() {
+
+  $('cols').value = S.cols;
+  $('rows').value = S.rows;
+  $('warpCount').value = S.warpColors.length;
+  $('weftCount').value = S.weftCount;
+
+  $('size').textContent = S.cols + ' × ' + S.rows;
+  $('wc').textContent = S.warpColors.length;
+  $('fc').textContent = S.weftCount;
+
+}
+
+function setMode(m) {
+
+  mode = m;
+
+  document.querySelectorAll('[data-mode]').forEach(btn => {
+    btn.classList.toggle('active', btn.dataset.mode === m);
+  });
+
+  $('modeLabel').textContent =
+    m === 'up' ? 'رو تار' :
+    m === 'down' ? 'زیر تار' :
+    m === 'erase' ? 'پاک‌کن' : 'انتخاب';
+
+}
+
+document.querySelectorAll('[data-mode]').forEach(btn => {
+  btn.onclick = () => setMode(btn.dataset.mode);
+});
+
+function draw() {
+
+  const W = 1200;
+  const H = 1050;
+
+  const L = 65;
+  const T = 48;
+  const R = 20;
+  const B = 30;
+
+  canvas.width = W;
+  canvas.height = H;
+
+  ctx.clearRect(0, 0, W, H);
+
+  const gw = W - L - R;
+  const gh = H - T - B;
+
+  const cw = gw / S.cols;
+  const ch = gh / S.rows;
+
+  // شماره ستون‌ها
+  ctx.fillStyle = '#d9c18e';
+  ctx.font = 'bold 20px Tahoma';
+  ctx.textAlign = 'center';
+  ctx.textBaseline = 'middle';
+
+  for (let c = 0; c < S.cols; c++) {
+    ctx.fillText(String(c + 1), L + (c + .5) * cw, T - 23);
+  }
+
+  // شماره ردیف‌ها
+  ctx.textAlign = 'center';
+
+  for (let r = 0; r < S.rows; r++) {
+    ctx.fillText(String(r + 1), L - 31, T + (r + .5) * ch);
+  }
+
+  const gap = Math.max(1.5, Math.min(3.5, cw * .025, ch * .025));
+  const rad = Math.min(8, cw * .08, ch * .08);
+
+  // پس‌زمینه رنگ تارها
+  for (let r = 0; r < S.rows; r++) {
+    for (let c = 0; c < S.cols; c++) {
+
+      const x = L + c * cw + gap / 2;
+      const y = T + r * ch + gap / 2;
+
+      ctx.beginPath();
+      ctx.roundRect(x, y, cw - gap, ch - gap, rad);
+
+      ctx.fillStyle = S.warpColors[c % S.warpColors.length];
+      ctx.fill();
+
+    }
+  }
+
+  // نمایش وضعیت رو و زیر تار در هر زیربخش
+  for (let r = 0; r < S.rows; r++) {
+    for (let c = 0; c < S.cols; c++) {
+      for (let k = 0; k < S.weftCount; k++) {
+
+        const value = S.cells[key(r, c, k)];
+
+        if (!value) continue;
+
+        const x = L + c * cw + gap;
+        const y = T + r * ch + (k / S.weftCount) * ch;
+        const sh = ch / S.weftCount;
+
+        if (value === 'up') {
+
+          ctx.save();
+          ctx.globalAlpha = .45;
+          ctx.fillStyle = '#172438';
+          ctx.fillRect(x, y, cw - gap, sh);
+          ctx.restore();
+
+          ctx.strokeStyle = '#111c2b';
+          ctx.lineWidth = Math.max(2, cw * .025);
+
+          ctx.beginPath();
+          ctx.moveTo(x + cw * .28, y + sh * .5);
+          ctx.lineTo(x + cw * .46, y + sh * .72);
+          ctx.lineTo(x + cw * .76, y + sh * .28);
+          ctx.stroke();
+
+        } else if (value === 'down') {
+
+          ctx.strokeStyle = '#172438';
+          ctx.lineWidth = Math.max(1.5, cw * .02);
+
+          ctx.beginPath();
+          ctx.moveTo(x + cw * .3, y + sh * .5);
+          ctx.lineTo(x + cw * .7, y + sh * .5);
+          ctx.stroke();
+
+        }
+
+      }
+    }
+  }
+
+  // خطوط اصلی سلول‌ها: مشکی و ضخیم
+  ctx.strokeStyle = '#111820';
+  ctx.lineWidth = Math.max(2.4, Math.min(4, cw * .035));
+
+  for (let r = 0; r < S.rows; r++) {
+    for (let c = 0; c < S.cols; c++) {
+
+      const x = L + c * cw + gap / 2;
+      const y = T + r * ch + gap / 2;
+
+      ctx.beginPath();
+      ctx.roundRect(x, y, cw - gap, ch - gap, rad);
+      ctx.stroke();
+
+    }
+  }
+
+  // خطوط تقسیم پود: مشکی، نازک و کم‌رنگ
+  ctx.strokeStyle = 'rgba(0,0,0,.36)';
+  ctx.lineWidth = 1.15;
+
+  for (let r = 0; r < S.rows; r++) {
+    for (let k = 1; k < S.weftCount; k++) {
+
+      const y = T + r * ch + (k / S.weftCount) * ch;
+
+      ctx.beginPath();
+      ctx.moveTo(L + 1, y);
+      ctx.lineTo(L + gw - 1, y);
+      ctx.stroke();
+
+    }
+  }
+
+  // قاب بیرونی
+  ctx.strokeStyle = '#080d15';
+  ctx.lineWidth = 4;
+  ctx.strokeRect(L, T, gw, gh);
+
+}
+
+function applySettings() {
+
+  const cols = clamp($('cols').value, 1, 40);
+  const rows = clamp($('rows').value, 1, 40);
+  const wc = clamp($('warpCount').value, 1, 16);
+  const fc = clamp($('weftCount').value, 1, 20);
+
+  S.cols = cols;
+  S.rows = rows;
+  S.weftCount = fc;
+
+  const palette = [
+    '#f8f5ed',
+    '#f5df9b',
+    '#e8eee5',
+    '#f1d9d0',
+    '#e2e6f5',
+    '#eadfc9'
+  ];
+
+  while (S.warpColors.length < wc) {
+    S.warpColors.push(
+      palette[S.warpColors.length % palette.length]
+    );
+  }
+
+  S.warpColors = S.warpColors.slice(0, wc);
+
+  // داده‌های خارج از ابعاد جدید حذف می‌شوند
+  S.cells = {};
+
+  sync();
+  renderColors();
+  draw();
+
+  $('settings').classList.remove('open');
+
+  say('تنظیمات شبکه اعمال شد.');
+
+}
+
+$('applySettings').onclick = applySettings;
+
+$('settingsBtn').onclick = () => {
+  $('settings').classList.toggle('open');
+};
+
+document.addEventListener('click', e => {
+  if (!e.target.closest('.menu')) {
+    $('settings').classList.remove('open');
+  }
+});
+
+// تشخیص دقیق خانه و زیربخش لمس‌شده
+function pointerCell(e) {
+
+  const rect = canvas.getBoundingClientRect();
+
+  const sx = canvas.width / rect.width;
+  const sy = canvas.height / rect.height;
+
+  const x = (e.clientX - rect.left) * sx;
+  const y = (e.clientY - rect.top) * sy;
+
+  const L = 65;
+  const T = 48;
+  const R = 20;
+  const B = 30;
+
+  const gw = 1200 - L - R;
+  const gh = 1050 - T - B;
+
+  if (x < L || x > L + gw || y < T || y > T + gh) {
+    return null;
+  }
+
+  const c = Math.floor((x - L) / (gw / S.cols));
+  const r = Math.floor((y - T) / (gh / S.rows));
+
+  const localY = (y - T - r * (gh / S.rows)) / (gh / S.rows);
+
+  const k = Math.min(
+    S.weftCount - 1,
+    Math.floor(localY * S.weftCount)
+  );
+
+  return { r, c, k };
+
+}
+
+canvas.addEventListener('click', e => {
+
+  const p = pointerCell(e);
+
+  if (!p) return;
+
+  const id = key(p.r, p.c, p.k);
+  const old = S.cells[id];
+
+  if (mode === 'none') {
+    say(
+      'ردیف ' + (p.r + 1) +
+      '، ستون ' + (p.c + 1) +
+      '، بخش ' + (p.k + 1)
+    );
+    return;
+  }
+
+  if (mode === 'erase') {
+
+    delete S.cells[id];
+    say('بخش پاک شد.');
+
+  } else if (old === mode) {
+
+    delete S.cells[id];
+    say('علامت قبلی پاک شد.');
+
+  } else {
+
+    S.cells[id] = mode;
+
+    say(
+      'ردیف ' + (p.r + 1) +
+      '، ستون ' + (p.c + 1) +
+      '، بخش ' + (p.k + 1) +
+      ' ثبت شد.'
+    );
+
+  }
+
+  draw();
+
+});
+
+// فقط یک دکمه ذخیره
+$('save').onclick = () => {
+
+  localStorage.setItem(
+    'fabricAnalyzerV3',
+    JSON.stringify(S)
+  );
+
+  say('پروژه در مرورگر ذخیره شد.');
+
+};
+
+// خروجی JPG
+$('jpg').onclick = () => {
+
+  const a = document.createElement('a');
+
+  a.download = 'fabric-analyzer.jpg';
+  a.href = canvas.toDataURL('image/jpeg', .96);
+
+  a.click();
+
+  say('تصویر JPG آماده شد.');
+
+};
+
+// بازیابی آخرین پروژه ذخیره‌شده
+const saved = localStorage.getItem('fabricAnalyzerV3');
+
+if (saved) {
+  try {
+    S = { ...base(), ...JSON.parse(saved) };
+  } catch (e) {}
+}
+
+sync();
+renderColors();
+setMode(S.mode || 'up');
+draw();
+
+</script>
+
+</body>
+</html>
