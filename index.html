@@ -3,843 +3,708 @@
 <html lang="fa" dir="rtl">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="theme-color" content="#101827">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 <title>Fabric Analyzer</title>
 
 <style>
 :root {
-  --bg: #0b1220;
-  --panel: #142238;
-  --edge: #35465d;
-  --gold: #edc477;
-  --text: #f4f1e9;
-  --muted: #9eacc0;
+  --bg: #111318;
+  --panel: #1b1e25;
+  --panel2: #242832;
+  --text: #f2f3f5;
+  --muted: #969daa;
+  --accent: #d5a85c;
+  --border: #343944;
 }
 
-* { box-sizing: border-box; }
+* {
+  box-sizing: border-box;
+}
 
 body {
   margin: 0;
-  background: radial-gradient(ellipse at top, #243653, #101a2a 48%, #0a111d);
+  padding: 12px;
+  background: var(--bg);
   color: var(--text);
   font-family: Tahoma, Arial, sans-serif;
 }
 
 .app {
+  width: 100%;
   max-width: 1500px;
   margin: auto;
-  padding: 10px;
 }
 
 header {
-  position: sticky;
-  top: 5px;
-  z-index: 8;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 8px;
-  padding: 10px 13px;
-  border: 1px solid var(--edge);
-  border-radius: 16px;
-  background: #101b2cee;
-  backdrop-filter: blur(12px);
+  gap: 12px;
+  margin-bottom: 12px;
 }
 
 .brand {
-  display: flex;
-  align-items: center;
-  gap: 9px;
-}
-
-.logo {
-  width: 37px;
-  height: 37px;
-  border-radius: 11px;
-  background: linear-gradient(145deg, #f6d28c, #bd873c);
-  display: grid;
-  place-items: center;
-  color: #172438;
-  font-size: 22px;
-}
-
-h1 {
-  font-size: 17px;
-  color: var(--gold);
-  margin: 0;
-}
-
-.brand small {
-  display: block;
-  font-size: 9px;
-  color: var(--muted);
-  margin-top: 3px;
-}
-
-.actions {
-  display: flex;
-  gap: 6px;
-}
-
-button {
-  cursor: pointer;
-  font-family: inherit;
-}
-
-.btn {
-  border: 1px solid #42536a;
-  background: #1b2a40;
-  color: white;
-  padding: 9px 11px;
-  border-radius: 10px;
-  font-size: 11px;
-}
-
-.btn.primary {
-  background: linear-gradient(135deg, #f4d28f, #dfa94f);
-  color: #192437;
-  border: 0;
+  font-size: 19px;
   font-weight: bold;
+  letter-spacing: .3px;
 }
 
-.menu {
-  position: relative;
+.brand span {
+  color: var(--accent);
 }
 
-.drop {
-  display: none;
-  position: absolute;
-  top: calc(100% + 8px);
-  right: 0;
-  width: min(340px, calc(100vw - 24px));
-  max-height: 72vh;
-  overflow: auto;
-  padding: 14px;
-  background: #142238;
-  border: 1px solid #465871;
-  border-radius: 15px;
-  z-index: 10;
-}
-
-.drop.open { display: block; }
-
-.drop h3 {
-  margin: 0 0 12px;
-  color: var(--gold);
-  font-size: 14px;
-}
-
-.fields {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 9px;
-}
-
-.field label {
-  display: block;
-  font-size: 10px;
+.status {
   color: var(--muted);
-  margin-bottom: 5px;
-}
-
-.field input {
-  width: 100%;
-  background: #0b1626;
-  color: white;
-  border: 1px solid #40516a;
-  border-radius: 8px;
-  padding: 9px;
-}
-
-.colors {
-  display: grid;
-  gap: 7px;
-  margin-top: 12px;
-}
-
-.colorrow {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  background: #0d1929;
-  border: 1px solid #304159;
-  border-radius: 9px;
-  padding: 5px 8px;
-}
-
-.colorrow span {
-  flex: 1;
   font-size: 11px;
-  color: var(--muted);
-}
-
-.colorrow input {
-  width: 37px;
-  height: 32px;
-  border: 0;
-  background: none;
-  padding: 0;
-}
-
-.stats {
-  display: flex;
-  gap: 7px;
-  flex-wrap: wrap;
-  margin: 10px 0;
-}
-
-.stat {
-  font-size: 10px;
-  color: var(--muted);
-  background: #101c2d;
-  border: 1px solid var(--edge);
-  border-radius: 9px;
-  padding: 7px 10px;
-}
-
-.stat b { color: white; }
-
-.workspace {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) 230px;
-  gap: 10px;
-  align-items: start;
 }
 
 .panel {
-  background: linear-gradient(145deg, #17263b, #101a2a);
-  border: 1px solid var(--edge);
-  border-radius: 16px;
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 13px;
   padding: 11px;
+  margin-bottom: 10px;
 }
 
-.panelhead {
+.toolbar {
   display: flex;
-  justify-content: space-between;
+  flex-wrap: wrap;
   align-items: center;
-  margin-bottom: 8px;
+  gap: 9px;
 }
 
-.panelhead h2 {
-  font-size: 13px;
-  color: var(--gold);
-  margin: 0;
+.group {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-wrap: wrap;
 }
 
-.muted {
-  font-size: 9px;
+.group-title {
+  color: var(--muted);
+  font-size: 11px;
+  margin-left: 3px;
+}
+
+input, select, button {
+  font-family: inherit;
+}
+
+input[type="number"] {
+  width: 55px;
+  height: 34px;
+  border: 1px solid var(--border);
+  background: var(--panel2);
+  color: white;
+  border-radius: 7px;
+  padding: 5px;
+  text-align: center;
+  direction: ltr;
+}
+
+button {
+  border: 1px solid var(--border);
+  background: var(--panel2);
+  color: var(--text);
+  border-radius: 8px;
+  padding: 9px 12px;
+  cursor: pointer;
+  font-size: 12px;
+}
+
+button:active {
+  transform: scale(.97);
+}
+
+button.primary {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: #171717;
+  font-weight: bold;
+}
+
+button.small {
+  padding: 7px 9px;
+}
+
+.palette {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+}
+
+.swatch {
+  width: 30px;
+  height: 30px;
+  border-radius: 8px;
+  border: 2px solid rgba(255,255,255,.2);
+  padding: 0;
+  position: relative;
+}
+
+.swatch.selected {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+}
+
+.add-color {
+  width: 31px;
+  height: 31px;
+  padding: 0;
+  font-size: 19px;
+  color: var(--accent);
+}
+
+input[type="color"] {
+  width: 34px;
+  height: 34px;
+  border: 0;
+  padding: 0;
+  background: transparent;
+  cursor: pointer;
+}
+
+details {
+  margin-top: 9px;
+  border-top: 1px solid var(--border);
+  padding-top: 9px;
+}
+
+summary {
+  cursor: pointer;
+  color: var(--muted);
+  font-size: 12px;
+  user-select: none;
+}
+
+.warp-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 8px;
+  margin-top: 12px;
+}
+
+.warp-item {
+  background: var(--panel2);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 6px;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 10px;
+  min-width: 0;
+}
+
+.warp-item input {
+  width: 28px;
+  height: 27px;
+  flex-shrink: 0;
+}
+
+.warp-item span {
   color: var(--muted);
 }
 
-.canvasbox {
-  background: #09111d;
-  border: 1px solid #35465b;
+.workspace {
+  background: #e8e8e8;
   border-radius: 13px;
   padding: 8px;
+  overflow: hidden;
+  min-height: 180px;
+}
+
+.canvas-wrap {
+  width: 100%;
   overflow: auto;
+  touch-action: pan-x pan-y;
 }
 
 canvas {
   display: block;
   width: 100%;
   height: auto;
-  cursor: pointer;
   touch-action: manipulation;
+  cursor: crosshair;
 }
 
-.side {
-  display: grid;
-  gap: 9px;
-}
-
-.tools {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 7px;
-}
-
-.tool {
-  padding: 12px 7px;
-  font-size: 11px;
-}
-
-.tool.active {
-  background: linear-gradient(135deg, #f4d28f, #dfa94f);
-  color: #152238;
-  border-color: #f4d28f;
-  font-weight: bold;
-}
-
-.help {
-  font-size: 10px;
+.footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
   color: var(--muted);
-  line-height: 1.9;
-  margin: 8px 1px 0;
+  font-size: 11px;
+  margin-top: 9px;
 }
 
-.status {
-  font-size: 10px;
-  color: #9fe0b2;
-  min-height: 17px;
-  margin-top: 7px;
-}
+@media (max-width: 600px) {
+  body {
+    padding: 8px;
+  }
 
-@media(max-width:780px) {
-  .workspace { grid-template-columns: 1fr; }
-  .side { grid-template-columns: 1fr 1fr; }
-  .side .panel:last-child { grid-column: 1/-1; }
-}
+  header {
+    margin-bottom: 9px;
+  }
 
-@media(max-width:520px) {
-  .app { padding: 6px; }
-  .brand small { display: none; }
-  h1 { font-size: 15px; }
-  .logo { width: 33px; height: 33px; }
-  .btn { padding: 8px 9px; font-size: 10px; }
-  .workspace { gap: 7px; }
-  .side { grid-template-columns: 1fr 1fr; }
-  .side .panel:last-child { grid-column: 1/-1; }
-  .panel { padding: 8px; }
-  .canvasbox { padding: 5px; }
-  header { padding: 8px; }
-  .drop {
-    position: fixed;
-    top: 64px;
-    right: 8px;
-    left: 8px;
-    width: auto;
+  .brand {
+    font-size: 16px;
+  }
+
+  .panel {
+    padding: 9px;
+  }
+
+  .toolbar {
+    gap: 8px;
+  }
+
+  .group {
+    width: 100%;
+  }
+
+  .group-title {
+    min-width: 43px;
+  }
+
+  .warp-grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+
+  button {
+    padding: 8px 10px;
   }
 }
 </style>
 </head>
 
 <body>
-
 <div class="app">
 
 <header>
-  <div class="brand">
-    <div class="logo">✥</div>
-    <div>
-      <h1>Fabric Analyzer</h1>
-      <small>TEXTILE DESIGN STUDIO</small>
-    </div>
-  </div>
-
-  <div class="actions">
-
-    <div class="menu">
-      <button class="btn" id="settingsBtn">⚙ تنظیمات</button>
-
-      <div class="drop" id="settings">
-
-        <h3>تنظیمات شبکه و رنگ</h3>
-
-        <div class="fields">
-          <div class="field">
-            <label>ستون‌ها</label>
-            <input id="cols" type="number" min="1" max="40" value="10">
-          </div>
-
-          <div class="field">
-            <label>ردیف‌ها</label>
-            <input id="rows" type="number" min="1" max="40" value="10">
-          </div>
-
-          <div class="field">
-            <label>تعداد رنگ تار</label>
-            <input id="warpCount" type="number" min="1" max="16" value="2">
-          </div>
-
-          <div class="field">
-            <label>تعداد پود / تقسیم هر خانه</label>
-            <input id="weftCount" type="number" min="1" max="20" value="3">
-          </div>
-        </div>
-
-        <div class="colors">
-          <b class="muted">رنگ‌های تار</b>
-          <div id="warpColors"></div>
-        </div>
-
-        <button class="btn primary" style="width:100%;margin-top:12px"
-          id="applySettings">اعمال تنظیمات</button>
-
-      </div>
-    </div>
-
-    <button class="btn" id="save">💾 ذخیره</button>
-    <button class="btn primary" id="jpg">JPG</button>
-
-  </div>
+  <div class="brand">FABRIC <span>ANALYZER</span></div>
+  <div class="status" id="saveStatus">ذخیره خودکار فعال است</div>
 </header>
 
-<div class="stats">
-  <div class="stat">شبکه <b id="size">10 × 10</b></div>
-  <div class="stat">تار <b id="wc">2</b></div>
-  <div class="stat">پود <b id="fc">3</b></div>
-  <div class="stat">ابزار <b id="modeLabel">رو تار</b></div>
+<section class="panel">
+
+  <div class="toolbar">
+
+    <div class="group">
+      <span class="group-title">ستون</span>
+      <input id="cols" type="number" min="1" max="40" value="10">
+
+      <span class="group-title">ردیف</span>
+      <input id="rows" type="number" min="1" max="40" value="10">
+
+      <span class="group-title">پود</span>
+      <input id="wefts" type="number" min="1" max="16" value="3">
+
+      <button class="primary small" id="applyBtn">اعمال</button>
+    </div>
+
+    <div class="group">
+      <button class="small" id="jpgBtn">خروجی JPG</button>
+    </div>
+
+  </div>
+
+  <details>
+    <summary>تنظیم رنگ‌های تار · ۱۶ رنگ مستقل</summary>
+    <div class="warp-grid" id="warpGrid"></div>
+  </details>
+
+</section>
+
+<section class="panel">
+
+  <div class="group-title" style="margin-bottom:10px">
+    انتخاب رنگ پود
+  </div>
+
+  <div class="palette" id="palette"></div>
+
+</section>
+
+<section class="workspace">
+  <div class="canvas-wrap">
+    <canvas id="fabricCanvas"></canvas>
+  </div>
+</section>
+
+<div class="footer">
+  <span id="gridInfo">۱۰ ستون × ۱۰ ردیف</span>
+  <span>برای رنگ‌گذاری، روی قسمت موردنظر بزن</span>
 </div>
 
-<div class="workspace">
-
-  <section class="panel">
-
-    <div class="panelhead">
-      <h2>شبکه طراحی و بافت</h2>
-      <span class="muted">شماره ستون بالا · شماره ردیف کنار شبکه</span>
-    </div>
-
-    <div class="canvasbox">
-      <canvas id="board" width="1200" height="1050"></canvas>
-    </div>
-
-    <div class="status" id="status">
-      برای ثبت وضعیت، روی یکی از بخش‌های داخل خانه لمس کن.
-    </div>
-
-  </section>
-
-  <aside class="side">
-
-    <section class="panel">
-      <div class="panelhead">
-        <h2>ابزار انتخاب</h2>
-        <span class="muted">لمس خانه‌ها</span>
-      </div>
-
-      <div class="tools">
-        <button class="btn tool active" data-mode="up">رو تار</button>
-        <button class="btn tool" data-mode="down">زیر تار</button>
-        <button class="btn tool" data-mode="erase">پاک‌کن</button>
-        <button class="btn tool" data-mode="none">انتخاب</button>
-      </div>
-
-      <p class="help">
-        هر خانه اصلی با تعداد پودها به بخش‌های افقی تقسیم می‌شود.
-        روی هر بخش بزن تا وضعیتش ثبت شود.
-        لمس دوباره همان بخش با همان وضعیت، آن را پاک می‌کند.
-        انتخاب وضعیت جدید، مقدار قبلی را جایگزین می‌کند.
-      </p>
-    </section>
-
-  </aside>
-
-</div>
 </div>
 
 <script>
+const canvas = document.getElementById("fabricCanvas");
+const ctx = canvas.getContext("2d");
 
-const $ = id => document.getElementById(id);
+const defaultWarpColors = [
+  "#e63946", "#457b9d", "#2a9d8f", "#e9c46a",
+  "#f4a261", "#9b5de5", "#00b4d8", "#80b918",
+  "#f72585", "#7209b7", "#4361ee", "#4d908e",
+  "#f94144", "#90be6d", "#f8961e", "#577590"
+];
 
-const base = () => ({
+const defaultWeftColors = [
+  "#ff3b30", "#00c853", "#2979ff",
+  "#ffea00", "#d500f9", "#00b8d4"
+];
+
+let state = {
   cols: 10,
   rows: 10,
-  warpColors: ['#f8f5ed', '#f5df9b'],
-  weftCount: 3,
-  mode: 'up',
-  cells: {}
-});
+  wefts: 3,
+  warpColors: [...defaultWarpColors],
+  weftPalette: [...defaultWeftColors],
+  selectedColor: defaultWeftColors[0],
+  marks: {}
+};
 
-let S = base();
-let mode = 'up';
+const CELL_W = 92;
+const CELL_H = 70;
+const LEFT = 45;
+const TOP = 38;
+const RIGHT = 18;
+const BOTTOM = 25;
 
-const canvas = $('board');
-const ctx = canvas.getContext('2d');
-
-function clamp(v, min, max) {
-  return Math.max(min, Math.min(max, parseInt(v) || min));
+function roundedRect(context, x, y, w, h, r) {
+  context.beginPath();
+  context.roundRect(x, y, w, h, r);
 }
 
-function key(r, c, k) {
-  return r + ',' + c + ',' + k;
+function saveState() {
+  try {
+    localStorage.setItem("fabricAnalyzerState", JSON.stringify(state));
+    document.getElementById("saveStatus").textContent = "ذخیره شد ✓";
+  } catch (e) {
+    document.getElementById("saveStatus").textContent = "ذخیره‌سازی در دسترس نیست";
+  }
 }
 
-function say(text) {
-  $('status').textContent = text;
+function loadState() {
+  try {
+    const saved = localStorage.getItem("fabricAnalyzerState");
+    if (!saved) return;
+
+    const parsed = JSON.parse(saved);
+
+    if (
+      Number.isInteger(parsed.cols) &&
+      Number.isInteger(parsed.rows) &&
+      Number.isInteger(parsed.wefts) &&
+      Array.isArray(parsed.warpColors) &&
+      Array.isArray(parsed.weftPalette) &&
+      parsed.marks &&
+      typeof parsed.marks === "object"
+    ) {
+      state = {
+        ...state,
+        ...parsed,
+        cols: Math.max(1, Math.min(40, parsed.cols)),
+        rows: Math.max(1, Math.min(40, parsed.rows)),
+        wefts: Math.max(1, Math.min(16, parsed.wefts)),
+        warpColors: Array.from(
+          {length:16},
+          (_,i) => parsed.warpColors[i] || defaultWarpColors[i]
+        )
+      };
+    }
+  } catch (e) {
+    console.warn("Saved data could not be loaded.");
+  }
 }
 
-function renderColors() {
+function renderWarpControls() {
+  const box = document.getElementById("warpGrid");
+  box.innerHTML = "";
 
-  const box = $('warpColors');
-  box.replaceChildren();
+  state.warpColors.forEach((color, index) => {
+    const item = document.createElement("label");
+    item.className = "warp-item";
 
-  S.warpColors.forEach((color, i) => {
+    const input = document.createElement("input");
+    input.type = "color";
+    input.value = color;
 
-    const row = document.createElement('div');
-    row.className = 'colorrow';
-
-    const name = document.createElement('span');
-    name.textContent = 'تار ' + (i + 1);
-
-    const picker = document.createElement('input');
-    picker.type = 'color';
-    picker.value = color;
-
-    picker.oninput = () => {
-      S.warpColors[i] = picker.value;
+    input.addEventListener("input", () => {
+      state.warpColors[index] = input.value;
       draw();
-    };
+      saveState();
+    });
 
-    row.append(name, picker);
-    box.append(row);
+    const text = document.createElement("span");
+    text.textContent = "تار " + (index + 1);
 
+    item.appendChild(input);
+    item.appendChild(text);
+    box.appendChild(item);
+  });
+}
+
+function renderPalette() {
+  const box = document.getElementById("palette");
+  box.innerHTML = "";
+
+  state.weftPalette.forEach(color => {
+    const button = document.createElement("button");
+    button.className = "swatch";
+    button.style.background = color;
+    button.title = color;
+
+    if (state.selectedColor === color) {
+      button.classList.add("selected");
+    }
+
+    button.addEventListener("click", () => {
+      state.selectedColor = color;
+      renderPalette();
+      saveState();
+    });
+
+    box.appendChild(button);
   });
 
-}
+  const picker = document.createElement("input");
+  picker.type = "color";
+  picker.title = "افزودن رنگ جدید";
 
-function sync() {
+  picker.addEventListener("input", () => {
+    const color = picker.value.toLowerCase();
 
-  $('cols').value = S.cols;
-  $('rows').value = S.rows;
-  $('warpCount').value = S.warpColors.length;
-  $('weftCount').value = S.weftCount;
+    if (!state.weftPalette.includes(color)) {
+      state.weftPalette.push(color);
+    }
 
-  $('size').textContent = S.cols + ' × ' + S.rows;
-  $('wc').textContent = S.warpColors.length;
-  $('fc').textContent = S.weftCount;
-
-}
-
-function setMode(m) {
-
-  mode = m;
-
-  document.querySelectorAll('[data-mode]').forEach(btn => {
-    btn.classList.toggle('active', btn.dataset.mode === m);
+    state.selectedColor = color;
+    renderPalette();
+    saveState();
   });
 
-  $('modeLabel').textContent =
-    m === 'up' ? 'رو تار' :
-    m === 'down' ? 'زیر تار' :
-    m === 'erase' ? 'پاک‌کن' : 'انتخاب';
-
+  box.appendChild(picker);
 }
-
-document.querySelectorAll('[data-mode]').forEach(btn => {
-  btn.onclick = () => setMode(btn.dataset.mode);
-});
 
 function draw() {
+  const width = LEFT + state.cols * CELL_W + RIGHT;
+  const height = TOP + state.rows * CELL_H + BOTTOM;
 
-  const W = 1200;
-  const H = 1050;
+  const dpr = Math.max(1, window.devicePixelRatio || 1);
 
-  const L = 65;
-  const T = 48;
-  const R = 20;
-  const B = 30;
+  canvas.width = Math.round(width * dpr);
+  canvas.height = Math.round(height * dpr);
 
-  canvas.width = W;
-  canvas.height = H;
+  canvas.style.width = width + "px";
+  canvas.style.maxWidth = "100%";
 
-  ctx.clearRect(0, 0, W, H);
+  ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+  ctx.clearRect(0, 0, width, height);
 
-  const gw = W - L - R;
-  const gh = H - T - B;
-
-  const cw = gw / S.cols;
-  const ch = gh / S.rows;
+  ctx.fillStyle = "#e8e8e8";
+  ctx.fillRect(0, 0, width, height);
 
   // شماره ستون‌ها
-  ctx.fillStyle = '#d9c18e';
-  ctx.font = 'bold 20px Tahoma';
-  ctx.textAlign = 'center';
-  ctx.textBaseline = 'middle';
+  ctx.fillStyle = "#333";
+  ctx.font = "12px Arial";
+  ctx.textAlign = "center";
+  ctx.textBaseline = "middle";
 
-  for (let c = 0; c < S.cols; c++) {
-    ctx.fillText(String(c + 1), L + (c + .5) * cw, T - 23);
+  for (let c = 0; c < state.cols; c++) {
+    const x = LEFT + c * CELL_W + CELL_W / 2;
+    ctx.fillText(String(c + 1), x, 17);
   }
 
   // شماره ردیف‌ها
-  ctx.textAlign = 'center';
-
-  for (let r = 0; r < S.rows; r++) {
-    ctx.fillText(String(r + 1), L - 31, T + (r + .5) * ch);
+  for (let r = 0; r < state.rows; r++) {
+    const y = TOP + r * CELL_H + CELL_H / 2;
+    ctx.fillText(String(r + 1), 20, y);
   }
 
-  const gap = Math.max(1.5, Math.min(3.5, cw * .025, ch * .025));
-  const rad = Math.min(8, cw * .08, ch * .08);
+  for (let r = 0; r < state.rows; r++) {
+    for (let c = 0; c < state.cols; c++) {
 
-  // پس‌زمینه رنگ تارها
-  for (let r = 0; r < S.rows; r++) {
-    for (let c = 0; c < S.cols; c++) {
+      const x = LEFT + c * CELL_W;
+      const y = TOP + r * CELL_H;
 
-      const x = L + c * cw + gap / 2;
-      const y = T + r * ch + gap / 2;
+      // پس‌زمینه سفید
+      ctx.fillStyle = "#ffffff";
+      ctx.fillRect(x, y, CELL_W, CELL_H);
 
-      ctx.beginPath();
-      ctx.roundRect(x, y, cw - gap, ch - gap, rad);
+      // رنگ تار دور سلول
+      const warpColor = state.warpColors[c % 16];
 
-      ctx.fillStyle = S.warpColors[c % S.warpColors.length];
-      ctx.fill();
+      roundedRect(
+        ctx,
+        x + 2,
+        y + 2,
+        CELL_W - 4,
+        CELL_H - 4,
+        7
+      );
 
-    }
-  }
+      ctx.strokeStyle = warpColor;
+      ctx.lineWidth = 6;
+      ctx.stroke();
 
-  // نمایش وضعیت رو و زیر تار در هر زیربخش
-  for (let r = 0; r < S.rows; r++) {
-    for (let c = 0; c < S.cols; c++) {
-      for (let k = 0; k < S.weftCount; k++) {
+      // رنگ‌گذاری زیربخش‌های پود
+      const partHeight = CELL_H / state.wefts;
 
-        const value = S.cells[key(r, c, k)];
+      for (let k = 0; k < state.wefts; k++) {
+        const key = `${r},${c},${k}`;
+        const color = state.marks[key];
 
-        if (!value) continue;
-
-        const x = L + c * cw + gap;
-        const y = T + r * ch + (k / S.weftCount) * ch;
-        const sh = ch / S.weftCount;
-
-        if (value === 'up') {
-
-          ctx.save();
-          ctx.globalAlpha = .45;
-          ctx.fillStyle = '#172438';
-          ctx.fillRect(x, y, cw - gap, sh);
-          ctx.restore();
-
-          ctx.strokeStyle = '#111c2b';
-          ctx.lineWidth = Math.max(2, cw * .025);
-
-          ctx.beginPath();
-          ctx.moveTo(x + cw * .28, y + sh * .5);
-          ctx.lineTo(x + cw * .46, y + sh * .72);
-          ctx.lineTo(x + cw * .76, y + sh * .28);
-          ctx.stroke();
-
-        } else if (value === 'down') {
-
-          ctx.strokeStyle = '#172438';
-          ctx.lineWidth = Math.max(1.5, cw * .02);
-
-          ctx.beginPath();
-          ctx.moveTo(x + cw * .3, y + sh * .5);
-          ctx.lineTo(x + cw * .7, y + sh * .5);
-          ctx.stroke();
-
+        if (color) {
+          ctx.fillStyle = color;
+          ctx.fillRect(
+            x + 6,
+            y + k * partHeight + 2,
+            CELL_W - 12,
+            partHeight - 4
+          );
         }
-
       }
-    }
-  }
 
-  // خطوط اصلی سلول‌ها: مشکی و ضخیم
-  ctx.strokeStyle = '#111820';
-  ctx.lineWidth = Math.max(2.4, Math.min(4, cw * .035));
+      // خطوط تقسیم پود: مشکی و کم‌رنگ
+      ctx.save();
+      ctx.strokeStyle = "rgba(0,0,0,0.35)";
+      ctx.lineWidth = 1;
 
-  for (let r = 0; r < S.rows; r++) {
-    for (let c = 0; c < S.cols; c++) {
+      for (let k = 1; k < state.wefts; k++) {
+        const lineY = y + k * partHeight;
+        ctx.beginPath();
+        ctx.moveTo(x + 4, lineY);
+        ctx.lineTo(x + CELL_W - 4, lineY);
+        ctx.stroke();
+      }
 
-      const x = L + c * cw + gap / 2;
-      const y = T + r * ch + gap / 2;
+      ctx.restore();
 
-      ctx.beginPath();
-      ctx.roundRect(x, y, cw - gap, ch - gap, rad);
+      // خط اصلی سلول: مشکی و ضخیم
+      roundedRect(
+        ctx,
+        x + 2,
+        y + 2,
+        CELL_W - 4,
+        CELL_H - 4,
+        7
+      );
+
+      ctx.strokeStyle = "#111111";
+      ctx.lineWidth = 2;
       ctx.stroke();
-
     }
   }
-
-  // خطوط تقسیم پود: مشکی، نازک و کم‌رنگ
-  ctx.strokeStyle = 'rgba(0,0,0,.36)';
-  ctx.lineWidth = 1.15;
-
-  for (let r = 0; r < S.rows; r++) {
-    for (let k = 1; k < S.weftCount; k++) {
-
-      const y = T + r * ch + (k / S.weftCount) * ch;
-
-      ctx.beginPath();
-      ctx.moveTo(L + 1, y);
-      ctx.lineTo(L + gw - 1, y);
-      ctx.stroke();
-
-    }
-  }
-
-  // قاب بیرونی
-  ctx.strokeStyle = '#080d15';
-  ctx.lineWidth = 4;
-  ctx.strokeRect(L, T, gw, gh);
-
 }
 
-function applySettings() {
-
-  const cols = clamp($('cols').value, 1, 40);
-  const rows = clamp($('rows').value, 1, 40);
-  const wc = clamp($('warpCount').value, 1, 16);
-  const fc = clamp($('weftCount').value, 1, 20);
-
-  S.cols = cols;
-  S.rows = rows;
-  S.weftCount = fc;
-
-  const palette = [
-    '#f8f5ed',
-    '#f5df9b',
-    '#e8eee5',
-    '#f1d9d0',
-    '#e2e6f5',
-    '#eadfc9'
-  ];
-
-  while (S.warpColors.length < wc) {
-    S.warpColors.push(
-      palette[S.warpColors.length % palette.length]
-    );
-  }
-
-  S.warpColors = S.warpColors.slice(0, wc);
-
-  // داده‌های خارج از ابعاد جدید حذف می‌شوند
-  S.cells = {};
-
-  sync();
-  renderColors();
-  draw();
-
-  $('settings').classList.remove('open');
-
-  say('تنظیمات شبکه اعمال شد.');
-
-}
-
-$('applySettings').onclick = applySettings;
-
-$('settingsBtn').onclick = () => {
-  $('settings').classList.toggle('open');
-};
-
-document.addEventListener('click', e => {
-  if (!e.target.closest('.menu')) {
-    $('settings').classList.remove('open');
-  }
-});
-
-// تشخیص دقیق خانه و زیربخش لمس‌شده
-function pointerCell(e) {
-
+function getCellFromPointer(event) {
   const rect = canvas.getBoundingClientRect();
 
-  const sx = canvas.width / rect.width;
-  const sy = canvas.height / rect.height;
+  const scaleX = canvas.width /
+    (window.devicePixelRatio || 1) / rect.width;
 
-  const x = (e.clientX - rect.left) * sx;
-  const y = (e.clientY - rect.top) * sy;
+  const scaleY = canvas.height /
+    (window.devicePixelRatio || 1) / rect.height;
 
-  const L = 65;
-  const T = 48;
-  const R = 20;
-  const B = 30;
+  const x = (event.clientX - rect.left) * scaleX - LEFT;
+  const y = (event.clientY - rect.top) * scaleY - TOP;
 
-  const gw = 1200 - L - R;
-  const gh = 1050 - T - B;
+  if (x < 0 || y < 0) return null;
 
-  if (x < L || x > L + gw || y < T || y > T + gh) {
+  const col = Math.floor(x / CELL_W);
+  const row = Math.floor(y / CELL_H);
+
+  if (col < 0 || col >= state.cols ||
+      row < 0 || row >= state.rows) {
     return null;
   }
 
-  const c = Math.floor((x - L) / (gw / S.cols));
-  const r = Math.floor((y - T) / (gh / S.rows));
+  const localY = y - row * CELL_H;
+  const part = Math.floor(localY / (CELL_H / state.wefts));
 
-  const localY = (y - T - r * (gh / S.rows)) / (gh / S.rows);
+  if (part < 0 || part >= state.wefts) return null;
 
-  const k = Math.min(
-    S.weftCount - 1,
-    Math.floor(localY * S.weftCount)
-  );
-
-  return { r, c, k };
-
+  return {row, col, part};
 }
 
-canvas.addEventListener('click', e => {
+canvas.addEventListener("pointerdown", event => {
+  const cell = getCellFromPointer(event);
+  if (!cell) return;
 
-  const p = pointerCell(e);
+  const key = `${cell.row},${cell.col},${cell.part}`;
+  const oldColor = state.marks[key];
 
-  if (!p) return;
-
-  const id = key(p.r, p.c, p.k);
-  const old = S.cells[id];
-
-  if (mode === 'none') {
-    say(
-      'ردیف ' + (p.r + 1) +
-      '، ستون ' + (p.c + 1) +
-      '، بخش ' + (p.k + 1)
-    );
-    return;
-  }
-
-  if (mode === 'erase') {
-
-    delete S.cells[id];
-    say('بخش پاک شد.');
-
-  } else if (old === mode) {
-
-    delete S.cells[id];
-    say('علامت قبلی پاک شد.');
-
+  // لمس مجدد با همان رنگ: پاک کردن
+  if (oldColor === state.selectedColor) {
+    delete state.marks[key];
   } else {
-
-    S.cells[id] = mode;
-
-    say(
-      'ردیف ' + (p.r + 1) +
-      '، ستون ' + (p.c + 1) +
-      '، بخش ' + (p.k + 1) +
-      ' ثبت شد.'
-    );
-
+    // رنگ جدید جایگزین رنگ قبلی می‌شود
+    state.marks[key] = state.selectedColor;
   }
 
   draw();
-
+  saveState();
 });
 
-// فقط یک دکمه ذخیره
-$('save').onclick = () => {
+document.getElementById("applyBtn").addEventListener("click", () => {
+  const cols = Number(document.getElementById("cols").value);
+  const rows = Number(document.getElementById("rows").value);
+  const wefts = Number(document.getElementById("wefts").value);
 
-  localStorage.setItem(
-    'fabricAnalyzerV3',
-    JSON.stringify(S)
-  );
+  if (
+    !Number.isInteger(cols) || !Number.isInteger(rows) ||
+    !Number.isInteger(wefts) ||
+    cols < 1 || cols > 40 ||
+    rows < 1 || rows > 40 ||
+    wefts < 1 || wefts > 16
+  ) {
+    alert("مقادیر ستون، ردیف و پود باید معتبر باشند.");
+    return;
+  }
 
-  say('پروژه در مرورگر ذخیره شد.');
+  state.cols = cols;
+  state.rows = rows;
+  state.wefts = wefts;
 
-};
+  // حذف رنگ‌های خارج از ابعاد جدید
+  for (const key of Object.keys(state.marks)) {
+    const [r,c,k] = key.split(",").map(Number);
 
-// خروجی JPG
-$('jpg').onclick = () => {
+    if (r >= rows || c >= cols || k >= wefts) {
+      delete state.marks[key];
+    }
+  }
 
-  const a = document.createElement('a');
+  draw();
+  saveState();
 
-  a.download = 'fabric-analyzer.jpg';
-  a.href = canvas.toDataURL('image/jpeg', .96);
+  document.getElementById("gridInfo").textContent =
+    `${cols} ستون × ${rows} ردیف · ${wefts} پود`;
+});
 
-  a.click();
+document.getElementById("jpgBtn").addEventListener("click", () => {
+  const link = document.createElement("a");
+  link.download = "Fabric-Analyzer.jpg";
+  link.href = canvas.toDataURL("image/jpeg", 0.98);
+  link.click();
+});
 
-  say('تصویر JPG آماده شد.');
+loadState();
 
-};
+document.getElementById("cols").value = state.cols;
+document.getElementById("rows").value = state.rows;
+document.getElementById("wefts").value = state.wefts;
 
-// بازیابی آخرین پروژه ذخیره‌شده
-const saved = localStorage.getItem('fabricAnalyzerV3');
+document.getElementById("gridInfo").textContent =
+  `${state.cols} ستون × ${state.rows} ردیف · ${state.wefts} پود`;
 
-if (saved) {
-  try {
-    S = { ...base(), ...JSON.parse(saved) };
-  } catch (e) {}
-}
-
-sync();
-renderColors();
-setMode(S.mode || 'up');
+renderWarpControls();
+renderPalette();
 draw();
-
 </script>
 
 </body>
