@@ -62,8 +62,13 @@ button:disabled{opacity:.3;cursor:not-allowed;transform:none}
  stroke-dasharray:100;stroke-dashoffset:100;
  animation:threadDraw 1.12s cubic-bezier(.2,.78,.22,1) forwards;
 }
-.thread-mark .thread:nth-of-type(2){animation-delay:.42s}
-.thread-mark .thread:nth-of-type(3){animation-delay:.58s}
+.thread-mark .thread:nth-of-type(2){animation-delay:.08s}
+.thread-mark .thread:nth-of-type(3){animation-delay:.16s}
+.thread-mark .thread:nth-of-type(4){animation-delay:.24s}
+.thread-mark .thread:nth-of-type(5){animation-delay:.32s}
+.thread-mark .thread:nth-of-type(6){animation-delay:.40s}
+.thread-mark .thread:nth-of-type(7){animation-delay:.48s}
+.thread-mark .thread:nth-of-type(8){animation-delay:.56s}
 .thread-mark .core{
  fill:#f1d19b;opacity:0;transform-box:fill-box;
  transform-origin:center;transform:scale(.35);
@@ -680,9 +685,13 @@ html[dir="rtl"] .wizard-dialog{direction:rtl}
      <stop offset="1" stop-color="#a77b45"/>
     </linearGradient>
    </defs>
-   <path class="thread" pathLength="100" d="M12 60 C32 60 40 40 60 60 C80 80 88 60 108 60"/>
-   <path class="thread" pathLength="100" d="M60 12 C60 32 80 40 64 56"/>
-   <path class="thread" pathLength="100" d="M56 64 C40 80 60 88 60 108"/>
+   <!-- Three horizontal and three vertical strands form a compact woven textile grid. -->
+   <path class="thread" pathLength="100" d="M12 31 C28 22 40 40 60 31 S92 22 108 31"/>
+   <path class="thread" pathLength="100" d="M12 60 C28 51 40 69 60 60 S92 51 108 60"/>
+   <path class="thread" pathLength="100" d="M12 89 C28 80 40 98 60 89 S92 80 108 89"/>
+   <path class="thread" pathLength="100" d="M31 12 C22 28 40 40 31 60 S22 92 31 108"/>
+   <path class="thread" pathLength="100" d="M60 12 C51 28 69 40 60 60 S51 92 60 108"/>
+   <path class="thread" pathLength="100" d="M89 12 C80 28 98 40 89 60 S80 92 89 108"/>
    <rect class="core" x="57.5" y="57.5" width="5" height="5" rx="1" transform="rotate(45 60 60)"/>
   </svg>
  </div>
