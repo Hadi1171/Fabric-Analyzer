@@ -9,7 +9,7 @@
     "prepare:mobile": "node scripts/prepare-mobile.cjs",
     "android:add": "npm run prepare:mobile && cap add android",
     "android:sync": "npm run prepare:mobile && cap sync android",
-    "dist:win": "electron-builder --win nsis portable"
+    "dist:win": "electron-builder --win nsis portable --publish never"
   },
   "dependencies": {
     "@capacitor/android": "^7.4.3",
