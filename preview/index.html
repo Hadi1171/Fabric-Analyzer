@@ -655,7 +655,7 @@ button:disabled{opacity:.3;cursor:not-allowed;transform:none}
 .wizard-header{display:flex;align-items:center;gap:12px;margin-bottom:18px}
 .wizard-home-button{flex:0 0 42px;width:42px;height:42px;padding:5px;display:grid;place-items:center;border-radius:10px;background:#1b2433;border:1px solid #56647a}
 .wizard-home-button:hover{border-color:var(--accent);background:#303b4d}
-.wizard-home-button img{width:29px;height:29px;object-fit:contain;display:block}
+.wizard-home-button svg{width:24px;height:24px;display:block;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;color:#e7edf7}
 .wizard-header .wizard-progress{flex:1;margin:0}
 .wizard-actions .cancel-button:disabled{opacity:.35;cursor:not-allowed}
 .wizard-progress{height:4px;background:#151c28;border-radius:9px;overflow:hidden;margin:0 0 18px}
@@ -801,7 +801,7 @@ html[dir="rtl"] .welcome-language{right:14px!important;left:auto!important}
 <div class="dialog-backdrop" id="projectWizard">
  <div class="dialog wizard-dialog">
   <div class="wizard-header">
-   <button class="wizard-home-button" id="wizardHomeBtn" type="button" aria-label="Home"><img src="../assets/app-icon.svg" alt=""></button>
+   <button class="wizard-home-button" id="wizardHomeBtn" type="button" aria-label="Back"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M19 12H5M12 19l-7-7 7-7"/></svg></button>
    <div class="wizard-progress"><span id="wizardProgress"></span></div>
   </div>
   <div class="wizard-step-label" id="wizardStepLabel">STEP 1 OF 4</div>
