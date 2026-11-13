@@ -114,9 +114,10 @@ button:disabled{opacity:.3;cursor:not-allowed;transform:none}
  .splash-loader span{width:100%}
 }
 /* WELCOME SCREEN */
-.welcome-language{position:absolute;top:22px;right:24px;display:flex;gap:5px;padding:4px;border:1px solid #39475c;border-radius:10px;background:#1a2230}
-.welcome-language button{min-width:66px;height:30px;padding:0 10px;border:0;background:transparent;color:#9eacc0;font-size:11px;font-weight:800}
-.welcome-language button.active{background:#3b4658;color:#f0d3a2;box-shadow:inset 0 0 0 1px #58677e}
+.welcome-language{position:fixed;z-index:1200;top:18px;right:18px;display:flex!important;visibility:visible!important;opacity:1!important;pointer-events:auto;gap:5px;padding:5px;border:1px solid #66758d;border-radius:11px;background:#202b3b;box-shadow:0 8px 26px #0008}
+.welcome-language button{display:inline-flex!important;visibility:visible!important;opacity:1!important;align-items:center;justify-content:center;min-width:74px;height:34px;padding:0 12px;border:1px solid #46556d;border-radius:7px;background:#2a374a;color:#e6edf7;font-size:12px;font-weight:800;cursor:pointer}
+.welcome-language button.active{background:#e0b978;color:#202633;border-color:#e0b978;box-shadow:none}
+.welcome-screen:not(.show) .welcome-language{display:none!important}
 .welcome-screen{
  position:fixed;inset:0;z-index:900;display:none;
  align-items:center;justify-content:center;padding:22px;
@@ -562,7 +563,7 @@ button:disabled{opacity:.3;cursor:not-allowed;transform:none}
 }
 
 @media(max-width:650px){
- .welcome-language{top:12px;right:12px}
+  .welcome-language{top:12px;right:12px}
  html[dir="rtl"] .welcome-language{right:auto;left:12px}
  .welcome-inner{padding-top:42px}
  .topbar{height:43px;padding:0 10px}
@@ -585,8 +586,8 @@ button:disabled{opacity:.3;cursor:not-allowed;transform:none}
  .left-dock,.right-dock{display:none!important}
  .help-button{width:30px;padding:0}
  .help-button span{display:none}
- .home-back-button{height:30px;padding:0 9px;font-size:10px}
- .home-back-button span{display:inline}
+  .home-back-button{width:32px;height:30px;padding:2px}
+ .home-back-button img{width:23px;height:23px}
  .help-dialog{padding:12px;max-height:88dvh}
  .mobile-settings-panel .yarn-columns{flex-direction:row}
  .mobile-settings-panel .yarn-column{flex:1 1 50%}
@@ -679,7 +680,7 @@ html[dir="rtl"] .save-dialog,html[dir="rtl"] .save-dialog h3,html[dir="rtl"] .sa
 html[dir="rtl"] .topbar,html[dir="rtl"] .topbar-right{direction:rtl}
 html[dir="rtl"] .stage-footer{direction:rtl}
 html[dir="rtl"] .wizard-dialog{direction:rtl}
-html[dir="rtl"] .welcome-language{right:auto;left:24px}
+html[dir="rtl"] .welcome-language{right:auto;left:18px}
 @media(max-width:650px){.wizard-dialog{padding:17px}.wizard-color-list{grid-template-columns:1fr 1fr}.language-card{padding:20px}}
 
 /* ACCESSIBILITY */
@@ -773,7 +774,7 @@ html[dir="rtl"] .welcome-language{right:auto;left:24px}
 <div class="dialog-backdrop" id="projectWizard">
  <div class="dialog wizard-dialog">
   <div class="wizard-header">
-   <button class="wizard-home-button" id="wizardHomeBtn" type="button" title="Back to Home" aria-label="Back to Home"><img src="../assets/app-icon.svg" alt=""></button>
+   <button class="wizard-home-button" id="wizardHomeBtn" type="button" aria-label="Home"><img src="../assets/app-icon.svg" alt=""></button>
    <div class="wizard-progress"><span id="wizardProgress"></span></div>
   </div>
   <div class="wizard-step-label" id="wizardStepLabel">STEP 1 OF 4</div>
@@ -793,7 +794,7 @@ html[dir="rtl"] .welcome-language{right:auto;left:24px}
 <header class="topbar">
  <div class="brand">FABRIC <span>ANALYZER</span></div>
  <div class="topbar-right">
-  <button class="home-back-button" id="homeBackBtn" type="button" title="Back to Home" aria-label="Back to Home">
+  <button class="home-back-button" id="homeBackBtn" type="button" aria-label="Home">
    <img src="../assets/app-icon.svg" alt="">
   </button>
   <span class="workspace-label">Design Workspace</span>
@@ -1075,7 +1076,7 @@ const translations={
  "Create New Project":"ساخت پروژه جدید",
  "Start with a clean canvas and build a new textile pattern from scratch.":"با یک صفحه خالی، طرح پارچه جدیدت را از ابتدا بساز.",
  "DESIGN WITH PRECISION":"طراحی با دقت",
- "Design Workspace":"محیط طراحی","Back to Home":"بازگشت به خانه",
+ "Design Workspace":"محیط طراحی",
  "Help":"راهنما","Help & Shortcuts":"راهنما و میانبرها",
  "Yarn Settings":"تنظیمات نخ","Warp & Weft":"تار و پود","Warp Colors":"رنگ تار","Weft Colors":"رنگ پود",
  "Export Image":"خروجی تصویر","Paint Tool":"ابزار نقاشی","Unlock Painting":"باز کردن قفل نقاشی","Lock Painting":"قفل نقاشی",
