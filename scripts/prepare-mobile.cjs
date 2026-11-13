@@ -11,4 +11,9 @@ if (!fs.existsSync(source)) {
 
 fs.mkdirSync(webDir, { recursive: true });
 fs.copyFileSync(source, path.join(webDir, "index.html"));
+
+const assetsDir = path.join(root, "assets");
+if (fs.existsSync(assetsDir)) {
+  fs.cpSync(assetsDir, path.join(webDir, "assets"), { recursive: true });
+}
 console.log("Prepared the current Fabric Analyzer web app for Capacitor.");
