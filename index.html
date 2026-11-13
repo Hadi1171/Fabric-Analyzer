@@ -1635,7 +1635,7 @@ function encodeJFA(project){
  return "JFA1:"+btoa(binary);
 }
 function decodeJFA(raw){
- if(!raw.startsWith("JFA1:")) return JSON.parse(raw.replace(/^\\uFEFF/,""));
+ if(!raw.startsWith("JFA1:")) return JSON.parse(raw.charCodeAt(0)===0xFEFF?raw.slice(1):raw);
  const binary=atob(raw.slice(5));
  const bytes=Uint8Array.from(binary,ch=>ch.charCodeAt(0));
  const parsed=JSON.parse(new TextDecoder().decode(bytes));
