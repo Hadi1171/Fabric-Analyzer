@@ -693,6 +693,32 @@ html[dir="rtl"] .welcome-language{right:auto;left:18px}
   transition-duration:.01ms!important
  }
 }
+
+/* FINAL LANGUAGE SWITCH: two compact square buttons, bottom-right */
+.welcome-language{
+ position:fixed!important;z-index:1200!important;right:14px!important;bottom:14px!important;
+ left:auto!important;top:auto!important;display:flex!important;gap:5px!important;
+ padding:0!important;border:0!important;border-radius:0!important;background:transparent!important;
+ box-shadow:none!important;backdrop-filter:none!important;direction:ltr!important
+}
+.welcome-language>span{display:none!important}
+.welcome-language button{
+ display:flex!important;align-items:center!important;justify-content:center!important;
+ width:29px!important;min-width:29px!important;height:29px!important;padding:0!important;
+ border:1px solid #59677c!important;border-radius:7px!important;
+ background:#202b3b!important;color:#d8e0ec!important;font-size:10px!important;
+ font-weight:800!important;letter-spacing:0!important;box-shadow:0 2px 8px #0005!important
+}
+.welcome-language button.active{
+ background:#e0b978!important;color:#202633!important;border-color:#e0b978!important
+}
+html[dir="rtl"] .welcome-language{right:14px!important;left:auto!important}
+@media(max-width:650px){
+ .welcome-language{right:12px!important;bottom:12px!important;left:auto!important;top:auto!important}
+ html[dir="rtl"] .welcome-language{right:12px!important;left:auto!important}
+}
+.welcome-screen:not(.show) .welcome-language{display:none!important}
+
 </style>
 </head>
 
@@ -728,9 +754,8 @@ html[dir="rtl"] .welcome-language{right:auto;left:18px}
 <div class="welcome-screen" id="welcomeScreen">
  <div class="welcome-inner">
   <div class="welcome-language" role="group" aria-label="Language">
-   <button type="button" id="homeLangEn" data-home-language="en">EN</button>
-   <span aria-hidden="true">/</span>
    <button type="button" id="homeLangFa" data-home-language="fa">فا</button>
+   <button type="button" id="homeLangEn" data-home-language="en">EN</button>
   </div>
   <div class="welcome-brand">FABRIC <span>ANALYZER</span></div>
   <h1 class="welcome-title">What would you like to create?</h1>
