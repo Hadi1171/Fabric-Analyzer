@@ -1208,7 +1208,19 @@ let wizardStep=0;
 let wizardData={cols:10,rows:10,warps:16,wefts:3,weftColors:[...defaultWeftColors]};
 function openProjectWizard(){
  wizardStep=0;wizardData={cols:10,rows:10,warps:16,wefts:3,weftColors:[...defaultWeftColors]};
- renderWizard();wizard.classList.add("show");
+ renderWizard();
+ welcomeScreen.classList.remove("show");
+ wizard.setAttribute("aria-hidden","false");
+ wizard.classList.add("show");
+}
+function returnWizardToHome(event){
+ if(event){event.preventDefault();event.stopPropagation();}
+ wizard.classList.remove("show");
+ wizard.setAttribute("aria-hidden","true");
+ mainApp.classList.add("is-hidden");
+ mainApp.classList.remove("entered");
+ welcomeScreen.classList.add("show");
+ updateHomeLanguageButtons();
 }
 function renderWizard(){
  const fa=document.documentElement.lang==="fa";
@@ -1261,7 +1273,7 @@ function createFreshProject(){
 }
 document.getElementById("startupNewBtn").addEventListener("click",openProjectWizard);
 document.getElementById("wizardBack").addEventListener("click",()=>{if(wizardStep>0){wizardStep--;renderWizard();}});
-document.getElementById("wizardHomeBtn").addEventListener("click",()=>{wizard.classList.remove("show");welcomeScreen.classList.add("show");});
+document.getElementById("wizardHomeBtn").addEventListener("click",returnWizardToHome);
 document.getElementById("wizardNext").addEventListener("click",()=>{
  if(wizardStep<3){wizardStep++;renderWizard();return;}
  createFreshProject();
