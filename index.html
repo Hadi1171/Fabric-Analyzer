@@ -97,6 +97,25 @@ button:disabled{opacity:.3;cursor:not-allowed;transform:none}
   font-size:11px;
 }
 
+.help-button{
+  height:29px;
+  padding:0 9px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:6px;
+  background:#303b4d;
+  border:1px solid #46536a;
+  color:#e5eaf2;
+  font-size:11px;
+  font-weight:700;
+}
+
+.help-button:hover{
+  border-color:var(--accent);
+  color:var(--accent);
+}
+
 /* WORKSPACE */
 
 .workspace{
@@ -141,7 +160,7 @@ button:disabled{opacity:.3;cursor:not-allowed;transform:none}
   font-size:9px;
 }
 
-/* WARP / WEFT STACK */
+/* WARP / WEFT */
 
 .yarn-columns{
   flex:1;
@@ -284,7 +303,7 @@ button:disabled{opacity:.3;cursor:not-allowed;transform:none}
   stroke-linejoin:round;
 }
 
-/* CENTER STAGE */
+/* CENTER */
 
 .center-stage{
   min-width:0;
@@ -410,6 +429,112 @@ button:disabled{opacity:.3;cursor:not-allowed;transform:none}
   stroke-width:1.8;
   stroke-linecap:round;
   stroke-linejoin:round;
+}
+
+/* MOBILE SETTINGS */
+
+.mobile-settings{
+  display:none;
+  flex-shrink:0;
+  background:#1b2230;
+  border-bottom:1px solid #394456;
+  padding:5px;
+}
+
+.mobile-tabs{
+  display:flex;
+  gap:5px;
+  margin-bottom:5px;
+}
+
+.mobile-tab{
+  flex:1;
+  min-width:0;
+  height:34px;
+  background:#252d3b;
+  border:1px solid #394456;
+  color:#aeb9c9;
+  font-size:11px;
+  font-weight:700;
+}
+
+.mobile-tab.active{
+  background:#3b4658;
+  border-color:var(--accent);
+  color:var(--accent);
+}
+
+.mobile-settings-panel{
+  max-height:145px;
+  min-height:0;
+  overflow-y:auto;
+  overflow-x:hidden;
+  scrollbar-width:thin;
+  scrollbar-color:#53627a #202633;
+}
+
+.mobile-settings-panel[hidden]{
+  display:none !important;
+}
+
+.mobile-settings-panel .yarn-columns{
+  display:flex;
+  flex-direction:row;
+  gap:5px;
+  overflow:visible;
+}
+
+.mobile-settings-panel .yarn-column{
+  flex:1 1 50%;
+  min-width:0;
+  max-height:130px;
+}
+
+.mobile-settings-panel .yarn-column-scroll{
+  max-height:95px;
+}
+
+.mobile-settings-panel .color-grid{
+  grid-template-columns:repeat(2,minmax(0,1fr));
+}
+
+.mobile-settings-panel .jpg-action{
+  padding-top:5px;
+  margin-top:5px;
+}
+
+.mobile-settings-panel .jpg-action button{
+  height:29px;
+}
+
+/* MOBILE DIMENSIONS */
+
+.mobile-settings-panel .dock-panel{
+  margin:0 0 5px;
+}
+
+.mobile-settings-panel .dock-panel summary{
+  min-height:30px;
+  font-size:10px;
+}
+
+.mobile-settings-panel .panel-content{
+  padding:7px;
+}
+
+.mobile-settings-panel .dimension-row{
+  margin-bottom:6px;
+}
+
+.mobile-settings-panel .dimension-row input{
+  height:29px;
+  width:75px;
+}
+
+.mobile-settings-panel .apply-button{
+  height:30px;
+  margin-top:5px;
+  font-size:10px;
 }
 
 /* CANVAS */
@@ -627,7 +752,7 @@ button:disabled{opacity:.3;cursor:not-allowed;transform:none}
 .info-line:last-child{border:0}
 .info-line strong{color:#e2e8f0;font-weight:600}
 
-/* DIALOG */
+/* DIALOGS */
 
 .dialog-backdrop{
   display:none;
@@ -700,6 +825,104 @@ button:disabled{opacity:.3;cursor:not-allowed;transform:none}
   background:#394456;
 }
 
+/* HELP */
+
+.help-dialog{
+  width:min(520px,100%);
+  max-height:85dvh;
+  display:flex;
+  flex-direction:column;
+  background:#202633;
+  border:1px solid #4a5870;
+  border-radius:13px;
+  padding:17px;
+  box-shadow:0 20px 60px #0009;
+  text-align:left;
+}
+
+.help-header{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding-bottom:13px;
+  border-bottom:1px solid var(--border);
+}
+
+.help-title{
+  font-weight:800;
+  letter-spacing:1px;
+  font-size:14px;
+}
+
+.help-subtitle{
+  margin-top:5px;
+  color:var(--muted);
+  font-size:11px;
+}
+
+.help-close{
+  width:32px;
+  height:32px;
+  font-size:22px;
+  background:#303b4d;
+}
+
+.help-content{
+  overflow-y:auto;
+  padding:5px 2px;
+  scrollbar-width:thin;
+}
+
+.help-section{
+  padding:12px 3px;
+  border-bottom:1px solid #394456;
+}
+
+.help-section h4{
+  color:var(--accent);
+  font-size:12px;
+  margin:0 0 8px;
+}
+
+.help-section p{
+  color:#b9c5d6;
+  font-size:11px;
+  line-height:1.9;
+  margin:5px 0;
+}
+
+.shortcut-row{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:10px;
+  padding:6px 0;
+  color:#cbd4e1;
+  font-size:11px;
+}
+
+.shortcut-row kbd{
+  direction:ltr;
+  background:#151c28;
+  color:#e7c181;
+  border:1px solid #46536a;
+  border-radius:5px;
+  padding:4px 8px;
+  font-size:10px;
+  white-space:nowrap;
+}
+
+.help-done{
+  flex-shrink:0;
+  width:100%;
+  height:38px;
+  margin-top:12px;
+  background:var(--accent);
+  border:0;
+  color:#202633;
+  font-weight:800;
+}
+
 /* TABLET */
 
 @media(max-width:900px){
@@ -728,7 +951,7 @@ button:disabled{opacity:.3;cursor:not-allowed;transform:none}
   .workspace{
     display:grid;
     grid-template-columns:1fr;
-    grid-template-rows:minmax(0,1fr) minmax(180px,36dvh);
+    grid-template-rows:minmax(0,1fr);
     min-height:0;
     overflow:hidden;
   }
@@ -779,99 +1002,57 @@ button:disabled{opacity:.3;cursor:not-allowed;transform:none}
 
   .toolbar-label{display:none}
 
+  .mobile-settings{
+    display:block;
+  }
+
   .canvas-area{
     padding:5px;
     min-height:0;
   }
 
-  .canvas-wrap{padding:8px}
+  .canvas-wrap{
+    padding:8px;
+    cursor:grab;
+  }
 
   .stage-footer{
     min-height:29px;
     padding:3px 8px;
   }
 
-  .left-dock{
-    grid-row:2;
-    display:flex;
-    flex-direction:column;
-    min-height:0;
-    border-right:0;
-    border-top:1px solid #30394a;
-    overflow:hidden;
-    padding:5px 7px;
-  }
-
-  .left-dock .dock-heading{
-    padding:2px 3px 5px;
-    margin-bottom:5px;
-  }
-
-  .left-dock .dock-heading strong{font-size:10px}
-  .left-dock .dock-heading span{font-size:8px}
-
-  .yarn-columns{
-    flex:1;
-    min-height:0;
-    display:flex;
-    flex-direction:column;
-    gap:5px;
-    overflow-y:auto;
-    overflow-x:hidden;
-  }
-
-  .yarn-column{
-    flex:1 1 50%;
-    min-height:0;
-  }
-
-  .yarn-column-title{
-    min-height:25px;
-    font-size:9px;
-    padding:3px 8px;
-  }
-
-  .yarn-column-scroll{
-    flex:1;
-    min-height:0;
-    padding:3px 4px;
-    overflow-y:auto;
-  }
-
-  .color-grid{
-    grid-template-columns:repeat(2,minmax(0,1fr));
-    gap:3px;
-  }
-
-  .color-item{
-    min-height:29px;
-    padding:2px 4px;
-    gap:4px;
-  }
-
-  .color-item input[type=color]{
-    width:20px;
-    height:20px;
-  }
-
-  .color-name{font-size:8px}
-
-  .jpg-action{
-    padding-top:4px;
-    margin-top:4px;
-  }
-
-  .jpg-action button{
-    height:25px;
-    font-size:9px;
-  }
-
-  .jpg-action svg{
-    width:13px;
-    height:13px;
-  }
-
+  .left-dock,
   .right-dock{
+    display:none !important;
+  }
+
+  .help-button{
+    width:30px;
+    padding:0;
+  }
+
+  .help-button span{display:none}
+
+  .help-dialog{
+    padding:12px;
+    max-height:88dvh;
+  }
+
+  .mobile-settings-panel .yarn-columns{
+    flex-direction:row;
+  }
+
+  .mobile-settings-panel .yarn-column{
+    flex:1 1 50%;
+  }
+
+  .mobile-settings-panel .dock-panel{
+    display:inline-block;
+    vertical-align:top;
+    width:calc(50% - 4px);
+  }
+
+  .mobile-settings-panel .info-card{
     display:none;
   }
 }
@@ -888,7 +1069,6 @@ button:disabled{opacity:.3;cursor:not-allowed;transform:none}
     height:33px;
   }
 
-  .yarn-columns{gap:4px}
   .color-item{gap:3px}
   .color-name{font-size:7px}
 }
@@ -900,8 +1080,12 @@ button:disabled{opacity:.3;cursor:not-allowed;transform:none}
 
 <header class="topbar">
   <div class="brand">FABRIC <span>ANALYZER</span></div>
+
   <div class="topbar-right">
     <span class="workspace-label">Design Workspace</span>
+    <button class="help-button" id="helpBtn" title="Help & Shortcuts">
+      ? <span>Help</span>
+    </button>
     <span class="save-status" id="saveStatus">✓ Saved</span>
   </div>
 </header>
@@ -915,6 +1099,8 @@ button:disabled{opacity:.3;cursor:not-allowed;transform:none}
       <strong>Yarn Settings</strong>
       <span>Warp & Weft</span>
     </div>
+
+    <div id="yarnHome"></div>
 
     <div class="yarn-columns">
 
@@ -933,6 +1119,8 @@ button:disabled{opacity:.3;cursor:not-allowed;transform:none}
       </section>
 
     </div>
+
+    <div id="jpgHome"></div>
 
     <div class="jpg-action">
       <button id="jpgBtn" title="Export JPG">
@@ -962,10 +1150,10 @@ button:disabled{opacity:.3;cursor:not-allowed;transform:none}
           </svg>
         </button>
 
-        <button class="tool-button success" id="lockBtn" title="Lock Painting">
+        <button class="tool-button active" id="lockBtn" title="Unlock Painting">
           <svg id="lockIcon" viewBox="0 0 24 24">
             <rect x="4" y="10" width="16" height="11" rx="2"></rect>
-            <path d="M8 10V7a4 4 0 0 1 7.5-2"></path>
+            <path d="M7 10V7a5 5 0 0 1 10 0v3"></path>
           </svg>
         </button>
       </div>
@@ -1017,6 +1205,25 @@ button:disabled{opacity:.3;cursor:not-allowed;transform:none}
 
     </div>
 
+    <!-- MOBILE SETTINGS TABS -->
+    <div class="mobile-settings" id="mobileSettings">
+
+      <div class="mobile-tabs">
+        <button class="mobile-tab active" id="mobileYarnTab">
+          🧵 تار و پود
+        </button>
+
+        <button class="mobile-tab" id="mobileDimensionsTab">
+          ▦ ابعاد و ساختار
+        </button>
+      </div>
+
+      <div class="mobile-settings-panel" id="mobileYarnPanel"></div>
+
+      <div class="mobile-settings-panel" id="mobileDimensionsPanel" hidden></div>
+
+    </div>
+
     <div class="canvas-area">
       <div class="canvas-wrap" id="canvasWrap">
         <div class="canvas-holder">
@@ -1041,10 +1248,13 @@ button:disabled{opacity:.3;cursor:not-allowed;transform:none}
 
   <!-- RIGHT: PAGE SETTINGS -->
   <aside class="right-dock">
+
     <div class="dock-heading">
       <strong>Page Settings</strong>
       <span>Canvas Properties</span>
     </div>
+
+    <div id="dimensionsHome"></div>
 
     <details class="dock-panel" open>
       <summary>Canvas Dimensions</summary>
@@ -1082,6 +1292,8 @@ button:disabled{opacity:.3;cursor:not-allowed;transform:none}
       </div>
     </details>
 
+    <div id="infoHome"></div>
+
     <div class="info-card">
       <div class="info-card-title">Document Information</div>
       <div class="info-line">
@@ -1101,6 +1313,7 @@ button:disabled{opacity:.3;cursor:not-allowed;transform:none}
         <strong id="infoZoom">100%</strong>
       </div>
     </div>
+
   </aside>
 
 </div>
@@ -1108,6 +1321,7 @@ button:disabled{opacity:.3;cursor:not-allowed;transform:none}
 
 <input type="file" id="projectInput" accept=".json,application/json" hidden>
 
+<!-- CLEAR DIALOG -->
 <div class="dialog-backdrop" id="clearDialog">
   <div class="dialog">
     <div class="dialog-icon">!</div>
@@ -1120,6 +1334,137 @@ button:disabled{opacity:.3;cursor:not-allowed;transform:none}
       <button class="cancel-button" id="cancelClear">No</button>
       <button class="confirm-button" id="confirmClear">Yes, Clear</button>
     </div>
+  </div>
+</div>
+
+<!-- HELP DIALOG -->
+<div class="dialog-backdrop" id="helpDialog">
+  <div class="help-dialog">
+
+    <div class="help-header">
+      <div>
+        <div class="help-title">FABRIC ANALYZER</div>
+        <div class="help-subtitle">راهنمای ابزارها و میانبرها</div>
+      </div>
+
+      <button id="closeHelpBtn" class="help-close">×</button>
+    </div>
+
+    <div class="help-content">
+
+      <section class="help-section">
+        <h4>🧵 تار و پود</h4>
+        <p>
+          رنگ‌های تار، رنگ حاشیه سلول‌ها را تعیین می‌کنند.
+          رنگ‌های پود برای رنگ‌آمیزی قسمت‌های داخلی سلول استفاده می‌شوند.
+          رنگ تارها به‌صورت تکراری روی ستون‌ها اعمال می‌شود.
+        </p>
+      </section>
+
+      <section class="help-section">
+        <h4>🖌 ابزار نقاشی</h4>
+        <p>
+          برای رنگ‌آمیزی، ابتدا قفل را باز کن و سپس رنگ پود موردنظر را انتخاب کن.
+          کلیک روی قسمت خالی آن را رنگ می‌کند.
+          کلیک مجدد روی همان رنگ، رنگ را پاک می‌کند.
+          انتخاب رنگ متفاوت، رنگ قبلی را جایگزین می‌کند.
+        </p>
+      </section>
+
+      <section class="help-section">
+        <h4>🔒 قفل نقاشی</h4>
+        <p>
+          در شروع برنامه نقاشی قفل است تا از تغییرات تصادفی جلوگیری شود.
+          برای نقاشی باید قفل را باز کنی.
+          پس از اتمام کار، دوباره قفل را فعال کن.
+        </p>
+      </section>
+
+      <section class="help-section">
+        <h4>✋ جابه‌جایی بوم</h4>
+        <p>
+          کلید Space را نگه دار و با ماوس روی بوم بکش.
+          در این حالت ابزار دست فعال می‌شود و می‌توانی بوم را مانند فتوشاپ جابه‌جا کنی.
+          با رهاکردن Space به حالت قبلی برمی‌گردی.
+        </p>
+      </section>
+
+      <section class="help-section">
+        <h4>📐 ابعاد و ساختار</h4>
+        <p>
+          تعداد ستون و ردیف، اندازه شبکه را مشخص می‌کند.
+          تعداد تار و پود، تعداد رنگ‌های قابل انتخاب و تقسیمات هر سلول را تعیین می‌کند.
+        </p>
+        <p>
+          محدودیت ابعاد شبکه: ۱ تا ۴۰
+          <br>
+          محدودیت تعداد تار و پود: ۱ تا ۱۶
+        </p>
+      </section>
+
+      <section class="help-section">
+        <h4>⌨ میانبرهای صفحه‌کلید</h4>
+
+        <div class="shortcut-row">
+          <span>ابزار دست موقت</span>
+          <kbd>Hold Space</kbd>
+        </div>
+
+        <div class="shortcut-row">
+          <span>بازگشت یک مرحله</span>
+          <kbd>Ctrl + Z</kbd>
+        </div>
+
+        <div class="shortcut-row">
+          <span>تکرار مرحله</span>
+          <kbd>Ctrl + Y</kbd>
+        </div>
+
+        <div class="shortcut-row">
+          <span>ذخیره پروژه</span>
+          <kbd>Ctrl + S</kbd>
+        </div>
+
+        <div class="shortcut-row">
+          <span>اعمال تنظیمات</span>
+          <kbd>Ctrl + Enter</kbd>
+        </div>
+
+        <div class="shortcut-row">
+          <span>بزرگ‌نمایی</span>
+          <kbd>+</kbd>
+        </div>
+
+        <div class="shortcut-row">
+          <span>کوچک‌نمایی</span>
+          <kbd>-</kbd>
+        </div>
+
+        <div class="shortcut-row">
+          <span>بازگشت به اندازه اصلی</span>
+          <kbd>0</kbd>
+        </div>
+
+        <div class="shortcut-row">
+          <span>بستن پنجره‌ها</span>
+          <kbd>Esc</kbd>
+        </div>
+      </section>
+
+      <section class="help-section">
+        <h4>💾 ذخیره و خروجی</h4>
+        <p>
+          Save برای ذخیره پروژه قابل ویرایش با فرمت JSON است.
+          Open پروژه ذخیره‌شده را باز می‌کند.
+          Export JPG تصویر خروجی از طرح فعلی می‌سازد.
+          تغییرات برنامه نیز به‌صورت خودکار در مرورگر ذخیره می‌شوند.
+        </p>
+      </section>
+
+    </div>
+
+    <button class="help-done" id="helpDoneBtn">متوجه شدم</button>
+
   </div>
 </div>
 
@@ -1150,7 +1495,7 @@ let state={
  weftColors:[...defaultWeftColors],
  selectedWeft:0,
  marks:{},
- paintLocked:false
+ paintLocked:true
 };
 
 let CELL=48;
@@ -1165,6 +1510,8 @@ const MAX_HISTORY=100;
 let undoHistory=[];
 let redoHistory=[];
 let colorEditSnapshot=null;
+
+/* HISTORY */
 
 function makeSnapshot(){
  return JSON.parse(JSON.stringify({
@@ -1185,30 +1532,43 @@ function snapshotsEqual(a,b){
 
 function pushHistory(snapshot){
  undoHistory.push(snapshot);
- if(undoHistory.length>MAX_HISTORY)undoHistory.shift();
+
+ if(undoHistory.length>MAX_HISTORY){
+  undoHistory.shift();
+ }
+
  redoHistory=[];
  updateHistoryButtons();
 }
 
 function startColorEdit(){
- if(!colorEditSnapshot)colorEditSnapshot=makeSnapshot();
+ if(!colorEditSnapshot){
+  colorEditSnapshot=makeSnapshot();
+ }
 }
 
 function finishColorEdit(){
  if(!colorEditSnapshot)return;
+
  const before=colorEditSnapshot;
  const after=makeSnapshot();
+
  colorEditSnapshot=null;
- if(!snapshotsEqual(before,after))pushHistory(before);
+
+ if(!snapshotsEqual(before,after)){
+  pushHistory(before);
+ }
 }
 
 function restoreSnapshot(snapshot){
  const locked=state.paintLocked;
+
  state={
   ...state,
   ...JSON.parse(JSON.stringify(snapshot)),
   paintLocked:locked
  };
+
  syncInputs();
  renderWarpControls();
  renderWeftControls();
@@ -1219,16 +1579,24 @@ function restoreSnapshot(snapshot){
 
 function undo(){
  finishColorEdit();
+
  if(!undoHistory.length)return;
+
  redoHistory.push(makeSnapshot());
  restoreSnapshot(undoHistory.pop());
 }
 
 function redo(){
  finishColorEdit();
+
  if(!redoHistory.length)return;
+
  undoHistory.push(makeSnapshot());
- if(undoHistory.length>MAX_HISTORY)undoHistory.shift();
+
+ if(undoHistory.length>MAX_HISTORY){
+  undoHistory.shift();
+ }
+
  restoreSnapshot(redoHistory.pop());
 }
 
@@ -1254,6 +1622,7 @@ function saveState(){
 function loadState(){
  try{
   const saved=localStorage.getItem("fabricAnalyzerState");
+
   if(!saved)return;
 
   const p=JSON.parse(saved);
@@ -1265,12 +1634,19 @@ function loadState(){
    rows:Math.max(1,Math.min(40,Number(p.rows)||10)),
    warps:Math.max(1,Math.min(16,Number(p.warps)||16)),
    wefts:Math.max(1,Math.min(16,Number(p.wefts)||3)),
-   warpColors:Array.from({length:16},(_,i)=>p.warpColors?.[i]||defaultWarpColors[i]),
-   weftColors:Array.from({length:16},(_,i)=>p.weftColors?.[i]||defaultWeftColors[i]),
+   warpColors:Array.from(
+    {length:16},
+    (_,i)=>p.warpColors?.[i]||defaultWarpColors[i]
+   ),
+   weftColors:Array.from(
+    {length:16},
+    (_,i)=>p.weftColors?.[i]||defaultWeftColors[i]
+   ),
    selectedWeft:Math.max(0,Math.min(15,Number(p.selectedWeft)||0)),
    marks:p.marks||{},
-   paintLocked:false
+   paintLocked:true
   };
+
  }catch(e){
   console.warn("Saved data could not be loaded.");
  }
@@ -1286,6 +1662,7 @@ function syncInputs(){
 /* COLOR CONTROLS */
 
 function renderColorItem(container,index,color,type){
+
  const item=document.createElement("div");
  item.className="color-item";
 
@@ -1302,15 +1679,18 @@ function renderColorItem(container,index,color,type){
  }
 
  const picker=document.createElement("input");
+
  picker.type="color";
  picker.value=color;
  picker.title=type==="warp"?"Change warp color":"Change weft color";
 
  picker.addEventListener("click",event=>event.stopPropagation());
+
  picker.addEventListener("pointerdown",event=>{
   event.stopPropagation();
   startColorEdit();
  });
+
  picker.addEventListener("focus",startColorEdit);
 
  picker.addEventListener("input",()=>{
@@ -1340,6 +1720,7 @@ function renderColorItem(container,index,color,type){
 function renderWarpControls(){
  const box=document.getElementById("warpGrid");
  box.innerHTML="";
+
  for(let i=0;i<state.warps;i++){
   renderColorItem(box,i,state.warpColors[i],"warp");
  }
@@ -1348,6 +1729,7 @@ function renderWarpControls(){
 function renderWeftControls(){
  const box=document.getElementById("weftGrid");
  box.innerHTML="";
+
  for(let i=0;i<state.wefts;i++){
   renderColorItem(box,i,state.weftColors[i],"weft");
  }
@@ -1356,24 +1738,34 @@ function renderWeftControls(){
 /* LOCK */
 
 function updateLockUI(){
+
  const button=document.getElementById("lockBtn");
  const icon=document.getElementById("lockIcon");
 
  if(state.paintLocked){
+
   button.classList.add("active");
+
   icon.innerHTML=`
    <rect x="4" y="10" width="16" height="11" rx="2"></rect>
    <path d="M7 10V7a5 5 0 0 1 10 0v3"></path>
   `;
+
   button.title="Unlock Painting";
+
  }else{
+
   button.classList.remove("active");
+
   icon.innerHTML=`
    <rect x="4" y="10" width="16" height="11" rx="2"></rect>
    <path d="M8 10V7a4 4 0 0 1 7.5-2"></path>
   `;
+
   button.title="Lock Painting";
  }
+
+ updateCanvasCursor();
 }
 
 function toggleLock(){
@@ -1384,7 +1776,7 @@ function toggleLock(){
 
 document.getElementById("lockBtn").addEventListener("click",toggleLock);
 
-/* CLEAR CONFIRMATION */
+/* CLEAR */
 
 document.getElementById("clearBtn").addEventListener("click",()=>{
  document.getElementById("clearDialog").classList.add("show");
@@ -1406,10 +1798,13 @@ document.getElementById("confirmClear").addEventListener("click",()=>{
 });
 
 function clearDesign(){
+
  finishColorEdit();
+
  if(Object.keys(state.marks).length===0)return;
 
  const before=makeSnapshot();
+
  state.marks={};
 
  pushHistory(before);
@@ -1424,14 +1819,17 @@ function updateCellSize(){
 }
 
 function draw(){
+
  updateCellSize();
 
  const width=LEFT+state.cols*CELL+RIGHT;
  const height=TOP+state.rows*CELL+BOTTOM;
+
  const dpr=Math.max(1,window.devicePixelRatio||1);
 
  canvas.width=Math.round(width*dpr);
  canvas.height=Math.round(height*dpr);
+
  canvas.style.width=(width*zoom)+"px";
  canvas.style.height=(height*zoom)+"px";
 
@@ -1455,7 +1853,9 @@ function draw(){
  }
 
  for(let r=0;r<state.rows;r++){
+
   for(let c=0;c<state.cols;c++){
+
    const x=LEFT+c*CELL;
    const y=TOP+r*CELL;
 
@@ -1465,11 +1865,13 @@ function draw(){
    const partHeight=CELL/state.wefts;
 
    for(let k=0;k<state.wefts;k++){
+
     const key=`${r},${c},${k}`;
     const color=state.marks[key];
 
     if(color){
      ctx.fillStyle=color;
+
      ctx.fillRect(
       x+4,
       y+k*partHeight+2,
@@ -1480,16 +1882,20 @@ function draw(){
    }
 
    ctx.save();
+
    ctx.strokeStyle="rgba(0,0,0,0.35)";
    ctx.lineWidth=.8;
 
    for(let k=1;k<state.wefts;k++){
+
     const lineY=y+k*partHeight;
+
     ctx.beginPath();
     ctx.moveTo(x+3,lineY);
     ctx.lineTo(x+CELL-3,lineY);
     ctx.stroke();
    }
+
    ctx.restore();
 
    const warpColor=state.warpColors[c%state.warps];
@@ -1525,6 +1931,7 @@ function draw(){
 /* POINTER */
 
 function getCellFromPointer(event){
+
  const rect=canvas.getBoundingClientRect();
 
  const x=(event.clientX-rect.left)*
@@ -1551,15 +1958,20 @@ function getCellFromPointer(event){
 /* PAINT */
 
 canvas.addEventListener("pointerdown",event=>{
+
+ if(spaceHeld||isPanning)return;
  if(state.paintLocked)return;
+
  if(event.button!==undefined&&event.button!==0)return;
 
  const cell=getCellFromPointer(event);
+
  if(!cell)return;
 
  finishColorEdit();
 
  const before=makeSnapshot();
+
  const key=`${cell.row},${cell.col},${cell.part}`;
  const selectedColor=state.weftColors[state.selectedWeft];
 
@@ -1580,6 +1992,7 @@ document.getElementById("applyBtn").addEventListener("click",applySettings);
 document.getElementById("applyYarnBtn").addEventListener("click",applySettings);
 
 function applySettings(){
+
  const cols=Number(document.getElementById("cols").value);
  const rows=Number(document.getElementById("rows").value);
  const warps=Number(document.getElementById("warps").value);
@@ -1591,26 +2004,39 @@ function applySettings(){
   !Number.isInteger(warps)||warps<1||warps>16||
   !Number.isInteger(wefts)||wefts<1||wefts>16
  ){
-  alert("Columns and rows must be between 1 and 40. Warp and weft counts must be between 1 and 16.");
+
+  alert(
+   "Columns and rows must be between 1 and 40. Warp and weft counts must be between 1 and 16."
+  );
+
   return;
  }
 
  finishColorEdit();
+
  const before=makeSnapshot();
 
  state.cols=cols;
  state.rows=rows;
  state.warps=warps;
  state.wefts=wefts;
+
  state.selectedWeft=Math.min(state.selectedWeft,wefts-1);
 
  for(const key of Object.keys(state.marks)){
+
   const [r,c,k]=key.split(",").map(Number);
-  if(r>=rows||c>=cols||k>=wefts)delete state.marks[key];
+
+  if(r>=rows||c>=cols||k>=wefts){
+   delete state.marks[key];
+  }
  }
 
  const after=makeSnapshot();
- if(!snapshotsEqual(before,after))pushHistory(before);
+
+ if(!snapshotsEqual(before,after)){
+  pushHistory(before);
+ }
 
  renderWarpControls();
  renderWeftControls();
@@ -1621,10 +2047,17 @@ function applySettings(){
 /* EXPORT IMAGE */
 
 function downloadCanvas(type){
+
  const link=document.createElement("a");
+
  const extension=type==="image/png"?"png":"jpg";
+
  link.download="Fabric-Analyzer."+extension;
- link.href=canvas.toDataURL(type,type==="image/jpeg"?.98:undefined);
+ link.href=canvas.toDataURL(
+  type,
+  type==="image/jpeg"?.98:undefined
+ );
+
  link.click();
 }
 
@@ -1637,6 +2070,7 @@ document.getElementById("jpgBtn").addEventListener("click",exportJPG);
 /* PROJECT SAVE / OPEN */
 
 function saveProject(){
+
  finishColorEdit();
 
  const project={
@@ -1646,11 +2080,13 @@ function saveProject(){
   state:makeSnapshot()
  };
 
- const blob=new Blob([JSON.stringify(project,null,2)],{
-  type:"application/json"
- });
+ const blob=new Blob(
+  [JSON.stringify(project,null,2)],
+  {type:"application/json"}
+ );
 
  const url=URL.createObjectURL(blob);
+
  const link=document.createElement("a");
 
  link.href=url;
@@ -1668,13 +2104,17 @@ document.getElementById("saveProjectBtn").addEventListener("click",saveProject);
 document.getElementById("openProjectBtn").addEventListener("click",openProject);
 
 document.getElementById("projectInput").addEventListener("change",event=>{
+
  const file=event.target.files[0];
+
  if(!file)return;
 
  const reader=new FileReader();
 
  reader.onload=()=>{
+
   try{
+
    const parsed=JSON.parse(reader.result);
    const p=parsed.state||parsed;
 
@@ -1693,18 +2133,34 @@ document.getElementById("projectInput").addEventListener("change",event=>{
    state={
     ...state,
     ...p,
+
     cols:Math.max(1,Math.min(40,Number(p.cols))),
     rows:Math.max(1,Math.min(40,Number(p.rows))),
     warps:Math.max(1,Math.min(16,Number(p.warps))),
     wefts:Math.max(1,Math.min(16,Number(p.wefts))),
-    warpColors:Array.from({length:16},(_,i)=>p.warpColors?.[i]||defaultWarpColors[i]),
-    weftColors:Array.from({length:16},(_,i)=>p.weftColors?.[i]||defaultWeftColors[i]),
+
+    warpColors:Array.from(
+     {length:16},
+     (_,i)=>p.warpColors?.[i]||defaultWarpColors[i]
+    ),
+
+    weftColors:Array.from(
+     {length:16},
+     (_,i)=>p.weftColors?.[i]||defaultWeftColors[i]
+    ),
+
     marks:p.marks||{},
-    selectedWeft:Math.max(0,Math.min(15,Number(p.selectedWeft)||0)),
-    paintLocked:false
+
+    selectedWeft:Math.max(
+     0,
+     Math.min(15,Number(p.selectedWeft)||0)
+    ),
+
+    paintLocked:true
    };
 
    pushHistory(before);
+
    syncInputs();
    renderWarpControls();
    renderWeftControls();
@@ -1713,7 +2169,9 @@ document.getElementById("projectInput").addEventListener("change",event=>{
    saveState();
 
   }catch(error){
+
    alert("The selected project file is invalid or cannot be opened.");
+
   }
 
   event.target.value="";
@@ -1725,7 +2183,9 @@ document.getElementById("projectInput").addEventListener("change",event=>{
 /* ZOOM */
 
 function setZoom(value){
+
  zoom=Math.max(.25,Math.min(3,value));
+
  draw();
 }
 
@@ -1737,9 +2197,241 @@ document.getElementById("zoomInBtn").addEventListener("click",zoomIn);
 document.getElementById("zoomOutBtn").addEventListener("click",zoomOut);
 document.getElementById("zoomResetBtn").addEventListener("click",zoomReset);
 
+/* TEMPORARY HAND TOOL - PHOTOSHOP STYLE */
+
+let spaceHeld=false;
+let isPanning=false;
+
+let panStartX=0;
+let panStartY=0;
+let panScrollLeft=0;
+let panScrollTop=0;
+
+const canvasWrap=document.getElementById("canvasWrap");
+
+function updateCanvasCursor(){
+
+ if(isPanning){
+  canvasWrap.style.cursor="grabbing";
+  return;
+ }
+
+ if(spaceHeld){
+  canvasWrap.style.cursor="grab";
+  return;
+ }
+
+ canvasWrap.style.cursor=state.paintLocked?"default":"crosshair";
+}
+
+document.addEventListener("keydown",event=>{
+
+ if(event.code!=="Space")return;
+
+ const target=event.target;
+
+ const isTyping=
+  target instanceof HTMLInputElement||
+  target instanceof HTMLTextAreaElement||
+  target.isContentEditable;
+
+ if(isTyping)return;
+
+ if(!spaceHeld){
+  spaceHeld=true;
+  updateCanvasCursor();
+ }
+
+ event.preventDefault();
+});
+
+document.addEventListener("keyup",event=>{
+
+ if(event.code!=="Space")return;
+
+ spaceHeld=false;
+ isPanning=false;
+
+ updateCanvasCursor();
+});
+
+window.addEventListener("blur",()=>{
+ spaceHeld=false;
+ isPanning=false;
+ updateCanvasCursor();
+});
+
+canvasWrap.addEventListener("pointerdown",event=>{
+
+ if(!spaceHeld)return;
+
+ if(event.button!==undefined&&event.button!==0)return;
+
+ isPanning=true;
+
+ panStartX=event.clientX;
+ panStartY=event.clientY;
+
+ panScrollLeft=canvasWrap.scrollLeft;
+ panScrollTop=canvasWrap.scrollTop;
+
+ canvasWrap.style.cursor="grabbing";
+
+ event.preventDefault();
+});
+
+window.addEventListener("pointermove",event=>{
+
+ if(!isPanning)return;
+
+ const dx=event.clientX-panStartX;
+ const dy=event.clientY-panStartY;
+
+ canvasWrap.scrollLeft=panScrollLeft-dx;
+ canvasWrap.scrollTop=panScrollTop-dy;
+});
+
+window.addEventListener("pointerup",()=>{
+
+ if(!isPanning)return;
+
+ isPanning=false;
+ updateCanvasCursor();
+});
+
+window.addEventListener("pointercancel",()=>{
+ isPanning=false;
+ updateCanvasCursor();
+});
+
+/* RESPONSIVE MOBILE PANELS */
+
+const yarnColumns=document.querySelector(".yarn-columns");
+const jpgAction=document.querySelector(".jpg-action");
+
+const dimensionPanels=[
+ ...document.querySelectorAll(".right-dock .dock-panel")
+];
+
+const infoCard=document.querySelector(".right-dock .info-card");
+
+const mobileYarnPanel=document.getElementById("mobileYarnPanel");
+const mobileDimensionsPanel=document.getElementById("mobileDimensionsPanel");
+
+const yarnHome=document.getElementById("yarnHome");
+const jpgHome=document.getElementById("jpgHome");
+const dimensionsHome=document.getElementById("dimensionsHome");
+const infoHome=document.getElementById("infoHome");
+
+const mobileYarnTab=document.getElementById("mobileYarnTab");
+const mobileDimensionsTab=document.getElementById("mobileDimensionsTab");
+
+let mobileTab="yarn";
+
+function selectMobileTab(tab){
+
+ mobileTab=tab;
+
+ mobileYarnTab.classList.toggle("active",tab==="yarn");
+ mobileDimensionsTab.classList.toggle("active",tab==="dimensions");
+
+ mobileYarnPanel.hidden=tab!=="yarn";
+ mobileDimensionsPanel.hidden=tab!=="dimensions";
+}
+
+mobileYarnTab.addEventListener("click",()=>{
+ selectMobileTab("yarn");
+});
+
+mobileDimensionsTab.addEventListener("click",()=>{
+ selectMobileTab("dimensions");
+});
+
+function syncResponsivePanels(){
+
+ const isMobile=window.matchMedia("(max-width:650px)").matches;
+
+ if(isMobile){
+
+  if(yarnColumns.parentElement!==mobileYarnPanel){
+   mobileYarnPanel.appendChild(yarnColumns);
+  }
+
+  if(jpgAction.parentElement!==mobileYarnPanel){
+   mobileYarnPanel.appendChild(jpgAction);
+  }
+
+  dimensionPanels.forEach(panel=>{
+   if(panel.parentElement!==mobileDimensionsPanel){
+    mobileDimensionsPanel.appendChild(panel);
+   }
+  });
+
+  if(infoCard.parentElement!==mobileDimensionsPanel){
+   mobileDimensionsPanel.appendChild(infoCard);
+  }
+
+  selectMobileTab(mobileTab);
+
+ }else{
+
+  if(yarnColumns.parentElement!==document.querySelector(".left-dock")){
+   yarnHome.after(yarnColumns);
+  }
+
+  if(jpgAction.parentElement!==document.querySelector(".left-dock")){
+   jpgHome.after(jpgAction);
+  }
+
+  dimensionPanels.forEach((panel,index)=>{
+
+   if(panel.parentElement!==document.querySelector(".right-dock")){
+
+    if(index===0){
+     dimensionsHome.after(panel);
+    }else{
+     document.querySelector(".right-dock").insertBefore(
+      panel,
+      infoCard
+     );
+    }
+   }
+  });
+
+  if(infoCard.parentElement!==document.querySelector(".right-dock")){
+   infoHome.after(infoCard);
+  }
+ }
+}
+
+/* HELP */
+
+const helpDialog=document.getElementById("helpDialog");
+
+function openHelp(){
+ helpDialog.classList.add("show");
+}
+
+function closeHelp(){
+ helpDialog.classList.remove("show");
+}
+
+document.getElementById("helpBtn").addEventListener("click",openHelp);
+
+document.getElementById("closeHelpBtn").addEventListener("click",closeHelp);
+
+document.getElementById("helpDoneBtn").addEventListener("click",closeHelp);
+
+helpDialog.addEventListener("click",event=>{
+ if(event.target===helpDialog){
+  closeHelp();
+ }
+});
+
 /* KEYBOARD SHORTCUTS */
 
 document.addEventListener("keydown",event=>{
+
  const key=event.key.toLowerCase();
  const ctrl=event.ctrlKey||event.metaKey;
  const target=event.target;
@@ -1753,12 +2445,16 @@ document.addEventListener("keydown",event=>{
   target.isContentEditable;
 
  if(event.key==="Escape"){
+
   document.getElementById("clearDialog").classList.remove("show");
+  closeHelp();
+
   return;
  }
 
  if(event.key==="Enter"&&!event.shiftKey&&!event.altKey&&!isColorInput){
-  if(target.tagName!=="BUTTON"){
+
+  if(target.tagName!=="BUTTON"&&target.tagName!=="SUMMARY"){
    event.preventDefault();
    applySettings();
    return;
@@ -1766,6 +2462,7 @@ document.addEventListener("keydown",event=>{
  }
 
  if(ctrl){
+
   if(key==="s"){
    event.preventDefault();
    saveProject();
@@ -1779,38 +2476,67 @@ document.addEventListener("keydown",event=>{
   }
 
   if(key==="z"&&!event.shiftKey){
+
    if(isEditable&&!isColorInput)return;
+
    event.preventDefault();
    undo();
+
    return;
   }
 
   if(key==="y"||(key==="z"&&event.shiftKey)){
+
    if(isEditable&&!isColorInput)return;
+
    event.preventDefault();
    redo();
+
    return;
   }
  }
 
  if(!ctrl&&!isEditable&&!isColorInput){
-  if(event.key==="+"){zoomIn();return}
-  if(event.key==="-"){zoomOut();return}
-  if(event.key==="0"){zoomReset();return}
+
+  if(event.key==="+"){
+   zoomIn();
+   return;
+  }
+
+  if(event.key==="-"){
+   zoomOut();
+   return;
+  }
+
+  if(event.key==="0"){
+   zoomReset();
+   return;
+  }
  }
 });
 
 /* START */
 
 loadState();
+
 syncInputs();
 renderWarpControls();
 renderWeftControls();
+
 updateLockUI();
 updateHistoryButtons();
+
+syncResponsivePanels();
+selectMobileTab("yarn");
+
 draw();
 
-window.addEventListener("resize",draw);
+window.addEventListener("resize",()=>{
+ draw();
+ syncResponsivePanels();
+ updateCanvasCursor();
+});
+
 </script>
 </body>
 </html>
