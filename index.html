@@ -16,286 +16,133 @@
   --accent:#d5a85c;
   --border:#3a404d;
 }
-
 *{box-sizing:border-box}
-
 body{
-  margin:0;
-  padding:10px;
-  background:var(--bg);
-  color:var(--text);
-  font-family:Tahoma,"Segoe UI",Arial,sans-serif;
-  font-size:14px;
+  margin:0;padding:10px;background:var(--bg);color:var(--text);
+  font-family:Tahoma,"Segoe UI",Arial,sans-serif;font-size:14px;
 }
-
-.app{
-  width:100%;
-  max-width:1500px;
-  margin:auto;
-}
-
+.app{width:100%;max-width:1500px;margin:auto}
 header{
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
+  display:flex;align-items:center;justify-content:space-between;
   margin-bottom:11px;
 }
-
-.brand{
-  font-size:20px;
-  font-weight:800;
-}
-
+.brand{font-size:20px;font-weight:800}
 .brand span{color:var(--accent)}
-
-.status{
-  color:var(--muted);
-  font-size:11px;
-}
-
+.status{color:var(--muted);font-size:11px}
 .panel{
-  background:var(--panel);
-  border:1px solid var(--border);
-  border-radius:13px;
-  padding:11px;
-  margin-bottom:10px;
+  background:var(--panel);border:1px solid var(--border);
+  border-radius:13px;padding:11px;margin-bottom:10px;
 }
-
-.toolbar{
-  display:flex;
-  flex-wrap:wrap;
-  align-items:center;
-  gap:10px;
-}
-
-.group{
-  display:flex;
-  align-items:center;
-  gap:7px;
-  flex-wrap:wrap;
-}
-
-.group-title{
-  color:var(--muted);
-  font-size:13px;
-  font-weight:600;
-}
-
+.toolbar{display:flex;flex-wrap:wrap;align-items:center;gap:10px}
+.group{display:flex;align-items:center;gap:7px;flex-wrap:wrap}
+.group-title{color:var(--muted);font-size:13px;font-weight:600}
 input,button{font-family:inherit}
-
 input[type=number]{
-  width:54px;
-  height:36px;
-  border:1px solid var(--border);
-  background:var(--panel2);
-  color:white;
-  border-radius:8px;
-  padding:4px;
-  text-align:center;
-  font-size:15px;
+  width:54px;height:36px;border:1px solid var(--border);
+  background:var(--panel2);color:white;border-radius:8px;
+  padding:4px;text-align:center;font-size:15px;
 }
-
 button{
-  border:1px solid var(--border);
-  background:var(--panel2);
-  color:var(--text);
-  border-radius:8px;
-  padding:9px 12px;
-  cursor:pointer;
-  font-size:13px;
-  font-weight:600;
+  border:1px solid var(--border);background:var(--panel2);
+  color:var(--text);border-radius:8px;padding:9px 12px;
+  cursor:pointer;font-size:13px;font-weight:600;
+  transition:background .15s,border-color .15s,opacity .15s;
 }
-
 button:active{transform:scale(.97)}
-
+button:disabled{opacity:.35;cursor:not-allowed;transform:none}
 button.primary{
-  background:var(--accent);
-  border-color:var(--accent);
-  color:#171717;
+  background:var(--accent);border-color:var(--accent);color:#171717;
 }
-
-details{
-  margin-top:11px;
-  border-top:1px solid var(--border);
-  padding-top:10px;
-}
-
+details{margin-top:11px;border-top:1px solid var(--border);padding-top:10px}
 summary{
-  cursor:pointer;
-  color:#e7e9ee;
-  font-size:13px;
-  font-weight:700;
-  padding:4px 0;
-  list-style:none;
-  display:flex;
-  align-items:center;
+  cursor:pointer;color:#e7e9ee;font-size:13px;font-weight:700;
+  padding:4px 0;list-style:none;display:flex;align-items:center;
   justify-content:space-between;
 }
-
-summary::after{
-  content:"＋";
-  color:var(--accent);
-  font-size:17px;
-}
-
-details[open] summary::after{
-  content:"−";
-}
-
+summary::after{content:"＋";color:var(--accent);font-size:17px}
+details[open] summary::after{content:"−"}
 .color-grid{
-  display:grid;
-  grid-template-columns:repeat(4,minmax(0,1fr));
-  gap:8px;
-  margin-top:12px;
+  display:grid;grid-template-columns:repeat(4,minmax(0,1fr));
+  gap:8px;margin-top:12px;
 }
-
 .color-item{
-  display:flex;
-  align-items:center;
-  gap:6px;
-  padding:6px;
-  background:var(--panel2);
-  border:1px solid var(--border);
-  border-radius:9px;
-  min-width:0;
+  display:flex;align-items:center;gap:6px;padding:6px;
+  background:var(--panel2);border:1px solid var(--border);
+  border-radius:9px;min-width:0;
 }
-
 .color-item.active{
-  border-color:var(--accent);
-  box-shadow:0 0 0 1px var(--accent);
+  border-color:var(--accent);box-shadow:0 0 0 1px var(--accent);
 }
-
 .color-select{
-  width:31px;
-  height:31px;
-  border:2px solid rgba(255,255,255,.25);
-  border-radius:7px;
-  padding:0;
-  flex-shrink:0;
+  width:31px;height:31px;border:2px solid rgba(255,255,255,.25);
+  border-radius:7px;padding:0;flex-shrink:0;
 }
-
 .color-item input[type=color]{
-  width:29px;
-  height:29px;
-  border:0;
-  padding:0;
-  background:transparent;
-  flex-shrink:0;
+  width:29px;height:29px;border:0;padding:0;
+  background:transparent;flex-shrink:0;
 }
-
-.color-name{
-  font-size:11px;
-  color:#e2e5ea;
-  white-space:nowrap;
-}
-
-.color-help{
-  color:var(--muted);
-  font-size:11px;
-  margin-top:10px;
-  line-height:1.8;
-}
-
-.workspace{
-  background:#e8e8e8;
-  border-radius:12px;
-  padding:5px;
-  overflow:hidden;
-}
-
+.color-name{font-size:11px;color:#e2e5ea;white-space:nowrap}
+.color-help{color:var(--muted);font-size:11px;margin-top:10px;line-height:1.8}
+.workspace{background:#e8e8e8;border-radius:12px;padding:5px;overflow:hidden}
 .canvas-tools{
-  display:flex;
-  justify-content:flex-start;
-  align-items:center;
-  margin-bottom:6px;
-  direction:rtl;
+  display:flex;justify-content:space-between;align-items:center;
+  gap:7px;margin-bottom:6px;direction:rtl;flex-wrap:wrap;
 }
-
+.tools-right,.history-tools{display:flex;align-items:center;gap:5px}
+.history-tools{direction:ltr}
+.history-button{
+  min-width:43px;min-height:39px;padding:7px 10px;
+  display:flex;align-items:center;justify-content:center;
+  gap:5px;background:#343a45;border-color:#737b89;
+  color:white;font-size:17px;
+}
+.history-button span{font-size:11px}
 .lock-button{
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  gap:7px;
-  min-width:145px;
-  padding:9px 12px;
-  background:#263b32;
-  border:1px solid #477b5e;
-  color:#c9f1d6;
-  font-size:12px;
+  display:flex;align-items:center;justify-content:center;gap:7px;
+  min-width:145px;padding:9px 12px;background:#263b32;
+  border:1px solid #477b5e;color:#c9f1d6;font-size:12px;
 }
-
 .lock-button.locked{
-  background:#4a302b;
-  border-color:#a85e4e;
-  color:#ffe0d8;
+  background:#4a302b;border-color:#a85e4e;color:#ffe0d8;
 }
-
+.clear-button{
+  background:#542e2e;border-color:#a95858;color:#ffe0e0;
+  min-height:39px;
+}
+.clear-button.armed{
+  background:#a83232;border-color:#ff7777;color:white;
+  animation:pulse .8s infinite alternate;
+}
+@keyframes pulse{from{opacity:1}to{opacity:.72}}
 .canvas-wrap{
-  width:100%;
-  overflow-x:auto;
-  overflow-y:hidden;
-  direction:ltr;
-  touch-action:pan-x pan-y;
-  -webkit-overflow-scrolling:touch;
+  width:100%;overflow-x:auto;overflow-y:hidden;direction:ltr;
+  touch-action:pan-x pan-y;-webkit-overflow-scrolling:touch;
   overscroll-behavior-x:contain;
 }
-
 canvas{
-  display:block;
-  height:auto;
-  max-width:none;
-  touch-action:pan-x pan-y;
-  cursor:crosshair;
+  display:block;height:auto;max-width:none;
+  touch-action:pan-x pan-y;cursor:crosshair;
 }
-
 .footer{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  gap:8px;
-  flex-wrap:wrap;
-  color:var(--muted);
-  font-size:11px;
-  margin-top:10px;
+  display:flex;justify-content:space-between;align-items:center;
+  gap:8px;flex-wrap:wrap;color:var(--muted);
+  font-size:11px;margin-top:10px;
 }
-
-.bottom-actions{
-  display:flex;
-  justify-content:center;
-  margin:16px 0 8px;
-}
-
-.bottom-actions button{
-  min-width:180px;
-  font-size:14px;
-  padding:12px 20px;
-}
-
+.bottom-actions{display:flex;justify-content:center;margin:16px 0 8px}
+.bottom-actions button{min-width:180px;font-size:14px;padding:12px 20px}
 @media(max-width:600px){
-
   body{padding:7px}
-
   .brand{font-size:18px}
   .panel{padding:9px}
-
   .toolbar{gap:10px}
   .group{width:100%;gap:7px}
-
-  .color-grid{
-    grid-template-columns:repeat(2,minmax(0,1fr));
-  }
-
+  .color-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
   .workspace{padding:4px}
-
-  .canvas-tools{
-    position:relative;
-  }
-
-  .lock-button{
-    min-width:155px;
-    min-height:40px;
-  }
-
+  .canvas-tools{gap:6px}
+  .tools-right{width:100%;justify-content:space-between}
+  .lock-button{min-width:145px;min-height:40px}
+  .history-button{min-width:45px;min-height:40px}
+  .clear-button{width:100%}
   .bottom-actions button{width:100%}
 }
 </style>
@@ -310,13 +157,10 @@ canvas{
 </header>
 
 <section class="panel">
-
   <div class="toolbar">
-
     <div class="group">
       <span class="group-title">ستون</span>
       <input id="cols" type="number" min="1" max="40" value="10">
-
       <span class="group-title">ردیف</span>
       <input id="rows" type="number" min="1" max="40" value="10">
     </div>
@@ -324,21 +168,16 @@ canvas{
     <div class="group">
       <span class="group-title">تار</span>
       <input id="warps" type="number" min="1" max="16" value="16">
-
       <span class="group-title">پود</span>
       <input id="wefts" type="number" min="1" max="16" value="3">
-
       <button class="primary" id="applyBtn">اعمال</button>
     </div>
-
   </div>
 
   <details>
     <summary>تنظیم رنگ‌های تار</summary>
     <div class="color-grid" id="warpGrid"></div>
-    <div class="color-help">
-      رنگ هر تار به ترتیب در ستون‌ها تکرار می‌شود.
-    </div>
+    <div class="color-help">رنگ هر تار به ترتیب در ستون‌ها تکرار می‌شود.</div>
   </details>
 
   <details>
@@ -349,22 +188,38 @@ canvas{
       برای تغییر رنگ هر پود، روی انتخاب‌گر رنگ کنار آن بزن.
     </div>
   </details>
-
 </section>
 
 <section class="workspace">
-
   <div class="canvas-tools">
-    <button class="lock-button" id="lockBtn">
-      <span id="lockIcon">🔓</span>
-      <span id="lockText">قفل رنگ‌گذاری: خاموش</span>
-    </button>
+
+    <div class="tools-right">
+      <button class="lock-button" id="lockBtn">
+        <span id="lockIcon">🔓</span>
+        <span id="lockText">قفل رنگ‌گذاری: خاموش</span>
+      </button>
+
+      <button class="clear-button" id="clearBtn">
+        🗑 پاک کردن کامل طرح
+      </button>
+    </div>
+
+    <div class="history-tools">
+      <button class="history-button" id="undoBtn"
+        title="Undo - Ctrl + Z" disabled>
+        ↶ <span>Undo</span>
+      </button>
+
+      <button class="history-button" id="redoBtn"
+        title="Redo - Ctrl + Y" disabled>
+        ↷ <span>Redo</span>
+      </button>
+    </div>
   </div>
 
   <div class="canvas-wrap" id="canvasWrap">
     <canvas id="fabricCanvas"></canvas>
   </div>
-
 </section>
 
 <div class="footer">
@@ -397,10 +252,7 @@ const defaultWeftColors=[
 ];
 
 let state={
- cols:10,
- rows:10,
- warps:16,
- wefts:3,
+ cols:10,rows:10,warps:16,wefts:3,
  warpColors:[...defaultWarpColors],
  weftColors:[...defaultWeftColors],
  selectedWeft:0,
@@ -409,21 +261,119 @@ let state={
 };
 
 let CELL=48;
-const LEFT=35;
-const TOP=31;
-const RIGHT=12;
-const BOTTOM=18;
+const LEFT=35,TOP=31,RIGHT=12,BOTTOM=18;
+const MAX_HISTORY=100;
 
-function updateCellSize(){
- CELL=window.innerWidth<=600?48:62;
+let undoHistory=[];
+let redoHistory=[];
+let colorEditSnapshot=null;
+let clearArmed=false;
+let clearTimer=null;
+
+/* تاریخچه */
+
+function makeSnapshot(){
+ return JSON.parse(JSON.stringify({
+  cols:state.cols,
+  rows:state.rows,
+  warps:state.warps,
+  wefts:state.wefts,
+  warpColors:state.warpColors,
+  weftColors:state.weftColors,
+  selectedWeft:state.selectedWeft,
+  marks:state.marks
+ }));
 }
+
+function snapshotsEqual(a,b){
+ return JSON.stringify(a)===JSON.stringify(b);
+}
+
+function pushHistory(snapshot){
+ undoHistory.push(snapshot);
+
+ if(undoHistory.length>MAX_HISTORY){
+  undoHistory.shift();
+ }
+
+ redoHistory=[];
+ updateHistoryButtons();
+}
+
+function startColorEdit(){
+ if(!colorEditSnapshot){
+  colorEditSnapshot=makeSnapshot();
+ }
+}
+
+function finishColorEdit(){
+ if(!colorEditSnapshot)return;
+
+ const before=colorEditSnapshot;
+ const after=makeSnapshot();
+ colorEditSnapshot=null;
+
+ if(!snapshotsEqual(before,after)){
+  pushHistory(before);
+ }
+}
+
+function restoreSnapshot(snapshot){
+ const locked=state.paintLocked;
+
+ state={
+  ...state,
+  ...JSON.parse(JSON.stringify(snapshot)),
+  paintLocked:locked
+ };
+
+ syncInputs();
+ renderWarpControls();
+ renderWeftControls();
+ updateGridInfo();
+ updateHistoryButtons();
+ draw();
+ saveState();
+}
+
+function undo(){
+ finishColorEdit();
+
+ if(!undoHistory.length)return;
+
+ redoHistory.push(makeSnapshot());
+ const previous=undoHistory.pop();
+ restoreSnapshot(previous);
+}
+
+function redo(){
+ finishColorEdit();
+
+ if(!redoHistory.length)return;
+
+ undoHistory.push(makeSnapshot());
+
+ if(undoHistory.length>MAX_HISTORY){
+  undoHistory.shift();
+ }
+
+ const next=redoHistory.pop();
+ restoreSnapshot(next);
+}
+
+function updateHistoryButtons(){
+ document.getElementById("undoBtn").disabled=!undoHistory.length;
+ document.getElementById("redoBtn").disabled=!redoHistory.length;
+}
+
+document.getElementById("undoBtn").addEventListener("click",undo);
+document.getElementById("redoBtn").addEventListener("click",redo);
+
+/* ذخیره و بازیابی */
 
 function saveState(){
  try{
-  localStorage.setItem(
-   "fabricAnalyzerState",
-   JSON.stringify(state)
-  );
+  localStorage.setItem("fabricAnalyzerState",JSON.stringify(state));
   document.getElementById("saveStatus").textContent="ذخیره شد ✓";
  }catch(e){
   document.getElementById("saveStatus").textContent="خطا در ذخیره";
@@ -444,27 +394,18 @@ function loadState(){
   state={
    ...state,
    ...p,
-
    cols:Math.max(1,Math.min(40,Number(p.cols)||10)),
    rows:Math.max(1,Math.min(40,Number(p.rows)||10)),
    warps:Math.max(1,Math.min(16,Number(p.warps)||16)),
    wefts:Math.max(1,Math.min(16,Number(p.wefts)||3)),
 
-   warpColors:Array.from(
-    {length:16},
-    (_,i)=>p.warpColors?.[i]||defaultWarpColors[i]
-   ),
+   warpColors:Array.from({length:16},
+    (_,i)=>p.warpColors?.[i]||defaultWarpColors[i]),
 
-   weftColors:Array.from(
-    {length:16},
-    (_,i)=>oldWeftColors[i]||defaultWeftColors[i]
-   ),
+   weftColors:Array.from({length:16},
+    (_,i)=>oldWeftColors[i]||defaultWeftColors[i]),
 
-   selectedWeft:Math.max(
-    0,
-    Math.min(15,Number(p.selectedWeft)||0)
-   ),
-
+   selectedWeft:Math.max(0,Math.min(15,Number(p.selectedWeft)||0)),
    marks:p.marks||{},
    paintLocked:false
   };
@@ -473,12 +414,25 @@ function loadState(){
  }
 }
 
-function renderColorItem(container,index,color,type){
+function syncInputs(){
+ document.getElementById("cols").value=state.cols;
+ document.getElementById("rows").value=state.rows;
+ document.getElementById("warps").value=state.warps;
+ document.getElementById("wefts").value=state.wefts;
+}
 
+function updateGridInfo(){
+ document.getElementById("gridInfo").textContent=
+  `${state.cols} ستون · ${state.rows} ردیف · ${state.warps} تار · ${state.wefts} پود`;
+}
+
+/* رنگ‌ها */
+
+function renderColorItem(container,index,color,type){
  const item=document.createElement("div");
  item.className="color-item";
 
- if(type==="weft" && state.selectedWeft===index){
+ if(type==="weft"&&state.selectedWeft===index){
   item.classList.add("active");
  }
 
@@ -501,8 +455,14 @@ function renderColorItem(container,index,color,type){
  const picker=document.createElement("input");
  picker.type="color";
  picker.value=color;
+ picker.title="تغییر رنگ";
+
+ picker.addEventListener("pointerdown",startColorEdit);
+ picker.addEventListener("focus",startColorEdit);
 
  picker.addEventListener("input",()=>{
+  startColorEdit();
+
   if(type==="warp"){
    state.warpColors[index]=picker.value;
   }else{
@@ -513,6 +473,9 @@ function renderColorItem(container,index,color,type){
   draw();
   saveState();
  });
+
+ picker.addEventListener("change",finishColorEdit);
+ picker.addEventListener("blur",finishColorEdit);
 
  const name=document.createElement("span");
  name.className="color-name";
@@ -527,12 +490,7 @@ function renderWarpControls(){
  box.innerHTML="";
 
  for(let i=0;i<state.warps;i++){
-  renderColorItem(
-   box,
-   i,
-   state.warpColors[i],
-   "warp"
-  );
+  renderColorItem(box,i,state.warpColors[i],"warp");
  }
 }
 
@@ -541,14 +499,11 @@ function renderWeftControls(){
  box.innerHTML="";
 
  for(let i=0;i<state.wefts;i++){
-  renderColorItem(
-   box,
-   i,
-   state.weftColors[i],
-   "weft"
-  );
+  renderColorItem(box,i,state.weftColors[i],"weft");
  }
 }
+
+/* قفل رنگ‌گذاری */
 
 function updateLockUI(){
  const button=document.getElementById("lockBtn");
@@ -575,55 +530,95 @@ document.getElementById("lockBtn").addEventListener("click",()=>{
  saveState();
 });
 
-function draw(){
+/* پاک کردن کامل طرح با دو مرحله */
 
+function resetClearButton(){
+ clearArmed=false;
+ clearTimer=null;
+
+ const button=document.getElementById("clearBtn");
+ button.classList.remove("armed");
+ button.textContent="🗑 پاک کردن کامل طرح";
+}
+
+document.getElementById("clearBtn").addEventListener("click",()=>{
+ const button=document.getElementById("clearBtn");
+
+ if(!clearArmed){
+  clearArmed=true;
+  button.classList.add("armed");
+  button.textContent="⚠️ برای تأیید دوباره بزن";
+
+  clearTimer=setTimeout(()=>{
+   resetClearButton();
+  },5000);
+
+  return;
+ }
+
+ clearTimeout(clearTimer);
+ resetClearButton();
+
+ if(Object.keys(state.marks).length===0){
+  document.getElementById("saveStatus").textContent="طرح از قبل خالی است";
+  return;
+ }
+
+ finishColorEdit();
+
+ const before=makeSnapshot();
+
+ state.marks={};
+
+ pushHistory(before);
+ draw();
+ saveState();
+});
+
+/* رسم شبکه */
+
+function updateCellSize(){
+ CELL=window.innerWidth<=600?48:62;
+}
+
+function draw(){
  updateCellSize();
 
  const width=LEFT+state.cols*CELL+RIGHT;
  const height=TOP+state.rows*CELL+BOTTOM;
-
  const dpr=Math.max(1,window.devicePixelRatio||1);
 
  canvas.width=Math.round(width*dpr);
  canvas.height=Math.round(height*dpr);
-
  canvas.style.width=width+"px";
  canvas.style.height=height+"px";
 
  ctx.setTransform(dpr,0,0,dpr,0,0);
-
  ctx.clearRect(0,0,width,height);
  ctx.fillStyle="#e8e8e8";
  ctx.fillRect(0,0,width,height);
 
- // شماره ستون‌ها
  ctx.fillStyle="#222";
  ctx.font="bold 11px Tahoma, Arial";
  ctx.textAlign="center";
  ctx.textBaseline="middle";
 
  for(let c=0;c<state.cols;c++){
-  const x=LEFT+c*CELL+CELL/2;
-  ctx.fillText(String(c+1),x,15);
+  ctx.fillText(String(c+1),LEFT+c*CELL+CELL/2,15);
  }
 
- // شماره ردیف‌ها
  for(let r=0;r<state.rows;r++){
-  const y=TOP+r*CELL+CELL/2;
-  ctx.fillText(String(r+1),17,y);
+  ctx.fillText(String(r+1),17,TOP+r*CELL+CELL/2);
  }
 
  for(let r=0;r<state.rows;r++){
   for(let c=0;c<state.cols;c++){
-
    const x=LEFT+c*CELL;
    const y=TOP+r*CELL;
 
-   // زمینه سفید
    ctx.fillStyle="#fff";
    ctx.fillRect(x,y,CELL,CELL);
 
-   // تقسیمات پود
    const partHeight=CELL/state.wefts;
 
    for(let k=0;k<state.wefts;k++){
@@ -641,23 +636,19 @@ function draw(){
     }
    }
 
-   // خطوط تقسیم نازک
    ctx.save();
    ctx.strokeStyle="rgba(0,0,0,0.42)";
    ctx.lineWidth=0.8;
 
    for(let k=1;k<state.wefts;k++){
     const lineY=y+k*partHeight;
-
     ctx.beginPath();
     ctx.moveTo(x+3,lineY);
     ctx.lineTo(x+CELL-3,lineY);
     ctx.stroke();
    }
-
    ctx.restore();
 
-   // رنگ حاشیه تار
    const warpColor=state.warpColors[c%state.warps];
 
    ctx.beginPath();
@@ -666,7 +657,6 @@ function draw(){
    ctx.lineWidth=4;
    ctx.stroke();
 
-   // خط اصلی مشکی
    ctx.beginPath();
    ctx.roundRect(x+1,y+1,CELL-2,CELL-2,6);
    ctx.strokeStyle="#111";
@@ -676,8 +666,9 @@ function draw(){
  }
 }
 
-function getCellFromPointer(event){
+/* تشخیص خانه انتخاب‌شده */
 
+function getCellFromPointer(event){
  const rect=canvas.getBoundingClientRect();
 
  const x=(event.clientX-rect.left)*
@@ -691,8 +682,7 @@ function getCellFromPointer(event){
  const col=Math.floor(x/CELL);
  const row=Math.floor(y/CELL);
 
- if(col<0||col>=state.cols||
-    row<0||row>=state.rows){
+ if(col<0||col>=state.cols||row<0||row>=state.rows){
   return null;
  }
 
@@ -704,14 +694,18 @@ function getCellFromPointer(event){
  return {row,col,part};
 }
 
-canvas.addEventListener("pointerdown",event=>{
+/* رنگ‌آمیزی و ثبت در تاریخچه */
 
- // در حالت قفل، هیچ رنگی اعمال نمی‌شود
+canvas.addEventListener("pointerdown",event=>{
  if(state.paintLocked)return;
+ if(event.button!==undefined&&event.button!==0)return;
 
  const cell=getCellFromPointer(event);
  if(!cell)return;
 
+ finishColorEdit();
+
+ const before=makeSnapshot();
  const key=`${cell.row},${cell.col},${cell.part}`;
  const selectedColor=state.weftColors[state.selectedWeft];
 
@@ -721,12 +715,16 @@ canvas.addEventListener("pointerdown",event=>{
   state.marks[key]=selectedColor;
  }
 
+ pushHistory(before);
  draw();
  saveState();
 });
 
-document.getElementById("applyBtn").addEventListener("click",()=>{
+/* اعمال تنظیمات */
 
+document.getElementById("applyBtn").addEventListener("click",applySettings);
+
+function applySettings(){
  const cols=Number(document.getElementById("cols").value);
  const rows=Number(document.getElementById("rows").value);
  const warps=Number(document.getElementById("warps").value);
@@ -738,18 +736,20 @@ document.getElementById("applyBtn").addEventListener("click",()=>{
   !Number.isInteger(warps)||warps<1||warps>16||
   !Number.isInteger(wefts)||wefts<1||wefts>16
  ){
-  alert("تعداد تار و پود باید بین ۱ تا ۱۶ باشد و ردیف و ستون نیز باید معتبر باشند.");
+  alert("تعداد تار و پود باید بین ۱ تا ۱۶ و ردیف و ستون بین ۱ تا ۴۰ باشد.");
   return;
  }
+
+ finishColorEdit();
+
+ const before=makeSnapshot();
 
  state.cols=cols;
  state.rows=rows;
  state.warps=warps;
  state.wefts=wefts;
-
  state.selectedWeft=Math.min(state.selectedWeft,wefts-1);
 
- // حذف رنگ‌های خارج از ابعاد جدید
  for(const key of Object.keys(state.marks)){
   const [r,c,k]=key.split(",").map(Number);
 
@@ -758,39 +758,83 @@ document.getElementById("applyBtn").addEventListener("click",()=>{
   }
  }
 
+ const after=makeSnapshot();
+
+ if(!snapshotsEqual(before,after)){
+  pushHistory(before);
+ }
+
  renderWarpControls();
  renderWeftControls();
+ updateGridInfo();
  draw();
  saveState();
+}
 
- document.getElementById("gridInfo").textContent=
-  `${cols} ستون · ${rows} ردیف · ${warps} تار · ${wefts} پود`;
-});
+/* خروجی JPG */
 
-document.getElementById("jpgBtn").addEventListener("click",()=>{
+function exportJPG(){
  const link=document.createElement("a");
  link.download="Fabric-Analyzer.jpg";
  link.href=canvas.toDataURL("image/jpeg",0.98);
  link.click();
+}
+
+document.getElementById("jpgBtn").addEventListener("click",exportJPG);
+
+/* میانبرهای صفحه‌کلید */
+
+document.addEventListener("keydown",event=>{
+ const key=event.key.toLowerCase();
+ const ctrl=event.ctrlKey||event.metaKey;
+
+ if(!ctrl)return;
+
+ const target=event.target;
+ const isColorInput=target instanceof HTMLInputElement&&target.type==="color";
+ const isEditable=target instanceof HTMLInputElement||
+  target instanceof HTMLTextAreaElement||
+  target.isContentEditable;
+
+ if(key==="s"){
+  event.preventDefault();
+  exportJPG();
+  return;
+ }
+
+ if(key==="enter"){
+  event.preventDefault();
+  applySettings();
+  return;
+ }
+
+ if(key==="z"&&!event.shiftKey){
+  if(isEditable&&!isColorInput)return;
+  event.preventDefault();
+  undo();
+  return;
+ }
+
+ if(key==="y"||(key==="z"&&event.shiftKey)){
+  if(isEditable&&!isColorInput)return;
+  event.preventDefault();
+  redo();
+ }
 });
 
+/* شروع برنامه */
+
 loadState();
-
-document.getElementById("cols").value=state.cols;
-document.getElementById("rows").value=state.rows;
-document.getElementById("warps").value=state.warps;
-document.getElementById("wefts").value=state.wefts;
-
-document.getElementById("gridInfo").textContent=
- `${state.cols} ستون · ${state.rows} ردیف · ${state.warps} تار · ${state.wefts} پود`;
+syncInputs();
+updateGridInfo();
 
 renderWarpControls();
 renderWeftControls();
 updateLockUI();
+updateHistoryButtons();
 draw();
 
 window.addEventListener("resize",draw);
 </script>
-
 </body>
 </html>
