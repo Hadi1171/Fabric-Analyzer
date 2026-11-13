@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
 <head>
@@ -588,6 +587,51 @@ button:disabled{opacity:.3;cursor:not-allowed;transform:none}
 }
 @media(prefers-reduced-motion:reduce){
  *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;scroll-behavior:auto!important;transition-duration:.01ms!important}
+}
+
+/* DESKTOP INTRO ANIMATION */
+@media(min-width:651px){
+ .splash-screen{
+  gap:24px;
+  background:
+   radial-gradient(ellipse at 50% 43%,rgba(80,105,140,.25),transparent 42%),
+   radial-gradient(ellipse at 50% 50%,rgba(216,173,104,.045),transparent 65%),
+   #10141d;
+ }
+ .splash-logo{
+  width:132px;
+  height:132px;
+ }
+ .weave-mark{
+  width:88px;
+  height:88px;
+ }
+ .weave-mark span{
+  border-width:3px;
+ }
+ .weave-mark span:nth-child(1){inset:0 54px 0 0}
+ .weave-mark span:nth-child(2){inset:0 0 54px 0}
+ .weave-mark span:nth-child(3){inset:54px 0 0 0}
+ .weave-mark span:nth-child(4){inset:0 0 0 54px}
+ .weave-mark span:nth-child(5){inset:22px}
+ .splash-title{
+  font-size:25px;
+  letter-spacing:4px;
+  animation-delay:.75s;
+ }
+ .splash-subtitle{
+  font-size:11px;
+  letter-spacing:5px;
+  animation-delay:1.05s;
+ }
+ .splash-loader{
+  width:125px;
+  height:2px;
+  margin-top:12px;
+ }
+ .splash-loader span{
+  animation-delay:.2s;
+ }
 }
 </style>
 </head>
