@@ -1178,8 +1178,8 @@ function renderWizard(){
  document.getElementById("wizardTitle").textContent=labels[wizardStep];
  document.getElementById("wizardDescription").textContent=desc[wizardStep];
  document.getElementById("wizardProgress").style.width=((wizardStep+1)*25)+"%";
- document.getElementById("wizardBack").textContent=fa?"قبلی":"Back";
- document.getElementById("wizardBack").disabled=wizardStep===0;
+ document.getElementById("wizardBack").textContent=wizardStep===0?(fa?"بازگشت به خانه":"Back to Home"):(fa?"قبلی":"Back");
+ document.getElementById("wizardBack").disabled=false;
  document.getElementById("wizardNext").textContent=wizardStep===3?(fa?"ساخت پروژه":"Create Project"):(fa?"بعدی":"Next");
  const fields=document.getElementById("wizardFields");fields.innerHTML="";
  if(wizardStep<3){
@@ -1220,7 +1220,7 @@ function createFreshProject(){
  zoom=1;draw();saveState();wizard.classList.remove("show");enterApp();
 }
 document.getElementById("startupNewBtn").addEventListener("click",openProjectWizard);
-document.getElementById("wizardBack").addEventListener("click",()=>{if(wizardStep>0){wizardStep--;renderWizard()}});
+document.getElementById("wizardBack").addEventListener("click",()=>{if(wizardStep>0){wizardStep--;renderWizard();return;}wizard.classList.remove("show");welcomeScreen.classList.add("show");});
 document.getElementById("wizardNext").addEventListener("click",()=>{
  if(wizardStep<3){wizardStep++;renderWizard();return;}
  createFreshProject();
