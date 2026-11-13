@@ -75,7 +75,7 @@ async function main() {
     fs.writeFileSync(path.join(adaptiveDir, "ic_launcher_round.xml"), adaptive);
     fs.writeFileSync(
       path.join(resDir, "values", "ic_launcher_background.xml"),
-      '<resources><color name="ic_launcher_background">#10141D</color></resources>\\n'
+      '<resources><color name="ic_launcher_background">#10141D</color></resources>\n'
     );
   }
   console.log("Generated Fabric Analyzer navy-and-gold intro icons for Windows, Android and web.");
