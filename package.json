@@ -40,10 +40,14 @@
       "artifactName": "Fabric-Analyzer-${version}-${arch}.${ext}"
     },
     "nsis": {
+      "artifactName": "Fabric-Analyzer-Setup-${version}-${arch}.${ext}",
       "oneClick": false,
       "allowToChangeInstallationDirectory": true,
       "createDesktopShortcut": true,
       "createStartMenuShortcut": true
+    },
+    "portable": {
+      "artifactName": "Fabric-Analyzer-Portable-${version}-${arch}.${ext}"
     }
   }
 }
