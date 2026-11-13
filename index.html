@@ -226,6 +226,15 @@ button:disabled{opacity:.3;cursor:not-allowed;transform:none}
  justify-content:center;gap:6px;background:#303b4d;
  border:1px solid #46536a;color:#e5eaf2;font-size:11px;font-weight:700
 }
+.home-back-button{
+ height:29px;padding:0 11px;display:flex;align-items:center;justify-content:center;gap:7px;
+ background:linear-gradient(135deg,#3b4658,#293344);border:1px solid #58677e;
+ color:#f0d3a2;font-size:11px;font-weight:800;white-space:nowrap;
+ transition:background .2s,border-color .2s,transform .2s
+}
+.home-back-button:hover{background:#46546a;border-color:var(--accent);transform:translateY(-1px)}
+.home-back-button svg{width:15px;height:15px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+html[dir="rtl"] .home-back-button svg{transform:rotate(180deg)}
 
 /* WORKSPACE */
 .workspace{
@@ -572,6 +581,8 @@ button:disabled{opacity:.3;cursor:not-allowed;transform:none}
  .left-dock,.right-dock{display:none!important}
  .help-button{width:30px;padding:0}
  .help-button span{display:none}
+ .home-back-button{height:30px;padding:0 9px;font-size:10px}
+ .home-back-button span{display:inline}
  .help-dialog{padding:12px;max-height:88dvh}
  .mobile-settings-panel .yarn-columns{flex-direction:row}
  .mobile-settings-panel .yarn-column{flex:1 1 50%}
@@ -776,6 +787,10 @@ html[dir="rtl"] .wizard-dialog{direction:rtl}
 <header class="topbar">
  <div class="brand">FABRIC <span>ANALYZER</span></div>
  <div class="topbar-right">
+  <button class="home-back-button" id="homeBackBtn" type="button" title="Back to Home">
+   <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19 12H5"></path><path d="m12 19-7-7 7-7"></path></svg>
+   <span>Back to Home</span>
+  </button>
   <span class="workspace-label">Design Workspace</span>
   <span class="app-version">v2.9.1</span>
   <button class="help-button" id="helpBtn" title="Help & Shortcuts">? <span>Help</span></button>
@@ -1076,7 +1091,7 @@ const translations={
  "Create New Project":"ساخت پروژه جدید",
  "Start with a clean canvas and build a new textile pattern from scratch.":"با یک صفحه خالی، طرح پارچه جدیدت را از ابتدا بساز.",
  "DESIGN WITH PRECISION":"طراحی با دقت",
- "Design Workspace":"محیط طراحی",
+ "Design Workspace":"محیط طراحی","Back to Home":"بازگشت به خانه",
  "Help":"راهنما","Help & Shortcuts":"راهنما و میانبرها",
  "Yarn Settings":"تنظیمات نخ","Warp & Weft":"تار و پود","Warp Colors":"رنگ تار","Weft Colors":"رنگ پود",
  "Export Image":"خروجی تصویر","Paint Tool":"ابزار نقاشی","Unlock Painting":"باز کردن قفل نقاشی","Lock Painting":"قفل نقاشی",
@@ -1121,15 +1136,32 @@ function applyLanguage(lang){
 }
 
 
+let projectBaseline=null;
 function enterApp(){
  welcomeScreen.classList.remove("show");
  mainApp.classList.remove("is-hidden");
  mainApp.classList.add("entered");
+ projectBaseline=makeSnapshot();
  requestAnimationFrame(()=>{
   draw();
   syncResponsivePanels();
  });
 }
+function returnToHome(){
+ finishColorEdit();
+ const changed=projectBaseline&&!snapshotsEqual(projectBaseline,makeSnapshot());
+ if(changed){
+  const fa=document.documentElement.lang==="fa";
+  const message=fa
+   ?"تغییرات پروژه هنوز ذخیره نشده‌اند. مطمئنی می‌خواهی به صفحه اصلی برگردی؟"
+   :"This project has unsaved changes. Are you sure you want to return to Home?";
+  if(!window.confirm(message))return;
+ }
+ mainApp.classList.add("is-hidden");
+ mainApp.classList.remove("entered");
+ welcomeScreen.classList.add("show");
+}
+document.getElementById("homeBackBtn").addEventListener("click",returnToHome);
 
 const wizard=document.getElementById("projectWizard");
 let wizardStep=0;
