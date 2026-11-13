@@ -3,278 +3,263 @@
 <html lang="fa" dir="rtl">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 <title>Fabric Analyzer</title>
 
 <style>
-:root {
-  --bg: #111318;
-  --panel: #1b1e25;
-  --panel2: #242832;
-  --text: #f2f3f5;
-  --muted: #969daa;
-  --accent: #d5a85c;
-  --border: #343944;
+:root{
+  --bg:#111318;
+  --panel:#1b1e25;
+  --panel2:#252a34;
+  --text:#f4f5f7;
+  --muted:#b0b6c2;
+  --accent:#d5a85c;
+  --border:#3a404d;
 }
 
-* {
-  box-sizing: border-box;
+*{box-sizing:border-box}
+
+body{
+  margin:0;
+  padding:12px;
+  background:var(--bg);
+  color:var(--text);
+  font-family:Tahoma,"Segoe UI",Arial,sans-serif;
+  font-size:15px;
 }
 
-body {
-  margin: 0;
-  padding: 12px;
-  background: var(--bg);
-  color: var(--text);
-  font-family: Tahoma, Arial, sans-serif;
+.app{
+  width:100%;
+  max-width:1500px;
+  margin:auto;
 }
 
-.app {
-  width: 100%;
-  max-width: 1500px;
-  margin: auto;
+header{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  margin-bottom:12px;
 }
 
-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 12px;
-  margin-bottom: 12px;
+.brand{
+  font-size:22px;
+  font-weight:800;
+  letter-spacing:.4px;
 }
 
-.brand {
-  font-size: 19px;
-  font-weight: bold;
-  letter-spacing: .3px;
+.brand span{color:var(--accent)}
+
+.status{
+  color:var(--muted);
+  font-size:13px;
 }
 
-.brand span {
-  color: var(--accent);
+.panel{
+  background:var(--panel);
+  border:1px solid var(--border);
+  border-radius:14px;
+  padding:13px;
+  margin-bottom:11px;
 }
 
-.status {
-  color: var(--muted);
-  font-size: 11px;
+.toolbar{
+  display:flex;
+  flex-wrap:wrap;
+  align-items:center;
+  gap:12px;
 }
 
-.panel {
-  background: var(--panel);
-  border: 1px solid var(--border);
-  border-radius: 13px;
-  padding: 11px;
-  margin-bottom: 10px;
+.group{
+  display:flex;
+  align-items:center;
+  gap:8px;
+  flex-wrap:wrap;
 }
 
-.toolbar {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 9px;
+.group-title{
+  color:var(--muted);
+  font-size:14px;
+  font-weight:600;
 }
 
-.group {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  flex-wrap: wrap;
+input,button{font-family:inherit}
+
+input[type=number]{
+  width:65px;
+  height:40px;
+  border:1px solid var(--border);
+  background:var(--panel2);
+  color:white;
+  border-radius:9px;
+  padding:5px;
+  text-align:center;
+  font-size:16px;
 }
 
-.group-title {
-  color: var(--muted);
-  font-size: 11px;
-  margin-left: 3px;
+button{
+  border:1px solid var(--border);
+  background:var(--panel2);
+  color:var(--text);
+  border-radius:9px;
+  padding:11px 14px;
+  cursor:pointer;
+  font-size:14px;
+  font-weight:600;
 }
 
-input, select, button {
-  font-family: inherit;
+button:active{transform:scale(.97)}
+
+button.primary{
+  background:var(--accent);
+  border-color:var(--accent);
+  color:#171717;
 }
 
-input[type="number"] {
-  width: 55px;
-  height: 34px;
-  border: 1px solid var(--border);
-  background: var(--panel2);
-  color: white;
-  border-radius: 7px;
-  padding: 5px;
-  text-align: center;
-  direction: ltr;
+.palette{
+  display:flex;
+  flex-wrap:wrap;
+  align-items:center;
+  gap:10px;
 }
 
-button {
-  border: 1px solid var(--border);
-  background: var(--panel2);
-  color: var(--text);
-  border-radius: 8px;
-  padding: 9px 12px;
-  cursor: pointer;
-  font-size: 12px;
+.swatch{
+  width:36px;
+  height:36px;
+  border-radius:9px;
+  border:2px solid rgba(255,255,255,.25);
+  padding:0;
 }
 
-button:active {
-  transform: scale(.97);
+.swatch.selected{
+  outline:3px solid var(--accent);
+  outline-offset:2px;
 }
 
-button.primary {
-  background: var(--accent);
-  border-color: var(--accent);
-  color: #171717;
-  font-weight: bold;
+input[type=color]{
+  width:39px;
+  height:39px;
+  border:0;
+  padding:0;
+  background:transparent;
+  cursor:pointer;
 }
 
-button.small {
-  padding: 7px 9px;
+details{
+  margin-top:12px;
+  border-top:1px solid var(--border);
+  padding-top:12px;
 }
 
-.palette {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 8px;
+summary{
+  cursor:pointer;
+  color:#e3e5e9;
+  font-size:14px;
+  font-weight:600;
+  padding:5px 0;
 }
 
-.swatch {
-  width: 30px;
-  height: 30px;
-  border-radius: 8px;
-  border: 2px solid rgba(255,255,255,.2);
-  padding: 0;
-  position: relative;
+.warp-grid{
+  display:grid;
+  grid-template-columns:repeat(4,minmax(0,1fr));
+  gap:9px;
+  margin-top:13px;
 }
 
-.swatch.selected {
-  outline: 2px solid var(--accent);
-  outline-offset: 3px;
+.warp-item{
+  background:var(--panel2);
+  border:1px solid var(--border);
+  border-radius:9px;
+  padding:7px;
+  display:flex;
+  align-items:center;
+  gap:7px;
+  font-size:12px;
 }
 
-.add-color {
-  width: 31px;
-  height: 31px;
-  padding: 0;
-  font-size: 19px;
-  color: var(--accent);
+.warp-item input{
+  width:32px;
+  height:32px;
+  flex-shrink:0;
 }
 
-input[type="color"] {
-  width: 34px;
-  height: 34px;
-  border: 0;
-  padding: 0;
-  background: transparent;
-  cursor: pointer;
+.warp-item span{
+  color:#e0e3e9;
+  font-size:12px;
 }
 
-details {
-  margin-top: 9px;
-  border-top: 1px solid var(--border);
-  padding-top: 9px;
+.workspace{
+  background:#e8e8e8;
+  border-radius:14px;
+  padding:9px;
+  overflow:hidden;
 }
 
-summary {
-  cursor: pointer;
-  color: var(--muted);
-  font-size: 12px;
-  user-select: none;
+.canvas-wrap{
+  width:100%;
+  overflow:auto;
+  direction:ltr;
+  touch-action:pan-x pan-y;
+  -webkit-overflow-scrolling:touch;
 }
 
-.warp-grid {
-  display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: 8px;
-  margin-top: 12px;
+canvas{
+  display:block;
+  height:auto;
+  max-width:none;
+  touch-action:pan-x pan-y;
+  cursor:crosshair;
 }
 
-.warp-item {
-  background: var(--panel2);
-  border: 1px solid var(--border);
-  border-radius: 8px;
-  padding: 6px;
-  display: flex;
-  align-items: center;
-  gap: 5px;
-  font-size: 10px;
-  min-width: 0;
+.footer{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:12px;
+  flex-wrap:wrap;
+  color:var(--muted);
+  font-size:13px;
+  margin-top:12px;
 }
 
-.warp-item input {
-  width: 28px;
-  height: 27px;
-  flex-shrink: 0;
+.bottom-actions{
+  display:flex;
+  justify-content:center;
+  margin:18px 0 10px;
 }
 
-.warp-item span {
-  color: var(--muted);
+.bottom-actions button{
+  min-width:190px;
+  font-size:16px;
+  padding:14px 22px;
 }
 
-.workspace {
-  background: #e8e8e8;
-  border-radius: 13px;
-  padding: 8px;
-  overflow: hidden;
-  min-height: 180px;
-}
+@media(max-width:600px){
+  body{padding:9px}
 
-.canvas-wrap {
-  width: 100%;
-  overflow: auto;
-  touch-action: pan-x pan-y;
-}
+  .brand{font-size:19px}
+  .status{font-size:11px}
 
-canvas {
-  display: block;
-  width: 100%;
-  height: auto;
-  touch-action: manipulation;
-  cursor: crosshair;
-}
+  .panel{padding:11px}
 
-.footer {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 10px;
-  flex-wrap: wrap;
-  color: var(--muted);
-  font-size: 11px;
-  margin-top: 9px;
-}
-
-@media (max-width: 600px) {
-  body {
-    padding: 8px;
+  .toolbar{
+    gap:13px;
   }
 
-  header {
-    margin-bottom: 9px;
+  .group{
+    width:100%;
+    gap:9px;
   }
 
-  .brand {
-    font-size: 16px;
+  .group-title{font-size:14px}
+
+  .warp-grid{
+    grid-template-columns:repeat(2,minmax(0,1fr));
   }
 
-  .panel {
-    padding: 9px;
-  }
+  .workspace{padding:6px}
 
-  .toolbar {
-    gap: 8px;
-  }
-
-  .group {
-    width: 100%;
-  }
-
-  .group-title {
-    min-width: 43px;
-  }
-
-  .warp-grid {
-    grid-template-columns: repeat(4, minmax(0, 1fr));
-  }
-
-  button {
-    padding: 8px 10px;
+  .bottom-actions button{
+    width:100%;
   }
 }
 </style>
@@ -285,7 +270,7 @@ canvas {
 
 <header>
   <div class="brand">FABRIC <span>ANALYZER</span></div>
-  <div class="status" id="saveStatus">ذخیره خودکار فعال است</div>
+  <div class="status" id="saveStatus">ذخیره خودکار فعال</div>
 </header>
 
 <section class="panel">
@@ -293,419 +278,401 @@ canvas {
   <div class="toolbar">
 
     <div class="group">
-      <span class="group-title">ستون</span>
+      <span class="group-title">ستون‌ها</span>
       <input id="cols" type="number" min="1" max="40" value="10">
 
-      <span class="group-title">ردیف</span>
+      <span class="group-title">ردیف‌ها</span>
       <input id="rows" type="number" min="1" max="40" value="10">
+    </div>
+
+    <div class="group">
+      <span class="group-title">تار</span>
+      <input id="warps" type="number" min="1" max="16" value="16">
 
       <span class="group-title">پود</span>
       <input id="wefts" type="number" min="1" max="16" value="3">
 
-      <button class="primary small" id="applyBtn">اعمال</button>
-    </div>
-
-    <div class="group">
-      <button class="small" id="jpgBtn">خروجی JPG</button>
+      <button class="primary" id="applyBtn">اعمال تغییرات</button>
     </div>
 
   </div>
 
   <details>
-    <summary>تنظیم رنگ‌های تار · ۱۶ رنگ مستقل</summary>
+    <summary>تنظیم رنگ‌های تار · ۱ تا ۱۶ رنگ</summary>
     <div class="warp-grid" id="warpGrid"></div>
   </details>
 
 </section>
 
 <section class="panel">
-
-  <div class="group-title" style="margin-bottom:10px">
+  <div class="group-title" style="margin-bottom:12px">
     انتخاب رنگ پود
   </div>
-
   <div class="palette" id="palette"></div>
-
 </section>
 
 <section class="workspace">
-  <div class="canvas-wrap">
+  <div class="canvas-wrap" id="canvasWrap">
     <canvas id="fabricCanvas"></canvas>
   </div>
 </section>
 
 <div class="footer">
-  <span id="gridInfo">۱۰ ستون × ۱۰ ردیف</span>
-  <span>برای رنگ‌گذاری، روی قسمت موردنظر بزن</span>
+  <span id="gridInfo"></span>
+  <span>برای رنگ‌گذاری روی قسمت موردنظر بزن</span>
+</div>
+
+<div class="bottom-actions">
+  <button class="primary" id="jpgBtn">ذخیره خروجی JPG</button>
 </div>
 
 </div>
 
 <script>
-const canvas = document.getElementById("fabricCanvas");
-const ctx = canvas.getContext("2d");
+const canvas=document.getElementById("fabricCanvas");
+const ctx=canvas.getContext("2d");
 
-const defaultWarpColors = [
-  "#e63946", "#457b9d", "#2a9d8f", "#e9c46a",
-  "#f4a261", "#9b5de5", "#00b4d8", "#80b918",
-  "#f72585", "#7209b7", "#4361ee", "#4d908e",
-  "#f94144", "#90be6d", "#f8961e", "#577590"
+const defaultWarpColors=[
+ "#e63946","#457b9d","#2a9d8f","#e9c46a",
+ "#f4a261","#9b5de5","#00b4d8","#80b918",
+ "#f72585","#7209b7","#4361ee","#4d908e",
+ "#f94144","#90be6d","#f8961e","#577590"
 ];
 
-const defaultWeftColors = [
-  "#ff3b30", "#00c853", "#2979ff",
-  "#ffea00", "#d500f9", "#00b8d4"
+const defaultWeftColors=[
+ "#ff3b30","#00c853","#2979ff",
+ "#ffea00","#d500f9","#00b8d4"
 ];
 
-let state = {
-  cols: 10,
-  rows: 10,
-  wefts: 3,
-  warpColors: [...defaultWarpColors],
-  weftPalette: [...defaultWeftColors],
-  selectedColor: defaultWeftColors[0],
-  marks: {}
+let state={
+ cols:10,
+ rows:10,
+ warps:16,
+ wefts:3,
+ warpColors:[...defaultWarpColors],
+ weftPalette:[...defaultWeftColors],
+ selectedColor:defaultWeftColors[0],
+ marks:{}
 };
 
-const CELL_W = 92;
-const CELL_H = 70;
-const LEFT = 45;
-const TOP = 38;
-const RIGHT = 18;
-const BOTTOM = 25;
+let CELL_W=100;
+let CELL_H=78;
+let LEFT=48;
+let TOP=42;
+let RIGHT=18;
+let BOTTOM=24;
 
-function roundedRect(context, x, y, w, h, r) {
-  context.beginPath();
-  context.roundRect(x, y, w, h, r);
+function updateCellSize(){
+ const mobile=window.innerWidth<=600;
+ CELL_W=mobile?112:100;
+ CELL_H=mobile?88:78;
 }
 
-function saveState() {
-  try {
-    localStorage.setItem("fabricAnalyzerState", JSON.stringify(state));
-    document.getElementById("saveStatus").textContent = "ذخیره شد ✓";
-  } catch (e) {
-    document.getElementById("saveStatus").textContent = "ذخیره‌سازی در دسترس نیست";
-  }
+function saveState(){
+ try{
+  localStorage.setItem("fabricAnalyzerState",JSON.stringify(state));
+  document.getElementById("saveStatus").textContent="ذخیره شد ✓";
+ }catch(e){
+  document.getElementById("saveStatus").textContent="ذخیره‌سازی ناموفق";
+ }
 }
 
-function loadState() {
-  try {
-    const saved = localStorage.getItem("fabricAnalyzerState");
-    if (!saved) return;
+function loadState(){
+ try{
+  const saved=localStorage.getItem("fabricAnalyzerState");
+  if(!saved)return;
 
-    const parsed = JSON.parse(saved);
+  const parsed=JSON.parse(saved);
 
-    if (
-      Number.isInteger(parsed.cols) &&
-      Number.isInteger(parsed.rows) &&
-      Number.isInteger(parsed.wefts) &&
-      Array.isArray(parsed.warpColors) &&
-      Array.isArray(parsed.weftPalette) &&
-      parsed.marks &&
-      typeof parsed.marks === "object"
-    ) {
-      state = {
-        ...state,
-        ...parsed,
-        cols: Math.max(1, Math.min(40, parsed.cols)),
-        rows: Math.max(1, Math.min(40, parsed.rows)),
-        wefts: Math.max(1, Math.min(16, parsed.wefts)),
-        warpColors: Array.from(
-          {length:16},
-          (_,i) => parsed.warpColors[i] || defaultWarpColors[i]
-        )
-      };
-    }
-  } catch (e) {
-    console.warn("Saved data could not be loaded.");
-  }
+  state={
+   ...state,
+   ...parsed,
+   cols:Math.max(1,Math.min(40,Number(parsed.cols)||10)),
+   rows:Math.max(1,Math.min(40,Number(parsed.rows)||10)),
+   warps:Math.max(1,Math.min(16,Number(parsed.warps)||16)),
+   wefts:Math.max(1,Math.min(16,Number(parsed.wefts)||3)),
+   warpColors:Array.from(
+    {length:16},
+    (_,i)=>parsed.warpColors?.[i]||defaultWarpColors[i]
+   ),
+   weftPalette:Array.isArray(parsed.weftPalette)&&parsed.weftPalette.length
+    ?parsed.weftPalette:defaultWeftColors,
+   marks:parsed.marks||{}
+  };
+ }catch(e){
+  console.warn("Could not load saved data.");
+ }
 }
 
-function renderWarpControls() {
-  const box = document.getElementById("warpGrid");
-  box.innerHTML = "";
+function renderWarpControls(){
+ const box=document.getElementById("warpGrid");
+ box.innerHTML="";
 
-  state.warpColors.forEach((color, index) => {
-    const item = document.createElement("label");
-    item.className = "warp-item";
+ for(let i=0;i<state.warps;i++){
+  const item=document.createElement("label");
+  item.className="warp-item";
 
-    const input = document.createElement("input");
-    input.type = "color";
-    input.value = color;
+  const input=document.createElement("input");
+  input.type="color";
+  input.value=state.warpColors[i];
 
-    input.addEventListener("input", () => {
-      state.warpColors[index] = input.value;
-      draw();
-      saveState();
-    });
-
-    const text = document.createElement("span");
-    text.textContent = "تار " + (index + 1);
-
-    item.appendChild(input);
-    item.appendChild(text);
-    box.appendChild(item);
-  });
-}
-
-function renderPalette() {
-  const box = document.getElementById("palette");
-  box.innerHTML = "";
-
-  state.weftPalette.forEach(color => {
-    const button = document.createElement("button");
-    button.className = "swatch";
-    button.style.background = color;
-    button.title = color;
-
-    if (state.selectedColor === color) {
-      button.classList.add("selected");
-    }
-
-    button.addEventListener("click", () => {
-      state.selectedColor = color;
-      renderPalette();
-      saveState();
-    });
-
-    box.appendChild(button);
+  input.addEventListener("input",()=>{
+   state.warpColors[i]=input.value;
+   draw();
+   saveState();
   });
 
-  const picker = document.createElement("input");
-  picker.type = "color";
-  picker.title = "افزودن رنگ جدید";
+  const text=document.createElement("span");
+  text.textContent="تار "+(i+1);
 
-  picker.addEventListener("input", () => {
-    const color = picker.value.toLowerCase();
+  item.append(input,text);
+  box.appendChild(item);
+ }
+}
 
-    if (!state.weftPalette.includes(color)) {
-      state.weftPalette.push(color);
-    }
+function renderPalette(){
+ const box=document.getElementById("palette");
+ box.innerHTML="";
 
-    state.selectedColor = color;
-    renderPalette();
-    saveState();
+ state.weftPalette.forEach(color=>{
+  const button=document.createElement("button");
+  button.className="swatch";
+  button.style.background=color;
+
+  if(state.selectedColor===color){
+   button.classList.add("selected");
+  }
+
+  button.addEventListener("click",()=>{
+   state.selectedColor=color;
+   renderPalette();
+   saveState();
   });
 
-  box.appendChild(picker);
-}
+  box.appendChild(button);
+ });
 
-function draw() {
-  const width = LEFT + state.cols * CELL_W + RIGHT;
-  const height = TOP + state.rows * CELL_H + BOTTOM;
+ const picker=document.createElement("input");
+ picker.type="color";
+ picker.title="افزودن رنگ جدید";
 
-  const dpr = Math.max(1, window.devicePixelRatio || 1);
+ picker.addEventListener("input",()=>{
+  const color=picker.value.toLowerCase();
 
-  canvas.width = Math.round(width * dpr);
-  canvas.height = Math.round(height * dpr);
-
-  canvas.style.width = width + "px";
-  canvas.style.maxWidth = "100%";
-
-  ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-  ctx.clearRect(0, 0, width, height);
-
-  ctx.fillStyle = "#e8e8e8";
-  ctx.fillRect(0, 0, width, height);
-
-  // شماره ستون‌ها
-  ctx.fillStyle = "#333";
-  ctx.font = "12px Arial";
-  ctx.textAlign = "center";
-  ctx.textBaseline = "middle";
-
-  for (let c = 0; c < state.cols; c++) {
-    const x = LEFT + c * CELL_W + CELL_W / 2;
-    ctx.fillText(String(c + 1), x, 17);
+  if(!state.weftPalette.includes(color)){
+   state.weftPalette.push(color);
   }
 
-  // شماره ردیف‌ها
-  for (let r = 0; r < state.rows; r++) {
-    const y = TOP + r * CELL_H + CELL_H / 2;
-    ctx.fillText(String(r + 1), 20, y);
-  }
-
-  for (let r = 0; r < state.rows; r++) {
-    for (let c = 0; c < state.cols; c++) {
-
-      const x = LEFT + c * CELL_W;
-      const y = TOP + r * CELL_H;
-
-      // پس‌زمینه سفید
-      ctx.fillStyle = "#ffffff";
-      ctx.fillRect(x, y, CELL_W, CELL_H);
-
-      // رنگ تار دور سلول
-      const warpColor = state.warpColors[c % 16];
-
-      roundedRect(
-        ctx,
-        x + 2,
-        y + 2,
-        CELL_W - 4,
-        CELL_H - 4,
-        7
-      );
-
-      ctx.strokeStyle = warpColor;
-      ctx.lineWidth = 6;
-      ctx.stroke();
-
-      // رنگ‌گذاری زیربخش‌های پود
-      const partHeight = CELL_H / state.wefts;
-
-      for (let k = 0; k < state.wefts; k++) {
-        const key = `${r},${c},${k}`;
-        const color = state.marks[key];
-
-        if (color) {
-          ctx.fillStyle = color;
-          ctx.fillRect(
-            x + 6,
-            y + k * partHeight + 2,
-            CELL_W - 12,
-            partHeight - 4
-          );
-        }
-      }
-
-      // خطوط تقسیم پود: مشکی و کم‌رنگ
-      ctx.save();
-      ctx.strokeStyle = "rgba(0,0,0,0.35)";
-      ctx.lineWidth = 1;
-
-      for (let k = 1; k < state.wefts; k++) {
-        const lineY = y + k * partHeight;
-        ctx.beginPath();
-        ctx.moveTo(x + 4, lineY);
-        ctx.lineTo(x + CELL_W - 4, lineY);
-        ctx.stroke();
-      }
-
-      ctx.restore();
-
-      // خط اصلی سلول: مشکی و ضخیم
-      roundedRect(
-        ctx,
-        x + 2,
-        y + 2,
-        CELL_W - 4,
-        CELL_H - 4,
-        7
-      );
-
-      ctx.strokeStyle = "#111111";
-      ctx.lineWidth = 2;
-      ctx.stroke();
-    }
-  }
-}
-
-function getCellFromPointer(event) {
-  const rect = canvas.getBoundingClientRect();
-
-  const scaleX = canvas.width /
-    (window.devicePixelRatio || 1) / rect.width;
-
-  const scaleY = canvas.height /
-    (window.devicePixelRatio || 1) / rect.height;
-
-  const x = (event.clientX - rect.left) * scaleX - LEFT;
-  const y = (event.clientY - rect.top) * scaleY - TOP;
-
-  if (x < 0 || y < 0) return null;
-
-  const col = Math.floor(x / CELL_W);
-  const row = Math.floor(y / CELL_H);
-
-  if (col < 0 || col >= state.cols ||
-      row < 0 || row >= state.rows) {
-    return null;
-  }
-
-  const localY = y - row * CELL_H;
-  const part = Math.floor(localY / (CELL_H / state.wefts));
-
-  if (part < 0 || part >= state.wefts) return null;
-
-  return {row, col, part};
-}
-
-canvas.addEventListener("pointerdown", event => {
-  const cell = getCellFromPointer(event);
-  if (!cell) return;
-
-  const key = `${cell.row},${cell.col},${cell.part}`;
-  const oldColor = state.marks[key];
-
-  // لمس مجدد با همان رنگ: پاک کردن
-  if (oldColor === state.selectedColor) {
-    delete state.marks[key];
-  } else {
-    // رنگ جدید جایگزین رنگ قبلی می‌شود
-    state.marks[key] = state.selectedColor;
-  }
-
-  draw();
+  state.selectedColor=color;
+  renderPalette();
   saveState();
+ });
+
+ box.appendChild(picker);
+}
+
+function draw(){
+ updateCellSize();
+
+ const width=LEFT+state.cols*CELL_W+RIGHT;
+ const height=TOP+state.rows*CELL_H+BOTTOM;
+
+ const dpr=Math.max(1,window.devicePixelRatio||1);
+
+ canvas.width=Math.round(width*dpr);
+ canvas.height=Math.round(height*dpr);
+ canvas.style.width=width+"px";
+ canvas.style.height=height+"px";
+
+ ctx.setTransform(dpr,0,0,dpr,0,0);
+ ctx.clearRect(0,0,width,height);
+
+ ctx.fillStyle="#e8e8e8";
+ ctx.fillRect(0,0,width,height);
+
+ // شماره ستون‌ها
+ ctx.fillStyle="#222";
+ ctx.font="bold 15px Tahoma, Arial";
+ ctx.textAlign="center";
+ ctx.textBaseline="middle";
+
+ for(let c=0;c<state.cols;c++){
+  const x=LEFT+c*CELL_W+CELL_W/2;
+  ctx.fillText(String(c+1),x,19);
+ }
+
+ // شماره ردیف‌ها
+ for(let r=0;r<state.rows;r++){
+  const y=TOP+r*CELL_H+CELL_H/2;
+  ctx.fillText(String(r+1),21,y);
+ }
+
+ for(let r=0;r<state.rows;r++){
+  for(let c=0;c<state.cols;c++){
+
+   const x=LEFT+c*CELL_W;
+   const y=TOP+r*CELL_H;
+
+   // داخل سفید
+   ctx.fillStyle="#ffffff";
+   ctx.fillRect(x,y,CELL_W,CELL_H);
+
+   // زیربخش‌های رنگی پود
+   const partHeight=CELL_H/state.wefts;
+
+   for(let k=0;k<state.wefts;k++){
+    const key=`${r},${c},${k}`;
+    const color=state.marks[key];
+
+    if(color){
+     ctx.fillStyle=color;
+     ctx.fillRect(
+      x+7,
+      y+k*partHeight+3,
+      CELL_W-14,
+      partHeight-6
+     );
+    }
+   }
+
+   // خطوط تقسیم پود
+   ctx.save();
+   ctx.strokeStyle="rgba(0,0,0,0.38)";
+   ctx.lineWidth=1;
+
+   for(let k=1;k<state.wefts;k++){
+    const lineY=y+k*partHeight;
+    ctx.beginPath();
+    ctx.moveTo(x+5,lineY);
+    ctx.lineTo(x+CELL_W-5,lineY);
+    ctx.stroke();
+   }
+
+   ctx.restore();
+
+   // رنگ تار در حاشیه سلول
+   const warpColor=state.warpColors[c%state.warps];
+
+   ctx.beginPath();
+   ctx.roundRect(
+    x+2,y+2,CELL_W-4,CELL_H-4,8
+   );
+   ctx.strokeStyle=warpColor;
+   ctx.lineWidth=6;
+   ctx.stroke();
+
+   // مرز اصلی مشکی
+   ctx.beginPath();
+   ctx.roundRect(
+    x+2,y+2,CELL_W-4,CELL_H-4,8
+   );
+   ctx.strokeStyle="#111";
+   ctx.lineWidth=2;
+   ctx.stroke();
+  }
+ }
+}
+
+function getCellFromPointer(event){
+ const rect=canvas.getBoundingClientRect();
+
+ const x=(event.clientX-rect.left)*
+  (canvas.width/rect.width)/(window.devicePixelRatio||1)-LEFT;
+
+ const y=(event.clientY-rect.top)*
+  (canvas.height/rect.height)/(window.devicePixelRatio||1)-TOP;
+
+ if(x<0||y<0)return null;
+
+ const col=Math.floor(x/CELL_W);
+ const row=Math.floor(y/CELL_H);
+
+ if(col<0||col>=state.cols||row<0||row>=state.rows){
+  return null;
+ }
+
+ const localY=y-row*CELL_H;
+ const part=Math.floor(localY/(CELL_H/state.wefts));
+
+ if(part<0||part>=state.wefts)return null;
+
+ return {row,col,part};
+}
+
+canvas.addEventListener("pointerdown",event=>{
+ const cell=getCellFromPointer(event);
+ if(!cell)return;
+
+ const key=`${cell.row},${cell.col},${cell.part}`;
+
+ if(state.marks[key]===state.selectedColor){
+  delete state.marks[key];
+ }else{
+  state.marks[key]=state.selectedColor;
+ }
+
+ draw();
+ saveState();
 });
 
-document.getElementById("applyBtn").addEventListener("click", () => {
-  const cols = Number(document.getElementById("cols").value);
-  const rows = Number(document.getElementById("rows").value);
-  const wefts = Number(document.getElementById("wefts").value);
+document.getElementById("applyBtn").addEventListener("click",()=>{
+ const cols=Number(document.getElementById("cols").value);
+ const rows=Number(document.getElementById("rows").value);
+ const warps=Number(document.getElementById("warps").value);
+ const wefts=Number(document.getElementById("wefts").value);
 
-  if (
-    !Number.isInteger(cols) || !Number.isInteger(rows) ||
-    !Number.isInteger(wefts) ||
-    cols < 1 || cols > 40 ||
-    rows < 1 || rows > 40 ||
-    wefts < 1 || wefts > 16
-  ) {
-    alert("مقادیر ستون، ردیف و پود باید معتبر باشند.");
-    return;
+ if(
+  !Number.isInteger(cols)||cols<1||cols>40||
+  !Number.isInteger(rows)||rows<1||rows>40||
+  !Number.isInteger(warps)||warps<1||warps>16||
+  !Number.isInteger(wefts)||wefts<1||wefts>16
+ ){
+  alert("تعداد تار و پود باید بین ۱ تا ۱۶ باشد. تعداد ردیف و ستون نیز باید معتبر باشد.");
+  return;
+ }
+
+ state.cols=cols;
+ state.rows=rows;
+ state.warps=warps;
+ state.wefts=wefts;
+
+ for(const key of Object.keys(state.marks)){
+  const [r,c,k]=key.split(",").map(Number);
+  if(r>=rows||c>=cols||k>=wefts){
+   delete state.marks[key];
   }
+ }
 
-  state.cols = cols;
-  state.rows = rows;
-  state.wefts = wefts;
+ renderWarpControls();
+ draw();
+ saveState();
 
-  // حذف رنگ‌های خارج از ابعاد جدید
-  for (const key of Object.keys(state.marks)) {
-    const [r,c,k] = key.split(",").map(Number);
-
-    if (r >= rows || c >= cols || k >= wefts) {
-      delete state.marks[key];
-    }
-  }
-
-  draw();
-  saveState();
-
-  document.getElementById("gridInfo").textContent =
-    `${cols} ستون × ${rows} ردیف · ${wefts} پود`;
+ document.getElementById("gridInfo").textContent=
+  `${cols} ستون · ${rows} ردیف · ${warps} تار · ${wefts} پود`;
 });
 
-document.getElementById("jpgBtn").addEventListener("click", () => {
-  const link = document.createElement("a");
-  link.download = "Fabric-Analyzer.jpg";
-  link.href = canvas.toDataURL("image/jpeg", 0.98);
-  link.click();
+document.getElementById("jpgBtn").addEventListener("click",()=>{
+ const link=document.createElement("a");
+ link.download="Fabric-Analyzer.jpg";
+ link.href=canvas.toDataURL("image/jpeg",0.98);
+ link.click();
 });
 
 loadState();
 
-document.getElementById("cols").value = state.cols;
-document.getElementById("rows").value = state.rows;
-document.getElementById("wefts").value = state.wefts;
+document.getElementById("cols").value=state.cols;
+document.getElementById("rows").value=state.rows;
+document.getElementById("warps").value=state.warps;
+document.getElementById("wefts").value=state.wefts;
 
-document.getElementById("gridInfo").textContent =
-  `${state.cols} ستون × ${state.rows} ردیف · ${state.wefts} پود`;
+document.getElementById("gridInfo").textContent=
+ `${state.cols} ستون · ${state.rows} ردیف · ${state.warps} تار · ${state.wefts} پود`;
 
 renderWarpControls();
 renderPalette();
 draw();
-</script>
 
+window.addEventListener("resize",draw);
+</script>
 </body>
 </html>
