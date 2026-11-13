@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
 <head>
@@ -38,66 +39,193 @@ button:disabled{opacity:.3;cursor:not-allowed;transform:none}
 @keyframes fadeRight{from{opacity:0;transform:translateX(-14px)}to{opacity:1;transform:translateX(0)}}
 @keyframes fadeLeft{from{opacity:0;transform:translateX(14px)}to{opacity:1;transform:translateX(0)}}
 
-/* INTRO SCREEN */
+/* INTRO SCREEN — NEW WEAVING ANIMATION */
 .splash-screen{
- position:fixed;inset:0;z-index:1000;
- display:flex;align-items:center;justify-content:center;
- flex-direction:column;gap:20px;
+ position:fixed;
+ inset:0;
+ z-index:1000;
+ display:flex;
+ align-items:center;
+ justify-content:center;
+ flex-direction:column;
+ gap:19px;
+ overflow:hidden;
  background:
- radial-gradient(ellipse at 50% 45%,rgba(70,94,125,.22),transparent 48%),
- #10141d;
+  radial-gradient(ellipse at 50% 48%,rgba(216,173,104,.10),transparent 32%),
+  radial-gradient(ellipse at 50% 45%,rgba(70,94,125,.22),transparent 60%),
+  #10141d;
  transition:opacity .7s,visibility .7s;
 }
-.splash-screen.hide{opacity:0;visibility:hidden;pointer-events:none}
-.splash-logo{
- width:112px;height:112px;position:relative;
- display:flex;align-items:center;justify-content:center;
- animation:logoFloat 2.5s ease-in-out infinite;
-}
-@keyframes logoFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-7px)}}
-.weave-mark{
- position:relative;width:78px;height:78px;
- transform:rotate(-5deg);
-}
-.weave-mark span{
- position:absolute;display:block;
- border:3px solid var(--accent);
- border-radius:3px;
+.splash-screen.hide{
  opacity:0;
- animation:threadBuild .7s ease forwards;
+ visibility:hidden;
+ pointer-events:none;
 }
-.weave-mark span:nth-child(1){inset:0 48px 0 0;animation-delay:.15s}
-.weave-mark span:nth-child(2){inset:0 0 48px 0;animation-delay:.3s}
-.weave-mark span:nth-child(3){inset:48px 0 0 0;animation-delay:.45s}
-.weave-mark span:nth-child(4){inset:0 0 0 48px;animation-delay:.6s}
-.weave-mark span:nth-child(5){
- inset:19px;border-color:#e9edf5;
- animation-delay:.8s;
+
+.loom-stage{
+ position:relative;
+ width:190px;
+ height:145px;
+ display:flex;
+ align-items:center;
+ justify-content:center;
+ perspective:700px;
 }
-@keyframes threadBuild{
- from{opacity:0;transform:scale(.55) rotate(-20deg)}
- to{opacity:1;transform:scale(1) rotate(0)}
+
+.loom-grid{
+ position:relative;
+ width:150px;
+ height:100px;
+ transform:rotate(-8deg);
+ transform-style:preserve-3d;
 }
+
+.loom-thread{
+ position:absolute;
+ display:block;
+ border-radius:4px;
+ opacity:0;
+ background:linear-gradient(
+  90deg,
+  transparent,
+  #b78b4e 15%,
+  #f4d49b 50%,
+  #b78b4e 85%,
+  transparent
+ );
+ box-shadow:0 0 8px rgba(216,173,104,.25);
+}
+
+.loom-thread.vertical{
+ width:3px;
+ height:100%;
+ top:0;
+ transform:scaleY(0);
+ transform-origin:center;
+ animation:warpAppear .8s cubic-bezier(.16,1,.3,1) forwards;
+}
+
+.loom-thread.horizontal{
+ height:3px;
+ width:100%;
+ left:0;
+ transform:scaleX(0);
+ transform-origin:center;
+ animation:weftAppear .8s cubic-bezier(.16,1,.3,1) forwards;
+}
+
+.loom-thread.vertical:nth-child(1){left:5%;animation-delay:.08s}
+.loom-thread.vertical:nth-child(2){left:23%;animation-delay:.16s}
+.loom-thread.vertical:nth-child(3){left:41%;animation-delay:.24s}
+.loom-thread.vertical:nth-child(4){left:59%;animation-delay:.32s}
+.loom-thread.vertical:nth-child(5){left:77%;animation-delay:.40s}
+.loom-thread.vertical:nth-child(6){left:95%;animation-delay:.48s}
+
+.loom-thread.horizontal:nth-child(7){top:5%;animation-delay:.48s}
+.loom-thread.horizontal:nth-child(8){top:23%;animation-delay:.56s}
+.loom-thread.horizontal:nth-child(9){top:41%;animation-delay:.64s}
+.loom-thread.horizontal:nth-child(10){top:59%;animation-delay:.72s}
+.loom-thread.horizontal:nth-child(11){top:77%;animation-delay:.80s}
+.loom-thread.horizontal:nth-child(12){top:95%;animation-delay:.88s}
+
+@keyframes warpAppear{
+ 0%{opacity:0;transform:scaleY(0)}
+ 30%{opacity:1}
+ 100%{opacity:1;transform:scaleY(1)}
+}
+
+@keyframes weftAppear{
+ 0%{opacity:0;transform:scaleX(0)}
+ 30%{opacity:1}
+ 100%{opacity:1;transform:scaleX(1)}
+}
+
+.loom-core{
+ position:absolute;
+ width:20px;
+ height:20px;
+ left:50%;
+ top:50%;
+ border:1px solid #f1d19b;
+ border-radius:50%;
+ transform:translate(-50%,-50%) scale(0);
+ opacity:0;
+ box-shadow:
+ 0 0 12px rgba(216,173,104,.7),
+ inset 0 0 8px rgba(216,173,104,.4);
+ animation:coreReveal .55s 1.05s cubic-bezier(.16,1,.3,1) forwards;
+}
+
+.loom-core::before,
+.loom-core::after{
+ content:"";
+ position:absolute;
+ inset:4px;
+ border:1px solid rgba(241,209,155,.65);
+ border-radius:50%;
+}
+
+.loom-core::after{
+ inset:-8px;
+ border-color:rgba(216,173,104,.3);
+}
+
+@keyframes coreReveal{
+ 0%{opacity:0;transform:translate(-50%,-50%) scale(0)}
+ 70%{opacity:1;transform:translate(-50%,-50%) scale(1.3)}
+ 100%{opacity:1;transform:translate(-50%,-50%) scale(1)}
+}
+
 .splash-title{
- font-size:22px;font-weight:900;letter-spacing:3px;
- color:#edf1f8;opacity:0;
- animation:titleReveal .8s .65s ease forwards;
+ font-size:23px;
+ font-weight:900;
+ letter-spacing:3px;
+ color:#edf1f8;
+ opacity:0;
+ transform:translateY(13px);
+ animation:splashText .65s 1.12s ease forwards;
 }
 .splash-title span{color:var(--accent)}
+
 .splash-subtitle{
- color:#8190a5;font-size:10px;letter-spacing:4px;
- opacity:0;animation:titleReveal .7s 1s ease forwards;
+ color:#8190a5;
+ font-size:10px;
+ letter-spacing:4px;
+ opacity:0;
+ transform:translateY(10px);
+ animation:splashText .6s 1.32s ease forwards;
 }
-@keyframes titleReveal{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
+
+@keyframes splashText{
+ to{opacity:1;transform:translateY(0)}
+}
+
 .splash-loader{
- width:100px;height:2px;background:#293547;
- border-radius:5px;overflow:hidden;margin-top:10px;
+ width:110px;
+ height:2px;
+ background:#293547;
+ border-radius:5px;
+ overflow:hidden;
+ margin-top:7px;
+ opacity:0;
+ animation:loaderReveal .3s 1.1s ease forwards;
 }
+
 .splash-loader span{
- display:block;width:0;height:100%;background:var(--accent);
- animation:loadLine 1.6s .1s ease forwards;
+ display:block;
+ width:0;
+ height:100%;
+ background:linear-gradient(90deg,#9c7543,#f1d19b,#d8ad68);
+ box-shadow:0 0 8px rgba(216,173,104,.7);
+ animation:loadLine 1.35s .65s ease forwards;
 }
-@keyframes loadLine{to{width:100%}}
+
+@keyframes loaderReveal{
+ to{opacity:1}
+}
+@keyframes loadLine{
+ to{width:100%}
+}
 
 /* WELCOME SCREEN */
 .welcome-screen{
@@ -536,6 +664,7 @@ button:disabled{opacity:.3;cursor:not-allowed;transform:none}
  .color-item{padding:4px}
  .color-name{font-size:8px}
 }
+
 @media(max-width:650px){
  .topbar{height:43px;padding:0 10px}
  .brand{font-size:14px}
@@ -576,6 +705,7 @@ button:disabled{opacity:.3;cursor:not-allowed;transform:none}
  .welcome-card-arrow{right:13px;bottom:12px}
  .welcome-footer{margin-top:20px}
 }
+
 @media(max-width:380px){
  .tool-button{width:30px;height:33px}
  .project-tool-button{width:32px;min-width:32px;height:33px}
@@ -585,52 +715,36 @@ button:disabled{opacity:.3;cursor:not-allowed;transform:none}
  .welcome-card{min-height:145px}
  .welcome-card-icon{margin-bottom:10px}
 }
-@media(prefers-reduced-motion:reduce){
- *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;scroll-behavior:auto!important;transition-duration:.01ms!important}
+
+/* DESKTOP INTRO */
+@media(min-width:651px){
+ .splash-screen{gap:23px}
+ .loom-stage{width:250px;height:180px}
+ .loom-grid{width:190px;height:125px}
+ .loom-thread.vertical{width:3px}
+ .loom-thread.horizontal{height:3px}
+ .splash-title{font-size:27px;letter-spacing:5px}
+ .splash-subtitle{font-size:11px;letter-spacing:5px}
+ .splash-loader{width:135px;margin-top:10px}
 }
 
-/* DESKTOP INTRO ANIMATION */
-@media(min-width:651px){
- .splash-screen{
-  gap:24px;
-  background:
-   radial-gradient(ellipse at 50% 43%,rgba(80,105,140,.25),transparent 42%),
-   radial-gradient(ellipse at 50% 50%,rgba(216,173,104,.045),transparent 65%),
-   #10141d;
- }
- .splash-logo{
-  width:132px;
-  height:132px;
- }
- .weave-mark{
-  width:88px;
-  height:88px;
- }
- .weave-mark span{
-  border-width:3px;
- }
- .weave-mark span:nth-child(1){inset:0 54px 0 0}
- .weave-mark span:nth-child(2){inset:0 0 54px 0}
- .weave-mark span:nth-child(3){inset:54px 0 0 0}
- .weave-mark span:nth-child(4){inset:0 0 0 54px}
- .weave-mark span:nth-child(5){inset:22px}
- .splash-title{
-  font-size:25px;
-  letter-spacing:4px;
-  animation-delay:.75s;
- }
- .splash-subtitle{
-  font-size:11px;
-  letter-spacing:5px;
-  animation-delay:1.05s;
- }
- .splash-loader{
-  width:125px;
-  height:2px;
-  margin-top:12px;
- }
- .splash-loader span{
-  animation-delay:.2s;
+/* MOBILE INTRO */
+@media(max-width:650px){
+ .splash-screen{gap:17px}
+ .loom-stage{width:175px;height:130px}
+ .loom-grid{width:138px;height:92px}
+ .splash-title{font-size:20px;letter-spacing:2px}
+ .splash-subtitle{font-size:9px;letter-spacing:3px}
+ .splash-loader{width:100px}
+}
+
+/* ACCESSIBILITY */
+@media(prefers-reduced-motion:reduce){
+ *,*::before,*::after{
+  animation-duration:.01ms!important;
+  animation-iteration-count:1!important;
+  scroll-behavior:auto!important;
+  transition-duration:.01ms!important
  }
 }
 </style>
@@ -640,11 +754,30 @@ button:disabled{opacity:.3;cursor:not-allowed;transform:none}
 
 <!-- INTRO -->
 <div class="splash-screen" id="splashScreen">
- <div class="splash-logo">
-  <div class="weave-mark">
-   <span></span><span></span><span></span><span></span><span></span>
+ <div class="loom-stage">
+  <div class="loom-grid">
+
+   <!-- WARP THREADS -->
+   <span class="loom-thread vertical"></span>
+   <span class="loom-thread vertical"></span>
+   <span class="loom-thread vertical"></span>
+   <span class="loom-thread vertical"></span>
+   <span class="loom-thread vertical"></span>
+   <span class="loom-thread vertical"></span>
+
+   <!-- WEFT THREADS -->
+   <span class="loom-thread horizontal"></span>
+   <span class="loom-thread horizontal"></span>
+   <span class="loom-thread horizontal"></span>
+   <span class="loom-thread horizontal"></span>
+   <span class="loom-thread horizontal"></span>
+   <span class="loom-thread horizontal"></span>
+
+   <!-- CENTER -->
+   <div class="loom-core"></div>
   </div>
  </div>
+
  <div class="splash-title">FABRIC <span>ANALYZER</span></div>
  <div class="splash-subtitle">TEXTILE DESIGN WORKSPACE</div>
  <div class="splash-loader"><span></span></div>
