@@ -11,6 +11,8 @@ on:
       - "electron-main.cjs"
       - "electron-preload.cjs"
       - "package.json"
+      - "assets/**"
+      - "scripts/generate-icons.cjs"
       - ".github/workflows/build-windows.yml"
 
 permissions:
