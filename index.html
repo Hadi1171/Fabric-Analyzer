@@ -8,14 +8,15 @@
 
 <style>
 :root{
-  --bg:#101b35;
-  --panel:#192743;
-  --panel2:#233553;
-  --panel3:#2b4163;
-  --text:#f3f6fc;
-  --muted:#aab8ce;
-  --accent:#d9ae68;
-  --border:#344967;
+  --bg:#10141d;
+  --top:#191e29;
+  --panel:#202633;
+  --panel2:#282f3e;
+  --panel3:#333d4f;
+  --text:#edf1f8;
+  --muted:#9ba8bb;
+  --accent:#d8ad68;
+  --border:#394456;
   --danger:#a9424b;
 }
 
@@ -23,391 +24,524 @@
 
 body{
   margin:0;
-  padding:12px;
   background:var(--bg);
   color:var(--text);
   font-family:Tahoma,"Segoe UI",Arial,sans-serif;
-  font-size:14px;
+  font-size:13px;
+  overflow-x:hidden;
 }
+
+button,input{font-family:inherit}
+
+button{
+  border:1px solid var(--border);
+  background:var(--panel2);
+  color:var(--text);
+  border-radius:7px;
+  cursor:pointer;
+  transition:.15s;
+}
+
+button:hover{background:var(--panel3)}
+button:active{transform:scale(.96)}
+button:disabled{opacity:.3;cursor:not-allowed;transform:none}
 
 .app{
-  width:100%;
-  max-width:1500px;
-  margin:auto;
+  min-height:100vh;
+  display:flex;
+  flex-direction:column;
 }
 
-header{
+/* نوار بالایی */
+
+.topbar{
+  height:54px;
+  flex-shrink:0;
   display:flex;
   align-items:center;
   justify-content:space-between;
-  margin-bottom:12px;
+  padding:0 18px;
+  background:var(--top);
+  border-bottom:1px solid #30394a;
+  direction:rtl;
 }
 
 .brand{
-  font-size:20px;
+  font-size:17px;
   font-weight:800;
   letter-spacing:.5px;
 }
 
 .brand span{color:var(--accent)}
 
-.status{
-  color:var(--muted);
-  font-size:11px;
-}
-
-.panel{
-  background:var(--panel);
-  border:1px solid var(--border);
-  border-radius:15px;
-  padding:13px;
-  margin-bottom:12px;
-  box-shadow:0 5px 18px rgba(0,0,0,.12);
-}
-
-.toolbar{
+.topbar-right,.topbar-left{
   display:flex;
-  flex-wrap:wrap;
   align-items:center;
   gap:12px;
 }
 
-.group{
-  display:flex;
-  align-items:center;
-  gap:8px;
-  flex-wrap:wrap;
+.save-status{
+  color:#8fc9a8;
+  font-size:11px;
 }
 
-.group-title{
+.topbar-label{
   color:var(--muted);
-  font-size:13px;
-  font-weight:600;
+  font-size:11px;
 }
 
-input,button{font-family:inherit}
+/* ساختار اصلی */
 
-input[type=number]{
-  width:58px;
-  height:38px;
-  border:1px solid var(--border);
-  background:var(--panel2);
-  color:white;
-  border-radius:9px;
-  padding:4px;
-  text-align:center;
-  font-size:15px;
-  outline:none;
-}
-
-input[type=number]:focus{
-  border-color:var(--accent);
-}
-
-button{
-  border:1px solid var(--border);
-  background:var(--panel2);
-  color:var(--text);
-  border-radius:9px;
-  padding:9px 13px;
-  cursor:pointer;
-  font-size:13px;
-  font-weight:600;
-  transition:background .15s,border-color .15s,opacity .15s;
-}
-
-button:active{transform:scale(.96)}
-
-button:disabled{
-  opacity:.35;
-  cursor:not-allowed;
-  transform:none;
-}
-
-button.primary{
-  background:var(--accent);
-  border-color:var(--accent);
-  color:#18243a;
-}
-
-button.primary:hover{
-  background:#e8c17f;
-}
-
-details{
-  margin-top:13px;
-  border-top:1px solid var(--border);
-  padding-top:11px;
-}
-
-summary{
-  cursor:pointer;
-  color:#edf2fb;
-  font-size:14px;
-  font-weight:700;
-  padding:5px 2px;
-  list-style:none;
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  user-select:none;
-}
-
-summary::-webkit-details-marker{display:none}
-
-summary::after{
-  content:"＋";
-  color:var(--accent);
-  font-size:18px;
-  font-weight:400;
-}
-
-details[open] summary::after{content:"−"}
-
-.color-grid{
-  display:grid;
-  grid-template-columns:repeat(4,minmax(0,1fr));
-  gap:9px;
-  margin-top:13px;
-}
-
-.color-item{
-  display:flex;
-  align-items:center;
-  gap:9px;
-  padding:8px;
-  background:var(--panel2);
-  border:1px solid var(--border);
-  border-radius:11px;
-  min-width:0;
-  min-height:48px;
-  cursor:pointer;
-  transition:border-color .15s,background .15s;
-  user-select:none;
-}
-
-.color-item:hover{
-  background:var(--panel3);
-  border-color:#657c9e;
-}
-
-.color-item.active{
-  border-color:var(--accent);
-  background:#34425b;
-  box-shadow:0 0 0 1px var(--accent);
-}
-
-.color-select{
-  width:32px;
-  height:32px;
-  border:2px solid rgba(255,255,255,.35);
-  border-radius:8px;
-  padding:0;
-  flex-shrink:0;
-  pointer-events:none;
-}
-
-.color-item input[type=color]{
-  width:31px;
-  height:31px;
-  border:0;
-  padding:0;
-  background:transparent;
-  flex-shrink:0;
-  cursor:pointer;
-  border-radius:7px;
-}
-
-.color-name{
-  font-size:12px;
-  color:#e8edf7;
-  white-space:nowrap;
+.main-layout{
   flex:1;
+  min-height:calc(100vh - 54px);
+  display:grid;
+  grid-template-columns:58px minmax(0,1fr) 300px;
+  direction:ltr;
 }
 
-.workspace{
-  background:var(--bg);
-  border:1px solid var(--border);
-  border-radius:15px;
-  padding:10px;
-  overflow:hidden;
-}
+/* نوار ابزار سمت چپ */
 
-.canvas-tools{
+.left-toolbar{
+  background:var(--top);
+  border-right:1px solid #30394a;
   display:flex;
-  justify-content:space-between;
-  align-items:center;
-  gap:8px;
-  margin-bottom:9px;
-  direction:rtl;
-  flex-wrap:wrap;
-}
-
-.tools-right,.history-tools{
-  display:flex;
+  flex-direction:column;
   align-items:center;
   gap:7px;
+  padding:12px 7px;
+  direction:rtl;
 }
 
-.history-tools{direction:ltr}
-
-.icon-button{
-  width:43px;
+.tool-button{
+  width:42px;
   height:42px;
-  padding:0;
   display:flex;
   align-items:center;
   justify-content:center;
-  background:var(--panel2);
-  border:1px solid var(--border);
+  border:1px solid transparent;
+  background:transparent;
+  color:#b8c3d3;
+  border-radius:8px;
+  padding:0;
+}
+
+.tool-button:hover{
+  background:#30394a;
   color:white;
-  border-radius:10px;
 }
 
-.icon-button svg{
+.tool-button.active{
+  background:#3c4657;
+  border-color:var(--accent);
+  color:var(--accent);
+}
+
+.tool-button svg{
   width:21px;
   height:21px;
   stroke:currentColor;
   fill:none;
-  stroke-width:2;
+  stroke-width:1.8;
   stroke-linecap:round;
   stroke-linejoin:round;
 }
 
-.lock-button{
-  width:45px;
-  height:42px;
-  padding:0;
+.tool-divider{
+  width:28px;
+  height:1px;
+  background:#3a4557;
+  margin:5px 0;
+}
+
+.tool-spacer{flex:1}
+
+.tool-button.danger{color:#e58c98}
+.tool-button.success{color:#9ed9bb}
+
+/* محیط بوم */
+
+.center-stage{
+  min-width:0;
+  min-height:0;
+  display:flex;
+  flex-direction:column;
+  background:#111722;
+  direction:rtl;
+}
+
+.stage-header{
+  height:43px;
+  flex-shrink:0;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:0 15px;
+  background:#1b2230;
+  border-bottom:1px solid #30394a;
+}
+
+.stage-title{
+  color:#c7d1df;
+  font-size:12px;
+  font-weight:700;
+}
+
+.stage-hint{
+  color:#8492a7;
+  font-size:10px;
+}
+
+.canvas-area{
+  flex:1;
+  min-height:300px;
+  padding:18px;
   display:flex;
   align-items:center;
   justify-content:center;
-  background:#244b42;
-  border:1px solid #397e69;
-  color:#c9f5e4;
-  border-radius:10px;
-}
-
-.lock-button.locked{
-  background:#59363d;
-  border-color:#a65a62;
-  color:#ffe1e3;
-}
-
-.lock-button svg{
-  width:21px;
-  height:21px;
-  stroke:currentColor;
-  fill:none;
-  stroke-width:2;
-  stroke-linecap:round;
-  stroke-linejoin:round;
-}
-
-.clear-button{
-  width:45px;
-  height:42px;
-  padding:0;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  background:#512e3b;
-  border:1px solid #9d5260;
-  color:#ffe0e5;
-  border-radius:10px;
-}
-
-.clear-button svg{
-  width:21px;
-  height:21px;
-  stroke:currentColor;
-  fill:none;
-  stroke-width:2;
-  stroke-linecap:round;
-  stroke-linejoin:round;
-}
-
-.clear-button.armed{
-  background:#a83242;
-  border-color:#ff7b8b;
-  color:white;
-  animation:pulse .8s infinite alternate;
-}
-
-@keyframes pulse{
-  from{opacity:1}
-  to{opacity:.65}
+  overflow:hidden;
+  background-color:#101b35;
+  background-image:
+    radial-gradient(rgba(255,255,255,.035) .7px,transparent .7px);
+  background-size:18px 18px;
 }
 
 .canvas-wrap{
   width:100%;
-  overflow-x:auto;
-  overflow-y:hidden;
+  height:100%;
+  overflow:auto;
   direction:ltr;
+  display:flex;
+  align-items:flex-start;
+  justify-content:center;
+  background:#101b35;
+  border:1px solid #34445f;
+  border-radius:8px;
+  padding:12px;
   touch-action:pan-x pan-y;
   -webkit-overflow-scrolling:touch;
-  overscroll-behavior-x:contain;
-  background:var(--bg);
-  border-radius:9px;
+  overscroll-behavior:contain;
 }
 
 canvas{
   display:block;
-  height:auto;
+  flex-shrink:0;
   max-width:none;
-  margin-left:auto;
-  margin-right:auto;
-  touch-action:pan-x pan-y;
+  height:auto;
   cursor:crosshair;
+  touch-action:pan-x pan-y;
 }
 
-.bottom-actions{
+.stage-footer{
+  min-height:30px;
+  flex-shrink:0;
   display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:4px 14px;
+  background:#1b2230;
+  border-top:1px solid #30394a;
+  color:#8592a5;
+  font-size:10px;
+}
+
+/* پنل سمت راست */
+
+.right-dock{
+  background:var(--panel);
+  border-left:1px solid #30394a;
+  direction:rtl;
+  min-width:0;
+  overflow-y:auto;
+  padding:12px;
+}
+
+.dock-heading{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:3px 3px 12px;
+  margin-bottom:10px;
+  border-bottom:1px solid var(--border);
+}
+
+.dock-heading strong{
+  font-size:13px;
+  color:#e9eef7;
+}
+
+.dock-heading span{
+  color:var(--muted);
+  font-size:10px;
+}
+
+.dock-panel{
+  background:#252d3b;
+  border:1px solid #394456;
+  border-radius:9px;
+  margin-bottom:10px;
+  overflow:hidden;
+}
+
+.dock-panel summary{
+  height:42px;
+  padding:0 12px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  cursor:pointer;
+  list-style:none;
+  user-select:none;
+  color:#e5eaf2;
+  font-size:12px;
+  font-weight:700;
+}
+
+.dock-panel summary::-webkit-details-marker{display:none}
+
+.dock-panel summary::after{
+  content:"⌄";
+  color:var(--accent);
+  font-size:18px;
+  transition:transform .15s;
+}
+
+.dock-panel[open] summary::after{
+  transform:rotate(180deg);
+}
+
+.panel-content{
+  padding:12px;
+  border-top:1px solid #394456;
+}
+
+/* تنظیمات ابعاد */
+
+.dimension-row{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:8px;
+  margin-bottom:11px;
+}
+
+.dimension-row:last-child{margin-bottom:0}
+
+.dimension-row label{
+  color:#b9c5d6;
+  font-size:11px;
+  min-width:48px;
+}
+
+.dimension-row input{
+  width:76px;
+  height:34px;
+  background:#171e2a;
+  color:white;
+  border:1px solid #45536a;
+  border-radius:6px;
+  text-align:center;
+  font-size:13px;
+  outline:none;
+}
+
+.dimension-row input:focus{
+  border-color:var(--accent);
+}
+
+.apply-button{
+  width:100%;
+  margin-top:13px;
+  height:36px;
+  background:var(--accent);
+  color:#202633;
+  border:0;
+  font-weight:800;
+  border-radius:6px;
+}
+
+.apply-button:hover{background:#e7c181}
+
+/* رنگ‌ها */
+
+.color-grid{
+  display:grid;
+  grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:7px;
+}
+
+.color-item{
+  min-width:0;
+  min-height:61px;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
   justify-content:center;
-  margin:14px 0 5px;
+  gap:5px;
+  padding:6px 3px;
+  background:#1d2532;
+  border:1px solid #3b475b;
+  border-radius:7px;
+  cursor:pointer;
+  user-select:none;
+  transition:.15s;
 }
 
-.bottom-actions button{
-  min-width:190px;
-  font-size:14px;
-  padding:12px 20px;
+.color-item:hover{
+  background:#303b4d;
+  border-color:#64748b;
 }
 
-@media(max-width:700px){
-  body{padding:7px}
+.color-item.active{
+  border-color:var(--accent);
+  background:#394252;
+  box-shadow:inset 0 0 0 1px var(--accent);
+}
 
-  .brand{font-size:18px}
+.color-select{
+  width:27px;
+  height:27px;
+  padding:0;
+  border:2px solid rgba(255,255,255,.5);
+  border-radius:6px;
+  pointer-events:none;
+}
 
-  .panel{padding:10px}
+.color-item input[type=color]{
+  width:29px;
+  height:27px;
+  border:0;
+  padding:0;
+  background:transparent;
+  cursor:pointer;
+  border-radius:5px;
+}
 
-  .toolbar{gap:12px}
+.color-name{
+  color:#cbd4e1;
+  font-size:10px;
+}
 
-  .group{
-    width:100%;
-    gap:7px;
+/* نوار ابزار پایین موبایل و دکمه‌ها */
+
+.export-button{
+  width:100%;
+  height:38px;
+  background:#303b4d;
+  border:1px solid #53627a;
+  color:#f0f3f8;
+  font-size:12px;
+  font-weight:700;
+}
+
+.export-button:hover{
+  border-color:var(--accent);
+  color:var(--accent);
+}
+
+@media(max-width:850px){
+  .main-layout{
+    grid-template-columns:52px minmax(0,1fr) 260px;
   }
+
+  .right-dock{padding:9px}
+  .canvas-area{padding:10px}
+}
+
+@media(max-width:650px){
+  .topbar{
+    height:48px;
+    padding:0 11px;
+  }
+
+  .brand{font-size:15px}
+
+  .main-layout{
+    min-height:calc(100vh - 48px);
+    display:flex;
+    flex-direction:column;
+  }
+
+  .left-toolbar{
+    order:0;
+    height:53px;
+    flex-direction:row;
+    justify-content:center;
+    padding:5px 8px;
+    border-right:0;
+    border-bottom:1px solid #30394a;
+    gap:5px;
+  }
+
+  .tool-button{
+    width:39px;
+    height:39px;
+  }
+
+  .tool-divider{
+    width:1px;
+    height:25px;
+    margin:0 3px;
+  }
+
+  .tool-spacer{display:none}
+
+  .center-stage{
+    order:1;
+    min-height:390px;
+  }
+
+  .stage-header{
+    height:36px;
+    padding:0 10px;
+  }
+
+  .canvas-area{
+    min-height:330px;
+    padding:7px;
+  }
+
+  .canvas-wrap{
+    justify-content:flex-start;
+    align-items:flex-start;
+    padding:8px;
+  }
+
+  .stage-footer{min-height:26px}
+
+  .right-dock{
+    order:2;
+    border-left:0;
+    border-top:1px solid #30394a;
+    padding:9px;
+    overflow:visible;
+  }
+
+  .dock-heading{padding-bottom:8px}
+
+  .dock-panel{margin-bottom:7px}
+
+  .panel-content{padding:10px}
 
   .color-grid{
-    grid-template-columns:repeat(2,minmax(0,1fr));
-    gap:7px;
+    grid-template-columns:repeat(4,minmax(0,1fr));
   }
 
-  .color-item{
-    padding:7px;
-    gap:7px;
+  .color-item{min-height:57px}
+}
+
+@media(max-width:380px){
+  .tool-button{
+    width:34px;
+    height:36px;
   }
 
-  .workspace{padding:7px}
-
-  .canvas-tools{gap:6px}
-
-  .tools-right{
-    width:auto;
-    justify-content:flex-start;
+  .tool-button svg{
+    width:19px;
+    height:19px;
   }
 
-  .history-tools{margin-right:auto}
-
-  .bottom-actions button{width:100%}
+  .color-grid{grid-template-columns:repeat(3,minmax(0,1fr))}
 }
 </style>
 </head>
@@ -415,102 +549,160 @@ canvas{
 <body>
 <div class="app">
 
-<header>
-  <div class="brand">FABRIC <span>ANALYZER</span></div>
-  <div class="status" id="saveStatus">✓</div>
+<header class="topbar">
+  <div class="topbar-right">
+    <div class="brand">FABRIC <span>ANALYZER</span></div>
+  </div>
+  <div class="topbar-left">
+    <span class="topbar-label">Workspace</span>
+    <span class="save-status" id="saveStatus">✓ ذخیره شد</span>
+  </div>
 </header>
 
-<section class="panel">
+<div class="main-layout">
 
-  <div class="toolbar">
-    <div class="group">
-      <span class="group-title">ستون</span>
-      <input id="cols" type="number" min="1" max="40" value="10">
+  <!-- نوار ابزار چپ -->
+  <aside class="left-toolbar">
 
-      <span class="group-title">ردیف</span>
-      <input id="rows" type="number" min="1" max="40" value="10">
+    <button class="tool-button active" id="paintTool"
+      title="ابزار رنگ‌آمیزی" aria-label="ابزار رنگ‌آمیزی">
+      <svg viewBox="0 0 24 24">
+        <path d="m14 4 6 6"></path>
+        <path d="m12 6 6 6"></path>
+        <path d="m4 20 4.5-1 10-10a2.1 2.1 0 0 0-3-3l-10 10L4 20Z"></path>
+        <path d="M3 21h18"></path>
+      </svg>
+    </button>
+
+    <div class="tool-divider"></div>
+
+    <button class="tool-button success" id="lockBtn"
+      title="قفل رنگ‌گذاری" aria-label="قفل رنگ‌گذاری">
+      <svg id="lockIcon" viewBox="0 0 24 24">
+        <rect x="4" y="10" width="16" height="11" rx="2"></rect>
+        <path d="M8 10V7a4 4 0 0 1 7.5-2"></path>
+      </svg>
+    </button>
+
+    <button class="tool-button danger" id="clearBtn"
+      title="پاک کردن کامل طرح" aria-label="پاک کردن کامل طرح">
+      <svg viewBox="0 0 24 24">
+        <path d="M3 6h18"></path>
+        <path d="M8 6V4h8v2"></path>
+        <path d="M19 6l-1 14H6L5 6"></path>
+        <path d="M10 11v5M14 11v5"></path>
+      </svg>
+    </button>
+
+    <div class="tool-divider"></div>
+
+    <button class="tool-button" id="undoBtn"
+      title="Undo - Ctrl + Z" aria-label="Undo" disabled>
+      <svg viewBox="0 0 24 24">
+        <path d="M9 14 4 9l5-5"></path>
+        <path d="M4 9h10a6 6 0 0 1 0 12h-2"></path>
+      </svg>
+    </button>
+
+    <button class="tool-button" id="redoBtn"
+      title="Redo - Ctrl + Y" aria-label="Redo" disabled>
+      <svg viewBox="0 0 24 24">
+        <path d="m15 14 5-5-5-5"></path>
+        <path d="M20 9H10a6 6 0 0 0 0 12h2"></path>
+      </svg>
+    </button>
+
+    <div class="tool-spacer"></div>
+
+    <button class="tool-button" id="jpgBtn"
+      title="ذخیره خروجی JPG" aria-label="ذخیره خروجی JPG">
+      <svg viewBox="0 0 24 24">
+        <path d="M12 3v12"></path>
+        <path d="m7 10 5 5 5-5"></path>
+        <path d="M5 19h14"></path>
+      </svg>
+    </button>
+
+  </aside>
+
+  <!-- فضای مرکزی -->
+  <main class="center-stage">
+
+    <div class="stage-header">
+      <span class="stage-title">فضای طراحی</span>
+      <span class="stage-hint">FABRIC CANVAS</span>
     </div>
 
-    <div class="group">
-      <span class="group-title">تار</span>
-      <input id="warps" type="number" min="1" max="16" value="16">
-
-      <span class="group-title">پود</span>
-      <input id="wefts" type="number" min="1" max="16" value="3">
-
-      <button class="primary" id="applyBtn">اعمال</button>
-    </div>
-  </div>
-
-  <details>
-    <summary>رنگ‌های تار</summary>
-    <div class="color-grid" id="warpGrid"></div>
-  </details>
-
-  <details>
-    <summary>رنگ‌های پود</summary>
-    <div class="color-grid" id="weftGrid"></div>
-  </details>
-
-</section>
-
-<section class="workspace">
-
-  <div class="canvas-tools">
-
-    <div class="tools-right">
-
-      <button class="lock-button" id="lockBtn"
-        title="قفل رنگ‌گذاری" aria-label="قفل رنگ‌گذاری">
-        <svg id="lockIcon" viewBox="0 0 24 24">
-          <rect x="4" y="10" width="16" height="11" rx="2"></rect>
-          <path d="M8 10V7a4 4 0 0 1 7.5-2"></path>
-        </svg>
-      </button>
-
-      <button class="clear-button" id="clearBtn"
-        title="پاک کردن کامل طرح" aria-label="پاک کردن کامل طرح">
-        <svg viewBox="0 0 24 24">
-          <path d="M3 6h18"></path>
-          <path d="M8 6V4h8v2"></path>
-          <path d="M19 6l-1 14H6L5 6"></path>
-          <path d="M10 11v5M14 11v5"></path>
-        </svg>
-      </button>
-
+    <div class="canvas-area">
+      <div class="canvas-wrap" id="canvasWrap">
+        <canvas id="fabricCanvas"></canvas>
+      </div>
     </div>
 
-    <div class="history-tools">
-
-      <button class="icon-button" id="undoBtn"
-        title="Undo - Ctrl + Z" aria-label="Undo" disabled>
-        <svg viewBox="0 0 24 24">
-          <path d="M9 14L4 9l5-5"></path>
-          <path d="M4 9h10a6 6 0 0 1 0 12h-2"></path>
-        </svg>
-      </button>
-
-      <button class="icon-button" id="redoBtn"
-        title="Redo - Ctrl + Y" aria-label="Redo" disabled>
-        <svg viewBox="0 0 24 24">
-          <path d="M15 14l5-5-5-5"></path>
-          <path d="M20 9H10a6 6 0 0 0 0 12h2"></path>
-        </svg>
-      </button>
-
+    <div class="stage-footer">
+      <span id="canvasInfo">10 × 10</span>
+      <span>Fabric Analyzer</span>
     </div>
-  </div>
 
-  <div class="canvas-wrap" id="canvasWrap">
-    <canvas id="fabricCanvas"></canvas>
-  </div>
+  </main>
 
-</section>
+  <!-- پنل سمت راست -->
+  <aside class="right-dock">
 
-<div class="bottom-actions">
-  <button class="primary" id="jpgBtn">ذخیره خروجی JPG</button>
+    <div class="dock-heading">
+      <strong>Properties</strong>
+      <span>تنظیمات طرح</span>
+    </div>
+
+    <details class="dock-panel" open>
+      <summary>ابعاد و ساختار</summary>
+      <div class="panel-content">
+
+        <div class="dimension-row">
+          <label for="cols">ستون</label>
+          <input id="cols" type="number" min="1" max="40" value="10">
+        </div>
+
+        <div class="dimension-row">
+          <label for="rows">ردیف</label>
+          <input id="rows" type="number" min="1" max="40" value="10">
+        </div>
+
+        <div class="dimension-row">
+          <label for="warps">تار</label>
+          <input id="warps" type="number" min="1" max="16" value="16">
+        </div>
+
+        <div class="dimension-row">
+          <label for="wefts">پود</label>
+          <input id="wefts" type="number" min="1" max="16" value="3">
+        </div>
+
+        <button class="apply-button" id="applyBtn">اعمال تغییرات</button>
+      </div>
+    </details>
+
+    <details class="dock-panel" open>
+      <summary>رنگ‌های تار</summary>
+      <div class="panel-content">
+        <div class="color-grid" id="warpGrid"></div>
+      </div>
+    </details>
+
+    <details class="dock-panel" open>
+      <summary>رنگ‌های پود</summary>
+      <div class="panel-content">
+        <div class="color-grid" id="weftGrid"></div>
+      </div>
+    </details>
+
+    <button class="export-button" id="exportBtn">
+      ذخیره خروجی JPG
+    </button>
+
+  </aside>
+
 </div>
-
 </div>
 
 <script>
@@ -662,9 +854,9 @@ document.getElementById("redoBtn").addEventListener("click",redo);
 function saveState(){
  try{
   localStorage.setItem("fabricAnalyzerState",JSON.stringify(state));
-  document.getElementById("saveStatus").textContent="✓";
+  document.getElementById("saveStatus").textContent="✓ ذخیره شد";
  }catch(e){
-  document.getElementById("saveStatus").textContent="!";
+  document.getElementById("saveStatus").textContent="خطا در ذخیره";
  }
 }
 
@@ -740,7 +932,6 @@ function renderColorItem(container,index,color,type){
  picker.value=color;
  picker.title="تغییر رنگ";
 
- /* کلیک روی انتخابگر، انتخاب کارت را اجرا نکند */
  picker.addEventListener("click",event=>{
   event.stopPropagation();
  });
@@ -802,7 +993,7 @@ function updateLockUI(){
  const icon=document.getElementById("lockIcon");
 
  if(state.paintLocked){
-  button.classList.add("locked");
+  button.classList.add("active");
 
   icon.innerHTML=`
    <rect x="4" y="10" width="16" height="11" rx="2"></rect>
@@ -813,7 +1004,7 @@ function updateLockUI(){
   button.setAttribute("aria-label","باز کردن قفل");
 
  }else{
-  button.classList.remove("locked");
+  button.classList.remove("active");
 
   icon.innerHTML=`
    <rect x="4" y="10" width="16" height="11" rx="2"></rect>
@@ -838,7 +1029,7 @@ function resetClearButton(){
  clearTimer=null;
 
  const button=document.getElementById("clearBtn");
- button.classList.remove("armed");
+ button.classList.remove("active");
 }
 
 document.getElementById("clearBtn").addEventListener("click",()=>{
@@ -847,7 +1038,7 @@ document.getElementById("clearBtn").addEventListener("click",()=>{
 
  if(!clearArmed){
   clearArmed=true;
-  button.classList.add("armed");
+  button.classList.add("active");
   button.title="برای تأیید، دوباره کلیک کن";
 
   clearTimer=setTimeout(()=>{
@@ -901,7 +1092,6 @@ function draw(){
  ctx.setTransform(dpr,0,0,dpr,0,0);
  ctx.clearRect(0,0,width,height);
 
- /* زمینه خود بوم سورمه‌ای */
  ctx.fillStyle="#101b35";
  ctx.fillRect(0,0,width,height);
 
@@ -910,22 +1100,12 @@ function draw(){
  ctx.textAlign="center";
  ctx.textBaseline="middle";
 
- /* شماره ستون‌ها */
  for(let c=0;c<state.cols;c++){
-  ctx.fillText(
-   String(c+1),
-   LEFT+c*CELL+CELL/2,
-   15
-  );
+  ctx.fillText(String(c+1),LEFT+c*CELL+CELL/2,15);
  }
 
- /* شماره ردیف‌ها */
  for(let r=0;r<state.rows;r++){
-  ctx.fillText(
-   String(r+1),
-   17,
-   TOP+r*CELL+CELL/2
-  );
+  ctx.fillText(String(r+1),17,TOP+r*CELL+CELL/2);
  }
 
  for(let r=0;r<state.rows;r++){
@@ -939,7 +1119,6 @@ function draw(){
 
    const partHeight=CELL/state.wefts;
 
-   /* رنگ پود */
    for(let k=0;k<state.wefts;k++){
 
     const key=`${r},${c},${k}`;
@@ -957,9 +1136,7 @@ function draw(){
     }
    }
 
-   /* خطوط تقسیم پود */
    ctx.save();
-
    ctx.strokeStyle="rgba(0,0,0,0.42)";
    ctx.lineWidth=.8;
 
@@ -974,25 +1151,24 @@ function draw(){
 
    ctx.restore();
 
-   /* رنگ تار */
    const warpColor=state.warpColors[c%state.warps];
 
    ctx.beginPath();
    ctx.roundRect(x+1,y+1,CELL-2,CELL-2,6);
-
    ctx.strokeStyle=warpColor;
    ctx.lineWidth=4;
    ctx.stroke();
 
-   /* مرز اصلی سلول */
    ctx.beginPath();
    ctx.roundRect(x+1,y+1,CELL-2,CELL-2,6);
-
    ctx.strokeStyle="#111827";
    ctx.lineWidth=1.4;
    ctx.stroke();
   }
  }
+
+ document.getElementById("canvasInfo").textContent=
+  `${state.cols} × ${state.rows}  |  تار ${state.warps}  |  پود ${state.wefts}`;
 }
 
 /* تشخیص خانه انتخاب‌شده */
@@ -1024,7 +1200,7 @@ function getCellFromPointer(event){
  return {row,col,part};
 }
 
-/* رنگ‌آمیزی و ثبت در تاریخچه */
+/* رنگ‌آمیزی */
 
 canvas.addEventListener("pointerdown",event=>{
 
@@ -1082,13 +1258,9 @@ function applySettings(){
  state.warps=warps;
  state.wefts=wefts;
 
- state.selectedWeft=Math.min(
-  state.selectedWeft,
-  wefts-1
- );
+ state.selectedWeft=Math.min(state.selectedWeft,wefts-1);
 
  for(const key of Object.keys(state.marks)){
-
   const [r,c,k]=key.split(",").map(Number);
 
   if(r>=rows||c>=cols||k>=wefts){
@@ -1113,15 +1285,19 @@ function applySettings(){
 function exportJPG(){
 
  const link=document.createElement("a");
-
  link.download="Fabric-Analyzer.jpg";
  link.href=canvas.toDataURL("image/jpeg",0.98);
-
  link.click();
 }
 
-document.getElementById("jpgBtn")
- .addEventListener("click",exportJPG);
+document.getElementById("jpgBtn").addEventListener("click",exportJPG);
+document.getElementById("exportBtn").addEventListener("click",exportJPG);
+
+/* ابزار رنگ‌آمیزی */
+
+document.getElementById("paintTool").addEventListener("click",()=>{
+ document.getElementById("paintTool").classList.add("active");
+});
 
 /* میانبرهای صفحه‌کلید */
 
@@ -1132,15 +1308,13 @@ document.addEventListener("keydown",event=>{
  const target=event.target;
 
  const isColorInput=
-  target instanceof HTMLInputElement&&
-  target.type==="color";
+  target instanceof HTMLInputElement&&target.type==="color";
 
  const isEditable=
   target instanceof HTMLInputElement||
   target instanceof HTMLTextAreaElement||
   target.isContentEditable;
 
- /* Enter برای اعمال تنظیمات */
  if(
   event.key==="Enter"&&
   !event.shiftKey&&
@@ -1167,18 +1341,14 @@ document.addEventListener("keydown",event=>{
  }
 
  if(key==="z"&&!event.shiftKey){
-
   if(isEditable&&!isColorInput)return;
-
   event.preventDefault();
   undo();
   return;
  }
 
  if(key==="y"||(key==="z"&&event.shiftKey)){
-
   if(isEditable&&!isColorInput)return;
-
   event.preventDefault();
   redo();
  }
