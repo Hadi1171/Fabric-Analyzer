@@ -8,6 +8,7 @@ function createWindow() {
     minWidth: 900,
     minHeight: 620,
     backgroundColor: "#10141d",
+    icon: path.join(__dirname, "assets", "icon.ico"),
     autoHideMenuBar: true,
     webPreferences: {
       preload: path.join(__dirname, "electron-preload.cjs"),
