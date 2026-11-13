@@ -1,0 +1,58 @@
+{
+  "name": "fabric-analyzer",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Fabric Analyzer for Web, Android and Windows",
+  "main": "electron-main.cjs",
+  "scripts": {
+    "start": "electron .",
+    "prepare:mobile": "node scripts/prepare-mobile.cjs",
+    "android:add": "npm run prepare:mobile && cap add android",
+    "android:sync": "npm run prepare:mobile && cap sync android",
+    "dist:win": "npm run icons:generate && electron-builder --win nsis portable --publish never",
+    "icons:generate": "node scripts/generate-icons.cjs"
+  },
+  "dependencies": {
+    "@capacitor/android": "^7.4.3",
+    "@capacitor/core": "^7.4.3"
+  },
+  "devDependencies": {
+    "@capacitor/cli": "^7.4.3",
+    "electron": "^35.0.0",
+    "electron-builder": "^26.0.12",
+    "sharp": "^0.34.3",
+    "png-to-ico": "^2.1.8"
+  },
+  "build": {
+    "appId": "com.hadi1171.fabricanalyzer",
+    "productName": "Fabric Analyzer",
+    "directories": {
+      "output": "dist"
+    },
+    "files": [
+      "index.html",
+      "electron-main.cjs",
+      "electron-preload.cjs",
+      "package.json",
+      "assets/**"
+    ],
+    "win": {
+      "target": [
+        "nsis",
+        "portable"
+      ],
+      "artifactName": "Fabric-Analyzer-${version}-${arch}.${ext}",
+      "icon": "assets/icon.ico"
+    },
+    "nsis": {
+      "artifactName": "Fabric-Analyzer-Setup-${version}-${arch}.${ext}",
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true
+    },
+    "portable": {
+      "artifactName": "Fabric-Analyzer-Portable-${version}-${arch}.${ext}"
+    }
+  }
+}
