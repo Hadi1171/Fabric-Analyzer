@@ -12,6 +12,8 @@
   --panel3:#354154;--text:#edf1f8;--muted:#9ba8bb;
   --accent:#d8ad68;--border:#394456;--danger:#c45c68;
   --success:#8fc9a8;
+  --canvas-bg:#26364a;
+  --cell-gap:5px;
 }
 *{box-sizing:border-box}
 html,body{width:100%;height:100%;margin:0;overflow:hidden}
@@ -28,9 +30,17 @@ button:disabled{opacity:.3;cursor:not-allowed;transform:none}
 .brand{font-size:16px;font-weight:800;letter-spacing:1px}
 .brand span{color:var(--accent)}
 .topbar-right{display:flex;align-items:center;gap:12px}
-.workspace-label,.save-status{font-size:11px}
+.workspace-label,.app-version{font-size:11px}
 .workspace-label{color:var(--muted)}
-.save-status{color:var(--success)}
+.app-version{
+  color:#d8ad68;
+  background:#302b27;
+  border:1px solid #514333;
+  border-radius:6px;
+  padding:4px 8px;
+  font-weight:800;
+  letter-spacing:.5px;
+}
 .help-button{height:29px;padding:0 9px;display:flex;align-items:center;justify-content:center;gap:6px;background:#303b4d;border:1px solid #46536a;color:#e5eaf2;font-size:11px;font-weight:700}
 
 /* WORKSPACE */
@@ -70,6 +80,7 @@ button:disabled{opacity:.3;cursor:not-allowed;transform:none}
 .project-tool-button:hover{background:#43516a;color:white}
 .project-tool-button.save-project{background:var(--accent);border-color:var(--accent);color:#202633}
 .project-tool-button svg{width:17px;height:17px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.mobile-export-button{display:none}
 
 /* MOBILE SETTINGS */
 .mobile-settings{display:none;flex-shrink:0;background:#1b2230;border-bottom:1px solid #394456;padding:5px}
@@ -92,8 +103,20 @@ button:disabled{opacity:.3;cursor:not-allowed;transform:none}
 .mobile-settings-panel .apply-button{height:30px;margin-top:5px;font-size:10px}
 
 /* CANVAS */
-.canvas-area{flex:1;min-height:0;min-width:0;padding:12px;display:flex;overflow:hidden;background-color:#101b35;background-image:radial-gradient(rgba(255,255,255,.035) .7px,transparent .7px);background-size:18px 18px}
-.canvas-wrap{flex:1;min-width:0;min-height:0;overflow:auto;direction:ltr;background:#101b35;border:1px solid #34445f;border-radius:8px;padding:12px;touch-action:pan-x pan-y;-webkit-overflow-scrolling:touch;overscroll-behavior:contain;scrollbar-width:thin}
+.canvas-area{
+ flex:1;min-height:0;min-width:0;padding:12px;
+ display:flex;overflow:hidden;
+ background-color:#1a2739;
+ background-image:radial-gradient(rgba(255,255,255,.045) .7px,transparent .7px);
+ background-size:18px 18px
+}
+.canvas-wrap{
+ flex:1;min-width:0;min-height:0;overflow:auto;direction:ltr;
+ background:var(--canvas-bg);
+ border:1px solid #40536d;border-radius:8px;padding:12px;
+ touch-action:pan-x pan-y;-webkit-overflow-scrolling:touch;
+ overscroll-behavior:contain;scrollbar-width:thin
+}
 .canvas-holder{width:max-content;min-width:100%;min-height:100%;display:flex;align-items:center;justify-content:center}
 .canvas-wrap canvas{display:block;flex-shrink:0;max-width:none;height:auto;cursor:crosshair;touch-action:pan-x pan-y}
 .canvas-wrap.space-pan,.canvas-wrap.space-pan canvas{cursor:grab!important}
@@ -187,6 +210,7 @@ button:disabled{opacity:.3;cursor:not-allowed;transform:none}
 .project-tool-button{flex-shrink:0;min-width:35px;width:35px;height:35px;padding:0}
 .project-tool-button span{display:none}
 .project-tool-button svg{width:18px;height:18px}
+.mobile-export-button{display:flex}
 .toolbar-label{display:none}
 .mobile-settings{display:block}
 .canvas-area{padding:5px;min-height:0}
@@ -221,8 +245,8 @@ button:disabled{opacity:.3;cursor:not-allowed;transform:none}
   <div class="brand">FABRIC <span>ANALYZER</span></div>
   <div class="topbar-right">
     <span class="workspace-label">Design Workspace</span>
+    <span class="app-version">v2.8.6</span>
     <button class="help-button" id="helpBtn" title="Help & Shortcuts">? <span>Help</span></button>
-    <span class="save-status" id="saveStatus">✓ Saved</span>
   </div>
 </header>
 
@@ -252,10 +276,10 @@ button:disabled{opacity:.3;cursor:not-allowed;transform:none}
   <main class="center-stage">
     <div class="toolbar">
       <div class="tool-group">
-        <button class="tool-button active" id="paintTool" title="Paint Tool">
+        <button class="tool-button" id="paintTool" title="Paint Tool">
           <svg viewBox="0 0 24 24"><path d="m14 4 6 6"></path><path d="m12 6 6 6"></path><path d="m4 20 4.5-1 10-10a2.1 2.1 0 0 0-3-3l-10 10L4 20Z"></path><path d="M3 21h18"></path></svg>
         </button>
-        <button class="tool-button active" id="lockBtn" title="Unlock Painting">
+        <button class="tool-button" id="lockBtn" title="Unlock Painting">
           <svg id="lockIcon" viewBox="0 0 24 24"><rect x="4" y="10" width="16" height="11" rx="2"></rect><path d="M7 10V7a5 5 0 0 1 10 0v3"></path></svg>
         </button>
       </div>
@@ -280,6 +304,10 @@ button:disabled{opacity:.3;cursor:not-allowed;transform:none}
         <button class="project-tool-button save-project" id="saveProjectBtn" title="Save Project">
           <svg viewBox="0 0 24 24"><path d="M5 3h12l4 4v14H3V3z"></path><path d="M7 3v6h10V3M7 21v-8h10v8"></path></svg>
           <span>Save</span>
+        </button>
+        <button class="project-tool-button mobile-export-button" id="mobileJpgBtn" title="Export JPG">
+          <svg viewBox="0 0 24 24"><path d="M12 3v12"></path><path d="m7 10 5 5 5-5"></path><path d="M5 19h14"></path></svg>
+          <span>JPG</span>
         </button>
       </div>
     </div>
@@ -449,6 +477,7 @@ let state={
 let projectName="Fabric-Analyzer-Project";
 let CELL=48,zoom=1;
 const LEFT=35,TOP=31,RIGHT=12,BOTTOM=18,MAX_HISTORY=100;
+const CELL_GAP=5;
 let undoHistory=[],redoHistory=[],colorEditSnapshot=null;
 
 /* HISTORY */
@@ -502,10 +531,7 @@ document.getElementById("redoBtn").addEventListener("click",redo);
 function saveState(){
  try{
   localStorage.setItem("fabricAnalyzerState",JSON.stringify(state));
-  document.getElementById("saveStatus").textContent="✓ Saved";
- }catch(e){
-  document.getElementById("saveStatus").textContent="Save Error";
- }
+ }catch(e){}
 }
 function loadState(){
  try{
@@ -613,33 +639,63 @@ function draw(){
  const dpr=Math.max(1,window.devicePixelRatio||1);
  canvas.width=Math.round(width*dpr);canvas.height=Math.round(height*dpr);
  canvas.style.width=(width*zoom)+"px";canvas.style.height=(height*zoom)+"px";
- ctx.setTransform(dpr,0,0,dpr,0,0);ctx.clearRect(0,0,width,height);
- ctx.fillStyle="#101b35";ctx.fillRect(0,0,width,height);
+ ctx.setTransform(dpr,0,0,dpr,0,0);
+ ctx.clearRect(0,0,width,height);
+
+ /* Canvas background visible between the cells */
+ ctx.fillStyle="#26364a";
+ ctx.fillRect(0,0,width,height);
+
  ctx.fillStyle="#dce5f3";ctx.font="bold 11px Arial";ctx.textAlign="center";ctx.textBaseline="middle";
  for(let c=0;c<state.cols;c++)ctx.fillText(String(c+1),LEFT+c*CELL+CELL/2,15);
  for(let r=0;r<state.rows;r++)ctx.fillText(String(r+1),17,TOP+r*CELL+CELL/2);
+
  for(let r=0;r<state.rows;r++){
   for(let c=0;c<state.cols;c++){
    const x=LEFT+c*CELL,y=TOP+r*CELL;
-   ctx.fillStyle="#f8f9fc";ctx.fillRect(x,y,CELL,CELL);
-   const partHeight=CELL/state.wefts;
+   const inset=CELL_GAP/2;
+   const cellX=x+inset,cellY=y+inset;
+   const cellSize=CELL-CELL_GAP;
+
+   /* White cell surface */
+   ctx.fillStyle="#ffffff";
+   ctx.fillRect(cellX,cellY,cellSize,cellSize);
+
+   const partHeight=cellSize/state.wefts;
    for(let k=0;k<state.wefts;k++){
     const color=state.marks[`${r},${c},${k}`];
     if(color){
      ctx.fillStyle=color;
-     ctx.fillRect(x+4,y+k*partHeight+2,CELL-8,Math.max(1,partHeight-4));
+     ctx.fillRect(cellX+4,cellY+k*partHeight+2,cellSize-8,Math.max(1,partHeight-4));
     }
    }
-   ctx.save();ctx.strokeStyle="rgba(0,0,0,0.35)";ctx.lineWidth=.8;
+
+   /* Inner weft dividers */
+   ctx.save();
+   ctx.strokeStyle="rgba(20,30,45,0.35)";
+   ctx.lineWidth=.8;
    for(let k=1;k<state.wefts;k++){
-    const lineY=y+k*partHeight;ctx.beginPath();ctx.moveTo(x+3,lineY);ctx.lineTo(x+CELL-3,lineY);ctx.stroke();
+    const lineY=cellY+k*partHeight;
+    ctx.beginPath();
+    ctx.moveTo(cellX+3,lineY);
+    ctx.lineTo(cellX+cellSize-3,lineY);
+    ctx.stroke();
    }
    ctx.restore();
+
+   /* Warp color border */
    const warpColor=state.warpColors[c%state.warps];
-   ctx.beginPath();ctx.roundRect(x+1,y+1,CELL-2,CELL-2,6);
-   ctx.strokeStyle=warpColor;ctx.lineWidth=4;ctx.stroke();
-   ctx.beginPath();ctx.roundRect(x+1,y+1,CELL-2,CELL-2,6);
-   ctx.strokeStyle="#111827";ctx.lineWidth=1.4;ctx.stroke();
+   ctx.beginPath();
+   ctx.roundRect(cellX+1,cellY+1,cellSize-2,cellSize-2,6);
+   ctx.strokeStyle=warpColor;
+   ctx.lineWidth=4;
+   ctx.stroke();
+
+   ctx.beginPath();
+   ctx.roundRect(cellX+1,cellY+1,cellSize-2,cellSize-2,6);
+   ctx.strokeStyle="#111827";
+   ctx.lineWidth=1.2;
+   ctx.stroke();
   }
  }
  document.getElementById("canvasInfo").textContent=`${state.cols} × ${state.rows}`;
@@ -658,7 +714,15 @@ function getCellFromPointer(event){
  if(x<0||y<0)return null;
  const col=Math.floor(x/CELL),row=Math.floor(y/CELL);
  if(col<0||col>=state.cols||row<0||row>=state.rows)return null;
- const localY=y-row*CELL,part=Math.floor(localY/(CELL/state.wefts));
+
+ /* Ignore the visible gaps between cells */
+ const localX=x-col*CELL;
+ const localY=y-row*CELL;
+ const inset=CELL_GAP/2;
+ if(localX<inset||localX>CELL-inset||localY<inset||localY>CELL-inset)return null;
+
+ const innerY=localY-inset;
+ const part=Math.floor(innerY/((CELL-CELL_GAP)/state.wefts));
  if(part<0||part>=state.wefts)return null;
  return {row,col,part};
 }
@@ -711,6 +775,7 @@ function downloadCanvas(type){
  link.click();
 }
 document.getElementById("jpgBtn").addEventListener("click",()=>downloadCanvas("image/jpeg"));
+document.getElementById("mobileJpgBtn").addEventListener("click",()=>downloadCanvas("image/jpeg"));
 
 /* PROJECT SAVE / OPEN */
 const saveDialog=document.getElementById("saveDialog");
@@ -727,7 +792,6 @@ document.getElementById("cancelSave").addEventListener("click",closeSaveDialog);
 saveDialog.addEventListener("click",e=>{if(e.target===saveDialog)closeSaveDialog()});
 
 function cleanFileName(name){
- // Keep Persian and English letters, numbers, spaces, underscores and hyphens.
  return name.trim().replace(/[\\/:*?"<>|]/g,"-").replace(/\s+/g," ").replace(/[. ]+$/,"");
 }
 function buildProjectFile(){
@@ -755,7 +819,6 @@ async function saveProject(){
 
  closeSaveDialog();
 
- // Use the native save dialog when the browser supports it.
  if(window.showSaveFilePicker){
   try{
    const handle=await window.showSaveFilePicker({
@@ -768,7 +831,6 @@ async function saveProject(){
    const writable=await handle.createWritable();
    await writable.write(blob);
    await writable.close();
-   document.getElementById("saveStatus").textContent="✓ Project Saved";
    return;
   }catch(error){
    if(error.name==="AbortError")return;
@@ -776,7 +838,6 @@ async function saveProject(){
   }
  }
 
- // Fallback for browsers without File System Access API.
  const url=URL.createObjectURL(blob);
  const link=document.createElement("a");
  link.href=url;
@@ -785,7 +846,6 @@ async function saveProject(){
  link.click();
  link.remove();
  setTimeout(()=>URL.revokeObjectURL(url),1500);
- document.getElementById("saveStatus").textContent="✓ Download Started";
 }
 document.getElementById("confirmSave").addEventListener("click",saveProject);
 projectNameInput.addEventListener("keydown",e=>{
@@ -800,7 +860,7 @@ document.getElementById("projectInput").addEventListener("change",event=>{
  const reader=new FileReader();
  reader.onload=()=>{
   try{
-   const parsed=JSON.parse(reader.result);
+   const parsed=JSON.parse(reader.result.replace(/^\uFEFF/,""));
    const p=parsed.state||parsed;
    if(!p||!Number.isInteger(Number(p.cols))||!Number.isInteger(Number(p.rows))||
       !Number.isInteger(Number(p.warps))||!Number.isInteger(Number(p.wefts))){
@@ -823,7 +883,6 @@ document.getElementById("projectInput").addEventListener("change",event=>{
    else projectName=file.name.replace(/\.json$/i,"");
    pushHistory(before);
    syncInputs();renderWarpControls();renderWeftControls();updateLockUI();draw();saveState();
-   document.getElementById("saveStatus").textContent="✓ Project Opened";
   }catch(error){
    alert("The selected project file is invalid or cannot be opened.");
   }
@@ -903,17 +962,13 @@ const mobileSettings=document.getElementById("mobileSettings");
 const mobileYarnTab=document.getElementById("mobileYarnTab");
 const mobileDimensionsTab=document.getElementById("mobileDimensionsTab");
 
-// null means that both mobile panels are closed.
 let mobileTab=null;
 
 function selectMobileTab(tab){
- // Tapping the currently open tab closes it.
  mobileTab=(mobileTab===tab)?null:tab;
  mobileSettings.classList.toggle("has-open-panel",mobileTab!==null);
-
  mobileYarnTab.classList.toggle("active",mobileTab==="yarn");
  mobileDimensionsTab.classList.toggle("active",mobileTab==="dimensions");
-
  mobileYarnPanel.hidden=mobileTab!=="yarn";
  mobileDimensionsPanel.hidden=mobileTab!=="dimensions";
 }
