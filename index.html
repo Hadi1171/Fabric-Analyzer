@@ -114,6 +114,9 @@ button:disabled{opacity:.3;cursor:not-allowed;transform:none}
  .splash-loader span{width:100%}
 }
 /* WELCOME SCREEN */
+.welcome-language{position:absolute;top:22px;right:24px;display:flex;gap:5px;padding:4px;border:1px solid #39475c;border-radius:10px;background:#1a2230}
+.welcome-language button{min-width:66px;height:30px;padding:0 10px;border:0;background:transparent;color:#9eacc0;font-size:11px;font-weight:800}
+.welcome-language button.active{background:#3b4658;color:#f0d3a2;box-shadow:inset 0 0 0 1px #58677e}
 .welcome-screen{
  position:fixed;inset:0;z-index:900;display:none;
  align-items:center;justify-content:center;padding:22px;
@@ -124,7 +127,7 @@ button:disabled{opacity:.3;cursor:not-allowed;transform:none}
 }
 .welcome-screen.show{display:flex;animation:welcomeAppear .65s ease both}
 @keyframes welcomeAppear{from{opacity:0;transform:scale(.985)}to{opacity:1;transform:scale(1)}}
-.welcome-inner{width:min(780px,100%);text-align:center}
+.welcome-inner{width:min(780px,100%);text-align:center;position:relative;padding-top:30px}
 .welcome-brand{
  font-size:12px;letter-spacing:4px;font-weight:800;color:#a8b5c8;
  margin-bottom:15px;
@@ -227,14 +230,12 @@ button:disabled{opacity:.3;cursor:not-allowed;transform:none}
  border:1px solid #46536a;color:#e5eaf2;font-size:11px;font-weight:700
 }
 .home-back-button{
- height:29px;padding:0 11px;display:flex;align-items:center;justify-content:center;gap:7px;
+ width:36px;height:36px;padding:4px;display:flex;align-items:center;justify-content:center;
  background:linear-gradient(135deg,#3b4658,#293344);border:1px solid #58677e;
- color:#f0d3a2;font-size:11px;font-weight:800;white-space:nowrap;
- transition:background .2s,border-color .2s,transform .2s
+ border-radius:9px;transition:background .2s,border-color .2s,transform .2s
 }
 .home-back-button:hover{background:#46546a;border-color:var(--accent);transform:translateY(-1px)}
-.home-back-button svg{width:15px;height:15px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
-html[dir="rtl"] .home-back-button svg{transform:rotate(180deg)}
+.home-back-button img{display:block;width:25px;height:25px;object-fit:contain}
 
 /* WORKSPACE */
 .workspace{
@@ -561,6 +562,9 @@ html[dir="rtl"] .home-back-button svg{transform:rotate(180deg)}
 }
 
 @media(max-width:650px){
+ .welcome-language{top:12px;right:12px}
+ html[dir="rtl"] .welcome-language{right:auto;left:12px}
+ .welcome-inner{padding-top:42px}
  .topbar{height:43px;padding:0 10px}
  .brand{font-size:14px}
  .workspace-label{display:none}
@@ -646,6 +650,12 @@ html[dir="rtl"] .home-back-button svg{transform:rotate(180deg)}
 .language-continue{width:100%;height:42px;margin-top:12px;background:var(--accent);border-color:var(--accent);color:#202633;font-weight:800}
 .wizard-dialog{width:min(430px,100%);max-height:88dvh;overflow:auto;text-align:start}
 #projectWizard{z-index:980}
+.wizard-header{display:flex;align-items:center;gap:12px;margin-bottom:18px}
+.wizard-home-button{flex:0 0 42px;width:42px;height:42px;padding:5px;display:grid;place-items:center;border-radius:10px;background:#1b2433;border:1px solid #56647a}
+.wizard-home-button:hover{border-color:var(--accent);background:#303b4d}
+.wizard-home-button img{width:29px;height:29px;object-fit:contain;display:block}
+.wizard-header .wizard-progress{flex:1;margin:0}
+.wizard-actions .cancel-button:disabled{opacity:.35;cursor:not-allowed}
 .wizard-progress{height:4px;background:#151c28;border-radius:9px;overflow:hidden;margin:0 0 18px}
 .wizard-progress span{display:block;height:100%;width:25%;background:var(--accent);transition:width .2s}
 .wizard-step-label{color:var(--accent);font-size:10px;font-weight:800;letter-spacing:1px;margin-bottom:7px}
@@ -669,6 +679,7 @@ html[dir="rtl"] .save-dialog,html[dir="rtl"] .save-dialog h3,html[dir="rtl"] .sa
 html[dir="rtl"] .topbar,html[dir="rtl"] .topbar-right{direction:rtl}
 html[dir="rtl"] .stage-footer{direction:rtl}
 html[dir="rtl"] .wizard-dialog{direction:rtl}
+html[dir="rtl"] .welcome-language{right:auto;left:24px}
 @media(max-width:650px){.wizard-dialog{padding:17px}.wizard-color-list{grid-template-columns:1fr 1fr}.language-card{padding:20px}}
 
 /* ACCESSIBILITY */
@@ -711,21 +722,13 @@ html[dir="rtl"] .wizard-dialog{direction:rtl}
  <div class="splash-loader"><span></span></div>
 </div>
 
-<!-- LANGUAGE SELECTION -->
-<div class="language-screen" id="languageScreen">
- <div class="language-card">
-  <div style="font-size:24px;margin-bottom:10px">◈</div>
-  <h2 id="languageHeading">Choose your language</h2>
-  <p id="languageDescription">Select the language for Fabric Analyzer.</p>
-  <button class="language-option selected" data-language="fa" type="button"><span><strong>فارسی</strong><small>Persian · راست‌چین</small></span><span class="language-check">✓</span></button>
-  <button class="language-option" data-language="en" type="button"><span><strong>English</strong><small>Left to right</small></span><span class="language-check"></span></button>
-  <button class="language-continue" id="languageContinue" type="button">ادامه</button>
- </div>
-</div>
-
 <!-- START PAGE -->
 <div class="welcome-screen" id="welcomeScreen">
  <div class="welcome-inner">
+  <div class="welcome-language" role="group" aria-label="Language">
+   <button type="button" id="homeLangFa" data-home-language="fa">فارسی</button>
+   <button type="button" id="homeLangEn" data-home-language="en">English</button>
+  </div>
   <div class="welcome-brand">FABRIC <span>ANALYZER</span></div>
   <h1 class="welcome-title">What would you like to create?</h1>
   <p class="welcome-description">
@@ -769,13 +772,16 @@ html[dir="rtl"] .wizard-dialog{direction:rtl}
 <!-- NEW PROJECT WIZARD -->
 <div class="dialog-backdrop" id="projectWizard">
  <div class="dialog wizard-dialog">
-  <div class="wizard-progress"><span id="wizardProgress"></span></div>
+  <div class="wizard-header">
+   <button class="wizard-home-button" id="wizardHomeBtn" type="button" title="Back to Home" aria-label="Back to Home"><img src="assets/app-icon.svg" alt=""></button>
+   <div class="wizard-progress"><span id="wizardProgress"></span></div>
+  </div>
   <div class="wizard-step-label" id="wizardStepLabel">STEP 1 OF 4</div>
   <div class="wizard-title" id="wizardTitle">Grid dimensions</div>
   <div class="wizard-description" id="wizardDescription">Choose the width and height of your design grid.</div>
   <div id="wizardFields"></div>
   <div class="wizard-actions">
-   <button class="cancel-button" id="wizardBack" type="button">Back</button>
+   <button class="cancel-button" id="wizardBack" type="button" disabled>Back</button>
    <button class="wizard-next" id="wizardNext" type="button">Next</button>
   </div>
  </div>
@@ -787,9 +793,8 @@ html[dir="rtl"] .wizard-dialog{direction:rtl}
 <header class="topbar">
  <div class="brand">FABRIC <span>ANALYZER</span></div>
  <div class="topbar-right">
-  <button class="home-back-button" id="homeBackBtn" type="button" title="Back to Home">
-   <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19 12H5"></path><path d="m12 19-7-7 7-7"></path></svg>
-   <span>Back to Home</span>
+  <button class="home-back-button" id="homeBackBtn" type="button" title="Back to Home" aria-label="Back to Home">
+   <img src="assets/app-icon.svg" alt="">
   </button>
   <span class="workspace-label">Design Workspace</span>
   <span class="app-version">v2.9.1</span>
@@ -1054,35 +1059,14 @@ const splashScreen=document.getElementById("splashScreen");
 const welcomeScreen=document.getElementById("welcomeScreen");
 const mainApp=document.getElementById("mainApp");
 
-const languageScreen=document.getElementById("languageScreen");
-let selectedLanguage="fa";
+let selectedLanguage=localStorage.getItem("fabricAnalyzerLanguage")||"fa";
 function showWelcome(){
  splashScreen.classList.add("hide");
- const savedLanguage=localStorage.getItem("fabricAnalyzerLanguage");
- if(savedLanguage==="fa"||savedLanguage==="en"){
-  selectedLanguage=savedLanguage;applyLanguage(savedLanguage);welcomeScreen.classList.add("show");
- }else{
-  languageScreen.classList.add("show");
-  updateLanguageChoice();
- }
+ selectedLanguage=localStorage.getItem("fabricAnalyzerLanguage")||"fa";
+ applyLanguage(selectedLanguage);
+ welcomeScreen.classList.add("show");
+ updateHomeLanguageButtons();
 }
-function updateLanguageChoice(){
- document.querySelectorAll(".language-option").forEach(b=>{
-  const active=b.dataset.language===selectedLanguage;
-  b.classList.toggle("selected",active);
-  b.querySelector(".language-check").textContent=active?"✓":"";
- });
- document.getElementById("languageContinue").textContent=selectedLanguage==="fa"?"ادامه":"Continue";
- document.getElementById("languageHeading").textContent=selectedLanguage==="fa"?"زبان برنامه را انتخاب کن":"Choose your language";
- document.getElementById("languageDescription").textContent=selectedLanguage==="fa"?"زبان محیط Fabric Analyzer را انتخاب کن.":"Select the language for Fabric Analyzer.";
-}
-document.querySelectorAll(".language-option").forEach(b=>b.addEventListener("click",()=>{
- selectedLanguage=b.dataset.language;updateLanguageChoice();
-}));
-document.getElementById("languageContinue").addEventListener("click",()=>{
- localStorage.setItem("fabricAnalyzerLanguage",selectedLanguage);
- languageScreen.classList.remove("show");applyLanguage(selectedLanguage);welcomeScreen.classList.add("show");
-});
 const translations={
  "What would you like to create?":"چه چیزی می‌خواهی طراحی کنی؟",
  "Start a fresh textile design or continue working on an existing project.":"یک طرح پارچه جدید بساز یا پروژه قبلی‌ات را ادامه بده.",
@@ -1125,14 +1109,42 @@ const translations={
  "The selected project file is invalid or cannot be opened.":"فایل پروژه انتخاب‌شده نامعتبر است یا باز نمی‌شود.",
  "Could not read the selected file.":"خواندن فایل انتخاب‌شده ممکن نشد."
 };
-function applyLanguage(lang){
- const fa=lang==="fa";document.documentElement.lang=fa?"fa":"en";document.documentElement.dir=fa?"rtl":"ltr";
- document.querySelectorAll("body *").forEach(el=>{
-  if(el.children.length===0){const raw=el.textContent.trim();if(fa&&translations[raw])el.textContent=translations[raw];}
-  for(const attr of ["title","placeholder","aria-label"]){const v=el.getAttribute(attr);if(v&&fa&&translations[v])el.setAttribute(attr,translations[v]);}
+function updateHomeLanguageButtons(){
+ document.querySelectorAll("[data-home-language]").forEach(button=>{
+  const active=button.dataset.homeLanguage===selectedLanguage;
+  button.classList.toggle("active",active);
+  button.setAttribute("aria-pressed",String(active));
  });
- document.querySelectorAll(".color-name").forEach(el=>{if(fa)el.textContent=el.textContent.replace("Warp ","تار ").replace("Weft ","پود ");});
- window.alert=(()=>{const native=window.__nativeAlert||window.alert;window.__nativeAlert=native;return msg=>native(fa?(translations[String(msg)]||msg):msg)})();
+}
+function setAppLanguage(lang){
+ selectedLanguage=lang==="fa"?"fa":"en";
+ localStorage.setItem("fabricAnalyzerLanguage",selectedLanguage);
+ applyLanguage(selectedLanguage);
+ updateHomeLanguageButtons();
+}
+document.querySelectorAll("[data-home-language]").forEach(button=>button.addEventListener("click",()=>setAppLanguage(button.dataset.homeLanguage)));
+function applyLanguage(lang){
+ const fa=lang==="fa";
+ document.documentElement.lang=fa?"fa":"en";
+ document.documentElement.dir=fa?"rtl":"ltr";
+ const reverseTranslations=Object.fromEntries(Object.entries(translations).map(([english,persian])=>[persian,english]));
+ document.querySelectorAll("body *").forEach(el=>{
+  if(el.children.length===0){
+   const raw=el.textContent.trim();
+   const translated=fa?translations[raw]:reverseTranslations[raw];
+   if(translated)el.textContent=translated;
+  }
+  for(const attr of ["title","placeholder","aria-label"]){
+   const value=el.getAttribute(attr);
+   const translated=value?(fa?translations[value]:reverseTranslations[value]):null;
+   if(translated)el.setAttribute(attr,translated);
+  }
+ });
+ document.querySelectorAll(".color-name").forEach(el=>{
+  if(fa)el.textContent=el.textContent.replace("Warp ","تار ").replace("Weft ","پود ");
+  else el.textContent=el.textContent.replace("تار ","Warp ").replace("پود ","Weft ");
+ });
+ window.alert=(()=>{const native=window.__nativeAlert||window.alert;window.__nativeAlert=native;return msg=>native(fa?(translations[String(msg)]||msg):(reverseTranslations[String(msg)]||msg))})();
 }
 
 
@@ -1178,8 +1190,8 @@ function renderWizard(){
  document.getElementById("wizardTitle").textContent=labels[wizardStep];
  document.getElementById("wizardDescription").textContent=desc[wizardStep];
  document.getElementById("wizardProgress").style.width=((wizardStep+1)*25)+"%";
- document.getElementById("wizardBack").textContent=wizardStep===0?(fa?"بازگشت به خانه":"Back to Home"):(fa?"قبلی":"Back");
- document.getElementById("wizardBack").disabled=false;
+ document.getElementById("wizardBack").textContent=fa?"قبلی":"Back";
+ document.getElementById("wizardBack").disabled=wizardStep===0;
  document.getElementById("wizardNext").textContent=wizardStep===3?(fa?"ساخت پروژه":"Create Project"):(fa?"بعدی":"Next");
  const fields=document.getElementById("wizardFields");fields.innerHTML="";
  if(wizardStep<3){
@@ -1220,7 +1232,8 @@ function createFreshProject(){
  zoom=1;draw();saveState();wizard.classList.remove("show");enterApp();
 }
 document.getElementById("startupNewBtn").addEventListener("click",openProjectWizard);
-document.getElementById("wizardBack").addEventListener("click",()=>{if(wizardStep>0){wizardStep--;renderWizard();return;}wizard.classList.remove("show");welcomeScreen.classList.add("show");});
+document.getElementById("wizardBack").addEventListener("click",()=>{if(wizardStep>0){wizardStep--;renderWizard();}});
+document.getElementById("wizardHomeBtn").addEventListener("click",()=>{wizard.classList.remove("show");welcomeScreen.classList.add("show");});
 document.getElementById("wizardNext").addEventListener("click",()=>{
  if(wizardStep<3){wizardStep++;renderWizard();return;}
  createFreshProject();
