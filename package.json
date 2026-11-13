@@ -2,13 +2,21 @@
   "name": "fabric-analyzer",
   "version": "1.0.0",
   "private": true,
-  "description": "Fabric Analyzer desktop application",
+  "description": "Fabric Analyzer for Web, Android and Windows",
   "main": "electron-main.cjs",
   "scripts": {
     "start": "electron .",
+    "prepare:mobile": "node scripts/prepare-mobile.cjs",
+    "android:add": "npm run prepare:mobile && cap add android",
+    "android:sync": "npm run prepare:mobile && cap sync android",
     "dist:win": "electron-builder --win nsis portable"
   },
+  "dependencies": {
+    "@capacitor/android": "^7.4.3",
+    "@capacitor/core": "^7.4.3"
+  },
   "devDependencies": {
+    "@capacitor/cli": "^7.4.3",
     "electron": "^35.0.0",
     "electron-builder": "^26.0.12"
   },
@@ -21,6 +29,7 @@
     "files": [
       "index.html",
       "electron-main.cjs",
+      "electron-preload.cjs",
       "package.json"
     ],
     "win": {
