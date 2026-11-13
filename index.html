@@ -1179,11 +1179,14 @@ function renderWizard(){
  }
 }
 function createFreshProject(){
+ finishColorEdit();
+ const before=makeSnapshot();
  state={cols:wizardData.cols,rows:wizardData.rows,warps:wizardData.warps,wefts:wizardData.wefts,
   warpColors:[...defaultWarpColors],weftColors:[...defaultWeftColors],
   selectedWeft:0,marks:{},paintLocked:true};
  wizardData.weftColors.forEach((color,i)=>state.weftColors[i]=color);
- projectName="Fabric-Analyzer-Project";undoHistory=[];redoHistory=[];colorEditSnapshot=null;
+ projectName="Fabric-Analyzer-Project";colorEditSnapshot=null;
+ pushHistory(before);
  syncInputs();renderWarpControls();renderWeftControls();updateLockUI();updateHistoryButtons();
  zoom=1;draw();saveState();wizard.classList.remove("show");enterApp();
 }
@@ -1211,7 +1214,8 @@ function makeSnapshot(){
  return JSON.parse(JSON.stringify({
   cols:state.cols,rows:state.rows,warps:state.warps,wefts:state.wefts,
   warpColors:state.warpColors,weftColors:state.weftColors,
-  selectedWeft:state.selectedWeft,marks:state.marks
+  selectedWeft:state.selectedWeft,marks:state.marks,
+  paintLocked:state.paintLocked,projectName
  }));
 }
 function snapshotsEqual(a,b){return JSON.stringify(a)===JSON.stringify(b)}
@@ -1229,9 +1233,12 @@ function finishColorEdit(){
  if(!snapshotsEqual(a,b))pushHistory(a);
 }
 function restoreSnapshot(s){
- const locked=state.paintLocked;
- state={...state,...JSON.parse(JSON.stringify(s)),paintLocked:locked};
- syncInputs();renderWarpControls();renderWeftControls();draw();saveState();updateHistoryButtons();
+ const restored=JSON.parse(JSON.stringify(s));
+ if(restored.projectName)projectName=restored.projectName;
+ delete restored.projectName;
+ if(typeof restored.paintLocked!=="boolean")restored.paintLocked=state.paintLocked;
+ state={...state,...restored};
+ syncInputs();renderWarpControls();renderWeftControls();updateLockUI();draw();saveState();updateHistoryButtons();
 }
 function undo(){
  finishColorEdit();
@@ -1287,7 +1294,12 @@ function renderColorItem(container,index,color,type){
  if(type==="weft"&&state.selectedWeft===index)item.classList.add("active");
 
  if(type==="weft")item.addEventListener("click",()=>{
-  state.selectedWeft=index;renderWeftControls();saveState();
+  if(state.selectedWeft===index)return;
+  finishColorEdit();
+  const before=makeSnapshot();
+  state.selectedWeft=index;
+  pushHistory(before);
+  renderWeftControls();saveState();
  });
 
  const picker=document.createElement("input");
@@ -1334,13 +1346,17 @@ function updateLockUI(){
  updateCanvasCursor();
 }
 function toggleLock(){
+ const before=makeSnapshot();
  state.paintLocked=!state.paintLocked;
+ if(!snapshotsEqual(before,makeSnapshot()))pushHistory(before);
  updateLockUI();saveState();
 }
 document.getElementById("lockBtn").addEventListener("click",toggleLock);
 document.getElementById("paintTool").addEventListener("click",()=>{
  if(state.paintLocked){
+  const before=makeSnapshot();
   state.paintLocked=false;
+  if(!snapshotsEqual(before,makeSnapshot()))pushHistory(before);
   updateLockUI();saveState();
  }
 });
