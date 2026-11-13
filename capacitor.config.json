@@ -1,0 +1,6 @@
+{
+  "appId": "com.hadi1171.fabricanalyzer",
+  "appName": "Fabric Analyzer",
+  "webDir": "www",
+  "bundledWebRuntime": false
+}
