@@ -166,7 +166,32 @@ button:disabled{opacity:.3;cursor:not-allowed;transform:none}
 .welcome-footer{
  margin-top:28px;color:#64738a;font-size:10px;letter-spacing:1px;
 }
-.welcome-footer span{color:#a58a60}
+
+/* CREATOR SIGNATURE */
+.creator-signature{
+ margin-top:14px;
+ color:#69788e;
+ font-size:9px;
+ letter-spacing:2px;
+ font-weight:600;
+ opacity:.85;
+}
+.creator-signature strong{
+ color:var(--accent);
+ font-weight:900;
+ letter-spacing:1.5px;
+}
+.workspace-signature{
+ color:#8290a4;
+ font-size:10px;
+ letter-spacing:.5px;
+}
+.workspace-signature strong{
+ color:var(--accent);
+ font-weight:800;
+ letter-spacing:1px;
+}
+.workspace-signature strong:hover{color:#f1d19b}
 
 /* TOP BAR */
 .topbar{
@@ -619,6 +644,7 @@ button:disabled{opacity:.3;cursor:not-allowed;transform:none}
 
   <div class="welcome-footer">
    <span>FABRIC ANALYZER</span> &nbsp;·&nbsp; DESIGN WITH PRECISION
+   <div class="creator-signature">CRAFTED WITH PASSION BY <strong>H4d1am</strong></div>
   </div>
  </div>
 </div>
@@ -724,7 +750,7 @@ button:disabled{opacity:.3;cursor:not-allowed;transform:none}
    <button class="zoom-button" id="zoomInBtn">+</button>
    <button class="zoom-button" id="zoomResetBtn" title="Reset Zoom">100%</button>
   </div>
-  <span>Fabric Analyzer</span>
+  <span class="workspace-signature">Made by <strong>H4d1am</strong></span>
  </div>
 
 </main>
