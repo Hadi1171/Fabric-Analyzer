@@ -738,6 +738,41 @@ button:disabled{opacity:.3;cursor:not-allowed;transform:none}
  .splash-loader{width:100px}
 }
 
+/* LANGUAGE + PROJECT WIZARD */
+.language-screen{position:fixed;inset:0;z-index:950;display:none;align-items:center;justify-content:center;padding:18px;background:radial-gradient(ellipse at 50% 0%,rgba(74,94,126,.2),transparent 50%),#10141d}
+.language-screen.show{display:flex;animation:welcomeAppear .45s ease both}
+.language-card{width:min(360px,100%);padding:24px;border:1px solid #39475c;border-radius:15px;background:linear-gradient(145deg,#222c3b,#1a2230);box-shadow:0 20px 60px #0008;text-align:center}
+.language-card h2{margin:0 0 7px;font-size:19px}.language-card p{margin:0 0 18px;color:#9eacc0;font-size:11px;line-height:1.8}
+.language-option{width:100%;min-height:54px;display:flex;align-items:center;justify-content:space-between;padding:0 14px;margin:8px 0;text-align:start;background:#1b2433;border:1px solid #39475c;border-radius:9px}
+.language-option.selected{border-color:var(--accent);background:#394252;box-shadow:inset 0 0 0 1px var(--accent)}
+.language-option small{display:block;color:#9eacc0;font-size:10px;margin-top:3px}.language-check{color:var(--accent);font-size:18px}
+.language-continue{width:100%;height:42px;margin-top:12px;background:var(--accent);border-color:var(--accent);color:#202633;font-weight:800}
+.wizard-dialog{width:min(430px,100%);max-height:88dvh;overflow:auto;text-align:start}
+.wizard-progress{height:4px;background:#151c28;border-radius:9px;overflow:hidden;margin:0 0 18px}
+.wizard-progress span{display:block;height:100%;width:25%;background:var(--accent);transition:width .2s}
+.wizard-step-label{color:var(--accent);font-size:10px;font-weight:800;letter-spacing:1px;margin-bottom:7px}
+.wizard-title{font-size:18px;font-weight:800;margin-bottom:5px}.wizard-description{font-size:11px;color:#9eacc0;line-height:1.7;margin-bottom:18px}
+.wizard-fields{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.wizard-field{padding:11px;background:#1b2433;border:1px solid #394456;border-radius:8px}
+.wizard-field label{display:block;font-size:11px;color:#cbd4e1;margin-bottom:8px}
+.stepper{display:flex;align-items:center;gap:6px}.stepper button{width:30px;height:31px;font-size:17px}.stepper input{width:100%;min-width:0;height:31px;text-align:center;background:#111925;color:white;border:1px solid #45536a;border-radius:6px;font-size:13px}
+.wizard-color-list{display:grid;grid-template-columns:1fr 1fr;gap:8px;max-height:260px;overflow:auto}
+.wizard-color-row{display:flex;align-items:center;gap:9px;padding:9px;background:#1b2433;border:1px solid #394456;border-radius:8px;font-size:11px}
+.wizard-color-row input{width:32px;height:30px;padding:0;border:0;background:transparent}
+.wizard-actions{display:flex;gap:9px;margin-top:20px}.wizard-actions button{height:40px;flex:1;font-weight:700}
+.wizard-actions .wizard-next{background:var(--accent);border-color:var(--accent);color:#202633}
+html[dir="rtl"] body{font-family:Tahoma,"Segoe UI",Arial,sans-serif}
+html[dir="rtl"] .welcome-inner,html[dir="rtl"] .language-card{text-align:center}
+html[dir="rtl"] .welcome-cards{direction:rtl}
+html[dir="rtl"] .welcome-card{text-align:right}
+html[dir="rtl"] .welcome-card-arrow{right:auto;left:23px}
+html[dir="rtl"] .dialog,html[dir="rtl"] .help-dialog{direction:rtl}
+html[dir="rtl"] .save-dialog,html[dir="rtl"] .save-dialog h3,html[dir="rtl"] .save-dialog p{text-align:right}
+html[dir="rtl"] .topbar,html[dir="rtl"] .topbar-right{direction:rtl}
+html[dir="rtl"] .stage-footer{direction:rtl}
+html[dir="rtl"] .wizard-dialog{direction:rtl}
+@media(max-width:650px){.wizard-dialog{padding:17px}.wizard-color-list{grid-template-columns:1fr 1fr}.language-card{padding:20px}}
+
 /* ACCESSIBILITY */
 @media(prefers-reduced-motion:reduce){
  *,*::before,*::after{
@@ -783,6 +818,18 @@ button:disabled{opacity:.3;cursor:not-allowed;transform:none}
  <div class="splash-loader"><span></span></div>
 </div>
 
+<!-- LANGUAGE SELECTION -->
+<div class="language-screen" id="languageScreen">
+ <div class="language-card">
+  <div style="font-size:24px;margin-bottom:10px">◈</div>
+  <h2 id="languageHeading">Choose your language</h2>
+  <p id="languageDescription">Select the language for Fabric Analyzer.</p>
+  <button class="language-option selected" data-language="fa" type="button"><span><strong>فارسی</strong><small>Persian · راست‌چین</small></span><span class="language-check">✓</span></button>
+  <button class="language-option" data-language="en" type="button"><span><strong>English</strong><small>Left to right</small></span><span class="language-check"></span></button>
+  <button class="language-continue" id="languageContinue" type="button">ادامه</button>
+ </div>
+</div>
+
 <!-- START PAGE -->
 <div class="welcome-screen" id="welcomeScreen">
  <div class="welcome-inner">
@@ -822,6 +869,21 @@ button:disabled{opacity:.3;cursor:not-allowed;transform:none}
   <div class="welcome-footer">
    <span>FABRIC ANALYZER</span> &nbsp;·&nbsp; DESIGN WITH PRECISION
    <div class="creator-signature">CRAFTED WITH PASSION BY <strong>H4d1am</strong></div>
+  </div>
+ </div>
+</div>
+
+<!-- NEW PROJECT WIZARD -->
+<div class="dialog-backdrop" id="projectWizard">
+ <div class="dialog wizard-dialog">
+  <div class="wizard-progress"><span id="wizardProgress"></span></div>
+  <div class="wizard-step-label" id="wizardStepLabel">STEP 1 OF 4</div>
+  <div class="wizard-title" id="wizardTitle">Grid dimensions</div>
+  <div class="wizard-description" id="wizardDescription">Choose the width and height of your design grid.</div>
+  <div id="wizardFields"></div>
+  <div class="wizard-actions">
+   <button class="cancel-button" id="wizardBack" type="button">Back</button>
+   <button class="wizard-next" id="wizardNext" type="button">Next</button>
   </div>
  </div>
 </div>
@@ -1095,10 +1157,87 @@ const splashScreen=document.getElementById("splashScreen");
 const welcomeScreen=document.getElementById("welcomeScreen");
 const mainApp=document.getElementById("mainApp");
 
+const languageScreen=document.getElementById("languageScreen");
+let selectedLanguage="fa";
 function showWelcome(){
  splashScreen.classList.add("hide");
- welcomeScreen.classList.add("show");
+ const savedLanguage=localStorage.getItem("fabricAnalyzerLanguage");
+ if(savedLanguage==="fa"||savedLanguage==="en"){
+  selectedLanguage=savedLanguage;applyLanguage(savedLanguage);welcomeScreen.classList.add("show");
+ }else{
+  languageScreen.classList.add("show");
+  updateLanguageChoice();
+ }
 }
+function updateLanguageChoice(){
+ document.querySelectorAll(".language-option").forEach(b=>{
+  const active=b.dataset.language===selectedLanguage;
+  b.classList.toggle("selected",active);
+  b.querySelector(".language-check").textContent=active?"✓":"";
+ });
+ document.getElementById("languageContinue").textContent=selectedLanguage==="fa"?"ادامه":"Continue";
+ document.getElementById("languageHeading").textContent=selectedLanguage==="fa"?"زبان برنامه را انتخاب کن":"Choose your language";
+ document.getElementById("languageDescription").textContent=selectedLanguage==="fa"?"زبان محیط Fabric Analyzer را انتخاب کن.":"Select the language for Fabric Analyzer.";
+}
+document.querySelectorAll(".language-option").forEach(b=>b.addEventListener("click",()=>{
+ selectedLanguage=b.dataset.language;updateLanguageChoice();
+}));
+document.getElementById("languageContinue").addEventListener("click",()=>{
+ localStorage.setItem("fabricAnalyzerLanguage",selectedLanguage);
+ languageScreen.classList.remove("show");applyLanguage(selectedLanguage);welcomeScreen.classList.add("show");
+});
+const translations={
+ "What would you like to create?":"چه چیزی می‌خواهی طراحی کنی؟",
+ "Start a fresh textile design or continue working on an existing project.":"یک طرح پارچه جدید بساز یا پروژه قبلی‌ات را ادامه بده.",
+ "Import Existing Project":"وارد کردن پروژه",
+ "Open a previously saved Fabric Analyzer project and continue your work.":"یک پروژه ذخیره‌شده را باز کن و ادامه بده.",
+ "Create New Project":"ساخت پروژه جدید",
+ "Start with a clean canvas and build a new textile pattern from scratch.":"با یک صفحه خالی، طرح پارچه جدیدت را از ابتدا بساز.",
+ "DESIGN WITH PRECISION":"طراحی با دقت",
+ "Design Workspace":"محیط طراحی",
+ "Help":"راهنما","Help & Shortcuts":"راهنما و میانبرها",
+ "Yarn Settings":"تنظیمات نخ","Warp & Weft":"تار و پود","Warp Colors":"رنگ تار","Weft Colors":"رنگ پود",
+ "Export Image":"خروجی تصویر","Paint Tool":"ابزار نقاشی","Unlock Painting":"باز کردن قفل نقاشی","Lock Painting":"قفل نقاشی",
+ "Undo (Ctrl + Z)":"بازگشت (Ctrl + Z)","Redo (Ctrl + Y)":"جلو رفتن (Ctrl + Y)","Clear Design":"پاک کردن طرح",
+ "Open Project":"باز کردن پروژه","Open":"باز کردن","Save Project":"ذخیره پروژه","Save":"ذخیره","Image":"تصویر",
+ "Yarn":"نخ","Dimensions":"ابعاد","Page Settings":"تنظیمات صفحه","Canvas Properties":"ویژگی‌های بوم",
+ "Canvas Dimensions":"ابعاد شبکه","Columns":"ستون","Rows":"ردیف","Apply Dimensions":"اعمال ابعاد",
+ "Yarn Structure":"ساختار نخ","Warp Count":"تعداد تار","Weft Count":"تعداد پود","Apply Structure":"اعمال ساختار",
+ "Document Information":"اطلاعات سند","Canvas Size":"اندازه شبکه","Warp Repeat":"تکرار تار","Weft Repeat":"تکرار پود","Zoom":"بزرگ‌نمایی",
+ "Clear Entire Design?":"کل طرح پاک شود؟","Are you sure you want to clear the entire design? This action will remove all painted cells. Your page settings and yarn colors will remain unchanged.":"مطمئنی کل طرح پاک شود؟ تمام خانه‌های رنگ‌شده حذف می‌شوند؛ تنظیمات صفحه و رنگ نخ‌ها باقی می‌مانند.",
+ "Cancel":"لغو","Yes, Clear":"بله، پاک کن","Choose a name for your project. English and Persian file names are supported.":"برای پروژه نام انتخاب کن. نام فارسی و انگلیسی پشتیبانی می‌شود.",
+ "Project Name":"نام پروژه","The project will be saved as an editable JSON file.":"پروژه به‌صورت فایل JSON قابل ویرایش ذخیره می‌شود.",
+ "Save Project":"ذخیره پروژه","Image Name":"نام تصویر","Image Format":"فرمت تصویر",
+ "Choose an image name and format. Your design will be exported as an image.":"نام و فرمت تصویر را انتخاب کن تا از طرحت خروجی گرفته شود.",
+ "JPEG is suitable for smaller files. PNG keeps crisp edges. WebP is compact. BMP is a large, uncompressed image.":"JPEG حجم کمتری دارد؛ PNG لبه‌ها را واضح نگه می‌دارد؛ WebP کم‌حجم است و BMP بدون فشرده‌سازی ذخیره می‌شود.",
+ "Tool Guide & Keyboard Shortcuts":"راهنمای ابزارها و میانبرهای صفحه‌کلید","Close Help":"بستن راهنما","Got It":"متوجه شدم",
+ "🧵 Warp & Weft":"🧵 تار و پود","🖌 Paint Tool":"🖌 ابزار نقاشی","🔒 Painting Lock":"🔒 قفل نقاشی",
+ "✋ Hand Tool & Canvas Navigation":"✋ ابزار دست و جابه‌جایی بوم","📐 Dimensions & Yarn Structure":"📐 ابعاد و ساختار نخ","⌨ Keyboard Shortcuts":"⌨ میانبرهای صفحه‌کلید","💾 Save, Open & Export":"💾 ذخیره، بازکردن و خروجی",
+ "Warp colors define the borders of the cells. Weft colors are used to paint the inner sections of each cell. Warp colors repeat automatically across the columns.":"رنگ تار حاشیه خانه‌ها را مشخص می‌کند. رنگ پود برای رنگ‌آمیزی بخش‌های داخلی هر خانه است. رنگ‌های تار به‌صورت خودکار در ستون‌ها تکرار می‌شوند.",
+ "Select a color from the Warp or Weft panel. Use the color picker to customize each yarn color.":"از پنل تار یا پود رنگی انتخاب کن. با انتخاب‌گر رنگ می‌توانی رنگ هر نخ را تغییر بدهی.",
+ "Click the Paint Tool to unlock painting automatically. Select a Weft color, then click a section to paint it. Click the same color again to remove it.":"با انتخاب ابزار نقاشی، قفل نقاشی خودکار باز می‌شود. رنگ پود را انتخاب کن و روی بخش موردنظر بزن. دوباره همان رنگ را انتخاب کنی، پاک می‌شود.",
+ "Painting is locked by default. Click the lock button to toggle painting lock on or off.":"نقاشی به‌صورت پیش‌فرض قفل است. برای فعال یا غیرفعال کردن قفل، دکمه قفل را بزن.",
+ "Hold Space and drag with your mouse to move around the canvas. On mobile devices, swipe directly on the canvas to navigate.":"برای جابه‌جایی بوم، Space را نگه دار و با ماوس بکش. در موبایل روی بوم انگشتت را حرکت بده.",
+ "Columns and Rows define the size of your design grid. Warp Count controls the number of repeating warp colors. Weft Count controls the number of available weft colors and horizontal sections inside each cell. Grid dimensions: 1–40. Warp and Weft counts: 1–16.":"ستون و ردیف اندازه شبکه را تعیین می‌کنند. تعداد تار، تعداد رنگ‌های تکرارشونده تار را مشخص می‌کند. تعداد پود، تعداد رنگ‌های پود و بخش‌های افقی هر خانه را تعیین می‌کند. ابعاد شبکه: 1 تا 40؛ تعداد تار و پود: 1 تا 16.",
+ "Temporary Hand Tool":"ابزار دست موقت","Undo":"بازگشت","Redo":"جلو رفتن","Apply Settings":"اعمال تنظیمات","Zoom In":"بزرگ‌نمایی","Zoom Out":"کوچک‌نمایی","Reset Zoom":"بازنشانی بزرگ‌نمایی","Close Dialogs":"بستن پنجره‌ها",
+ "Save exports an editable JSON project. Open loads a saved project. Export Image saves the current design in the selected image format.":"گزینه ذخیره، پروژه قابل ویرایش JSON می‌سازد. بازکردن، پروژه ذخیره‌شده را بارگذاری می‌کند. خروجی تصویر، طرح فعلی را با فرمت انتخابی ذخیره می‌کند.",
+ "Please enter a project name.":"لطفاً نام پروژه را وارد کن.","Please enter an image name.":"لطفاً نام تصویر را وارد کن.",
+ "Unsupported image format.":"فرمت تصویر پشتیبانی نمی‌شود.","This image format is not supported by your browser.":"مرورگر از این فرمت تصویر پشتیبانی نمی‌کند.",
+ "Could not export this image. Try PNG or JPEG.":"خروجی تصویر ساخته نشد. PNG یا JPEG را امتحان کن.",
+ "Columns and rows must be between 1 and 40. Warp and weft counts must be between 1 and 16.":"تعداد ستون و ردیف باید بین 1 تا 40 باشد. تعداد تار و پود باید بین 1 تا 16 باشد.",
+ "The selected project file is invalid or cannot be opened.":"فایل پروژه انتخاب‌شده نامعتبر است یا باز نمی‌شود.",
+ "Could not read the selected file.":"خواندن فایل انتخاب‌شده ممکن نشد."
+};
+function applyLanguage(lang){
+ const fa=lang==="fa";document.documentElement.lang=fa?"fa":"en";document.documentElement.dir=fa?"rtl":"ltr";
+ document.querySelectorAll("body *").forEach(el=>{
+  if(el.children.length===0){const raw=el.textContent.trim();if(fa&&translations[raw])el.textContent=translations[raw];}
+  for(const attr of ["title","placeholder","aria-label"]){const v=el.getAttribute(attr);if(v&&fa&&translations[v])el.setAttribute(attr,translations[v]);}
+ });
+ document.querySelectorAll(".color-name").forEach(el=>{if(fa)el.textContent=el.textContent.replace("Warp ","تار ").replace("Weft ","پود ");});
+ window.alert=(()=>{const native=window.__nativeAlert||window.alert;window.__nativeAlert=native;return msg=>native(fa?(translations[String(msg)]||msg):msg)})();
+}
+
 
 function enterApp(){
  welcomeScreen.classList.remove("show");
@@ -1110,27 +1249,69 @@ function enterApp(){
  });
 }
 
-function createFreshProject(){
- state={
-  cols:10,rows:10,warps:16,wefts:3,
-  warpColors:[...defaultWarpColors],
-  weftColors:[...defaultWeftColors],
-  selectedWeft:0,marks:{},paintLocked:true
- };
- projectName="Fabric-Analyzer-Project";
- undoHistory=[];redoHistory=[];colorEditSnapshot=null;
- syncInputs();
- renderWarpControls();
- renderWeftControls();
- updateLockUI();
- updateHistoryButtons();
- zoom=1;
- draw();
- saveState();
- enterApp();
+const wizard=document.getElementById("projectWizard");
+let wizardStep=0;
+let wizardData={cols:10,rows:10,warps:16,wefts:3,weftColors:[...defaultWeftColors]};
+function openProjectWizard(){
+ wizardStep=0;wizardData={cols:10,rows:10,warps:16,wefts:3,weftColors:[...defaultWeftColors]};
+ renderWizard();wizard.classList.add("show");
 }
+function renderWizard(){
+ const fa=document.documentElement.lang==="fa";
+ const labels=fa?["ابعاد شبکه","تعداد تارها","تعداد پودها","رنگ‌های پود"]:["Grid dimensions","Warp count","Weft count","Weft colors"];
+ const desc=fa?["عرض و ارتفاع شبکه طراحی را مشخص کن.","تعداد نخ‌های تار را از 1 تا 16 انتخاب کن.","تعداد نخ‌های پود را از 1 تا 16 انتخاب کن.","رنگ واقعی هر نخ پود را انتخاب کن."]:["Choose the width and height of your design grid.","Choose the number of warp yarns (1–16).","Choose the number of weft yarns (1–16).","Choose an actual color for each weft yarn."];
+ document.getElementById("wizardStepLabel").textContent=(fa?"مرحله ":"STEP ")+(wizardStep+1)+(fa?" از 4":" OF 4");
+ document.getElementById("wizardTitle").textContent=labels[wizardStep];
+ document.getElementById("wizardDescription").textContent=desc[wizardStep];
+ document.getElementById("wizardProgress").style.width=((wizardStep+1)*25)+"%";
+ document.getElementById("wizardBack").textContent=fa?"قبلی":"Back";
+ document.getElementById("wizardBack").disabled=wizardStep===0;
+ document.getElementById("wizardNext").textContent=wizardStep===3?(fa?"ساخت پروژه":"Create Project"):(fa?"بعدی":"Next");
+ const fields=document.getElementById("wizardFields");fields.innerHTML="";
+ if(wizardStep<3){
+  const keys=wizardStep===0?["cols","rows"]:[wizardStep===1?"warps":"wefts"];
+  const names=fa?{cols:"ستون‌ها",rows:"ردیف‌ها",warps:"تعداد تار",wefts:"تعداد پود"}:{cols:"Columns",rows:"Rows",warps:"Warp yarns",wefts:"Weft yarns"};
+  fields.className="wizard-fields";
+  keys.forEach(key=>{
+   const wrap=document.createElement("div");wrap.className="wizard-field";
+   const label=document.createElement("label");label.textContent=names[key];
+   const stepper=document.createElement("div");stepper.className="stepper";
+   const minus=document.createElement("button");minus.type="button";minus.textContent="−";
+   const input=document.createElement("input");input.type="number";input.inputMode="numeric";input.min=1;input.max=(key==="cols"||key==="rows")?40:16;input.value=wizardData[key];
+   const plus=document.createElement("button");plus.type="button";plus.textContent="+";
+   const clamp=()=>{let v=Number(input.value);if(!Number.isFinite(v))v=1;v=Math.max(1,Math.min(Number(input.max),Math.round(v)));input.value=v;wizardData[key]=v;};
+   minus.addEventListener("click",()=>{input.value=Math.max(1,Number(input.value)-1);clamp()});
+   plus.addEventListener("click",()=>{input.value=Math.min(Number(input.max),Number(input.value)+1);clamp()});
+   input.addEventListener("change",clamp);input.addEventListener("blur",clamp);
+   stepper.append(minus,input,plus);wrap.append(label,stepper);fields.appendChild(wrap);
+  });
+ }else{
+  fields.className="wizard-color-list";
+  for(let i=0;i<wizardData.wefts;i++){
+   const row=document.createElement("label");row.className="wizard-color-row";
+   const picker=document.createElement("input");picker.type="color";picker.value=wizardData.weftColors[i]||defaultWeftColors[i];
+   picker.addEventListener("input",()=>wizardData.weftColors[i]=picker.value);
+   const name=document.createElement("span");name.textContent=(fa?"پود ":"Weft ")+(i+1);
+   row.append(picker,name);fields.appendChild(row);
+  }
+ }
+}
+function createFreshProject(){
+ state={cols:wizardData.cols,rows:wizardData.rows,warps:wizardData.warps,wefts:wizardData.wefts,
+  warpColors:[...defaultWarpColors],weftColors:[...defaultWeftColors],
+  selectedWeft:0,marks:{},paintLocked:true};
+ wizardData.weftColors.forEach((color,i)=>state.weftColors[i]=color);
+ projectName="Fabric-Analyzer-Project";undoHistory=[];redoHistory=[];colorEditSnapshot=null;
+ syncInputs();renderWarpControls();renderWeftControls();updateLockUI();updateHistoryButtons();
+ zoom=1;draw();saveState();wizard.classList.remove("show");enterApp();
+}
+document.getElementById("startupNewBtn").addEventListener("click",openProjectWizard);
+document.getElementById("wizardBack").addEventListener("click",()=>{if(wizardStep>0){wizardStep--;renderWizard()}});
+document.getElementById("wizardNext").addEventListener("click",()=>{
+ if(wizardStep<3){wizardStep++;renderWizard();return;}
+ createFreshProject();
+});
 
-document.getElementById("startupNewBtn").addEventListener("click",createFreshProject);
 
 document.getElementById("startupImportBtn").addEventListener("click",()=>{
  startupImportPending=true;
