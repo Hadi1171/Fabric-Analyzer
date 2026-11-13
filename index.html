@@ -53,22 +53,21 @@ button:disabled{opacity:.3;cursor:not-allowed;transform:none}
 .thread-mark{
  width:154px;height:154px;display:grid;place-items:center;
  transform-origin:center;
- animation:markFloat 6s 1.6s ease-in-out infinite;
+ animation:markFloat 6s 1.7s ease-in-out infinite;
 }
 .thread-mark svg{display:block;width:100%;height:100%;overflow:visible}
 .thread-mark .thread{
- fill:none;stroke:url(#threadGold);stroke-width:7.2;
+ fill:none;stroke:url(#threadGold);stroke-width:8;
  stroke-linecap:round;stroke-linejoin:round;
- stroke-dasharray:150;stroke-dashoffset:150;
+ stroke-dasharray:100;stroke-dashoffset:100;
  animation:threadDraw 1.12s cubic-bezier(.2,.78,.22,1) forwards;
 }
-.thread-mark .thread:nth-of-type(2){animation-delay:.12s}
-.thread-mark .thread:nth-of-type(3){animation-delay:.24s}
-.thread-mark .thread:nth-of-type(4){animation-delay:.36s}
+.thread-mark .thread:nth-of-type(2){animation-delay:.42s}
+.thread-mark .thread:nth-of-type(3){animation-delay:.58s}
 .thread-mark .core{
  fill:#f1d19b;opacity:0;transform-box:fill-box;
  transform-origin:center;transform:scale(.35);
- animation:coreSettle .55s 1.02s cubic-bezier(.2,.8,.2,1) forwards;
+ animation:coreSettle .4s 1.02s cubic-bezier(.2,.8,.2,1) forwards;
 }
 @keyframes threadDraw{to{stroke-dashoffset:0}}
 @keyframes coreSettle{to{opacity:.9;transform:scale(1)}}
@@ -105,8 +104,8 @@ button:disabled{opacity:.3;cursor:not-allowed;transform:none}
  .thread-mark,.thread-mark .thread,.thread-mark .core,
  .splash-title,.splash-subtitle,.splash-loader,.splash-loader span{
   animation:none!important;opacity:1!important;transform:none!important;
-  stroke-dashoffset:0!important;width:auto
  }
+ .thread-mark .thread{stroke-dashoffset:0!important}
  .splash-loader span{width:100%}
 }
 /* WELCOME SCREEN */
@@ -681,11 +680,10 @@ html[dir="rtl"] .wizard-dialog{direction:rtl}
      <stop offset="1" stop-color="#a77b45"/>
     </linearGradient>
    </defs>
-   <path class="thread" d="M60 12 C60 29 34 31 34 52"/>
-   <path class="thread" d="M108 60 C91 60 89 34 68 34"/>
-   <path class="thread" d="M60 108 C60 91 86 89 86 68"/>
-   <path class="thread" d="M12 60 C29 60 31 86 52 86"/>
-   <rect class="core" x="56.5" y="56.5" width="7" height="7" rx="1.6" transform="rotate(45 60 60)"/>
+   <path class="thread" pathLength="100" d="M12 60 C32 60 40 40 60 60 C80 80 88 60 108 60"/>
+   <path class="thread" pathLength="100" d="M60 12 C60 32 80 40 64 56"/>
+   <path class="thread" pathLength="100" d="M56 64 C40 80 60 88 60 108"/>
+   <rect class="core" x="57.5" y="57.5" width="5" height="5" rx="1" transform="rotate(45 60 60)"/>
   </svg>
  </div>
  <div class="splash-title">FABRIC <span>ANALYZER</span></div>
