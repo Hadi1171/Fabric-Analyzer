@@ -501,6 +501,19 @@ button,input,select{font-family:inherit}
 @media(max-width:560px){.gw-intro-inner{transform:translateY(-10px)}.gw-intro-mark{width:126px;height:126px}.gw-intro-name{letter-spacing:.14em}}
 @media(prefers-reduced-motion:reduce){.gw-intro-mark .thread,.gw-intro-mark .thread-c,.gw-intro-name,.gw-intro-sub,.gw-intro-rule i,.gw-intro-skip{animation:none!important;opacity:1!important;stroke-dashoffset:0!important;transform:none!important}.gw-intro{transition:none}}
 
+
+/* Android WebView scroll recovery: keep long wizard/result pages in the document flow. */
+@media(max-width:768px){
+ html,body{height:auto!important;min-height:100dvh!important;overflow-x:hidden!important;overflow-y:auto!important;overscroll-behavior-y:auto!important;-webkit-overflow-scrolling:touch}
+ body{position:relative!important}
+ .app{height:auto!important;min-height:100dvh!important;overflow:visible!important;flex:0 0 auto}
+ .wizard{height:auto!important;min-height:0!important;max-height:none!important;overflow:visible!important;flex:0 0 auto!important;contain:none!important}
+ .wizardbody,.wizardpage.active{min-height:0!important;overflow:visible!important}
+ #page6{padding-bottom:calc(28px + env(safe-area-inset-bottom,0px))}
+ #wizardResult{overflow:visible;padding-bottom:20px}
+ #wizardResult .export-jpeg{display:block;position:relative;z-index:1;margin-bottom:14px}
+ #page6 .wizardnav{position:relative;bottom:auto;z-index:2;margin-top:12px}
+}
 </style>
 </head>
 <body>
