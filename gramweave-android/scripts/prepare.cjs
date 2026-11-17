@@ -45,15 +45,17 @@ async function main() {
     // Android 8+ launchers use adaptive icons, not the legacy mipmap PNGs.
     // Keep the woven mark inside the adaptive-icon safe zone on every density.
     const foregroundSvg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
-      <defs><linearGradient id="thread" x1="115" y1="110" x2="399" y2="400" gradientUnits="userSpaceOnUse"><stop stop-color="#d9c7ff"/><stop offset="1" stop-color="#9878ed"/></linearGradient></defs>
-      <g fill="none" stroke="url(#thread)" stroke-width="27" stroke-linecap="round" stroke-linejoin="round">
-        <path d="M151 135v242c0 14 18 19 25 7l160-254c8-13 28-7 28 8v239"/>
-        <path d="M132 210h248M132 302h248"/>
-      </g>
-      <path d="M132 210h248" stroke="#f1eaff" stroke-width="12" stroke-linecap="round" stroke-dasharray="52 26"/>
-      <path d="M132 302h248" stroke="#8e70df" stroke-width="12" stroke-linecap="round" stroke-dasharray="52 26"/>
-      <circle cx="256" cy="256" r="18" fill="#f1eaff"/>
-    </svg>`;
+      <defs>
+        <linearGradient id="thread" x1="115" y1="95" x2="400" y2="420" gradientUnits="userSpaceOnUse">
+          <stop stop-color="#eee5ff"/><stop offset=".48" stop-color="#c4a9ff"/><stop offset="1" stop-color="#8b6be8"/>
+        </linearGradient>
+      </defs>
+      <path d="M354 157C326 127 289 111 246 111C160 111 99 173 99 256C99 339 161 401 246 401C329 401 389 342 389 260V246H258"
+        fill="none" stroke="url(#thread)" stroke-width="47" stroke-linecap="round" stroke-linejoin="round"/>
+      <path d="M258 246H389" fill="none" stroke="#eee5ff" stroke-width="29" stroke-linecap="round"/>
+      <path d="M258 246H389" fill="none" stroke="#8b6be8" stroke-width="7" stroke-linecap="round" stroke-dasharray="20 18"/>
+      <circle cx="246" cy="256" r="13" fill="#f7f2ff"/>
+    </svg>`
     for (const [folder, size] of Object.entries(sizes)) {
       const dir = path.join(res, folder);
       await sharp(Buffer.from(foregroundSvg)).resize(size, size).png()
