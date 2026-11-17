@@ -1,5 +1,5 @@
 #define MyAppName "Fabric 3D"
-#define MyAppVersion "0.2.0"
+#define MyAppVersion "0.3.0"
 #define MyAppPublisher "H4D1AM"
 #define MyAppExeName "Fabric 3D.exe"
 [Setup]
