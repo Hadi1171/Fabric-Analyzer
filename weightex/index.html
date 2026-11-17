@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#10141d"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"><meta name="apple-mobile-web-app-title" content="WeighTex">
-<title>WeighTex | محاسبه وزن پارچه</title>
+<title>WeighTex | محاسبات مهندسی پارچه</title>
 <link rel="manifest" href="manifest.json">
 <link rel="icon" type="image/svg+xml" href="icon.svg">
 <link rel="apple-touch-icon" href="icon.svg">
@@ -289,6 +289,88 @@ body:has(.wizard.show) .exitbtn{display:grid}
   .unit-picker:focus-within{z-index:10020}
   .unit-menu{top:auto!important;bottom:calc(100% + 7px)!important;z-index:10030!important;max-height:min(230px,42dvh);box-shadow:0 18px 42px #000e}
 }
+
+/* WEIGHTEX REDESIGN — INDUSTRIAL × SWISS MINIMAL */
+:root{
+ --bg:#11161b;--paper:#1a2128;--ink:#e8e9e5;--muted:#9ba5aa;
+ --line:#354149;--dark:#11191f;--gold:#c49a62;--gold2:#e0bd8b;
+ --green:#9aa99d;--shadow:0 16px 42px #0004;
+}
+html,body{background:#11161b}
+body{background:#11161b;color:var(--ink);font-family:Inter,"Segoe UI",Tahoma,sans-serif}
+.app{background:linear-gradient(90deg,transparent 0,transparent calc(50% - .5px),#ffffff05 calc(50% - .5px),#ffffff05 50%,transparent 50%);background-size:100% 100%}
+.top{background:#11191f;border-bottom:1px solid #354149;height:68px;padding-left:clamp(18px,5vw,64px);padding-right:clamp(18px,5vw,64px)}
+.brand{gap:13px}
+.brand .mark{width:38px;height:38px;border-radius:5px;background:#202a31;border:1px solid #52606a;box-shadow:none}
+.brandname{font-size:18px;font-weight:800;letter-spacing:1.8px}
+.tag{font-size:9px;letter-spacing:1.5px;color:#9ba5aa}
+.helpbtn,.iconbtn{border-radius:5px;background:#1a252c;border:1px solid #45525a}
+.welcome,.wizard{background:#171f25;border:1px solid #3b484f;border-radius:7px;box-shadow:0 18px 50px #0005}
+.welcome{position:relative;text-align:left;direction:rtl;padding:clamp(28px,5vw,54px);max-width:720px;overflow:hidden}
+.welcome:before{content:"";position:absolute;inset:0 0 auto;height:3px;background:#c49a62}
+.welcome-index{display:flex;justify-content:space-between;gap:12px;padding-bottom:22px;margin-bottom:28px;border-bottom:1px solid #354149;color:#849198;font:10px/1.4 Inter, sans-serif;letter-spacing:1.6px;direction:ltr}
+.welcome .mark{display:none}
+.welcome .eyebrow{font:700 10px/1.5 Inter,sans-serif;color:#c49a62;letter-spacing:2.3px}
+.welcome h1{font-size:clamp(25px,4.2vw,36px);font-weight:750;letter-spacing:-.6px;line-height:1.55;margin:12px 0 13px;color:#f0f0eb}
+.welcome p{font-size:13px;line-height:2.1;color:#aab4b8;max-width:540px;margin:0 0 26px}
+.welcome-specs{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:#354149;border:1px solid #354149;margin:26px 0 22px;max-width:460px}
+.welcome-specs>div{background:#141c22;padding:13px 15px;display:grid;gap:7px}
+.welcome-specs small{font:9px Inter,sans-serif;letter-spacing:1.2px;color:#849198}
+.welcome-specs b{font:600 13px Inter,sans-serif;color:#e5c18e;direction:ltr;text-align:right}
+.welcome-start{max-width:260px;min-height:49px;border-radius:5px;box-shadow:none;font-size:13px}
+.footer{text-align:right;font:9px Inter,sans-serif;letter-spacing:1.8px;color:#718087;margin-top:26px}
+.primary{background:#c49a62;color:#151b1f;border:1px solid #d3ad7a;border-radius:5px;box-shadow:none}
+.primary:hover{background:#dfbd8e;transform:translateY(-1px)}
+.secondary{border-radius:5px;background:#202b32;border-color:#46545c}
+.wizard{max-width:780px;border-radius:7px}
+.wizardhead{background:#121a20;padding:20px 25px;border-bottom:1px solid #354149;border-radius:0}
+.wizardhead small{font:10px Inter,sans-serif;letter-spacing:1.6px;color:#c49a62}
+.wizardhead h2{font-size:17px;font-weight:650;letter-spacing:-.2px}
+.steps{gap:4px}
+.stepdot{height:3px;border-radius:0;background:#354149}
+.stepdot.active{background:#c49a62;box-shadow:none}
+.wizardbody{padding:clamp(18px,4vw,30px)}
+.modalintro{font-size:12px;color:#aab4b8;line-height:2.1;margin-bottom:20px}
+.field label{color:#c3ccce;font-size:11px}
+.field input,.field select,.yarnfields input,.yarnfields select{border-radius:4px;background:#11191f;border:1px solid #3d4b53;color:#e8e9e5}
+.field input:focus,.field select:focus,.yarnfields input:focus,.yarnfields select:focus{border-color:#c49a62;box-shadow:0 0 0 2px #c49a6218}
+.field input::placeholder,.yarnfields input::placeholder{color:#65737a}
+.yarn{background:#141d23;border:1px solid #354149;border-radius:5px;box-shadow:none}
+.yarnhead{color:#e8e9e5}
+.yarnfields input,.yarnfields select,.unit-trigger{border-radius:4px}
+.unit-trigger{background:#11191f;border:1px solid #3d4b53;color:#e8e9e5;border-radius:4px}
+.unit-menu{background:#172128;border:1px solid #52616a;border-radius:4px}
+.unit-option{border-radius:3px}
+.unit-option:active,.unit-option.selected{background:#29363d;color:#e0bd8b}
+.wizardnav{border-color:#354149}
+.wizardnav button{min-height:47px}
+.resulttop{background:#11191f;border:1px solid #52616a;border-radius:5px}
+.total{font-weight:700;color:#e0bd8b}
+.breakdown{background:#141d23;border:1px solid #354149;border-radius:5px}
+.sentence{border-radius:5px}
+.intro-screen{background:#11161b;gap:12px}
+.intro-screen:before{content:"";position:absolute;inset:0;background:linear-gradient(90deg,transparent 0,transparent calc(50% - .5px),#ffffff09 calc(50% - .5px),#ffffff09 50%,transparent 50%);pointer-events:none}
+.intro-loom{width:min(230px,62vw);height:175px;animation:none}
+.intro-loom .scale-beam{animation:none}
+.intro-word{font:800 25px/1.2 Inter,sans-serif;letter-spacing:5px;color:#e8e9e5}
+.intro-word span{color:#c49a62}
+.intro-caption{font:9px/1.5 Inter,sans-serif;letter-spacing:2px;color:#8f9ba0;text-align:center}
+.intro-line{height:1px;width:116px;background:#354149;margin-top:9px}
+.intro-line i{background:#c49a62}
+@media(max-width:768px){
+ .top{height:calc(62px + var(--safe-top));padding-left:15px;padding-right:15px}
+ .welcome,.wizard{border-radius:5px}
+ .welcome{padding:27px 21px}
+ .welcome-index{margin-bottom:23px;padding-bottom:17px;font-size:8px}
+ .welcome h1{font-size:25px}
+ .welcome p{font-size:12px}
+ .wizardhead{padding:17px 17px 15px}
+ .wizardbody{padding:18px 16px calc(20px + var(--safe-bottom))}
+ .welcome-specs>div{padding:11px}
+ .welcome-specs small{font-size:8px}
+}
+@media(prefers-reduced-motion:reduce){.intro-loom,.intro-loom *{animation:none!important}}
+
 </style>
 </head>
 <body>
@@ -325,31 +407,31 @@ body:has(.wizard.show) .exitbtn{display:grid}
   <g class="scale-indicator" fill="none" stroke="#d8ad68" stroke-width="2.5" stroke-linecap="round"><path d="M120 112V104M112 108H128"/><circle cx="120" cy="104" r="3" fill="#f1d19b" stroke="none"/></g>
  </svg>
 </div>
- <div class="intro-word">WEIGH<span>TEX</span></div><div class="intro-caption">TEXTILE WEIGHT CALCULATOR</div><div class="intro-line"><i></i></div>
+ <div class="intro-word">WEIGH<span>TEX</span></div><div class="intro-caption">TEXTILE ENGINEERING / WEIGHT ANALYSIS</div><div class="intro-line"><i></i></div>
 </div>
 <div class="app">
 <header class="top">
- <div class="brand"><div class="mark"><svg width="30" height="30" viewBox="0 0 40 40" fill="none"><path d="M7 25h26l-3.2 9H10.2L7 25Z" stroke="#D8AD68" stroke-width="2" stroke-linejoin="round"/><path d="m11 22 9-13 9 13H11Z" stroke="#D8AD68" stroke-width="2" stroke-linejoin="round"/><path d="M14 18h12M16 14h8M20 9V5m-4 0h8" stroke="#D8AD68" stroke-width="1.7" stroke-linecap="round"/></svg></div><div><div class="brandname">WeighTex</div><div class="tag">محاسبه‌گر وزن پارچه</div></div></div>
+ <div class="brand"><div class="mark"><svg width="30" height="30" viewBox="0 0 40 40" fill="none"><path d="M7 25h26l-3.2 9H10.2L7 25Z" stroke="#D8AD68" stroke-width="2" stroke-linejoin="round"/><path d="m11 22 9-13 9 13H11Z" stroke="#D8AD68" stroke-width="2" stroke-linejoin="round"/><path d="M14 18h12M16 14h8M20 9V5m-4 0h8" stroke="#D8AD68" stroke-width="1.7" stroke-linecap="round"/></svg></div><div><div class="brandname">WeighTex</div><div class="tag">TEXTILE ENGINEERING TOOL</div></div></div>
  <div class="topactions">
  <button class="iconbtn" type="button" onclick="openHelp()" aria-label="راهنما" title="راهنما"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M9.7 9a2.4 2.4 0 1 1 4.1 1.7c-1.1 1-1.8 1.3-1.8 2.8M12 17h.01" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></button>
  <button class="iconbtn exitbtn" id="exitBtn" type="button" onclick="exitWizard()" aria-label="خروج از محاسبه" title="خروج"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M10 4H5.8A1.8 1.8 0 0 0 4 5.8v12.4A1.8 1.8 0 0 0 5.8 20H10M14 8l4 4-4 4M18 12H9" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
  </div>
 </header>
-<section class="welcome" id="welcome"><div class="mark"><svg width="48" height="48" viewBox="0 0 40 40" fill="none"><path d="M7 25h26l-3.2 9H10.2L7 25Z" stroke="#D8AD68" stroke-width="2" stroke-linejoin="round"/><path d="m11 22 9-13 9 13H11Z" stroke="#D8AD68" stroke-width="2" stroke-linejoin="round"/><path d="M14 18h12M16 14h8M20 9V5m-4 0h8" stroke="#D8AD68" stroke-width="1.7" stroke-linecap="round"/></svg></div><div class="eyebrow">WELCOME TO WEIGHTEX</div><h1>به WeighTex خوش اومدی</h1><p>مشخصات پارچه و نخ‌ها رو مرحله‌به‌مرحله وارد کن. محاسبات بر اساس یک متر طول ثابت پارچه انجام می‌شن؛ فقط عرض پارچه رو وارد کن.</p><button class="primary" style="max-width:280px" onclick="startWizard()">شروع محاسبه <span>←</span></button><div class="footer">DESIGNED BY h4d1am</div></section>
+<section class="welcome" id="welcome"><div class="welcome-index"><span>WT / 01</span><span>TEXTILE ENGINEERING</span></div><div class="eyebrow">FABRIC WEIGHT ANALYSIS</div><h1>محاسبه مهندسی وزن پارچه</h1><p>محاسبه وزن نظری بر پایه مشخصات سیستم‌های تار، پود و نمره نخ. طول مبنای محاسبه یک متر است و عرض پارچه به‌صورت متغیر وارد می‌شود.</p><div class="welcome-specs"><div><small>CALCULATION LENGTH</small><b>1.00 m</b></div><div><small>YARN COUNT UNITS</small><b>Nm / Den / Tex</b></div></div><button class="primary welcome-start" onclick="startWizard()">شروع محاسبات <span>←</span></button><div class="footer">DESIGNED BY h4d1am</div></section>
 <div class="wizard" id="wizard">
  <div class="wizardhead"><div class="steps"><i class="stepdot active"></i><i class="stepdot"></i><i class="stepdot"></i><i class="stepdot"></i><i class="stepdot"></i><i class="stepdot"></i></div><small id="stepLabel">مرحله ۱ از ۶</small><h2 id="stepTitle">مشخصات سیستم‌های تار</h2></div>
  <div class="wizardbody">
-  <section class="wizardpage active" id="page1"><p class="modalintro">تعداد سیستم‌های تار و تراکم کل تار پارچه را وارد کن.</p><div class="fields setup-fields">
+  <section class="wizardpage active" id="page1"><p class="modalintro">تعداد سیستم‌های تار و تراکم کل تار پارچه را وارد کنید.</p><div class="fields setup-fields">
    <div class="field"><label>تعداد سیستم‌های تار</label><input id="warpN" type="number" min="1" max="12" placeholder="مثلاً ۱"></div>
    <div class="field"><label>تراکم کل تار</label><input id="warpD" type="number" min="0.01" step="any" placeholder="مثلاً ۶۶"><div class="hint">تار در هر سانتی‌متر</div></div>
   </div><div class="error" id="mainError"></div><div class="wizardnav"><button class="primary" onclick="validateSetupAndGo(2)">ادامه به مشخصات پود ←</button></div></section>
-  <section class="wizardpage" id="page2"><p class="modalintro">تعداد سیستم‌های پود و تراکم کل پود را وارد کن.</p><div class="fields setup-fields">
+  <section class="wizardpage" id="page2"><p class="modalintro">تعداد سیستم‌های پود و تراکم کل پود را وارد کنید.</p><div class="fields setup-fields">
    <div class="field"><label>تعداد سیستم‌های پود</label><input id="weftN" type="number" min="1" max="12" placeholder="مثلاً ۳"></div>
    <div class="field"><label>تراکم کل پود</label><input id="weftD" type="number" min="0.01" step="any" placeholder="مثلاً ۲۴"><div class="hint">پود در هر سانتی‌متر</div></div>
   </div><div class="error" id="weftSetupError"></div><div class="wizardnav"><button class="secondary" onclick="goStep(1)">قبلی</button><button class="primary" onclick="prepareYarns()">ادامه به مشخصات تار ←</button></div></section>
-  <section class="wizardpage" id="page3"><p class="modalintro">نام نخ و نمره هر سیستم تار را در یک ردیف وارد کن.</p><div class="yarnlist" id="warpList"></div><div class="error" id="warpYarnError"></div><div class="wizardnav"><button class="secondary" onclick="goStep(2)">قبلی</button><button class="primary" onclick="validateYarnStep('warp',4)">ادامه به مشخصات پود ←</button></div></section>
-  <section class="wizardpage" id="page4"><p class="modalintro">نام نخ و نمره هر سیستم پود را هم وارد کن.</p><div class="yarnlist" id="weftList"></div><div class="error" id="yarnError"></div><div class="wizardnav"><button class="secondary" onclick="goStep(3)">قبلی</button><button class="primary" onclick="validateYarnStep('weft',5)">ادامه به عرض پارچه ←</button></div></section>
-  <section class="wizardpage" id="page5"><p class="modalintro">در آخر، عرض پارچه را وارد کن. طول محاسبه همیشه ثابت و برابر یک متر است.</p><div class="fields"><div class="field"><label>عرض پارچه</label><input id="width" type="number" min="0.01" step="any" placeholder="مثلاً ۱۵۰"><div class="hint">سانتی‌متر</div></div></div><div class="error" id="widthError"></div><div class="wizardnav"><button class="secondary" onclick="goStep(4)">قبلی</button><button class="primary" onclick="calculateWizard()">محاسبه وزن ←</button></div></section>
+  <section class="wizardpage" id="page3"><p class="modalintro">نام نخ، نمره و واحد اندازه‌گیری هر سیستم تار را مشخص کنید.</p><div class="yarnlist" id="warpList"></div><div class="error" id="warpYarnError"></div><div class="wizardnav"><button class="secondary" onclick="goStep(2)">قبلی</button><button class="primary" onclick="validateYarnStep('warp',4)">ادامه به مشخصات پود ←</button></div></section>
+  <section class="wizardpage" id="page4"><p class="modalintro">نام نخ، نمره و واحد اندازه‌گیری هر سیستم پود را مشخص کنید.</p><div class="yarnlist" id="weftList"></div><div class="error" id="yarnError"></div><div class="wizardnav"><button class="secondary" onclick="goStep(3)">قبلی</button><button class="primary" onclick="validateYarnStep('weft',5)">ادامه به عرض پارچه ←</button></div></section>
+  <section class="wizardpage" id="page5"><p class="modalintro">عرض پارچه را بر حسب سانتی‌متر وارد کنید. طول مبنای محاسبه ثابت و برابر یک متر است.</p><div class="fields"><div class="field"><label>عرض پارچه</label><input id="width" type="number" min="0.01" step="any" placeholder="مثلاً ۱۵۰"><div class="hint">سانتی‌متر</div></div></div><div class="error" id="widthError"></div><div class="wizardnav"><button class="secondary" onclick="goStep(4)">قبلی</button><button class="primary" onclick="calculateWizard()">محاسبه وزن ←</button></div></section>
   <section class="wizardpage" id="page6"><div id="result" class="result" style="display:none!important"></div><div id="wizardResult"></div><div class="wizardnav"><button class="secondary" onclick="goStep(5)">ویرایش عرض</button><button class="primary" onclick="resetWizard()">محاسبه جدید</button></div></section>
  </div>
 </div>
@@ -627,7 +709,7 @@ function resetWizard(){
  goStep(1);
 }
 
-document.addEventListener('DOMContentLoaded',()=>{setTimeout(()=>document.getElementById('introScreen').classList.add('out'),2300)});
+document.addEventListener('DOMContentLoaded',()=>{setTimeout(()=>document.getElementById('introScreen').classList.add('out'),3200)});
 
 </script>
 </body>
