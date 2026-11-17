@@ -1,24 +1,17 @@
 # Fabric 3D
-**A 3D Jacquard Fabric Simulator** · **H4D1AM** · Version **0.2.0**
+**Jacquard fabric workflow** · **H4D1AM** · Version **0.3.0**
 
 ## Windows installer
-Download the GitHub Actions artifact named **Fabric-3D-Setup-v0.2.0-Windows**. Run the setup EXE; the Inno Setup wizard lets you change the installation folder and optionally create a desktop shortcut.
+Download the GitHub Actions artifact **Fabric-3D-Setup-v0.3.0-Windows**. The installer lets you choose the installation folder.
 
 ## Workflow
-Intro → Welcome → New Fabric → six guided steps:
-1. Load red/white BMP map (red = warp, white = weft).
-2. Warp and weft system counts.
-3. Total warp and weft density.
-4. Warp and weft repeat rhythms (e.g. 1.2.1.3).
-5. Individual warp yarn type, count, unit (Nm / Den / Tex / Ne), color.
-6. Individual weft yarn type, count, unit (Nm / Den / Tex / Ne), color.
-Then Create Fabric opens a project confirmation and save option.
+Intro → Welcome → six guided steps: BMP import, warp/weft systems, total densities, repeat rhythms, warp yarn properties, and weft yarn properties.
 
-## Design
-Premium dark interface with black surfaces, red actions/highlights, white text, and a custom woven app icon.
+## Yarn types (Persian)
+انتخاب نخ، شانل، سوپر، سوپر شانل، نخ سیم، پلی‌استر، پنبه، ویسکوز، پشم، ترکیبی، سایر.
 
-## Important
-Version 0.2.0 implements the guided configuration workflow and installer. It does **not yet implement true 3D yarn interlacing or physically rendered chenille/super/metallic materials**. The final screen confirms the inputs; it is not a completed 3D render.
+## Interface
+Dark premium UI, animated screen transitions, a yarn-cone illustration, custom website color picker with HEX input, and a redesigned woven-yarn app icon.
 
-
-Installer build fix: Inno Setup compiler path is resolved through the Windows Program Files (x86) environment variable.
+## Scope
+This release improves the configuration workflow and visual interface. Physical 3D yarn interlacing and physically based chenille/super/metallic rendering are not implemented yet.
