@@ -49,12 +49,6 @@ jobs:
         run: |
           sdkmanager --install "platform-tools" "platforms;android-35" "build-tools;35.0.0"
 
-      - name: Restore private signing key
-        working-directory: gramweave-android/android/app
-        env:
-          KEYSTORE: ${{ secrets.ANDROID_KEYSTORE_BASE64 }}
-        run: echo "$KEYSTORE" | base64 --decode > release-key.jks
-
       - name: Install dependencies and prepare offline bundle
         working-directory: gramweave-android
         run: |
@@ -64,6 +58,12 @@ jobs:
           npm run prepare:web
           npm run harden:android
           npx cap sync android
+
+      - name: Restore private signing key
+        working-directory: gramweave-android/android/app
+        env:
+          KEYSTORE: ${{ secrets.ANDROID_KEYSTORE_BASE64 }}
+        run: echo "$KEYSTORE" | base64 --decode > release-key.jks
 
       - name: Build signed release APK
         working-directory: gramweave-android/android
