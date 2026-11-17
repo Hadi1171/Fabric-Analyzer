@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<meta name="theme-color" content="#0d0d12"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"><meta name="apple-mobile-web-app-title" content="WeighTex">
-<title>WeighTex | محاسبات مهندسی پارچه</title>
+<meta name="theme-color" content="#0d0d12"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"><meta name="apple-mobile-web-app-title" content="Gram Weave">
+<title>Gram Weave | محاسبات مهندسی پارچه</title>
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Vazirmatn:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <link rel="manifest" href="manifest.json">
 <link rel="icon" type="image/svg+xml" href="icon.svg">
@@ -481,13 +481,13 @@ button,input,select{font-family:inherit}
 <body>
 <div class="app">
 <header class="top">
- <div class="brand"><div class="mark"><svg width="30" height="30" viewBox="0 0 40 40" fill="none"><path d="M7 25h26l-3.2 9H10.2L7 25Z" stroke="#D8AD68" stroke-width="2" stroke-linejoin="round"/><path d="m11 22 9-13 9 13H11Z" stroke="#D8AD68" stroke-width="2" stroke-linejoin="round"/><path d="M14 18h12M16 14h8M20 9V5m-4 0h8" stroke="#D8AD68" stroke-width="1.7" stroke-linecap="round"/></svg></div><div><div class="brandname">WeighTex</div><div class="tag">TEXTILE ENGINEERING TOOL</div></div></div>
+ <div class="brand"><div class="mark"><svg width="30" height="30" viewBox="0 0 40 40" fill="none"><path d="M7 25h26l-3.2 9H10.2L7 25Z" stroke="#D8AD68" stroke-width="2" stroke-linejoin="round"/><path d="m11 22 9-13 9 13H11Z" stroke="#D8AD68" stroke-width="2" stroke-linejoin="round"/><path d="M14 18h12M16 14h8M20 9V5m-4 0h8" stroke="#D8AD68" stroke-width="1.7" stroke-linecap="round"/></svg></div><div><div class="brandname">Gram Weave</div><div class="tag">TEXTILE ENGINEERING TOOL</div></div></div>
  <div class="topactions">
  <button class="iconbtn" type="button" onclick="openHelp()" aria-label="راهنما" title="راهنما"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M9.7 9a2.4 2.4 0 1 1 4.1 1.7c-1.1 1-1.8 1.3-1.8 2.8M12 17h.01" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></button>
  <button class="iconbtn exitbtn" id="exitBtn" type="button" onclick="exitWizard()" aria-label="خروج از محاسبه" title="خروج"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M10 4H5.8A1.8 1.8 0 0 0 4 5.8v12.4A1.8 1.8 0 0 0 5.8 20H10M14 8l4 4-4 4M18 12H9" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
  </div>
 </header>
-<section class="welcome" id="welcome"><div class="welcome-index"><span>WT / 01</span><span>TEXTILE ENGINEERING</span></div><div class="eyebrow">FABRIC WEIGHT ANALYSIS</div><h1>محاسبه مهندسی وزن پارچه</h1><p>محاسبه وزن نظری بر پایه مشخصات سیستم‌های تار، پود و نمره نخ. طول مبنای محاسبه یک متر است و عرض پارچه به‌صورت متغیر وارد می‌شود.</p><div class="welcome-specs"><div><small>CALCULATION LENGTH</small><b>1.00 m</b></div><div><small>YARN COUNT UNITS</small><b>Nm / Den / Tex</b></div></div><button class="primary welcome-start" onclick="startWizard()">شروع محاسبات <span class="btn-arrow">←</span></button><div class="footer">DESIGNED BY h4d1am</div></section>
+<section class="welcome" id="welcome"><div class="welcome-index"><span>GW / 01</span><span>TEXTILE ENGINEERING</span></div><div class="eyebrow">FABRIC WEIGHT ANALYSIS</div><h1>محاسبه مهندسی وزن پارچه</h1><p>محاسبه وزن نظری بر پایه مشخصات سیستم‌های تار، پود و نمره نخ. طول مبنای محاسبه یک متر است و عرض پارچه به‌صورت متغیر وارد می‌شود.</p><div class="welcome-specs"><div><small>CALCULATION LENGTH</small><b>1.00 m</b></div><div><small>YARN COUNT UNITS</small><b>Nm / Den / Tex</b></div></div><button class="primary welcome-start" onclick="startWizard()">شروع محاسبات <span class="btn-arrow">←</span></button><div class="footer">DESIGNED BY h4d1am</div></section>
 <div class="wizard" id="wizard">
  <div class="wizardhead"><div class="steps"><i class="stepdot active"></i><i class="stepdot"></i><i class="stepdot"></i><i class="stepdot"></i><i class="stepdot"></i><i class="stepdot"></i></div><small id="stepLabel">مرحله ۱ از ۶</small><h2 id="stepTitle">مشخصات سیستم‌های تار</h2></div>
  <div class="wizardbody">
@@ -634,7 +634,7 @@ function exportJpeg(){
  // Header
  c.fillStyle='#17151f';c.fillRect(0,0,W,330);
  c.fillStyle=C.green;c.fillRect(0,0,14,330);
- txt('WEIGHTEX',W-pad,100,34,'#d8ccff',800,'right','ltr');
+ txt('GRAM WEAVE',W-pad,100,34,'#d8ccff',800,'right','ltr');
  txt('گزارش محاسبات مهندسی پارچه',W-pad,190,54,'#ffffff',800);
  txt('TEXTILE ENGINEERING  /  WEIGHT ANALYSIS',pad,105,21,'#bdb0e8',600,'left','ltr');
  txt('گزارش مستقل محاسبه وزن · طول مبنا ۱ متر',W-pad,265,25,'#c5bfd5',500);
@@ -675,9 +675,9 @@ function exportJpeg(){
  });
  y+=systemH+90;
  line(pad,y,W-pad,y,'#d4ddd4',2);
- txt('محاسبه بر اساس داده‌های واردشده در WeighTex انجام شده است.',W-pad,y+48,20,C.muted,500);
- txt('WEIGHTEX  •  TEXTILE ENGINEERING',pad,y+48,18,C.green,700,'left','ltr');
- return new Promise(resolve=>{const save=()=>{canvas.toBlob(blob=>{if(!blob){resolve(false);return}const url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download='WeighTex-Report-'+new Date().toISOString().slice(0,10)+'.jpg';document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),1500);resolve(true)},'image/jpeg',.94)};if(document.fonts&&document.fonts.ready)document.fonts.ready.then(save);else save()});
+ txt('محاسبه بر اساس داده‌های واردشده در Gram Weave انجام شده است.',W-pad,y+48,20,C.muted,500);
+ txt('GRAM WEAVE  •  TEXTILE ENGINEERING',pad,y+48,18,C.green,700,'left','ltr');
+ return new Promise(resolve=>{const save=()=>{canvas.toBlob(blob=>{if(!blob){resolve(false);return}const url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download='Gram-Weave-Report-'+new Date().toISOString().slice(0,10)+'.jpg';document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),1500);resolve(true)},'image/jpeg',.94)};if(document.fonts&&document.fonts.ready)document.fonts.ready.then(save);else save()});
 }
 
 function exitWizard(){document.getElementById('wizard').classList.remove('show');document.getElementById('welcome').style.display='block';window.scrollTo({top:0,behavior:'smooth'});}
