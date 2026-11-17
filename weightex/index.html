@@ -357,7 +357,7 @@ body:has(.wizard.show) .exitbtn{display:grid}
 <div class="overlay" id="helpOverlay" onclick="backdropClose(event,'helpOverlay')"><section class="modal" role="dialog" aria-modal="true"><header class="modalhead"><h2>راهنمای نوع نخ و واحد نمره</h2><button class="close" onclick="closeModal('helpOverlay')">×</button></header><div class="modalbody">
 <p class="modalintro">واحد واقعی را مطابق مشخصات فنی نخ یا برگه تولید انتخاب کن.</p><div class="helpgrid">
 <div class="helpitem"><b>شانل · معمولاً Nm</b><p>در بسیاری از مشخصات نساجی با سیستم متریک Nm بیان می‌شود؛ عدد بالاتر یعنی نخ ظریف‌تر.</p></div>
-<div class="helpitem"><b>سوپر / سوپر شانل · Nm یا Tex</b><p>بسته به کارخانه ممکن است با Nm یا Tex اعلام شود؛ واحد برگه نخ را وارد کن.</p></div>
+<div class="helpitem"><b>سوپر / شانل · Nm یا Tex</b><p>بسته به کارخانه ممکن است با Nm یا Tex اعلام شود؛ واحد برگه نخ را وارد کن.</p></div>
 <div class="helpitem"><b>پلی‌استر · Den یا dTex</b><p>در نخ‌های فیلامنتی رایج است؛ عدد بالاتر یعنی جرم خطی بیشتر.</p></div>
 <div class="helpitem"><b>پنبه · Ne</b><p>سیستم نمره انگلیسی پنبه‌ای؛ عدد بالاتر یعنی نخ ظریف‌تر.</p></div>
 <div class="helpitem"><b>لینن · NeL</b><p>سیستم شمارش مخصوص نخ لینن و متفاوت از Ne پنبه‌ای.</p></div>
@@ -370,7 +370,7 @@ const units=[
  ['Nm','Nm'],['Den','Den'],['Tex','Tex'],['dTex','dTex'],['Ne','Ne (پنبه‌ای)'],['NeL','NeL (لینن)'],['Worsted','Worsted'],['Woolen','Woolen']
 ];
 const CALC_LENGTH_M=1; // fixed calculation length: one metre; intentionally not shown as an input
-const types=['شانل','سوپر','سوپر شانل','پلی‌استر','پنبه','ویسکوز','اکریلیک','لینن','سایر'];
+const types=['شانل','سوپر','پلی‌استر','پنبه','ویسکوز','اکریلیک','لینن','سایر'];
 const fmt=(n,d=2)=>new Intl.NumberFormat('fa-IR',{maximumFractionDigits:d}).format(n);
 function val(id){return Number(document.getElementById(id).value)}
 function closeModal(id){document.getElementById(id).classList.remove('show')}
