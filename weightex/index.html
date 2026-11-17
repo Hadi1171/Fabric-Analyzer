@@ -628,7 +628,7 @@ function calculate(){
 function exportJpeg(){
  const data=window.lastCalculation;if(!data)return;
  const W=1600, pad=112, rowH=76, groupH=data.groups.length*rowH, systemH=data.systems.length*62;
- const H=850+groupH+systemH+180;
+ const H=1400+groupH+systemH;
  const canvas=document.createElement('canvas');canvas.width=W;canvas.height=H;
  const c=canvas.getContext('2d');
  const C={bg:'#f3f1ea',paper:'#fffefa',ink:'#1c2b27',muted:'#718078',line:'#dce2da',green:'#173c34',accent:'#c66f4c',soft:'#f5eee8'};
