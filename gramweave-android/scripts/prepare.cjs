@@ -49,9 +49,15 @@ async function main() {
         <linearGradient id="thread" x1="115" y1="95" x2="400" y2="420" gradientUnits="userSpaceOnUse">
           <stop stop-color="#eee5ff"/><stop offset=".48" stop-color="#c4a9ff"/><stop offset="1" stop-color="#8b6be8"/>
         </linearGradient>
+        <clipPath id="gClip">
+          <path d="M354 157C326 127 289 111 246 111C160 111 99 173 99 256C99 339 161 401 246 401C329 401 389 342 389 260V246H258"/>
+        </clipPath>
       </defs>
       <path d="M354 157C326 127 289 111 246 111C160 111 99 173 99 256C99 339 161 401 246 401C329 401 389 342 389 260V246H258"
         fill="none" stroke="url(#thread)" stroke-width="47" stroke-linecap="round" stroke-linejoin="round"/>
+      <g clip-path="url(#gClip)" fill="none" stroke="#f4efff" stroke-opacity=".7" stroke-width="9" stroke-linecap="round">
+        <path d="M70 210H420M70 292H420"/>
+      </g>
       <path d="M258 246H389" fill="none" stroke="#eee5ff" stroke-width="29" stroke-linecap="round"/>
       <path d="M258 246H389" fill="none" stroke="#8b6be8" stroke-width="7" stroke-linecap="round" stroke-dasharray="20 18"/>
       <circle cx="246" cy="256" r="13" fill="#f7f2ff"/>
