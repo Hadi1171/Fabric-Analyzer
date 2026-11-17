@@ -483,8 +483,8 @@ button,input,select{font-family:inherit}
 .gw-intro:before,.gw-intro:after{content:"";position:absolute;width:min(76vw,620px);aspect-ratio:1;border:1px solid #a78bfa12;border-radius:50%;box-shadow:0 0 90px #8b5cf61a,inset 0 0 90px #8b5cf60a}
 .gw-intro:after{width:min(58vw,470px);border-color:#c4b5fd12}
 .gw-intro-inner{position:relative;z-index:1;display:flex;flex-direction:column;align-items:center;gap:0;padding:24px;text-align:center}
-.gw-intro-mark{width:clamp(112px,24vw,154px);height:clamp(112px,24vw,154px);filter:drop-shadow(0 0 22px #9b7af566);overflow:visible}
-.gw-intro-mark .thread{fill:none;stroke-linecap:round;stroke-linejoin:round;stroke-width:4.2;stroke-dasharray:420;stroke-dashoffset:420;animation:gwThreadDraw 1.25s cubic-bezier(.65,0,.25,1) forwards}
+.gw-intro-mark{width:clamp(150px,32vw,190px);height:clamp(150px,32vw,190px);filter:drop-shadow(0 0 12px #9b7af544);overflow:visible;shape-rendering:geometricPrecision}
+.gw-intro-mark .thread{fill:none;stroke-linecap:round;stroke-linejoin:round;stroke-width:4.8;stroke-dasharray:420;stroke-dashoffset:420;animation:gwThreadDraw 1.25s cubic-bezier(.65,0,.25,1) forwards}
 .gw-intro-mark .thread-a{stroke:#c4b5fd}
 .gw-intro-mark .thread-b{stroke:#8b5cf6;animation-delay:.18s}
 .gw-intro-mark .thread-c{stroke:#e9ddff;stroke-width:2.2;stroke-dasharray:4 9;animation:gwThreadDash 1.2s .62s ease both}
@@ -498,7 +498,7 @@ button,input,select{font-family:inherit}
 @keyframes gwThreadDash{from{opacity:0;stroke-dashoffset:40}to{opacity:.8;stroke-dashoffset:0}}
 @keyframes gwIntroText{to{opacity:1;transform:translateY(0)}}
 @keyframes gwIntroLoad{to{transform:translateX(0)}}
-@media(max-width:560px){.gw-intro-inner{transform:translateY(-10px)}.gw-intro-mark{width:126px;height:126px}.gw-intro-name{letter-spacing:.14em}}
+@media(max-width:560px){.gw-intro-inner{transform:translateY(-10px)}.gw-intro-mark{width:168px;height:168px}.gw-intro-name{letter-spacing:.14em}}
 @media(prefers-reduced-motion:reduce){.gw-intro-mark .thread,.gw-intro-mark .thread-c,.gw-intro-name,.gw-intro-sub,.gw-intro-rule i,.gw-intro-skip{animation:none!important;opacity:1!important;stroke-dashoffset:0!important;transform:none!important}.gw-intro{transition:none}}
 
 
