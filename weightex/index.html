@@ -120,7 +120,7 @@ function openYarns(){
 function cards(side,n){
  let html='';
  for(let i=1;i<=n;i++){
-  html+='<div class="yarn"><div class="yarnhead"><span>'+(side==='warp'?'تار ':'پود ')+fmt(i,0)+'</span><span style="color:#899398;font-weight:normal">سیستم '+fmt(i,0)+'</span></div><div class="yarnfields"><select aria-label="نوع نخ">'+types.map((t,j)=>'<option '+(j===(side==='warp'?0:1)?'selected':'')+'>'+t+'</option>').join('')+'</select><input type="number" min="0.0001" step="any" placeholder="نمره نخ" aria-label="نمره نخ"><select aria-label="واحد نمره">'+units.map(u=>'<option value="'+u[0]+'" '+(u[0]==='Nm'?'selected':'')+'>'+u[1]+'</option>').join('')+'</select><input class="wide" value="'+(side==='warp'?'تراکم خودکار: ':'تراکم خودکار: ')+fmt((side==='warp'?val('warpD')/val('warpN'):val('weftD')/val('weftN')),3)+'" disabled></div></div>';
+  html+='<div class="yarn"><div class="yarnhead"><span>'+(side==='warp'?'تار ':'پود ')+fmt(i,0)+'</span><span style="color:#899398;font-weight:normal">سیستم '+fmt(i,0)+'</span></div><div class="yarnfields"><select aria-label="نوع نخ">'+types.map((t,j)=>'<option '+(j===(side==='warp'?0:1)?'selected':'')+'>'+t+'</option>').join('')+'</select><input type="number" min="0.0001" step="any" placeholder="نمره نخ" aria-label="نمره نخ"><select aria-label="واحد نمره">'+units.map(u=>'<option value="'+u[0]+'" '+(u[0]==='Nm'?'selected':'')+'>'+u[1]+'</option>').join('')+'</select></div></div>';
  }
  return html;
 }
