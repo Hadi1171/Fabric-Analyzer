@@ -176,8 +176,10 @@ body:has(.wizard.show) .exitbtn{display:grid}
 .footer{letter-spacing:2px;font-weight:700;color:#8796aa}
 @media(max-width:768px){.topactions{gap:7px}.iconbtn{width:42px;height:42px}.setup-fields{grid-template-columns:minmax(0,1fr)}}
 
-/* Branded in-page unit picker */
-.unit-picker{position:relative;min-width:0;z-index:1}
+
+/* Native unit selector on desktop; branded picker only on phones */
+.unit-picker{display:none;position:relative;min-width:0;z-index:1}
+.native-unit{display:block}
 .unit-trigger{width:100%;height:50px;display:flex;align-items:center;justify-content:space-between;gap:8px;padding:0 12px;border:1px solid #536078;border-radius:10px;background:linear-gradient(145deg,#202a3a,#171f2c);color:#f1d19b;font-weight:800;font-size:14px;direction:ltr;box-shadow:inset 0 1px #ffffff08;transition:border-color .18s,background .18s}
 .unit-trigger:active,.unit-trigger[aria-expanded="true"]{border-color:#d8ad68;background:#293447}
 .unit-trigger svg{width:18px;height:18px;color:#d8ad68;transition:transform .2s;flex:none}
@@ -188,8 +190,12 @@ body:has(.wizard.show) .exitbtn{display:grid}
 .unit-option+.unit-option{margin-top:2px}
 .unit-option:active,.unit-option.selected{background:#354154;color:#f1d19b}
 .unit-option i{font-style:normal;color:#d8ad68;font-weight:900}
-@media(max-width:560px){.unit-trigger{height:50px;font-size:16px}.unit-menu{max-height:min(260px,42dvh)}}
-
+@media(max-width:560px){
+ .native-unit{display:none!important}
+ .unit-picker{display:block}
+ .unit-trigger{height:50px;font-size:16px}
+ .unit-menu{max-height:min(260px,42dvh)}
+}
 </style>
 </head>
 <body>
@@ -257,7 +263,7 @@ function openYarns(){
 function cards(side,n){
  let html='';
  for(let i=1;i<=n;i++){
-  html+='<div class="yarn"><div class="yarnhead"><span>'+(side==='warp'?'تار ':'پود ')+fmt(i,0)+'</span><span style="color:#9ba8bb;font-weight:normal">سیستم '+fmt(i,0)+'</span></div><div class="yarnfields"><input type="text" placeholder="نام نخ (مثلاً شانل)" aria-label="نام نخ"><input type="number" min="0.0001" step="any" placeholder="نمره نخ" aria-label="نمره نخ"><div class="unit-picker"><button class="unit-trigger" type="button" aria-label="انتخاب واحد نمره" aria-expanded="false" onclick="toggleUnitPicker(this)"><span class="unit-current">Nm</span><svg viewBox="0 0 20 20" aria-hidden="true"><path d="m5 7 5 5 5-5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></button><div class="unit-menu" hidden>'+units.map(u=>'<button type="button" class="unit-option '+(u[0]==='Nm'?'selected':'')+'" data-value="'+u[0]+'" onclick="chooseUnit(this)"><span>'+u[1]+'</span><i>'+(u[0]==='Nm'?'✓':'')+'</i></button>').join('')+'</div></div></div></div>';
+  html+='<div class="yarn"><div class="yarnhead"><span>'+(side==='warp'?'تار ':'پود ')+fmt(i,0)+'</span><span style="color:#9ba8bb;font-weight:normal">سیستم '+fmt(i,0)+'</span></div><div class="yarnfields"><input type="text" placeholder="نام نخ (مثلاً شانل)" aria-label="نام نخ"><input type="number" min="0.0001" step="any" placeholder="نمره نخ" aria-label="نمره نخ"><select class="native-unit" aria-label="واحد نمره">'+units.map(u=>'<option value="'+u[0]+'" '+(u[0]==='Nm'?'selected':'')+'>'+u[1]+'</option>').join('')+'</select><div class="unit-picker"><button class="unit-trigger" type="button" aria-label="انتخاب واحد نمره" aria-expanded="false" onclick="toggleUnitPicker(this)"><span class="unit-current">Nm</span><svg viewBox="0 0 20 20" aria-hidden="true"><path d="m5 7 5 5 5-5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></button><div class="unit-menu" hidden>'+units.map(u=>'<button type="button" class="unit-option '+(u[0]==='Nm'?'selected':'')+'" data-value="'+u[0]+'" onclick="chooseUnit(this)"><span>'+u[1]+'</span><i>'+(u[0]==='Nm'?'✓':'')+'</i></button>').join('')+'</div></div></div></div>';
  }
  return html;
 }
@@ -298,7 +304,7 @@ function calculate(){
   const list=[...document.querySelectorAll('#'+side+'List .yarn')];
   const density=(side==='warp'?warpDensity:weftDensity)/list.length;
   list.forEach((card,i)=>{
-   const inputs=card.querySelectorAll('input'),unit=card.querySelector('.unit-trigger').dataset.value||'Nm';
+   const inputs=card.querySelectorAll('input'),nativeUnit=card.querySelector('.native-unit'),mobileUnit=card.querySelector('.unit-trigger'),unit=window.matchMedia('(max-width:560px)').matches?(mobileUnit.dataset.value||'Nm'):nativeUnit.value;
    const type=inputs[0].value.trim(),number=Number(inputs[1].value);
    if(!type||!number||number<=0||!Number.isFinite(number)){systems.push({invalid:true,label:(side==='warp'?'تار ':'پود ')+(i+1)});return}
    const gpm=gramsPerMeter(number,unit);
