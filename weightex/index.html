@@ -108,7 +108,7 @@ body{font-family:Inter,Tahoma,"Segoe UI",sans-serif;background:radial-gradient(e
    <div class="field"><label>طول محاسبه</label><input value="۱ متر" disabled><div class="hint">ثابت و غیرقابل تغییر</div></div>
   </div><div class="error" id="mainError"></div><div class="wizardnav"><button class="primary" onclick="nextFromSetup()">ادامه به مشخصات تار ←</button></div></section>
   <section class="wizardpage" id="page2"><p class="modalintro">برای هر سیستم تار، نام نخ، نمره نخ و واحد نمره رو وارد کن.</p><div class="yarnlist" id="warpList"></div><div class="wizardnav"><button class="secondary" onclick="goStep(1)">قبلی</button><button class="primary" onclick="goStep(3)">ادامه به مشخصات پود ←</button></div></section>
-  <section class="wizardpage" id="page3"><p class="modalintro">حالا سیستم‌های پود رو جداگانه تعریف کن.</p><div class="yarnlist" id="weftList"></div><div class="error" id="yarnError"></div><div class="wizardnav"><button class="secondary" onclick="goStep(2)">قبلی</button><button class="primary" onclick="calculateWizard()">محاسبه وزن ←</button></div></section>
+  <section class="wizardpage" id="page3"><p class="modalintro">حالا سیستم‌های پود رو جداگانه تعریف کن.</p><div class="yarnlist" id="weftList"></div><div class="error" id="weftError"></div><div class="error" id="yarnError"></div><div class="wizardnav"><button class="secondary" onclick="goStep(2)">قبلی</button><button class="primary" onclick="calculateWizard()">محاسبه وزن ←</button></div></section>
   <section class="wizardpage" id="page4"><div id="result" class="result" style="display:none!important"></div><div id="wizardResult"></div><div class="wizardnav"><button class="secondary" onclick="goStep(3)">ویرایش مشخصات</button><button class="primary" onclick="resetWizard()">محاسبه جدید</button></div></section>
  </div>
 </div>
@@ -214,7 +214,7 @@ function nextFromSetup(){
 function calculateWizard(){
  const err=document.getElementById('weftError');err.classList.remove('show');
  const all=[...document.querySelectorAll('#warpList .yarn,#weftList .yarn')];
- if(all.some(card=>{const name=card.querySelector('input[type=text]').value.trim(),n=Number(card.querySelector('input[type=number]').value);return !name||!n||n<=0})){err.textContent='لطفاً نمره نخ همه سیستم‌ها را با عددی بزرگ‌تر از صفر وارد کن.';err.classList.add('show');return}
+ if(all.some(card=>{const name=card.querySelector('input[type=text]').value.trim(),n=Number(card.querySelector('input[type=number]').value);return !name||!n||n<=0})){err.textContent='لطفاً نام و نمره نخ همه سیستم‌ها را کامل وارد کن.';err.classList.add('show');return}
  calculate();
  document.getElementById('wizardResult').innerHTML=document.getElementById('result').innerHTML;
  goStep(4);
