@@ -473,20 +473,47 @@ function validateSetupAndGo(next){
  }
  goStep(next);
 }
+// بازه‌های مجازِ عملیاتی برای جلوگیری از ورود نمره‌های اشتباه؛
+ // این بازه‌ها محدودیت نرم‌افزاری‌اند و جایگزین برگه فنی نخ نیستند.
+const yarnCountLimits={
+ Nm:{min:0.1,max:1000},
+ Den:{min:10,max:10000},
+ Tex:{min:1,max:10000},
+ dTex:{min:1,max:100000},
+ Ne:{min:0.1,max:200},
+ NeL:{min:0.1,max:100},
+ Worsted:{min:0.1,max:100},
+ Woolen:{min:0.1,max:100}
+};
+function selectedYarnUnit(card){
+ const native=card.querySelector('.native-unit'),mobile=card.querySelector('.unit-trigger');
+ return window.matchMedia('(max-width:560px)').matches?mobile.dataset.value:native.value;
+}
+function yarnCountRangeMessage(number,unit){
+ const range=yarnCountLimits[unit];
+ if(!range)return 'واحد محاسبه را انتخاب کن.';
+ if(!Number.isFinite(number)||number<range.min||number>range.max){
+  return unit+' باید بین '+fmt(range.min,3)+' تا '+fmt(range.max,3)+' باشد.';
+ }
+ return '';
+}
 function validateYarnStep(side,next){
- const list=document.querySelectorAll('#'+side+'List .yarn');
+ const list=[...document.querySelectorAll('#'+side+'List .yarn')];
  const err=document.getElementById(side==='warp'?'warpYarnError':'yarnError');
  err.classList.remove('show');
- const incomplete=[...list].some(card=>{
-  const name=card.querySelector('input[type=text]').value.trim();
+ for(let i=0;i<list.length;i++){
+  const card=list[i],name=card.querySelector('input[type=text]').value.trim();
   const number=Number(card.querySelector('input[type=number]').value);
-  const native=card.querySelector('.native-unit'),mobile=card.querySelector('.unit-trigger');
-  const unit=window.matchMedia('(max-width:560px)').matches?mobile.dataset.value:native.value;
-  return !name||!Number.isFinite(number)||number<=0||!unit;
- });
- if(incomplete){
-  err.textContent='برای ادامه، نام نخ، نمره و واحد محاسبه تمام سیستم‌های این بخش را کامل کن.';
-  err.classList.add('show');return;
+  const unit=selectedYarnUnit(card);
+  if(!name||!card.querySelector('input[type=number]').value||!unit){
+   err.textContent='سیستم '+fmt(i+1,0)+': نام نخ، نمره و واحد محاسبه را کامل کن.';
+   err.classList.add('show');return;
+  }
+  const rangeError=yarnCountRangeMessage(number,unit);
+  if(rangeError){
+   err.textContent='سیستم '+fmt(i+1,0)+': '+rangeError;
+   err.classList.add('show');return;
+  }
  }
  goStep(next);
 }
@@ -583,15 +610,19 @@ function calculateWizard(){
  const err=document.getElementById('yarnError');err.classList.remove('show');
  const widthErr=document.getElementById('widthError');widthErr.classList.remove('show');
  const all=[...document.querySelectorAll('#warpList .yarn,#weftList .yarn')];
- if(all.some(card=>{
-  const name=card.querySelector('input[type=text]').value.trim();
-  const number=Number(card.querySelector('input[type=number]').value);
-  const native=card.querySelector('.native-unit'),mobile=card.querySelector('.unit-trigger');
-  const unit=window.matchMedia('(max-width:560px)').matches?mobile.dataset.value:native.value;
-  return !name||!number||number<=0||!unit;
- })){
-  err.textContent='لطفاً اسم نخ، نمره و واحد محاسبه همه سیستم‌ها را کامل کن.';
-  err.classList.add('show');return;
+ for(let i=0;i<all.length;i++){
+  const card=all[i],name=card.querySelector('input[type=text]').value.trim();
+  const raw=card.querySelector('input[type=number]').value;
+  const number=Number(raw),unit=selectedYarnUnit(card);
+  if(!name||!raw||!unit){
+   err.textContent='لطفاً نام نخ، نمره و واحد محاسبه همه سیستم‌ها را کامل کن.';
+   err.classList.add('show');return;
+  }
+  const rangeError=yarnCountRangeMessage(number,unit);
+  if(rangeError){
+   err.textContent='سیستم نخ '+fmt(i+1,0)+': '+rangeError;
+   err.classList.add('show');return;
+  }
  }
  if(!val('width')||val('width')<=0){goStep(5);widthErr.textContent='عرض پارچه باید بیشتر از صفر باشد.';widthErr.classList.add('show');return}
  calculate();
