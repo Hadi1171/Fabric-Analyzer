@@ -329,11 +329,11 @@ body:has(.wizard.show) .exitbtn{display:grid}
  <div class="wizardhead"><div class="steps"><i class="stepdot active"></i><i class="stepdot"></i><i class="stepdot"></i><i class="stepdot"></i><i class="stepdot"></i><i class="stepdot"></i></div><small id="stepLabel">مرحله ۱ از ۶</small><h2 id="stepTitle">مشخصات سیستم‌های تار</h2></div>
  <div class="wizardbody">
   <section class="wizardpage active" id="page1"><p class="modalintro">تعداد سیستم‌های تار و تراکم کل تار پارچه را وارد کن.</p><div class="fields setup-fields">
-   <div class="field"><label>تعداد سیستم‌های تار</label><input id="warpN" type="number" min="1" max="12" placeholder="مثلاً ۳"></div>
+   <div class="field"><label>تعداد سیستم‌های تار</label><input id="warpN" type="number" min="1" max="12" placeholder="مثلاً ۱"></div>
    <div class="field"><label>تراکم کل تار</label><input id="warpD" type="number" min="0.01" step="any" placeholder="مثلاً ۶۶"><div class="hint">تار در هر سانتی‌متر</div></div>
   </div><div class="error" id="mainError"></div><div class="wizardnav"><button class="primary" onclick="goStep(2)">ادامه به مشخصات پود ←</button></div></section>
   <section class="wizardpage" id="page2"><p class="modalintro">تعداد سیستم‌های پود و تراکم کل پود را وارد کن.</p><div class="fields setup-fields">
-   <div class="field"><label>تعداد سیستم‌های پود</label><input id="weftN" type="number" min="1" max="12" placeholder="مثلاً ۲"></div>
+   <div class="field"><label>تعداد سیستم‌های پود</label><input id="weftN" type="number" min="1" max="12" placeholder="مثلاً ۳"></div>
    <div class="field"><label>تراکم کل پود</label><input id="weftD" type="number" min="0.01" step="any" placeholder="مثلاً ۲۴"><div class="hint">پود در هر سانتی‌متر</div></div>
   </div><div class="error" id="weftSetupError"></div><div class="wizardnav"><button class="secondary" onclick="goStep(1)">قبلی</button><button class="primary" onclick="prepareYarns()">ادامه به مشخصات تار ←</button></div></section>
   <section class="wizardpage" id="page3"><p class="modalintro">نام نخ و نمره هر سیستم تار را در یک ردیف وارد کن.</p><div class="yarnlist" id="warpList"></div><div class="wizardnav"><button class="secondary" onclick="goStep(2)">قبلی</button><button class="primary" onclick="goStep(4)">ادامه به مشخصات پود ←</button></div></section>
