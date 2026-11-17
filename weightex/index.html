@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#10141d"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"><meta name="apple-mobile-web-app-title" content="WeighTex">
 <title>WeighTex | محاسبات مهندسی پارچه</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Vazirmatn:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <link rel="manifest" href="manifest.json">
 <link rel="icon" type="image/svg+xml" href="icon.svg">
 <link rel="apple-touch-icon" href="icon.svg">
@@ -371,6 +372,81 @@ body{background:#11161b;color:var(--ink);font-family:Inter,"Segoe UI",Tahoma,san
 }
 @media(prefers-reduced-motion:reduce){.intro-loom,.intro-loom *{animation:none!important}}
 
+
+/* WEIGHTEX / FIELD NOTES — editorial textile lab identity */
+:root{
+ --bg:#f2f0e9;--paper:#fffefa;--ink:#1c2b27;--muted:#718078;--line:#dce2da;
+ --dark:#173c34;--gold:#c77b55;--gold2:#f0d5c5;--green:#2e7563;
+ --shadow:0 18px 48px #20352d12;--accent:#c66f4c;--soft:#e8eee8;
+}
+html,body{background:var(--bg);color:var(--ink)}
+body{font-family:"Vazirmatn","DM Sans",Tahoma,sans-serif;background:linear-gradient(180deg,#f7f5ef 0%,#eeefe8 100%)}
+.top{height:72px;background:#fbfaf6;border-bottom:1px solid #dfe4dc;padding-inline:clamp(18px,5vw,68px)}
+.brandname{color:#173c34;font-family:"DM Sans","Vazirmatn",sans-serif;font-weight:800;letter-spacing:-.7px}
+.tag{color:#78867e;font-size:10px;letter-spacing:.15px}
+.mark{background:#173c34;border:0;border-radius:13px;box-shadow:0 6px 14px #173c3422}
+.helpbtn{background:#fffefa;color:#26443b;border:1px solid #d8dfd6;border-radius:9px;font-weight:600}
+.welcome,.wizard{background:#fffefa;color:#1c2b27;border:1px solid #dce2da;border-radius:16px;box-shadow:0 20px 55px #20352d12}
+.welcome{position:relative;overflow:hidden;padding:clamp(30px,6vw,62px) 26px}
+.welcome:before{content:"";position:absolute;inset:0 0 auto;height:5px;background:#c66f4c}
+.welcome .mark{background:#173c34;border-radius:16px;box-shadow:none}
+.welcome h1{color:#183c33;font-weight:800;letter-spacing:-1.1px}
+.welcome p{color:#718078}
+.eyebrow,.wizardhead small{color:#bd6948}
+.primary{background:#173c34;color:#fffefa;border:1px solid #173c34;border-radius:9px;box-shadow:none;font-weight:700}
+.primary:hover{background:#245548;color:#fff}
+.secondary{background:#f7f7f1;color:#28443b;border:1px solid #d9e0d7;border-radius:9px}
+.wizard{overflow:hidden}
+.wizardhead{background:#f8f7f1;border-bottom:1px solid #e0e4dc}
+.wizardhead h2{color:#1c342d}
+.stepdot{background:#dfe5dc;border-radius:3px}
+.stepdot.active{background:#c66f4c;box-shadow:none}
+.modalintro{color:#748078}
+.field label{color:#41564d;font-weight:600}
+.field input,.field select,.yarnfields input,.yarnfields select{
+ background:#fbfcf8;color:#20342d;border:1px solid #d8e0d7;border-radius:8px
+}
+.field input:focus,.field select:focus,.yarnfields input:focus,.yarnfields select:focus{
+ border-color:#4e8a76;box-shadow:0 0 0 3px #4e8a7618
+}
+.hint{color:#829087}
+.yarn{background:#fbfaf6;border:1px solid #e0e5dd;border-radius:10px}
+.yarnhead{color:#24463b}
+.yarnfields input,.yarnfields select{background:#fffefa}
+.resulttop{background:#173c34;border:0;border-radius:12px;position:relative;overflow:hidden}
+.resulttop:after{content:"";position:absolute;left:-34px;bottom:-85px;width:210px;height:210px;border:1px solid #ffffff24;border-radius:50%}
+.resulttop small{color:#d1e1d8}
+.total{font-family:"DM Sans","Vazirmatn",sans-serif;color:#fff;font-size:clamp(32px,7vw,42px);letter-spacing:-1px}
+.resulttop p{color:#c2d4ca}
+.breakdown{background:#fffefa;border:1px solid #dfe5dc;border-radius:11px;color:#1c2b27}
+.breakdown h3{color:#24463b}
+.item{border-color:#edf0ea;color:#52645b}
+.item b{color:#173c34;font-family:"DM Sans","Vazirmatn",sans-serif}
+.sentence{background:#f5eee8;border:1px solid #ead9cd;border-radius:10px;color:#58473d}
+.sentence strong{color:#a65337}
+.export-jpeg{margin-top:16px;min-height:54px;width:100%;font-size:14px;letter-spacing:0}
+.note{background:#f4eee7;color:#795b4b;border:1px solid #eadfd5}
+#helpOverlay .modal{background:#fffefa;color:#1c2b27;border:1px solid #dce2da}
+#helpOverlay .modalhead{background:#f8f7f1;border-color:#e0e4dc}
+.helpitem{background:#fbfaf6;border-color:#e0e5dd;color:#20342d}
+.helpitem p{color:#718078}
+.footer{color:#89958d}
+.intro-screen{background:#f2f0e9}
+.intro-loom .scale-body{stroke:#557168}
+.intro-loom .scale-body path:nth-child(2){fill:#dce5dc;stroke:#557168}
+.intro-loom .scale-pan{stroke:#c66f4c}
+.intro-loom .scale-pan path:nth-child(2){fill:#e8c4ae}
+.intro-word{color:#173c34}.intro-word span{color:#c66f4c}
+.intro-caption{color:#718078}
+.intro-emblem path{stroke:#c66f4c}
+.intro-line{background:#dce2da}.intro-line i{background:#c66f4c}
+@media(max-width:768px){
+ .top{background:#fbfaf6}
+ .wizardnav{background:linear-gradient(180deg,#fffefae8,#fffefa 28%);border-color:#e0e4dc}
+ .field input,.field select,.yarnfields input,.yarnfields select{background:#fbfcf8;color:#20342d}
+}
+@media(prefers-reduced-motion:reduce){.welcome,.wizardpage.active,.yarn{animation:none!important}}
+
 </style>
 </head>
 <body>
@@ -542,8 +618,72 @@ function calculate(){
  const summary=sortedGroups.map(g=>'<div class="item"><span>مصرف '+escapeHTML(groupLabel(g))+'</span><b>'+fmt(g.weight,3)+' گرم</b></div>').join('');
  const detail=systems.map(s=>'<div class="item"><span>'+(s.side==='warp'?'تار ':'پود ')+fmt(s.index,0)+' · '+escapeHTML(s.type)+' ('+s.unit+' '+fmt(s.number,3)+')</span><b>'+fmt(s.weight,3)+' g</b></div>').join('');
  const sentence=sortedGroups.map(g=>'<strong>'+escapeHTML(groupLabel(g))+'</strong>: '+fmt(g.weight,3)+' گرم').join('، ');
- const html='<div class="resulttop"><small>وزن کل نظری پارچه</small><div class="total">'+fmt(total,3)+' g</div><p>عرض پارچه: '+fmt(width,2)+' سانتی‌متر</p></div><div class="breakdown"><h3>مصرف هر نوع نخ</h3>'+summary+'</div><div class="breakdown"><h3>جزئیات سیستم‌ها</h3>'+detail+'</div><div class="sentence">در طول مبنای محاسبه با عرض '+fmt(width,2)+' سانتی‌متر به کار رفته است:<br>'+sentence+'.</div>';
+ const resultHtml='<div class="resulttop"><small>وزن کل نظری پارچه</small><div class="total">'+fmt(total,3)+' g</div><p>عرض پارچه: '+fmt(width,2)+' سانتی‌متر · طول مبنا: ۱ متر</p></div><div class="breakdown"><h3>مصرف هر نوع نخ</h3>'+summary+'</div><div class="breakdown"><h3>جزئیات سیستم‌ها</h3>'+detail+'</div><div class="sentence">در طول مبنای محاسبه با عرض '+fmt(width,2)+' سانتی‌متر به کار رفته است:<br>'+sentence+'.</div><button class="primary export-jpeg" type="button" onclick="exportJpeg()">دریافت گزارش تصویری JPEG ↗</button>';
+ window.lastCalculation={total,width,warpDensity,weftDensity,systems:systems.map(x=>({...x})),groups:sortedGroups.map(g=>({...g,label:groupLabel(g)}))};
+ const html=resultHtml;
  const result=document.getElementById('result');result.innerHTML=html;result.classList.add('show');result.scrollIntoView({behavior:'smooth',block:'nearest'});
+}
+
+
+function exportJpeg(){
+ const data=window.lastCalculation;if(!data)return;
+ const W=1600, pad=112, rowH=76, groupH=data.groups.length*rowH, systemH=data.systems.length*62;
+ const H=850+groupH+systemH+180;
+ const canvas=document.createElement('canvas');canvas.width=W;canvas.height=H;
+ const c=canvas.getContext('2d');
+ const C={bg:'#f3f1ea',paper:'#fffefa',ink:'#1c2b27',muted:'#718078',line:'#dce2da',green:'#173c34',accent:'#c66f4c',soft:'#f5eee8'};
+ const rr=(x,y,w,h,r,fill,stroke)=>{c.beginPath();c.roundRect(x,y,w,h,r);c.fillStyle=fill;c.fill();if(stroke){c.strokeStyle=stroke;c.lineWidth=2;c.stroke()}};
+ const txt=(t,x,y,size=30,color=C.ink,weight=500,align='right',dir='rtl')=>{c.save();c.direction=dir;c.textAlign=align;c.textBaseline='middle';c.fillStyle=color;c.font=weight+' '+size+'px "Vazirmatn","DM Sans",sans-serif';c.fillText(String(t),x,y);c.restore()};
+ const line=(x1,y1,x2,y2,color=C.line,width=2)=>{c.beginPath();c.moveTo(x1,y1);c.lineTo(x2,y2);c.strokeStyle=color;c.lineWidth=width;c.stroke()};
+ const number=n=>new Intl.NumberFormat('fa-IR',{maximumFractionDigits:3}).format(n);
+ c.fillStyle=C.bg;c.fillRect(0,0,W,H);
+ // Header
+ c.fillStyle=C.green;c.fillRect(0,0,W,330);
+ c.fillStyle=C.accent;c.fillRect(0,0,14,330);
+ txt('WEIGHTEX',W-pad,100,34,'#d7e5dc',800,'right','ltr');
+ txt('گزارش محاسبات مهندسی پارچه',W-pad,190,54,'#ffffff',800);
+ txt('TEXTILE ENGINEERING  /  WEIGHT ANALYSIS',pad,105,21,'#c5d8ce',600,'left','ltr');
+ txt('گزارش مستقل محاسبه وزن · طول مبنا ۱ متر',W-pad,265,25,'#d5e2db',500);
+ // Main total card
+ rr(pad,375,W-2*pad,240,20,C.paper,C.line);
+ txt('وزن کل نظری پارچه',W-pad-42,430,27,C.muted,600);
+ txt(number(data.total)+' گرم',W-pad-42,520,62,C.green,800);
+ txt('عرض پارچه: '+number(data.width)+' سانتی‌متر',pad+42,520,27,C.ink,600,'left');
+ // Specifications
+ txt('مشخصات محاسبه',W-pad,700,32,C.green,800);
+ const specs=[['تراکم تار',number(data.warpDensity)+' تار / cm'],['تراکم پود',number(data.weftDensity)+' پود / cm'],['طول محاسبه','۱٫۰۰ متر'],['عرض پارچه',number(data.width)+' cm']];
+ const sw=(W-2*pad-24)/4;
+ specs.forEach((a,i)=>{const x=pad+i*(sw+8);rr(x,750,sw,112,14,'#e9eee7');txt(a[0],x+sw-20,785,21,C.muted,500);txt(a[1],x+sw-20,830,25,C.ink,700)});
+ let y=930;
+ txt('مصرف نخ به تفکیک نوع',W-pad,y,32,C.green,800);y+=55;
+ rr(pad,y,W-2*pad,Math.max(90,data.groups.length*rowH+20),14,C.paper,C.line);
+ let gy=y+24;
+ data.groups.forEach((g,i)=>{
+  const pct=data.total?g.weight/data.total:0;
+  txt(g.label,W-pad-34,gy+18,25,C.ink,600);
+  txt(number(g.weight)+' گرم',pad+34,gy+18,24,C.green,700,'left');
+  rr(pad+34,gy+42,W-2*pad-68,9,5,'#edf0ea');
+  rr(pad+34,gy+42,(W-2*pad-68)*pct,9,5,C.accent);
+  if(i<data.groups.length-1)line(pad+34,gy+rowH-3,W-pad-34,gy+rowH-3);
+  gy+=rowH;
+ });
+ y+=Math.max(90,data.groups.length*rowH+20)+62;
+ txt('جزئیات سیستم‌های نخ',W-pad,y,32,C.green,800);y+=48;
+ rr(pad,y,W-2*pad,systemH+34,14,C.paper,C.line);
+ let sy=y+24;
+ data.systems.forEach((item,i)=>{
+  const side=item.side==='warp'?'تار':'پود';
+  txt(side+' '+number(item.index)+'  ·  '+item.type,W-pad-32,sy+12,22,C.ink,600);
+  txt(number(item.number)+' '+item.unit+'   |   '+number(item.yarnLength)+' متر نخ',W-pad-32,sy+42,18,C.muted,500);
+  txt(number(item.weight)+' g',pad+32,sy+24,22,C.green,700,'left','ltr');
+  if(i<data.systems.length-1)line(pad+32,sy+61,W-pad-32,sy+61);
+  sy+=62;
+ });
+ y+=systemH+90;
+ line(pad,y,W-pad,y,'#d4ddd4',2);
+ txt('محاسبه بر اساس داده‌های واردشده در WeighTex انجام شده است.',W-pad,y+48,20,C.muted,500);
+ txt('WEIGHTEX  •  TEXTILE ENGINEERING',pad,y+48,18,C.green,700,'left','ltr');
+ return new Promise(resolve=>{const save=()=>{canvas.toBlob(blob=>{if(!blob){resolve(false);return}const url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download='WeighTex-Report-'+new Date().toISOString().slice(0,10)+'.jpg';document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),1500);resolve(true)},'image/jpeg',.94)};if(document.fonts&&document.fonts.ready)document.fonts.ready.then(save);else save()});
 }
 
 function exitWizard(){document.getElementById('wizard').classList.remove('show');document.getElementById('welcome').style.display='block';window.scrollTo({top:0,behavior:'smooth'});}
