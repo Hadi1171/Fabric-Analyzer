@@ -324,7 +324,8 @@ function calculate(){
  const result=document.getElementById('result');result.innerHTML=html;result.classList.add('show');result.scrollIntoView({behavior:'smooth',block:'nearest'});
 }
 
-function exitWizard(){document.getElementById('wizard').classList.remove('show');document.getElementById('welcome').style.display='block';window.scrollTo({top:0,behavior:'smooth'});}\nfunction startWizard(){document.getElementById('welcome').style.display='none';document.getElementById('wizard').classList.add('show');goStep(1)}
+function exitWizard(){document.getElementById('wizard').classList.remove('show');document.getElementById('welcome').style.display='block';window.scrollTo({top:0,behavior:'smooth'});}
+function startWizard(){document.getElementById('welcome').style.display='none';document.getElementById('wizard').classList.add('show');goStep(1)}
 function goStep(n){
  document.querySelectorAll('.wizardpage').forEach(p=>p.classList.remove('active'));
  document.getElementById('page'+n).classList.add('active');
