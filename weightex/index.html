@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<meta name="theme-color" content="#17232d">
+<meta name="theme-color" content="#10141d"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"><meta name="apple-mobile-web-app-title" content="WeighTex">
 <title>WeighTex | محاسبه وزن پارچه</title>
 <link rel="manifest" href="manifest.json">
 <link rel="icon" type="image/svg+xml" href="icon.svg">
@@ -83,6 +83,85 @@ body{font-family:Inter,Tahoma,"Segoe UI",sans-serif;background:radial-gradient(e
 @media(max-width:560px){.top{height:58px}.brand .mark{width:39px;height:39px}.brandname{font-size:17px}.tag{font-size:10px}.helpbtn{padding:8px 10px;font-size:11px}.yarnfields{grid-template-columns:1fr 1fr}.yarnfields select:first-child{grid-column:1/-1}.wizardnav .secondary{min-width:84px}.fields{grid-template-columns:1fr 1fr}}
 @media(max-width:360px){.fields{grid-template-columns:1fr}.wizardnav{flex-direction:column-reverse}.wizardnav button{width:100%}}
 @media(prefers-reduced-motion:reduce){*,*:before,*:after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}}
+
+/* MOBILE-FIRST ANDROID + iOS FINISH */
+:root{color-scheme:dark;--safe-top:env(safe-area-inset-top,0px);--safe-right:env(safe-area-inset-right,0px);--safe-bottom:env(safe-area-inset-bottom,0px);--safe-left:env(safe-area-inset-left,0px)}
+html{min-height:100%;min-height:100dvh;-webkit-text-size-adjust:100%;text-size-adjust:100%;overscroll-behavior-y:contain;scroll-padding-top:calc(72px + var(--safe-top));}
+body{min-height:100%;min-height:100dvh;padding:0;-webkit-tap-highlight-color:transparent;touch-action:pan-y;overscroll-behavior-y:contain}
+button,input,select{touch-action:manipulation}
+button{ -webkit-appearance:none;appearance:none; -webkit-user-select:none;user-select:none}
+input,select{ -webkit-appearance:none;appearance:none}
+.app{padding-left:var(--safe-left);padding-right:var(--safe-right);padding-bottom:var(--safe-bottom)}
+.top{padding-top:var(--safe-top);height:calc(62px + var(--safe-top));position:sticky;top:0;z-index:20}
+.intro-screen{padding-top:var(--safe-top);padding-bottom:var(--safe-bottom);padding-left:var(--safe-left);padding-right:var(--safe-right)}
+.overlay{padding:calc(12px + var(--safe-top)) calc(12px + var(--safe-right)) calc(12px + var(--safe-bottom)) calc(12px + var(--safe-left))}
+@media(max-width:768px){
+  html,body{width:100%;overflow-x:hidden}
+  .app{width:100%;min-height:100dvh}
+  .top{height:calc(58px + var(--safe-top));padding-left:16px;padding-right:16px;gap:10px}
+  .brand{min-width:0;gap:9px}
+  .brandname{font-size:17px}
+  .tag{font-size:10px}
+  .helpbtn{min-height:42px;padding:9px 11px;white-space:nowrap}
+  .welcome,.wizard{width:calc(100% - 24px);max-width:none;margin:16px auto 24px;border-radius:17px}
+  .welcome{padding:34px 20px 28px}
+  .welcome p{font-size:13px;line-height:1.9}
+  .welcome .primary{min-height:54px}
+  .wizard{margin-top:12px;margin-bottom:calc(18px + var(--safe-bottom))}
+  .wizardhead{padding:17px 17px 15px}
+  .wizardbody{padding:18px 16px calc(20px + var(--safe-bottom))}
+  .fields{grid-template-columns:repeat(2,minmax(0,1fr));gap:13px 11px}
+  .field{min-width:0}
+  .field label{font-size:12px;line-height:1.7;min-height:21px}
+  .field input,.field select{height:52px;min-width:0;width:100%;font-size:16px;padding:0 11px;border-radius:11px}
+  .field input:disabled{opacity:1;-webkit-text-fill-color:#aebbd0}
+  .hint{font-size:10px;line-height:1.6}
+  .modalintro{font-size:12px;line-height:2;margin-bottom:15px}
+  .yarnlist{grid-template-columns:minmax(0,1fr);gap:11px}
+  .yarn{padding:14px}
+  .yarnfields{grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:9px}
+  .yarnfields input,.yarnfields select{height:50px;min-width:0;font-size:16px;padding:0 10px}
+  .yarnfields select:first-child{grid-column:1/-1}
+  .wizardnav{position:sticky;bottom:0;z-index:6;margin:20px -16px calc(-20px - var(--safe-bottom));padding:12px 16px calc(12px + var(--safe-bottom));background:linear-gradient(180deg,#202633e8,#191e29 28%);border-top:1px solid #394456;backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px)}
+  .wizardnav button{min-height:52px;font-size:13px}
+  .wizardnav .secondary{min-width:92px}
+  .resulttop{padding:17px}
+  .total{font-size:clamp(27px,8vw,36px)}
+  .breakdown{padding:14px}
+  .item{font-size:12px;line-height:1.8}
+  .sentence{font-size:12px;line-height:2.1}
+  .modal{width:100%;max-height:calc(100dvh - var(--safe-top) - var(--safe-bottom) - 24px);border-radius:18px}
+  .modalhead{padding:15px 16px}
+  .modalbody{padding:16px}
+  .helpgrid{grid-template-columns:minmax(0,1fr)}
+  .footer{margin-top:22px}
+}
+@media(max-width:390px){
+  .top{padding-left:12px;padding-right:12px}
+  .brand .mark{width:36px;height:36px}
+  .brandname{font-size:16px}
+  .helpbtn{font-size:10px;padding:8px}
+  .welcome,.wizard{width:calc(100% - 18px)}
+  .wizardbody{padding-left:13px;padding-right:13px}
+  .wizardnav{margin-left:-13px;margin-right:-13px;padding-left:13px;padding-right:13px}
+  .fields{gap:11px 8px}
+  .field input,.field select{padding:0 9px}
+}
+@media(max-width:340px){
+  .fields{grid-template-columns:minmax(0,1fr)}
+  .wizardnav{gap:8px}
+  .wizardnav .secondary{min-width:78px}
+  .wizardnav button{font-size:12px}
+}
+@media(hover:none){
+  .primary:hover,.secondary:hover{transform:none}
+  .primary:active,.secondary:active,.helpbtn:active{filter:brightness(1.12);transform:scale(.985)}
+}
+@media(prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  .wizardpage.active,.welcome,.wizard,.yarn{animation:none}
+}
+
 </style>
 </head>
 <body>
