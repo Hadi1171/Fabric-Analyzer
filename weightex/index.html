@@ -393,7 +393,7 @@ function cards(side,n){
  for(let i=1;i<=n;i++){
   const countExample=side==='warp'?'300':(i===1?'۳':String(250+(i-1)*50));
   const nameExample=side==='warp'?'پلی‌استر':['شانل','سوپر','پلی‌استر','سوپر پلی‌استر','سوپر','پنبه','ویسکوز','لینن','اکریلیک','مخلوط'][i-1]||'پلی‌استر';
-  html+='<div class="yarn"><div class="yarnhead"><span>'+(side==='warp'?'تار ':'پود ')+fmt(i,0)+'</span><span style="color:#9ba8bb;font-weight:normal">سیستم '+fmt(i,0)+'</span></div><div class="yarnfields"><div class="yarnfield"><label>اسم نخ:</label><input type="text" placeholder="مثلاً '+nameExample+'" aria-label="اسم نخ"></div><div class="yarnfield"><label>نمره نخ:</label><input type="number" min="0.0001" step="any" placeholder="'+countExample+'" aria-label="نمره نخ"></div><div class="yarnfield"><label>محاسبه بر اساس:</label><select class="native-unit" aria-label="نوع محاسبه"><option value="" selected disabled></option>'+units.map(u=>'<option value="'+u[0]+'">'+u[1]+'</option>').join('')+'</select><div class="unit-picker"><button class="unit-trigger" type="button" aria-label="انتخاب نوع محاسبه" aria-expanded="false" onclick="toggleUnitPicker(this)" data-value=""><span class="unit-current"></span><svg viewBox="0 0 20 20" aria-hidden="true"><path d="m5 7 5 5-5 5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></button><div class="unit-menu" hidden>'+units.map(u=>'<button type="button" class="unit-option" data-value="'+u[0]+'" onclick="chooseUnit(this)"><span>'+u[1]+'</span><i></i></button>').join('')+'</div></div></div></div></div>';
+  html+='<div class="yarn"><div class="yarnhead"><span>'+(side==='warp'?'تار ':'پود ')+fmt(i,0)+'</span><span style="color:#9ba8bb;font-weight:normal">سیستم '+fmt(i,0)+'</span></div><div class="yarnfields"><div class="yarnfield"><label>اسم نخ:</label><input type="text" placeholder="مثلاً '+nameExample+'" aria-label="اسم نخ"></div><div class="yarnfield"><label>نمره نخ:</label><input type="number" step="any" placeholder="'+countExample+'" aria-label="نمره نخ"></div><div class="yarnfield"><label>محاسبه بر اساس:</label><select class="native-unit" aria-label="نوع محاسبه"><option value="" selected disabled></option>'+units.map(u=>'<option value="'+u[0]+'">'+u[1]+'</option>').join('')+'</select><div class="unit-picker"><button class="unit-trigger" type="button" aria-label="انتخاب نوع محاسبه" aria-expanded="false" onclick="toggleUnitPicker(this)" data-value=""><span class="unit-current"></span><svg viewBox="0 0 20 20" aria-hidden="true"><path d="m5 7 5 5-5 5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></button><div class="unit-menu" hidden>'+units.map(u=>'<button type="button" class="unit-option" data-value="'+u[0]+'" onclick="chooseUnit(this)"><span>'+u[1]+'</span><i></i></button>').join('')+'</div></div></div></div></div>';
  }
  return html;
 }
@@ -418,10 +418,10 @@ function gramsPerMeter(number,unit){
   case 'Den':return number/9000;
   case 'Tex':return number/1000;
   case 'dTex':return number/10000;
-  case 'Ne':return 0.5905/number;
+  case 'Ne':return 453.59237/(number*840*0.9144);
   case 'NeL':return 453.59237/(number*274.32);
   case 'Worsted':return 453.59237/(number*512.064);
-  case 'Woolen':return 453.59237/(number*233.472);
+  case 'Woolen':return 453.59237/(number*1600*0.9144);
   default:return NaN;
  }
 }
@@ -439,6 +439,7 @@ function calculate(){
    const gpm=gramsPerMeter(number,unit);
    const yarnLength=side==='warp'?density*width*CALC_LENGTH_M: (density*(CALC_LENGTH_M*100))*widthM;
    const weight=yarnLength*gpm;
+   if(!Number.isFinite(gpm)||gpm<=0||!Number.isFinite(weight)||weight<0){systems.push({invalid:true,label:(side==='warp'?'تار ':'پود ')+(i+1)});return}
    systems.push({side,index:i+1,type,number,unit,gpm,yarnLength,weight});
   });
  }
@@ -474,25 +475,15 @@ function validateSetupAndGo(next){
  }
  goStep(next);
 }
-// بازه‌های مجازِ عملیاتی برای جلوگیری از ورود نمره‌های اشتباه؛
- // این بازه‌ها محدودیت نرم‌افزاری‌اند و جایگزین برگه فنی نخ نیستند.
-const yarnCountLimits={
- Nm:{min:0.1,max:1000},
- Den:{min:10,max:10000},
- Tex:{min:1,max:10000},
- dTex:{min:1,max:100000},
- Ne:{min:0.1,max:200},
- NeL:{min:0.1,max:100},
- Worsted:{min:0.1,max:100},
- Woolen:{min:0.1,max:100}
-};
+// هیچ حداقل یا حداکثر ثابتی برای نمره نخ اعمال نمی‌شود؛
+ // مقدار نمره باید مطابق برگه فنی کارخانه وارد شود.
 function selectedYarnUnit(card){
  const native=card.querySelector('.native-unit'),mobile=card.querySelector('.unit-trigger');
  return window.matchMedia('(max-width:560px)').matches?mobile.dataset.value:native.value;
 }
-function yarnCountRangeMessage(number,unit){
+function yarnCountValidationMessage(number,unit){
  if(!unit)return 'واحد محاسبه را انتخاب کن.';
- if(!Number.isFinite(number)||number<=0)return 'نمره نخ باید عددی بزرگ‌تر از صفر باشد.';
+ if(!Number.isFinite(number)||number<=0)return 'نمره نخ باید یک عدد مثبت و معتبر باشد.';
  return '';
 }
 function validateYarnStep(side,next){
@@ -507,7 +498,7 @@ function validateYarnStep(side,next){
    err.textContent='سیستم '+fmt(i+1,0)+': نام نخ، نمره و واحد محاسبه را کامل کن.';
    err.classList.add('show');return;
   }
-  const rangeError=yarnCountRangeMessage(number,unit);
+  const rangeError=yarnCountValidationMessage(number,unit);
   if(rangeError){
    err.textContent='سیستم '+fmt(i+1,0)+': '+rangeError;
    err.classList.add('show');return;
@@ -616,7 +607,7 @@ function calculateWizard(){
    err.textContent='لطفاً نام نخ، نمره و واحد محاسبه همه سیستم‌ها را کامل کن.';
    err.classList.add('show');return;
   }
-  const rangeError=yarnCountRangeMessage(number,unit);
+  const rangeError=yarnCountValidationMessage(number,unit);
   if(rangeError){
    err.textContent='سیستم نخ '+fmt(i+1,0)+': '+rangeError;
    err.classList.add('show');return;
