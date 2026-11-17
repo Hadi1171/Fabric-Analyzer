@@ -1,6 +1,6 @@
 {
-  "name": "WeighTex | محاسبه وزن پارچه",
-  "short_name": "WeighTex",
+  "name": "Gram Weave | محاسبه وزن پارچه",
+  "short_name": "Gram Weave",
   "start_url": "/Fabric-Analyzer/weightex/",
   "scope": "/Fabric-Analyzer/weightex/",
   "display": "standalone",
