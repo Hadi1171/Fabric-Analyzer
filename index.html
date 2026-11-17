@@ -719,6 +719,25 @@ html[dir="rtl"] .welcome-language{right:14px!important;left:auto!important}
 }
 .welcome-screen:not(.show) .welcome-language{display:none!important}
 
+
+/* FABRIC WEIGHT CALCULATOR */
+.weight-screen{position:fixed;inset:0;z-index:1500;display:none;overflow:auto;background:radial-gradient(ellipse at 50% -10%,rgba(216,173,104,.13),transparent 46%),#10141d;color:#edf1f8;padding:0 22px 28px}
+.weight-screen.show{display:block;animation:welcomeAppear .35s ease both}
+.weight-topbar{height:72px;max-width:1120px;margin:auto;display:flex;align-items:center;gap:15px;border-bottom:1px solid #30394a}
+.weight-back{width:38px;height:38px;border:1px solid #46536a;border-radius:10px;background:#202a39;color:#e7edf7;font-size:21px;cursor:pointer}
+.weight-brand{font-size:15px;font-weight:900;letter-spacing:1.3px}.weight-brand span{color:#d8ad68}.weight-kicker,.weight-eyebrow{font-size:9px;letter-spacing:1.7px;color:#9ba8bb;font-weight:800}
+.weight-top-mark{margin-inline-start:auto;color:#d8ad68;border:1px solid #5c4b35;border-radius:9px;padding:8px 12px;font-size:12px;font-weight:800}
+.weight-shell{width:min(850px,100%);margin:38px auto 20px;background:linear-gradient(145deg,#1b2432,#171e2a);border:1px solid #354154;border-radius:18px;padding:clamp(20px,4vw,38px);box-shadow:0 24px 80px #0005}
+.weight-heading h1{font-size:clamp(23px,4vw,32px);margin:9px 0 6px}.weight-heading p{color:#9ba8bb;font-size:12px;line-height:1.8;margin:0 0 23px}
+.weight-progress{height:4px;background:#101722;border-radius:9px;overflow:hidden}.weight-progress span{display:block;height:100%;width:33.33%;background:#d8ad68;transition:width .25s}
+.weight-step-label{margin:14px 0 18px;color:#d8ad68;font-size:10px;font-weight:900;letter-spacing:1.5px}
+.weight-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:13px}.weight-field{background:#202b3a;border:1px solid #39475a;border-radius:11px;padding:13px;min-width:0}.weight-field label{display:block;color:#b7c3d3;font-size:11px;margin-bottom:9px;font-weight:700}.weight-field input,.weight-field select{width:100%;height:42px;border:1px solid #46556b;border-radius:8px;background:#151d29;color:#f1f4f8;padding:0 11px;outline:none;font:inherit;font-size:13px}.weight-field input:focus,.weight-field select:focus{border-color:#d8ad68;box-shadow:0 0 0 2px #d8ad6820}.weight-field small{display:block;color:#7f8da2;font-size:10px;margin-top:7px;line-height:1.6}
+.weight-section-title{display:flex;align-items:center;gap:9px;margin:22px 0 11px;font-size:13px;font-weight:900}.weight-section-title:before{content:"";width:3px;height:17px;background:#d8ad68;border-radius:3px}.weight-yarn-list{display:grid;gap:10px}.weight-yarn-card{padding:14px;background:#202b3a;border:1px solid #39475a;border-radius:12px}.weight-yarn-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:11px}.weight-yarn-head strong{font-size:12px}.weight-yarn-head span{font-size:9px;color:#d8ad68;letter-spacing:1px}.weight-yarn-fields{display:grid;grid-template-columns:1.2fr 1fr .9fr .9fr;gap:9px}.weight-yarn-fields .weight-field{padding:0;background:none;border:0}.weight-yarn-fields label{font-size:10px;margin-bottom:6px}.weight-yarn-fields input,.weight-yarn-fields select{height:38px;font-size:12px;padding:0 8px}
+.weight-note{margin-top:14px;padding:12px 14px;border:1px solid #4a4438;background:#282a2a;border-radius:9px;color:#b9b7ad;font-size:10px;line-height:1.8}.weight-actions{display:flex;justify-content:space-between;gap:10px;margin-top:25px}.weight-actions button{height:43px;padding:0 22px;border-radius:9px;font-size:12px;font-weight:900;cursor:pointer}.weight-secondary{background:#252f3e;border:1px solid #46536a;color:#d8e0eb}.weight-primary{background:#d8ad68;border:1px solid #d8ad68;color:#202633;min-width:145px}.weight-primary:hover{background:#e8c181}.weight-footer{text-align:center;color:#69778c;font-size:9px;letter-spacing:1px;padding:5px}.weight-footer strong{color:#d8ad68}
+.weight-results{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin-top:15px}.weight-result{padding:15px;border:1px solid #46536a;background:#202b3a;border-radius:11px}.weight-result span{display:block;color:#9ba8bb;font-size:10px;margin-bottom:8px}.weight-result strong{font-size:21px;color:#f4f0e8}.weight-result.primary-result{border-color:#9a7848;background:linear-gradient(135deg,#3a3227,#242a32)}.weight-result.primary-result strong{color:#e6bd7d}.weight-breakdown{margin-top:18px;border:1px solid #39475a;border-radius:11px;overflow:hidden}.weight-breakdown h3{margin:0;padding:13px 15px;background:#252f3e;font-size:12px}.weight-breakdown-row{display:flex;justify-content:space-between;gap:15px;padding:11px 15px;border-top:1px solid #354154;font-size:11px}.weight-breakdown-row span{color:#aeb9c9}.weight-empty{padding:18px;text-align:center;color:#9ba8bb;font-size:11px}
+@media(max-width:650px){.weight-screen{padding:0 12px 18px}.weight-topbar{height:62px}.weight-shell{margin:18px auto;padding:18px 14px;border-radius:14px}.weight-grid{grid-template-columns:1fr 1fr}.weight-yarn-fields{grid-template-columns:1fr 1fr}.weight-yarn-fields .weight-field:nth-child(3),.weight-yarn-fields .weight-field:nth-child(4){margin-top:3px}.weight-results{grid-template-columns:1fr 1fr}.weight-result strong{font-size:18px}}
+@media(max-width:390px){.weight-grid,.weight-results{grid-template-columns:1fr}.weight-yarn-fields{grid-template-columns:1fr 1fr}}
+
 </style>
 </head>
 
@@ -860,6 +879,11 @@ html[dir="rtl"] .welcome-language{right:14px!important;left:auto!important}
 
  <div class="toolbar">
   <div class="tool-group">
+   <button class="project-tool-button" id="fabricWeightTool" type="button" title="Fabric Weight Calculator">
+    <svg viewBox="0 0 24 24"><path d="M4 19h16M6 16V8m4 8V5m4 11v-6m4 6V3"/></svg><span>Weight</span>
+   </button>
+  </div>
+  <div class="tool-group">
    <button class="tool-button" id="paintTool" title="Paint Tool">
     <svg viewBox="0 0 24 24"><path d="m14 4 6 6"></path><path d="m12 6 6 6"></path><path d="m4 20 4.5-1 10-10a2.1 2.1 0 0 0-3-3l-10 10L4 20Z"></path><path d="M3 21h18"></path></svg>
    </button>
@@ -958,6 +982,22 @@ html[dir="rtl"] .welcome-language{right:14px!important;left:auto!important}
 
 </div>
 </div>
+
+<section id="weightCalculator" class="weight-screen" aria-hidden="true">
+ <div class="weight-topbar">
+  <button type="button" class="weight-back" id="weightClose" aria-label="Back">←</button>
+  <div><div class="weight-brand">FABRIC <span>ANALYZER</span></div><div class="weight-kicker">FABRIC WEIGHT CALCULATOR</div></div>
+  <div class="weight-top-mark">g/m</div>
+ </div>
+ <div class="weight-shell">
+  <div class="weight-heading"><span class="weight-eyebrow">TEXTILE ENGINEERING / CALCULATION</span><h1 id="weightTitle">Fabric weight</h1><p id="weightDesc">Define the yarn systems and calculate the theoretical fabric weight.</p></div>
+  <div class="weight-progress"><span id="weightProgress"></span></div>
+  <div class="weight-step-label" id="weightStepLabel">STEP 01 / 03</div>
+  <div id="weightContent"></div>
+  <div class="weight-actions"><button type="button" class="weight-secondary" id="weightPrev">Back</button><button type="button" class="weight-primary" id="weightNext">Continue <span>→</span></button></div>
+ </div>
+ <div class="weight-footer">CRAFTED WITH PASSION BY <strong>H4d1am</strong></div>
+</section>
 
 <input type="file" id="projectInput" accept=".jfa,.json,application/octet-stream" hidden>
 
@@ -2008,6 +2048,61 @@ document.addEventListener("keydown",e=>{
   else if(e.key==="0")zoomReset();
  }
 });
+
+
+
+/* FABRIC WEIGHT CALCULATOR */
+(()=>{
+ const screen=document.getElementById("weightCalculator");
+ const content=document.getElementById("weightContent");
+ const title=document.getElementById("weightTitle"),desc=document.getElementById("weightDesc");
+ const progress=document.getElementById("weightProgress"),stepLabel=document.getElementById("weightStepLabel");
+ const prev=document.getElementById("weightPrev"),next=document.getElementById("weightNext");
+ if(!screen)return;
+ const units=[["Nm","Metric count"],["Den","Denier"],["Tex","Tex"],["dTex","Decitex"],["Ne","English cotton count"],["NeK","Worsted count"]];
+ let step=0,data={warpCount:3,weftCount:2,width:150,warpDensity:66,weftDensity:6,warp:[],weft:[]};
+ const fa=()=>document.documentElement.lang==="fa";
+ const t=(en,pr)=>fa()?pr:en;
+ const field=(label,id,value,help="")=>'<div class="weight-field"><label for="'+id+'">'+label+'</label><input id="'+id+'" type="number" min="0.0001" step="any" value="'+value+'">'+(help?'<small>'+help+'</small>':'')+'</div>';
+ function unitOptions(selected){return units.map(u=>'<option value="'+u[0]+'" '+(u[0]===selected?'selected':'')+'>'+u[0]+' · '+u[1]+'</option>').join('');}
+ function initRows(){
+  data.warp=Array.from({length:data.warpCount},(_,i)=>data.warp[i]||{name:"",value:"",unit:"Den",density:data.warpDensity/data.warpCount});
+  data.weft=Array.from({length:data.weftCount},(_,i)=>data.weft[i]||{name:"",value:"",unit:"Nm",density:data.weftDensity/data.weftCount});
+ }
+ function saveSetup(){
+  ["warpCount","weftCount","width","warpDensity","weftDensity"].forEach(k=>{const el=document.getElementById("wc_"+k);if(el)data[k]=Math.max(k==="width"?.01:1,Number(el.value)||1)});
+  data.warpCount=Math.min(32,Math.round(data.warpCount));data.weftCount=Math.min(32,Math.round(data.weftCount));
+ }
+ function render(){
+  const isFa=fa();
+  title.textContent=t("Fabric weight","محاسبه وزن پارچه");
+  const titles=[t("Yarn systems","سیستم‌های نخ"),t("Fabric density","تراکم پارچه"),t("Yarn specifications","مشخصات نخ‌ها")];
+  const descriptions=[t("First, define how many different warp and weft yarn systems your fabric uses.","ابتدا تعداد سیستم‌های نخ متفاوت تار و پود پارچه را مشخص کن."),t("Enter fabric width and the total warp and weft density.","عرض پارچه و تراکم کل تار و پود را وارد کن."),t("Set the count, unit and density contribution for every individual yarn system.","نمره، واحد و سهم تراکم هر سیستم نخ را جداگانه وارد کن.")];
+  desc.textContent=descriptions[step];progress.style.width=((step+1)*33.333)+"%";stepLabel.textContent=t("STEP ","مرحله ")+(step+1)+t(" / 03"," از ۳");
+  prev.textContent=t("Back","قبلی");next.innerHTML=step===2?t("Calculate weight <span>→</span>","محاسبه وزن <span>←</span>"):t("Continue <span>→</span>","ادامه <span>←</span>");prev.style.visibility=step===0?"hidden":"visible";
+  if(step===0){content.innerHTML='<div class="weight-grid">'+field(t("Number of warp systems","تعداد سیستم‌های تار"),"wc_warpCount",data.warpCount,t("Example: chenille + polyester + super","مثال: شانل + پلی‌استر + سوپر"))+field(t("Number of weft systems","تعداد سیستم‌های پود"),"wc_weftCount",data.weftCount,t("Each system can use a different yarn count.","هر سیستم می‌تواند نمره نخ متفاوتی داشته باشد."))+'</div><div class="weight-note">'+t("Each row represents one separate yarn system, not the total number of individual threads.","هر ردیف نماینده یک سیستم نخ مستقل است، نه تعداد کل تارهای فیزیکی پارچه.")+'</div>';}
+  if(step===1){content.innerHTML='<div class="weight-grid">'+field(t("Fabric width (cm)","عرض پارچه (سانتی‌متر)"),"wc_width",data.width)+field(t("Total warp density (ends/cm)","تراکم کل تار (تار/سانتی‌متر)"),"wc_warpDensity",data.warpDensity)+field(t("Total weft density (picks/cm)","تراکم کل پود (پود/سانتی‌متر)"),"wc_weftDensity",data.weftDensity)+'</div><div class="weight-note">'+t("In the next step, the total density is distributed between the yarn systems. You can edit each system's share separately.","در مرحله بعد تراکم کل بین سیستم‌های نخ تقسیم می‌شود و می‌توانی سهم هر سیستم را جداگانه اصلاح کنی.")+'</div>';}
+  if(step===2){initRows();content.innerHTML=renderGroup("warp",t("Warp yarn systems","سیستم‌های تار"))+renderGroup("weft",t("Weft yarn systems","سیستم‌های پود"))+'<div class="weight-note">'+t("Density shares are editable for each system. Warp density is in ends/cm; weft density is in picks/cm. Yarn count units are converted to grams per meter before calculating.","سهم تراکم هر سیستم قابل ویرایش است. تراکم تار بر حسب تار/سانتی‌متر و تراکم پود بر حسب پود/سانتی‌متر است. واحدهای نمره نخ پیش از محاسبه به جرم خطی تبدیل می‌شوند.")+'</div>';}
+ }
+ function renderGroup(key,label){return '<div class="weight-section-title">'+label+'</div><div class="weight-yarn-list">'+data[key].map((y,i)=>'<div class="weight-yarn-card"><div class="weight-yarn-head"><strong>'+t(key==="warp"?"Warp ":"Weft ",key==="warp"?"تار ":"پود ")+(i+1)+'</strong><span>'+t("YARN SYSTEM","سیستم نخ")+'</span></div><div class="weight-yarn-fields"><div class="weight-field"><label>'+t("Yarn type / name","نوع یا نام نخ")+'</label><input data-yarn="'+key+'" data-i="'+i+'" data-k="name" placeholder="'+t("e.g. Chenille","مثلاً شانل")+'" value="'+esc(y.name)+'"></div><div class="weight-field"><label>'+t("Yarn count","نمره نخ")+'</label><input type="number" min="0.0001" step="any" data-yarn="'+key+'" data-i="'+i+'" data-k="value" placeholder="300" value="'+esc(y.value)+'"></div><div class="weight-field"><label>'+t("Unit","واحد")+'</label><select data-yarn="'+key+'" data-i="'+i+'" data-k="unit">'+unitOptions(y.unit)+'</select></div><div class="weight-field"><label>'+t("Density share","سهم تراکم")+'</label><input type="number" min="0" step="any" data-yarn="'+key+'" data-i="'+i+'" data-k="density" value="'+Number(y.density.toFixed(4))+'"></div></div></div>').join("")+'</div>';}
+ function esc(v){return String(v??"").replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));}
+ function collectRows(){content.querySelectorAll("[data-yarn]").forEach(el=>{const y=data[el.dataset.yarn][Number(el.dataset.i)];y[el.dataset.k]=el.dataset.k==="density"||el.dataset.k==="value"?Number(el.value):el.value;});}
+ function gramsPerMeter(y){const n=Number(y.value);if(!(n>0))return null;switch(y.unit){case"Nm":return 1/n;case"Den":return n/9000;case"Tex":return n/1000;case"dTex":return n/10000;case"Ne":return 590.5/n/1000;case"NeK":return 885.8/n/1000;default:return null;}}
+ function calculate(){
+  const widthM=data.width/100;let warp=0,weft=0,rows=[];let invalid=[];
+  ["warp","weft"].forEach(key=>data[key].forEach((y,i)=>{const gpm=gramsPerMeter(y);if(gpm===null||!Number.isFinite(y.density)||y.density<0){invalid.push((key==="warp"?"تار ":"پود ")+(i+1));return;}let mass=key==="warp"?y.density*data.width*gpm:y.density*100*widthM*gpm;if(key==="warp")warp+=mass;else weft+=mass;rows.push({name:(key==="warp"?"تار ":"پود ")+(i+1)+(y.name?" · "+y.name:""),mass});}));
+  if(invalid.length){content.insertAdjacentHTML("beforeend",'<div class="weight-note">'+t("Enter a valid yarn count and density for: ","برای این ردیف‌ها نمره نخ و تراکم معتبر وارد کن: ")+invalid.join("، ")+'</div>');return;}
+  const total=warp+weft,area=widthM>0?total/widthM:0;
+  content.innerHTML='<div class="weight-results"><div class="weight-result"><span>'+t("Warp weight / linear meter","وزن تار / متر طول")+'</span><strong>'+warp.toFixed(2)+' g/m</strong></div><div class="weight-result"><span>'+t("Weft weight / linear meter","وزن پود / متر طول")+'</span><strong>'+weft.toFixed(2)+' g/m</strong></div><div class="weight-result primary-result"><span>'+t("Total fabric weight / linear meter","وزن کل پارچه / متر طول")+'</span><strong>'+total.toFixed(2)+' g/m</strong></div><div class="weight-result primary-result"><span>'+t("Fabric areal weight","وزن سطحی پارچه")+'</span><strong>'+area.toFixed(2)+' g/m²</strong></div></div><div class="weight-breakdown"><h3>'+t("Yarn-by-yarn breakdown","ریز محاسبات نخ‌به‌نخ")+'</h3>'+rows.map(r=>'<div class="weight-breakdown-row"><span>'+esc(r.name)+'</span><strong>'+r.mass.toFixed(3)+' g/m</strong></div>').join("")+'</div><div class="weight-note">'+t("Theoretical estimate based on entered density and yarn count. No crimp or shrinkage allowance is applied.","برآورد تئوری بر اساس تراکم و نمره نخ واردشده است. هیچ درصد جمع‌شدگی یا مصرف اضافه‌ای اعمال نشده است.")+'</div>';
+  next.textContent=t("Start again","شروع مجدد");next.onclick=()=>{step=0;data.warp=[];data.weft=[];render();next.onclick=advance;};
+ }
+ function advance(){if(step===0){saveSetup();step=1;render();return;}if(step===1){saveSetup();initRows();step=2;render();return;}collectRows();calculate();}
+ next.addEventListener("click",advance);prev.addEventListener("click",()=>{if(step>0){if(step===2)collectRows();step--;render();}});
+ document.getElementById("weightClose").addEventListener("click",()=>{screen.classList.remove("show");screen.setAttribute("aria-hidden","true");});
+ document.getElementById("fabricWeightTool").addEventListener("click",()=>{step=0;data={warpCount:3,weftCount:2,width:150,warpDensity:66,weftDensity:6,warp:[],weft:[]};next.onclick=advance;render();screen.classList.add("show");screen.setAttribute("aria-hidden","false");});
+ content.addEventListener("input",e=>{if(e.target.matches("[data-yarn]")){const y=data[e.target.dataset.yarn][Number(e.target.dataset.i)];y[e.target.dataset.k]=e.target.dataset.k==="value"||e.target.dataset.k==="density"?Number(e.target.value):e.target.value;}});
+ content.addEventListener("change",e=>{if(e.target.matches("[data-yarn]")){const y=data[e.target.dataset.yarn][Number(e.target.dataset.i)];y[e.target.dataset.k]=e.target.value;}});
+})();
 
 /* INITIALIZE */
 loadState();
