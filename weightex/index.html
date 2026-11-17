@@ -3,9 +3,9 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<meta name="theme-color" content="#10141d"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"><meta name="apple-mobile-web-app-title" content="WeighTex">
+<meta name="theme-color" content="#0d0d12"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"><meta name="apple-mobile-web-app-title" content="WeighTex">
 <title>WeighTex | محاسبات مهندسی پارچه</title>
-<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Vazirmatn:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Vazirmatn:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <link rel="manifest" href="manifest.json">
 <link rel="icon" type="image/svg+xml" href="icon.svg">
 <link rel="apple-touch-icon" href="icon.svg">
@@ -373,77 +373,99 @@ body{background:#11161b;color:var(--ink);font-family:Inter,"Segoe UI",Tahoma,san
 @media(prefers-reduced-motion:reduce){.intro-loom,.intro-loom *{animation:none!important}}
 
 
-/* WEIGHTEX / FIELD NOTES — editorial textile lab identity */
+/* RAYCAST-INSPIRED / WEIGHTEX DARK SYSTEM */
 :root{
- --bg:#f2f0e9;--paper:#fffefa;--ink:#1c2b27;--muted:#718078;--line:#dce2da;
- --dark:#173c34;--gold:#c77b55;--gold2:#f0d5c5;--green:#2e7563;
- --shadow:0 18px 48px #20352d12;--accent:#c66f4c;--soft:#e8eee8;
+ --bg:#0d0d12;--paper:#17171f;--ink:#f0eff6;--muted:#92919f;--line:#292833;
+ --dark:#17171f;--gold:#a78bfa;--gold2:#29233e;--green:#a78bfa;
+ --shadow:0 22px 70px #0008;--accent:#a78bfa;
 }
-html,body{background:var(--bg);color:var(--ink)}
-body{font-family:"Vazirmatn","DM Sans",Tahoma,sans-serif;background:linear-gradient(180deg,#f7f5ef 0%,#eeefe8 100%)}
-.top{height:72px;background:#fbfaf6;border-bottom:1px solid #dfe4dc;padding-inline:clamp(18px,5vw,68px)}
-.brandname{color:#173c34;font-family:"DM Sans","Vazirmatn",sans-serif;font-weight:800;letter-spacing:-.7px}
-.tag{color:#78867e;font-size:10px;letter-spacing:.15px}
-.mark{background:#173c34;border:0;border-radius:13px;box-shadow:0 6px 14px #173c3422}
-.helpbtn{background:#fffefa;color:#26443b;border:1px solid #d8dfd6;border-radius:9px;font-weight:600}
-.welcome,.wizard{background:#fffefa;color:#1c2b27;border:1px solid #dce2da;border-radius:16px;box-shadow:0 20px 55px #20352d12}
-.welcome{position:relative;overflow:hidden;padding:clamp(30px,6vw,62px) 26px}
-.welcome:before{content:"";position:absolute;inset:0 0 auto;height:5px;background:#c66f4c}
-.welcome .mark{background:#173c34;border-radius:16px;box-shadow:none}
-.welcome h1{color:#183c33;font-weight:800;letter-spacing:-1.1px}
-.welcome p{color:#718078}
-.eyebrow,.wizardhead small{color:#bd6948}
-.primary{background:#173c34;color:#fffefa;border:1px solid #173c34;border-radius:9px;box-shadow:none;font-weight:700}
-.primary:hover{background:#245548;color:#fff}
-.secondary{background:#f7f7f1;color:#28443b;border:1px solid #d9e0d7;border-radius:9px}
+html,body{min-height:100%;background:#0d0d12;color:var(--ink)}
+body{font-family:"Vazirmatn","Manrope",Tahoma,sans-serif;font-size:14px;background:radial-gradient(ellipse at 84% 0%,#211b36 0%,#111118 34%,#0d0d12 72%);background-attachment:fixed}
+button,input,select{font-family:inherit}
+.app{max-width:1080px;padding:28px 24px 64px}
+.top{min-height:72px;margin-bottom:30px;padding:0 2px;border-bottom:1px solid #262530}
+.brand{gap:13px}
+.mark{width:44px;height:44px;border-radius:13px;background:#211b32;border:1px solid #40345e;box-shadow:0 5px 24px #8b5cf622}
+.mark svg path{stroke:#b9a2ff!important}
+.brandname{font-family:"Manrope","Vazirmatn",sans-serif;font-size:21px;font-weight:800;letter-spacing:-.8px;color:#f4f1ff}
+.tag{font-size:10px;letter-spacing:1.1px;color:#89869b}
+.iconbtn,.helpbtn{background:#191820;color:#c9c5d8;border:1px solid #302e3a;border-radius:11px}
+.iconbtn:hover,.helpbtn:hover{background:#242230;border-color:#51446e;color:#fff}
+.welcome,.wizard{background:linear-gradient(145deg,#191922,#15151c);color:#f0eff6;border:1px solid #302e3b;border-radius:17px;box-shadow:0 24px 70px #0005}
+.welcome{position:relative;overflow:hidden;padding:clamp(28px,5vw,54px)}
+.welcome:before{content:"";position:absolute;inset:0 0 auto;height:2px;background:linear-gradient(90deg,transparent,#a78bfa 24%,#7c5ce7 70%,transparent)}
+.welcome:after{content:"";position:absolute;width:340px;height:340px;left:-170px;top:40px;border:1px solid #a78bfa18;border-radius:50%;box-shadow:0 0 0 38px #a78bfa08,0 0 0 78px #a78bfa05;pointer-events:none}
+.welcome-index{color:#777487}
+.eyebrow,.wizardhead small{color:#b49cff;letter-spacing:1.2px}
+.welcome h1{color:#f5f2ff;font-size:clamp(25px,4vw,36px);font-weight:800;letter-spacing:-1.2px}
+.welcome p,.modalintro{color:#a5a2b2;line-height:2}
+.welcome-specs>div{background:#20202a;border:1px solid #343341;border-radius:11px}
+.welcome-specs small{color:#8e8b9d}
+.welcome-specs b{color:#e9e4ff;font-family:"Manrope","Vazirmatn",sans-serif}
+.primary{background:#8b6cf0;color:#fff;border:1px solid #9a7df6;border-radius:10px;box-shadow:0 7px 22px #8b6cf033;font-weight:700}
+.primary:hover{background:#9b80fa;border-color:#b6a2ff;box-shadow:0 8px 28px #8b6cf044}
+.secondary{background:#20202a;color:#d0ccdc;border:1px solid #383744;border-radius:10px}
+.secondary:hover{background:#292834;border-color:#514b65}
 .wizard{overflow:hidden}
-.wizardhead{background:#f8f7f1;border-bottom:1px solid #e0e4dc}
-.wizardhead h2{color:#1c342d}
-.stepdot{background:#dfe5dc;border-radius:3px}
-.stepdot.active{background:#c66f4c;box-shadow:none}
-.modalintro{color:#748078}
-.field label{color:#41564d;font-weight:600}
-.field input,.field select,.yarnfields input,.yarnfields select{
- background:#fbfcf8;color:#20342d;border:1px solid #d8e0d7;border-radius:8px
+.wizardhead{background:#191820;border-bottom:1px solid #302e3a}
+.wizardhead h2{color:#f2effa;font-weight:700;letter-spacing:-.4px}
+.stepdot{background:#34323e;border-radius:4px}
+.stepdot.active{background:#a78bfa;box-shadow:0 0 14px #a78bfa66}
+.wizardbody{background:transparent}
+.field label{color:#c9c5d5;font-weight:600}
+.field input,.field select,.yarnfields input,.yarnfields select,.native-unit{
+ background:#111117!important;color:#f0eef8!important;border:1px solid #353340!important;border-radius:9px!important;
 }
+.field input::placeholder,.yarnfields input::placeholder{color:#666474}
 .field input:focus,.field select:focus,.yarnfields input:focus,.yarnfields select:focus{
- border-color:#4e8a76;box-shadow:0 0 0 3px #4e8a7618
+ border-color:#9b80fa!important;box-shadow:0 0 0 3px #9b80fa20!important
 }
-.hint{color:#829087}
-.yarn{background:#fbfaf6;border:1px solid #e0e5dd;border-radius:10px}
-.yarnhead{color:#24463b}
-.yarnfields input,.yarnfields select{background:#fffefa}
-.resulttop{background:#173c34;border:0;border-radius:12px;position:relative;overflow:hidden}
-.resulttop:after{content:"";position:absolute;left:-34px;bottom:-85px;width:210px;height:210px;border:1px solid #ffffff24;border-radius:50%}
-.resulttop small{color:#d1e1d8}
-.total{font-family:"DM Sans","Vazirmatn",sans-serif;color:#fff;font-size:clamp(32px,7vw,42px);letter-spacing:-1px}
-.resulttop p{color:#c2d4ca}
-.breakdown{background:#fffefa;border:1px solid #dfe5dc;border-radius:11px;color:#1c2b27}
-.breakdown h3{color:#24463b}
-.item{border-color:#edf0ea;color:#52645b}
-.item b{color:#173c34;font-family:"DM Sans","Vazirmatn",sans-serif}
-.sentence{background:#f5eee8;border:1px solid #ead9cd;border-radius:10px;color:#58473d}
-.sentence strong{color:#a65337}
-.export-jpeg{margin-top:16px;min-height:54px;width:100%;font-size:14px;letter-spacing:0}
-.note{background:#f4eee7;color:#795b4b;border:1px solid #eadfd5}
-#helpOverlay .modal{background:#fffefa;color:#1c2b27;border:1px solid #dce2da}
-#helpOverlay .modalhead{background:#f8f7f1;border-color:#e0e4dc}
-.helpitem{background:#fbfaf6;border-color:#e0e5dd;color:#20342d}
-.helpitem p{color:#718078}
-.footer{color:#89958d}
-.intro-screen{background:#f2f0e9}
-.intro-loom .scale-body{stroke:#557168}
-.intro-loom .scale-body path:nth-child(2){fill:#dce5dc;stroke:#557168}
-.intro-loom .scale-pan{stroke:#c66f4c}
-.intro-loom .scale-pan path:nth-child(2){fill:#e8c4ae}
-.intro-word{color:#173c34}.intro-word span{color:#c66f4c}
-.intro-caption{color:#718078}
-.intro-emblem path{stroke:#c66f4c}
-.intro-line{background:#dce2da}.intro-line i{background:#c66f4c}
+.hint{color:#858294}
+.yarn{background:#1b1a23;border:1px solid #34323f;border-radius:12px;box-shadow:0 8px 22px #0002}
+.yarnhead{color:#e5ddff}
+.unit-picker .unit-trigger{background:#111117;color:#e6e1f3;border:1px solid #393644}
+.unit-picker .unit-menu{background:#1c1b25;border:1px solid #403c50;box-shadow:0 16px 45px #000b}
+.unit-picker .unit-option{color:#e8e4f1}
+.unit-picker .unit-option:hover,.unit-picker .unit-option.selected{background:#302844;color:#c7b5ff}
+.resulttop{background:linear-gradient(130deg,#28213b,#1a1924 70%);border:1px solid #49405e;border-radius:14px;position:relative;overflow:hidden}
+.resulttop:after{content:"";position:absolute;left:-35px;bottom:-95px;width:220px;height:220px;border:1px solid #c4b5fd25;border-radius:50%;box-shadow:0 0 0 24px #c4b5fd08}
+.resulttop small{color:#c4b5fd}
+.total{font-family:"Manrope","Vazirmatn",sans-serif;color:#fff;font-size:clamp(34px,7vw,46px);font-weight:800;letter-spacing:-1.5px}
+.resulttop p{color:#b5aec8}
+.breakdown{background:#191820;border:1px solid #302e3a;border-radius:12px;color:#e9e6f1}
+.breakdown h3{color:#d7caff}
+.item{border-color:#302e3a;color:#a8a5b4}
+.item b{color:#e9e2ff;font-family:"Manrope","Vazirmatn",sans-serif}
+.sentence{background:#211d2d;border:1px solid #393149;border-radius:11px;color:#c5bfd2}
+.sentence strong{color:#c4b5fd}
+.export-jpeg{margin-top:16px;min-height:54px;width:100%;font-size:14px}
+.error{color:#ff9baf}
+.note{background:#282131;color:#d2c1ff;border:1px solid #46365d}
+#helpOverlay .modal{background:#191820;color:#eeeaf5;border:1px solid #393644}
+#helpOverlay .modalhead{background:#1e1d27;border-color:#34323f}
+#helpOverlay .modalhead h2{color:#f0ebfa}
+#helpOverlay .close{background:#292733;color:#ddd7ed}
+.helpitem{background:#201f29;border-color:#373543;color:#e8e3f1}
+.helpitem p{color:#a7a3b2}
+.footer{color:#777487}
+.intro-screen{background:#0d0d12}
+.intro-word{color:#f2effa}.intro-word span{color:#b49cff}
+.intro-caption{color:#918da2}
+.intro-emblem path{stroke:#a78bfa}
+.intro-line{background:#302e3a}.intro-line i{background:#a78bfa}
+.intro-loom .scale-body{stroke:#8f88a6}
+.intro-loom .scale-body path:nth-child(2){fill:#29243a;stroke:#8f88a6}
+.intro-loom .scale-pan{stroke:#a78bfa}
+.intro-loom .scale-pan path:nth-child(2){fill:#39304e}
+.overlay{background:#08080dcf;backdrop-filter:blur(10px)}
+.modal{background:#191820;color:#eeeaf5;border:1px solid #393644}
+.modalhead{border-color:#34323f}
 @media(max-width:768px){
- .top{background:#fbfaf6}
- .wizardnav{background:linear-gradient(180deg,#fffefae8,#fffefa 28%);border-color:#e0e4dc}
- .field input,.field select,.yarnfields input,.yarnfields select{background:#fbfcf8;color:#20342d}
+ .app{padding:16px 14px calc(32px + var(--safe-bottom))}
+ .top{background:transparent;margin-bottom:20px}
+ .welcome,.wizard{border-radius:14px}
+ .wizardnav{background:linear-gradient(180deg,#191820e8,#191820 28%);border-color:#34323f}
+ .field input,.field select,.yarnfields input,.yarnfields select{background:#111117!important;color:#f0eef8!important}
 }
 @media(prefers-reduced-motion:reduce){.welcome,.wizardpage.active,.yarn{animation:none!important}}
 
@@ -631,29 +653,29 @@ function exportJpeg(){
  const H=1400+groupH+systemH;
  const canvas=document.createElement('canvas');canvas.width=W;canvas.height=H;
  const c=canvas.getContext('2d');
- const C={bg:'#f3f1ea',paper:'#fffefa',ink:'#1c2b27',muted:'#718078',line:'#dce2da',green:'#173c34',accent:'#c66f4c',soft:'#f5eee8'};
+ const C={bg:'#0d0d12',paper:'#191820',ink:'#f0eff6',muted:'#a09bad',line:'#34323f',green:'#a78bfa',accent:'#8b6cf0',soft:'#211d2d'};
  const rr=(x,y,w,h,r,fill,stroke)=>{c.beginPath();c.roundRect(x,y,w,h,r);c.fillStyle=fill;c.fill();if(stroke){c.strokeStyle=stroke;c.lineWidth=2;c.stroke()}};
  const txt=(t,x,y,size=30,color=C.ink,weight=500,align='right',dir='rtl')=>{c.save();c.direction=dir;c.textAlign=align;c.textBaseline='middle';c.fillStyle=color;c.font=weight+' '+size+'px "Vazirmatn","DM Sans",sans-serif';c.fillText(String(t),x,y);c.restore()};
  const line=(x1,y1,x2,y2,color=C.line,width=2)=>{c.beginPath();c.moveTo(x1,y1);c.lineTo(x2,y2);c.strokeStyle=color;c.lineWidth=width;c.stroke()};
  const number=n=>new Intl.NumberFormat('fa-IR',{maximumFractionDigits:3}).format(n);
  c.fillStyle=C.bg;c.fillRect(0,0,W,H);
  // Header
- c.fillStyle=C.green;c.fillRect(0,0,W,330);
- c.fillStyle=C.accent;c.fillRect(0,0,14,330);
- txt('WEIGHTEX',W-pad,100,34,'#d7e5dc',800,'right','ltr');
+ c.fillStyle='#17151f';c.fillRect(0,0,W,330);
+ c.fillStyle=C.green;c.fillRect(0,0,14,330);
+ txt('WEIGHTEX',W-pad,100,34,'#d8ccff',800,'right','ltr');
  txt('گزارش محاسبات مهندسی پارچه',W-pad,190,54,'#ffffff',800);
- txt('TEXTILE ENGINEERING  /  WEIGHT ANALYSIS',pad,105,21,'#c5d8ce',600,'left','ltr');
- txt('گزارش مستقل محاسبه وزن · طول مبنا ۱ متر',W-pad,265,25,'#d5e2db',500);
+ txt('TEXTILE ENGINEERING  /  WEIGHT ANALYSIS',pad,105,21,'#bdb0e8',600,'left','ltr');
+ txt('گزارش مستقل محاسبه وزن · طول مبنا ۱ متر',W-pad,265,25,'#c5bfd5',500);
  // Main total card
  rr(pad,375,W-2*pad,240,20,C.paper,C.line);
  txt('وزن کل نظری پارچه',W-pad-42,430,27,C.muted,600);
- txt(number(data.total)+' گرم',W-pad-42,520,62,C.green,800);
+ txt(number(data.total)+' گرم',W-pad-42,520,62,'#c4b5fd',800);
  txt('عرض پارچه: '+number(data.width)+' سانتی‌متر',pad+42,520,27,C.ink,600,'left');
  // Specifications
  txt('مشخصات محاسبه',W-pad,700,32,C.green,800);
  const specs=[['تراکم تار',number(data.warpDensity)+' تار / cm'],['تراکم پود',number(data.weftDensity)+' پود / cm'],['طول محاسبه','۱٫۰۰ متر'],['عرض پارچه',number(data.width)+' cm']];
  const sw=(W-2*pad-24)/4;
- specs.forEach((a,i)=>{const x=pad+i*(sw+8);rr(x,750,sw,112,14,'#e9eee7');txt(a[0],x+sw-20,785,21,C.muted,500);txt(a[1],x+sw-20,830,25,C.ink,700)});
+ specs.forEach((a,i)=>{const x=pad+i*(sw+8);rr(x,750,sw,112,14,'#211f2a','#34323f');txt(a[0],x+sw-20,785,21,C.muted,500);txt(a[1],x+sw-20,830,25,C.ink,700)});
  let y=930;
  txt('مصرف نخ به تفکیک نوع',W-pad,y,32,C.green,800);y+=55;
  rr(pad,y,W-2*pad,Math.max(90,data.groups.length*rowH+20),14,C.paper,C.line);
@@ -662,7 +684,7 @@ function exportJpeg(){
   const pct=data.total?g.weight/data.total:0;
   txt(g.label,W-pad-34,gy+18,25,C.ink,600);
   txt(number(g.weight)+' گرم',pad+34,gy+18,24,C.green,700,'left');
-  rr(pad+34,gy+42,W-2*pad-68,9,5,'#edf0ea');
+  rr(pad+34,gy+42,W-2*pad-68,9,5,'#34323f');
   rr(pad+34,gy+42,(W-2*pad-68)*pct,9,5,C.accent);
   if(i<data.groups.length-1)line(pad+34,gy+rowH-3,W-pad-34,gy+rowH-3);
   gy+=rowH;
