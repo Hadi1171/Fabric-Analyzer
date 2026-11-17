@@ -515,6 +515,20 @@ button,input,select{font-family:inherit}
  #page6 .wizardnav{position:relative;bottom:auto;z-index:2;margin-top:12px}
 }
 </style>
+
+<style id="gw-report-style">
+#gw-report-screen{display:none;position:fixed;inset:0;z-index:999999;background:#0d0d12;color:#f4f1fb;overflow-y:auto;overscroll-behavior:contain;font-family:Vazirmatn,Arial,sans-serif;padding-bottom:env(safe-area-inset-bottom)}
+#gw-report-screen.show{display:block}body.gw-report-open{overflow:hidden}
+.gw-report-head{position:sticky;top:0;z-index:2;display:flex;align-items:center;gap:14px;padding:16px max(18px,env(safe-area-inset-right)) 16px max(18px,env(safe-area-inset-left));background:#15131d;border-bottom:1px solid #302b3d}
+.gw-report-head>div{display:flex;flex-direction:column;gap:3px;flex:1}.gw-report-head b{font:800 13px Arial;letter-spacing:2px;color:#c4b5fd}.gw-report-head small{font-size:11px;color:#aaa2b8}
+.gw-report-back{border:1px solid #393347;border-radius:12px;padding:10px 13px;background:#211d2d;color:#eee8ff;font:600 12px inherit}.gw-report-mark{display:grid;place-items:center;width:38px;height:38px;border-radius:12px;background:linear-gradient(135deg,#bba6ff,#7656d6);font:900 13px Arial;color:#17121f}
+.gw-report-main{max-width:760px;margin:auto;padding:26px 18px 38px}.gw-report-title small{color:#a78bfa;letter-spacing:2px;font:700 10px Arial}.gw-report-title h1{font-size:25px;margin:8px 0}.gw-report-title p{color:#a9a2b4;font-size:13px;margin:0 0 22px}
+.gw-report-preview{padding:10px;background:#191820;border:1px solid #34303f;border-radius:18px;box-shadow:0 18px 50px #0005}.gw-report-preview img{display:block;width:100%;height:auto;border-radius:10px}
+.gw-report-meta{display:flex;justify-content:space-between;gap:12px;align-items:center;margin:18px 0;padding:16px;border:1px solid #373044;border-radius:14px;background:#191820}.gw-report-meta span{font-size:12px;color:#aaa2b8}.gw-report-meta strong{color:#c4b5fd;font-size:18px}
+.gw-report-actions{display:grid;grid-template-columns:1fr 1fr;gap:10px}.gw-report-actions button{border:0;border-radius:13px;padding:15px 10px;background:linear-gradient(135deg,#b9a3ff,#8968e7);color:#17121f;font:800 13px inherit}.gw-report-actions .gw-report-share{background:#252130;color:#eee8ff;border:1px solid #49405f}.gw-report-actions button:disabled{opacity:.55}
+#gw-report-status{font-size:12px;line-height:1.8;color:#bdb2d7;text-align:center;margin:14px 0}
+@media(max-width:420px){.gw-report-actions{grid-template-columns:1fr}.gw-report-title h1{font-size:22px}}
+</style>
 </head>
 <body>
 
@@ -730,8 +744,38 @@ function exportJpeg(){
  line(pad,y,W-pad,y,'#d4ddd4',2);
  txt('محاسبه بر اساس داده‌های واردشده در Gram Weave انجام شده است.',W-pad,y+48,20,C.muted,500);
  txt('GRAM WEAVE  •  TEXTILE ENGINEERING',pad,y+48,18,C.green,700,'left','ltr');
- return new Promise(resolve=>{const save=()=>{canvas.toBlob(blob=>{if(!blob){resolve(false);return}const url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download='Gram-Weave-Report-'+new Date().toISOString().slice(0,10)+'.jpg';document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),1500);resolve(true)},'image/jpeg',.94)};if(document.fonts&&document.fonts.ready)document.fonts.ready.then(save);else save()});
+ const open=()=>openDedicatedReport(canvas,data);
+ if(document.fonts&&document.fonts.ready)document.fonts.ready.then(open);else open();
+ return true;
 }
+
+function openDedicatedReport(canvas,data){
+ let screen=document.getElementById('gw-report-screen');
+ if(!screen){
+  screen=document.createElement('section');screen.id='gw-report-screen';screen.dir='rtl';
+  screen.innerHTML='<header class="gw-report-head"><button type="button" class="gw-report-back" onclick="closeDedicatedReport()">← بازگشت</button><div><b>GRAM WEAVE</b><small>مرکز گزارش محاسبات</small></div><span class="gw-report-mark">GW</span></header><main class="gw-report-main"><div class="gw-report-title"><small>TEXTILE ENGINEERING</small><h1>گزارش محاسبه وزن</h1><p>گزارش مستقل و آماده ذخیره‌سازی</p></div><div class="gw-report-preview"><img id="gw-report-image" alt="پیش‌نمایش گزارش اختصاصی Gram Weave"></div><div class="gw-report-meta"><span>وزن کل محاسبه‌شده</span><strong id="gw-report-total"></strong></div><div class="gw-report-actions"><button type="button" id="gw-report-save" onclick="saveDedicatedReport()">ذخیره تصویر JPEG</button><button type="button" class="gw-report-share" onclick="shareDedicatedReport()">اشتراک‌گذاری گزارش</button></div><p id="gw-report-status" role="status">گزارش به‌صورت آفلاین ساخته شده است.</p></main>';
+  document.body.appendChild(screen);
+ }
+ const image=document.getElementById('gw-report-image');image.src=canvas.toDataURL('image/jpeg',.94);
+ document.getElementById('gw-report-total').textContent=new Intl.NumberFormat('fa-IR',{maximumFractionDigits:3}).format(data.total)+' گرم';
+ screen.dataset.report=image.src.split(',')[1];screen.dataset.filename='Gram-Weave-Report-'+new Date().toISOString().slice(0,10)+'.jpg';
+ document.getElementById('gw-report-status').textContent='گزارش مستقل آماده است؛ برای ذخیره به اینترنت نیازی نیست.';
+ screen.classList.add('show');document.body.classList.add('gw-report-open');
+}
+function closeDedicatedReport(){const s=document.getElementById('gw-report-screen');if(s)s.classList.remove('show');document.body.classList.remove('gw-report-open')}
+function saveDedicatedReport(){
+ const s=document.getElementById('gw-report-screen');if(!s)return;
+ const status=document.getElementById('gw-report-status'),button=document.getElementById('gw-report-save');
+ button.disabled=true;status.textContent='در حال ذخیره گزارش در پوشه تصاویر گوشی…';
+ try{
+  const bridge=window.GramWeaveNative;if(!bridge||typeof bridge.saveReport!=='function')throw new Error('قابلیت ذخیره در نسخه اندروید در دسترس نیست.');
+  const result=JSON.parse(bridge.saveReport(s.dataset.report,s.dataset.filename));
+  if(!result.ok)throw new Error(result.error||'ذخیره گزارش انجام نشد.');
+  status.textContent='گزارش با موفقیت در Pictures / Gram Weave ذخیره شد.';
+ }catch(error){status.textContent=error.message||'خطا در ذخیره گزارش.'}
+ finally{button.disabled=false}
+}
+function shareDedicatedReport(){saveDedicatedReport();document.getElementById('gw-report-status').textContent='گزارش ذخیره شد؛ می‌توانی آن را از گالری گوشی به اشتراک بگذاری.'}
 
 function exitWizard(){document.getElementById('wizard').classList.remove('show');document.getElementById('welcome').style.display='block';window.scrollTo({top:0,behavior:'smooth'});}
 function startWizard(){document.getElementById('welcome').style.display='none';document.getElementById('wizard').classList.add('show');goStep(1)}
