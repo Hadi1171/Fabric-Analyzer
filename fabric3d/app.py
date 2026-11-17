@@ -6,9 +6,9 @@ from PySide6.QtCore import Qt, QTimer
 from PySide6.QtGui import QColor, QPixmap, QImage
 from PySide6.QtWidgets import *
 
-APP="Fabric 3D"; VERSION="0.2.0"; AUTHOR="H4D1AM"
+APP="Fabric 3D"; VERSION="0.3.0"; AUTHOR="H4D1AM"
 RED="#E32636"; WHITE="#F5F6F8"; BG="#090B10"; PANEL="#121722"; LINE="#293241"
-TYPES=["Chenille","Super","Metallic","Polyester","Cotton","Viscose","Wool","Blended","Other"]
+TYPES=["انتخاب نخ","شانل","سوپر","سوپر شانل","نخ سیم","پلی‌استر","پنبه","ویسکوز","پشم","ترکیبی","سایر"]
 UNITS=["Nm","Den","Tex","Ne"]
 
 def repeat_values(s,n):
@@ -113,7 +113,7 @@ class Main(QMainWindow):
         f=QFormLayout();self.wc=QSpinBox();self.wc.setRange(1,64);self.wc.setValue(1);self.fc=QSpinBox();self.fc.setRange(1,64);self.fc.setValue(4)
         f.addRow("Warp systems",self.wc);f.addRow("Weft systems",self.fc);l.addLayout(f);l.addStretch()
     def make_density(self,l):
-        f=QFormLayout();self.wd=QSpinBox();self.wd.setRange(1,5000);self.wd.setValue(66);self.fd=QSpinBox();self.fd.setRange(1,5000);self.fd.setValue(24)
+        f=QFormLayout();self.wd=QSpinBox();self.wd.setRange(1,5000);self.wd.setValue(1);self.fd=QSpinBox();self.fd.setRange(1,5000);self.fd.setValue(1)
         f.addRow("Total warp density",self.wd);f.addRow("Total weft density",self.fd);l.addLayout(f)
         self.scaleinfo=QLabel("Cell scale is calculated from density ÷ systems.");self.scaleinfo.setObjectName("muted");l.addWidget(self.scaleinfo);self.wd.valueChanged.connect(self.update_scale);self.fd.valueChanged.connect(self.update_scale);self.wc.valueChanged.connect(self.update_scale);self.fc.valueChanged.connect(self.update_scale);l.addStretch()
     def update_scale(self):
@@ -137,7 +137,7 @@ class Main(QMainWindow):
         old=self.data.get(family,[]);table.setRowCount(n)
         for i in range(n):
             table.setItem(i,0,QTableWidgetItem(f"{family.title()} {i+1}"))
-            typ=QComboBox();typ.addItems(TYPES);cnt=QLineEdit(old[i]["count"] if i<len(old) else "");cnt.setPlaceholderText("e.g. 3")
+            typ=QComboBox();typ.addItems(TYPES);typ.setCurrentIndex(0);cnt=QLineEdit(old[i]["count"] if i<len(old) else "");cnt.setPlaceholderText("e.g. 3")
             unit=QComboBox();unit.addItems(UNITS);col=QPushButton(old[i]["color"] if i<len(old) else ("#D92D3A" if family=="warp" else "#F0F0F0"))
             col.setStyleSheet(f"background:{col.text()};color:#111;font-weight:800")
             col.clicked.connect(lambda _,b=col:self.choose_color(b))
