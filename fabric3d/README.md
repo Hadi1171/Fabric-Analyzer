@@ -19,3 +19,6 @@ Premium dark interface with black surfaces, red actions/highlights, white text, 
 
 ## Important
 Version 0.2.0 implements the guided configuration workflow and installer. It does **not yet implement true 3D yarn interlacing or physically rendered chenille/super/metallic materials**. The final screen confirms the inputs; it is not a completed 3D render.
+
+
+Installer build fix: Inno Setup compiler path is resolved through the Windows Program Files (x86) environment variable.
