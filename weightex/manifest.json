@@ -4,8 +4,8 @@
   "start_url": "/Fabric-Analyzer/weightex/",
   "scope": "/Fabric-Analyzer/weightex/",
   "display": "standalone",
-  "background_color": "#f3f4f1",
-  "theme_color": "#17232d",
+  "background_color": "#10141d",
+  "theme_color": "#10141d",
   "icons": [
     {
       "src": "icon.svg",
