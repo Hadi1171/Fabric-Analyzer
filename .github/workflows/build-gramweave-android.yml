@@ -1,0 +1,91 @@
+name: Build Gram Weave Android APK
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "weightex/**"
+      - "gramweave-android/**"
+      - ".github/workflows/build-gramweave-android.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: gram-weave-android
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: npm
+          cache-dependency-path: gramweave-android/package.json
+
+      - name: Set up Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: "21"
+
+      - name: Set up Android SDK
+        uses: android-actions/setup-android@v4
+
+      - name: Install Android SDK packages
+        run: |
+          sdkmanager --install \
+            "platform-tools" \
+            "platforms;android-35" \
+            "build-tools;35.0.0"
+
+      - name: Install pinned dependencies
+        working-directory: gramweave-android
+        run: npm install --no-audit --no-fund
+
+      - name: Prepare offline app
+        working-directory: gramweave-android
+        run: npm run prepare:web
+
+      - name: Generate Capacitor Android project
+        working-directory: gramweave-android
+        run: npx cap add android
+
+      - name: Apply Android security hardening
+        working-directory: gramweave-android
+        run: npm run harden:android
+
+      - name: Sync local web bundle
+        working-directory: gramweave-android
+        run: npx cap sync android
+
+      - name: Verify merged manifest has no permissions
+        run: |
+          if grep -R "<uses-permission" gramweave-android/android/app/src/main/AndroidManifest.xml; then
+            echo "Unexpected Android permission found"
+            exit 1
+          fi
+          if grep -R 'usesCleartextTraffic="true"' gramweave-android/android/app/src/main; then
+            echo "Cleartext traffic enabled"
+            exit 1
+          fi
+
+      - name: Build APK
+        working-directory: gramweave-android/android
+        run: ./gradlew --no-daemon assembleDebug
+
+      - name: Upload installable APK
+        uses: actions/upload-artifact@v4
+        with:
+          name: Gram-Weave-Android-APK
+          path: gramweave-android/android/app/build/outputs/apk/debug/app-debug.apk
+          if-no-files-found: error
+          retention-days: 14
