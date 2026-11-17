@@ -469,44 +469,16 @@ button,input,select{font-family:inherit}
 }
 @media(prefers-reduced-motion:reduce){.welcome,.wizardpage.active,.yarn{animation:none!important}}
 
+
+/* Requested polish: intro paused, welcome spec panel unified, arrows lavender */
+.welcome-specs{border-radius:13px;overflow:hidden;border:1px solid #343341;gap:1px;background:#343341}
+.welcome-specs>div{border:0;border-radius:0}
+.btn-arrow{display:inline-block;margin-inline-start:5px;color:#e2d8ff;font-weight:800}
+.primary .btn-arrow{color:#eee8ff}
+
 </style>
 </head>
 <body>
-<div class="intro-screen" id="introScreen" aria-label="WeighTex intro">
- <div class="intro-loom" aria-hidden="true">
- <svg viewBox="0 0 240 190" role="presentation">
-  <defs>
-   <linearGradient id="fabricFace" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#718096"/><stop offset=".48" stop-color="#465a72"/><stop offset="1" stop-color="#26364c"/></linearGradient>
-   <linearGradient id="fabricFold" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#172538" stop-opacity=".05"/><stop offset=".5" stop-color="#d7e0ec" stop-opacity=".2"/><stop offset="1" stop-color="#172538" stop-opacity=".22"/></linearGradient>
-   <pattern id="wovenTexture" width="10" height="10" patternUnits="userSpaceOnUse"><path d="M1 0V10M4 0V10M7 0V10" stroke="#e6d3b2" stroke-opacity=".28" stroke-width="1.15"/><path d="M0 2H10M0 5H10M0 8H10" stroke="#101d2c" stroke-opacity=".34" stroke-width="1.15"/><path d="M0 1H10M0 7H10" stroke="#f2e4cc" stroke-opacity=".12" stroke-width=".65"/></pattern>
-   <filter id="fabricShadow" x="-40%" y="-40%" width="180%" height="200%"><feGaussianBlur stdDeviation="3"/></filter>
-   <clipPath id="swatchClip"><path d="M68 -67 Q120 -77 172 -67 Q169 -29 168 5 Q120 15 72 5 Q70 -30 68 -67Z"/></clipPath>
-  </defs>
-  <g class="scale-body" fill="none" stroke="#8795a9" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
-   <path d="M120 116V148M105 148H135"/>
-   <path d="M88 150H152L163 169H77Z" fill="#263449" stroke="#8795a9"/>
-   <path d="M96 158H144" stroke="#d8ad68" stroke-width="2"/>
-  </g>
-  <g class="scale-pan" fill="none" stroke="#d8ad68" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
-   <path d="M74 116H166"/>
-   <path d="M84 116 76 130H164L156 116" fill="#344257"/>
-  </g>
-  <path class="fabric-shadow" d="M73 116Q120 124 167 116L162 121Q120 130 78 121Z" fill="#000" opacity=".35" filter="url(#fabricShadow)"/>
-  <g class="falling-fabric">
-   <path d="M68 -67 Q120 -77 172 -67 Q169 -29 168 5 Q120 15 72 5 Q70 -30 68 -67Z" fill="url(#fabricFace)" stroke="#d8b77f" stroke-width="1.8"/>
-   <g clip-path="url(#swatchClip)">
-    <rect x="62" y="-80" width="116" height="105" fill="url(#wovenTexture)"/>
-    <path d="M73 -67Q89 -48 82 8M97 -71Q110 -44 105 12M145 -70Q131 -39 140 10M168 -65Q153 -30 162 5" fill="none" stroke="url(#fabricFold)" stroke-width="9" opacity=".8"/>
-    <path d="M68 -58Q120 -48 172 -58M69 -22Q120 -12 169 -22M71 1Q120 10 168 1" fill="none" stroke="#dce4ed" stroke-opacity=".14" stroke-width="1.2"/>
-   </g>
-   <path d="M68 -67Q120 -77 172 -67" fill="none" stroke="#f2dfbd" stroke-width="2" opacity=".9"/>
-   <path d="M72 5Q120 15 168 5" fill="none" stroke="#18273a" stroke-width="2" opacity=".55"/>
-  </g>
-  <g class="scale-indicator" fill="none" stroke="#d8ad68" stroke-width="2.5" stroke-linecap="round"><path d="M120 112V104M112 108H128"/><circle cx="120" cy="104" r="3" fill="#f1d19b" stroke="none"/></g>
- </svg>
-</div>
- <div class="intro-word">WEIGH<span>TEX</span></div><div class="intro-caption">TEXTILE ENGINEERING / WEIGHT ANALYSIS</div><div class="intro-line"><i></i></div>
-</div>
 <div class="app">
 <header class="top">
  <div class="brand"><div class="mark"><svg width="30" height="30" viewBox="0 0 40 40" fill="none"><path d="M7 25h26l-3.2 9H10.2L7 25Z" stroke="#D8AD68" stroke-width="2" stroke-linejoin="round"/><path d="m11 22 9-13 9 13H11Z" stroke="#D8AD68" stroke-width="2" stroke-linejoin="round"/><path d="M14 18h12M16 14h8M20 9V5m-4 0h8" stroke="#D8AD68" stroke-width="1.7" stroke-linecap="round"/></svg></div><div><div class="brandname">WeighTex</div><div class="tag">TEXTILE ENGINEERING TOOL</div></div></div>
@@ -515,21 +487,21 @@ button,input,select{font-family:inherit}
  <button class="iconbtn exitbtn" id="exitBtn" type="button" onclick="exitWizard()" aria-label="خروج از محاسبه" title="خروج"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M10 4H5.8A1.8 1.8 0 0 0 4 5.8v12.4A1.8 1.8 0 0 0 5.8 20H10M14 8l4 4-4 4M18 12H9" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
  </div>
 </header>
-<section class="welcome" id="welcome"><div class="welcome-index"><span>WT / 01</span><span>TEXTILE ENGINEERING</span></div><div class="eyebrow">FABRIC WEIGHT ANALYSIS</div><h1>محاسبه مهندسی وزن پارچه</h1><p>محاسبه وزن نظری بر پایه مشخصات سیستم‌های تار، پود و نمره نخ. طول مبنای محاسبه یک متر است و عرض پارچه به‌صورت متغیر وارد می‌شود.</p><div class="welcome-specs"><div><small>CALCULATION LENGTH</small><b>1.00 m</b></div><div><small>YARN COUNT UNITS</small><b>Nm / Den / Tex</b></div></div><button class="primary welcome-start" onclick="startWizard()">شروع محاسبات <span>←</span></button><div class="footer">DESIGNED BY h4d1am</div></section>
+<section class="welcome" id="welcome"><div class="welcome-index"><span>WT / 01</span><span>TEXTILE ENGINEERING</span></div><div class="eyebrow">FABRIC WEIGHT ANALYSIS</div><h1>محاسبه مهندسی وزن پارچه</h1><p>محاسبه وزن نظری بر پایه مشخصات سیستم‌های تار، پود و نمره نخ. طول مبنای محاسبه یک متر است و عرض پارچه به‌صورت متغیر وارد می‌شود.</p><div class="welcome-specs"><div><small>CALCULATION LENGTH</small><b>1.00 m</b></div><div><small>YARN COUNT UNITS</small><b>Nm / Den / Tex</b></div></div><button class="primary welcome-start" onclick="startWizard()">شروع محاسبات <span class="btn-arrow">←</span></button><div class="footer">DESIGNED BY h4d1am</div></section>
 <div class="wizard" id="wizard">
  <div class="wizardhead"><div class="steps"><i class="stepdot active"></i><i class="stepdot"></i><i class="stepdot"></i><i class="stepdot"></i><i class="stepdot"></i><i class="stepdot"></i></div><small id="stepLabel">مرحله ۱ از ۶</small><h2 id="stepTitle">مشخصات سیستم‌های تار</h2></div>
  <div class="wizardbody">
   <section class="wizardpage active" id="page1"><p class="modalintro">تعداد سیستم‌های تار و تراکم کل تار پارچه را وارد کنید.</p><div class="fields setup-fields">
    <div class="field"><label>تعداد سیستم‌های تار</label><input id="warpN" type="number" min="1" max="12" placeholder="مثلاً ۱"></div>
    <div class="field"><label>تراکم کل تار</label><input id="warpD" type="number" min="0.01" step="any" placeholder="مثلاً ۶۶"><div class="hint">تار در هر سانتی‌متر</div></div>
-  </div><div class="error" id="mainError"></div><div class="wizardnav"><button class="primary" onclick="validateSetupAndGo(2)">ادامه به مشخصات پود ←</button></div></section>
+  </div><div class="error" id="mainError"></div><div class="wizardnav"><button class="primary" onclick="validateSetupAndGo(2)">ادامه به مشخصات پود <span class="btn-arrow">←</span></button></div></section>
   <section class="wizardpage" id="page2"><p class="modalintro">تعداد سیستم‌های پود و تراکم کل پود را وارد کنید.</p><div class="fields setup-fields">
    <div class="field"><label>تعداد سیستم‌های پود</label><input id="weftN" type="number" min="1" max="12" placeholder="مثلاً ۳"></div>
    <div class="field"><label>تراکم کل پود</label><input id="weftD" type="number" min="0.01" step="any" placeholder="مثلاً ۲۴"><div class="hint">پود در هر سانتی‌متر</div></div>
-  </div><div class="error" id="weftSetupError"></div><div class="wizardnav"><button class="secondary" onclick="goStep(1)">قبلی</button><button class="primary" onclick="prepareYarns()">ادامه به مشخصات تار ←</button></div></section>
-  <section class="wizardpage" id="page3"><p class="modalintro">نام نخ، نمره و واحد اندازه‌گیری هر سیستم تار را مشخص کنید.</p><div class="yarnlist" id="warpList"></div><div class="error" id="warpYarnError"></div><div class="wizardnav"><button class="secondary" onclick="goStep(2)">قبلی</button><button class="primary" onclick="validateYarnStep('warp',4)">ادامه به مشخصات پود ←</button></div></section>
-  <section class="wizardpage" id="page4"><p class="modalintro">نام نخ، نمره و واحد اندازه‌گیری هر سیستم پود را مشخص کنید.</p><div class="yarnlist" id="weftList"></div><div class="error" id="yarnError"></div><div class="wizardnav"><button class="secondary" onclick="goStep(3)">قبلی</button><button class="primary" onclick="validateYarnStep('weft',5)">ادامه به عرض پارچه ←</button></div></section>
-  <section class="wizardpage" id="page5"><p class="modalintro">عرض پارچه را بر حسب سانتی‌متر وارد کنید. طول مبنای محاسبه ثابت و برابر یک متر است.</p><div class="fields"><div class="field"><label>عرض پارچه</label><input id="width" type="number" min="0.01" step="any" placeholder="مثلاً ۱۵۰"><div class="hint">سانتی‌متر</div></div></div><div class="error" id="widthError"></div><div class="wizardnav"><button class="secondary" onclick="goStep(4)">قبلی</button><button class="primary" onclick="calculateWizard()">محاسبه وزن ←</button></div></section>
+  </div><div class="error" id="weftSetupError"></div><div class="wizardnav"><button class="secondary" onclick="goStep(1)">قبلی</button><button class="primary" onclick="prepareYarns()">ادامه به مشخصات تار <span class="btn-arrow">←</span></button></div></section>
+  <section class="wizardpage" id="page3"><p class="modalintro">نام نخ، نمره و واحد اندازه‌گیری هر سیستم تار را مشخص کنید.</p><div class="yarnlist" id="warpList"></div><div class="error" id="warpYarnError"></div><div class="wizardnav"><button class="secondary" onclick="goStep(2)">قبلی</button><button class="primary" onclick="validateYarnStep('warp',4)">ادامه به مشخصات پود <span class="btn-arrow">←</span></button></div></section>
+  <section class="wizardpage" id="page4"><p class="modalintro">نام نخ، نمره و واحد اندازه‌گیری هر سیستم پود را مشخص کنید.</p><div class="yarnlist" id="weftList"></div><div class="error" id="yarnError"></div><div class="wizardnav"><button class="secondary" onclick="goStep(3)">قبلی</button><button class="primary" onclick="validateYarnStep('weft',5)">ادامه به عرض پارچه <span class="btn-arrow">←</span></button></div></section>
+  <section class="wizardpage" id="page5"><p class="modalintro">عرض پارچه را بر حسب سانتی‌متر وارد کنید. طول مبنای محاسبه ثابت و برابر یک متر است.</p><div class="fields"><div class="field"><label>عرض پارچه</label><input id="width" type="number" min="0.01" step="any" placeholder="مثلاً ۱۵۰"><div class="hint">سانتی‌متر</div></div></div><div class="error" id="widthError"></div><div class="wizardnav"><button class="secondary" onclick="goStep(4)">قبلی</button><button class="primary" onclick="calculateWizard()">محاسبه وزن <span class="btn-arrow">←</span></button></div></section>
   <section class="wizardpage" id="page6"><div id="result" class="result" style="display:none!important"></div><div id="wizardResult"></div><div class="wizardnav"><button class="secondary" onclick="goStep(5)">ویرایش عرض</button><button class="primary" onclick="resetWizard()">محاسبه جدید</button></div></section>
  </div>
 </div>
@@ -640,7 +612,7 @@ function calculate(){
  const summary=sortedGroups.map(g=>'<div class="item"><span>مصرف '+escapeHTML(groupLabel(g))+'</span><b>'+fmt(g.weight,3)+' گرم</b></div>').join('');
  const detail=systems.map(s=>'<div class="item"><span>'+(s.side==='warp'?'تار ':'پود ')+fmt(s.index,0)+' · '+escapeHTML(s.type)+' ('+s.unit+' '+fmt(s.number,3)+')</span><b>'+fmt(s.weight,3)+' g</b></div>').join('');
  const sentence=sortedGroups.map(g=>'<strong>'+escapeHTML(groupLabel(g))+'</strong>: '+fmt(g.weight,3)+' گرم').join('، ');
- const resultHtml='<div class="resulttop"><small>وزن کل نظری پارچه</small><div class="total">'+fmt(total,3)+' g</div><p>عرض پارچه: '+fmt(width,2)+' سانتی‌متر · طول مبنا: ۱ متر</p></div><div class="breakdown"><h3>مصرف هر نوع نخ</h3>'+summary+'</div><div class="breakdown"><h3>جزئیات سیستم‌ها</h3>'+detail+'</div><div class="sentence">در طول مبنای محاسبه با عرض '+fmt(width,2)+' سانتی‌متر به کار رفته است:<br>'+sentence+'.</div><button class="primary export-jpeg" type="button" onclick="exportJpeg()">دریافت گزارش تصویری JPEG ↗</button>';
+ const resultHtml='<div class="resulttop"><small>وزن کل نظری پارچه</small><div class="total">'+fmt(total,3)+' g</div><p>عرض پارچه: '+fmt(width,2)+' سانتی‌متر · طول مبنا: ۱ متر</p></div><div class="breakdown"><h3>مصرف هر نوع نخ</h3>'+summary+'</div><div class="breakdown"><h3>جزئیات سیستم‌ها</h3>'+detail+'</div><div class="sentence">در طول مبنای محاسبه با عرض '+fmt(width,2)+' سانتی‌متر به کار رفته است:<br>'+sentence+'.</div><button class="primary export-jpeg" type="button" onclick="exportJpeg()">دریافت گزارش تصویری JPEG <span class="btn-arrow">↗</span></button>';
  window.lastCalculation={total,width,warpDensity,weftDensity,systems:systems.map(x=>({...x})),groups:sortedGroups.map(g=>({...g,label:groupLabel(g)}))};
  const html=resultHtml;
  const result=document.getElementById('result');result.innerHTML=html;result.classList.add('show');result.scrollIntoView({behavior:'smooth',block:'nearest'});
