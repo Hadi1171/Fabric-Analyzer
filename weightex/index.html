@@ -250,6 +250,34 @@ body:has(.wizard.show) .exitbtn{display:grid}
 }
 @media(max-width:360px){.yarnfields{grid-template-columns:minmax(0,1.1fr) minmax(0,.7fr) 70px;gap:5px}}
 
+
+/* Final usability fixes */
+.field input::placeholder,.yarnfields input::placeholder{color:#78879b;opacity:1}
+.yarnfields select:invalid{color:#78879b}
+.yarnfields select option{color:#edf1f8;background:#202633}
+.overlay{z-index:1200}
+#helpOverlay{z-index:1300}
+#helpOverlay .modal{position:relative;z-index:1301}
+#helpOverlay .modalhead{position:sticky;top:0;z-index:20}
+.wizard{overflow:visible}
+.wizardhead{border-radius:19px 19px 0 0}
+.wizardbody{position:relative;overflow:visible}
+.yarnlist{position:relative;isolation:isolate;overflow:visible}
+.yarn{position:relative;z-index:1}
+.yarn:focus-within{z-index:500}
+.yarnfields,.yarnfield,.unit-picker{position:relative;overflow:visible}
+.unit-picker{z-index:501}
+.unit-picker:focus-within{z-index:502}
+.unit-menu{position:absolute;z-index:2000;top:calc(100% + 6px);right:0;left:0;max-height:230px;overflow-y:auto;overscroll-behavior:contain;background:#202b3a;border:1px solid #64748b;box-shadow:0 16px 36px #000b}
+.unit-option{min-height:42px}
+@media(max-width:768px){
+ .overlay{align-items:flex-start;padding-top:calc(14px + var(--safe-top))}
+ #helpOverlay .modal{max-height:calc(100dvh - var(--safe-top) - var(--safe-bottom) - 28px)}
+ .wizard,.wizardbody,.yarnlist{overflow:visible}
+ .yarn:focus-within{z-index:1000}
+ .unit-menu{z-index:2001}
+}
+
 </style>
 </head>
 <body>
@@ -301,16 +329,16 @@ body:has(.wizard.show) .exitbtn{display:grid}
  <div class="wizardhead"><div class="steps"><i class="stepdot active"></i><i class="stepdot"></i><i class="stepdot"></i><i class="stepdot"></i><i class="stepdot"></i><i class="stepdot"></i></div><small id="stepLabel">مرحله ۱ از ۶</small><h2 id="stepTitle">مشخصات سیستم‌های تار</h2></div>
  <div class="wizardbody">
   <section class="wizardpage active" id="page1"><p class="modalintro">تعداد سیستم‌های تار و تراکم کل تار پارچه را وارد کن.</p><div class="fields setup-fields">
-   <div class="field"><label>تعداد سیستم‌های تار</label><input id="warpN" type="number" min="1" max="12" value="3"></div>
-   <div class="field"><label>تراکم کل تار</label><input id="warpD" type="number" min="0.01" step="any" value="66"><div class="hint">تار در هر سانتی‌متر</div></div>
+   <div class="field"><label>تعداد سیستم‌های تار</label><input id="warpN" type="number" min="1" max="12" placeholder="مثلاً ۳"></div>
+   <div class="field"><label>تراکم کل تار</label><input id="warpD" type="number" min="0.01" step="any" placeholder="مثلاً ۶۶"><div class="hint">تار در هر سانتی‌متر</div></div>
   </div><div class="error" id="mainError"></div><div class="wizardnav"><button class="primary" onclick="goStep(2)">ادامه به مشخصات پود ←</button></div></section>
   <section class="wizardpage" id="page2"><p class="modalintro">تعداد سیستم‌های پود و تراکم کل پود را وارد کن.</p><div class="fields setup-fields">
-   <div class="field"><label>تعداد سیستم‌های پود</label><input id="weftN" type="number" min="1" max="12" value="2"></div>
-   <div class="field"><label>تراکم کل پود</label><input id="weftD" type="number" min="0.01" step="any" value="6"><div class="hint">پود در هر سانتی‌متر</div></div>
+   <div class="field"><label>تعداد سیستم‌های پود</label><input id="weftN" type="number" min="1" max="12" placeholder="مثلاً ۲"></div>
+   <div class="field"><label>تراکم کل پود</label><input id="weftD" type="number" min="0.01" step="any" placeholder="مثلاً ۶"><div class="hint">پود در هر سانتی‌متر</div></div>
   </div><div class="error" id="weftSetupError"></div><div class="wizardnav"><button class="secondary" onclick="goStep(1)">قبلی</button><button class="primary" onclick="prepareYarns()">ادامه به مشخصات تار ←</button></div></section>
   <section class="wizardpage" id="page3"><p class="modalintro">نام نخ و نمره هر سیستم تار را در یک ردیف وارد کن.</p><div class="yarnlist" id="warpList"></div><div class="wizardnav"><button class="secondary" onclick="goStep(2)">قبلی</button><button class="primary" onclick="goStep(4)">ادامه به مشخصات پود ←</button></div></section>
   <section class="wizardpage" id="page4"><p class="modalintro">نام نخ و نمره هر سیستم پود را هم وارد کن.</p><div class="yarnlist" id="weftList"></div><div class="error" id="yarnError"></div><div class="wizardnav"><button class="secondary" onclick="goStep(3)">قبلی</button><button class="primary" onclick="goStep(5)">ادامه به عرض پارچه ←</button></div></section>
-  <section class="wizardpage" id="page5"><p class="modalintro">در آخر، عرض پارچه را وارد کن. طول محاسبه همیشه ثابت و برابر یک متر است.</p><div class="fields"><div class="field"><label>عرض پارچه</label><input id="width" type="number" min="0.01" step="any" value="150"><div class="hint">سانتی‌متر</div></div></div><div class="error" id="widthError"></div><div class="wizardnav"><button class="secondary" onclick="goStep(4)">قبلی</button><button class="primary" onclick="calculateWizard()">محاسبه وزن ←</button></div></section>
+  <section class="wizardpage" id="page5"><p class="modalintro">در آخر، عرض پارچه را وارد کن. طول محاسبه همیشه ثابت و برابر یک متر است.</p><div class="fields"><div class="field"><label>عرض پارچه</label><input id="width" type="number" min="0.01" step="any" placeholder="مثلاً ۱۵۰"><div class="hint">سانتی‌متر</div></div></div><div class="error" id="widthError"></div><div class="wizardnav"><button class="secondary" onclick="goStep(4)">قبلی</button><button class="primary" onclick="calculateWizard()">محاسبه وزن ←</button></div></section>
   <section class="wizardpage" id="page6"><div id="result" class="result" style="display:none!important"></div><div id="wizardResult"></div><div class="wizardnav"><button class="secondary" onclick="goStep(5)">ویرایش عرض</button><button class="primary" onclick="resetWizard()">محاسبه جدید</button></div></section>
  </div>
 </div>
@@ -351,7 +379,7 @@ function openYarns(){
 function cards(side,n){
  let html='';
  for(let i=1;i<=n;i++){
-  html+='<div class="yarn"><div class="yarnhead"><span>'+(side==='warp'?'تار ':'پود ')+fmt(i,0)+'</span><span style="color:#9ba8bb;font-weight:normal">سیستم '+fmt(i,0)+'</span></div><div class="yarnfields"><div class="yarnfield"><label>اسم نخ:</label><input type="text" placeholder="مثلاً شانل" aria-label="اسم نخ"></div><div class="yarnfield"><label>نمره نخ:</label><input type="number" min="0.0001" step="any" placeholder="نمره" aria-label="نمره نخ"></div><div class="yarnfield"><label>نوع محاسبه:</label><select class="native-unit" aria-label="نوع محاسبه">'+units.map(u=>'<option value="'+u[0]+'" '+(u[0]==='Nm'?'selected':'')+'>'+u[1]+'</option>').join('')+'</select><div class="unit-picker"><button class="unit-trigger" type="button" aria-label="انتخاب نوع محاسبه" aria-expanded="false" onclick="toggleUnitPicker(this)"><span class="unit-current">Nm</span><svg viewBox="0 0 20 20" aria-hidden="true"><path d="m5 7 5 5 5-5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></button><div class="unit-menu" hidden>'+units.map(u=>'<button type="button" class="unit-option '+(u[0]==='Nm'?'selected':'')+'" data-value="'+u[0]+'" onclick="chooseUnit(this)"><span>'+u[1]+'</span><i>'+(u[0]==='Nm'?'✓':'')+'</i></button>').join('')+'</div></div></div></div></div>';
+  html+='<div class="yarn"><div class="yarnhead"><span>'+(side==='warp'?'تار ':'پود ')+fmt(i,0)+'</span><span style="color:#9ba8bb;font-weight:normal">سیستم '+fmt(i,0)+'</span></div><div class="yarnfields"><div class="yarnfield"><label>اسم نخ:</label><input type="text" placeholder="مثلاً شانل" aria-label="اسم نخ"></div><div class="yarnfield"><label>نمره نخ:</label><input type="number" min="0.0001" step="any" placeholder="مثلاً ۲٫۵" aria-label="نمره نخ"></div><div class="yarnfield"><label>محاسبه بر اساس:</label><select class="native-unit" aria-label="نوع محاسبه"><option value="" selected disabled>مثلاً Nm</option>'+units.map(u=>'<option value="'+u[0]+'">'+u[1]+'</option>').join('')+'</select><div class="unit-picker"><button class="unit-trigger" type="button" aria-label="انتخاب نوع محاسبه" aria-expanded="false" onclick="toggleUnitPicker(this)" data-value=""><span class="unit-current">مثلاً Nm</span><svg viewBox="0 0 20 20" aria-hidden="true"><path d="m5 7 5 5-5 5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></button><div class="unit-menu" hidden>'+units.map(u=>'<button type="button" class="unit-option" data-value="'+u[0]+'" onclick="chooseUnit(this)"><span>'+u[1]+'</span><i></i></button>').join('')+'</div></div></div></div></div>';
  }
  return html;
 }
@@ -506,10 +534,17 @@ function calculateWizard(){
  const err=document.getElementById('yarnError');err.classList.remove('show');
  const widthErr=document.getElementById('widthError');widthErr.classList.remove('show');
  const all=[...document.querySelectorAll('#warpList .yarn,#weftList .yarn')];
- if(all.some(card=>{const name=card.querySelector('input[type=text]').value.trim(),number=Number(card.querySelector('input[type=number]').value);return !name||!number||number<=0})){
-  goStep(4);err.textContent='لطفاً اسم و نمره نخ همه سیستم‌ها را کامل وارد کن.';err.classList.add('show');return;
+ if(all.some(card=>{
+  const name=card.querySelector('input[type=text]').value.trim();
+  const number=Number(card.querySelector('input[type=number]').value);
+  const native=card.querySelector('.native-unit'),mobile=card.querySelector('.unit-trigger');
+  const unit=window.matchMedia('(max-width:560px)').matches?mobile.dataset.value:native.value;
+  return !name||!number||number<=0||!unit;
+ })){
+  err.textContent='لطفاً اسم نخ، نمره و واحد محاسبه همه سیستم‌ها را کامل کن.';
+  err.classList.add('show');return;
  }
- if(!val('width')||val('width')<=0){widthErr.textContent='عرض پارچه باید بیشتر از صفر باشد.';widthErr.classList.add('show');return}
+ if(!val('width')||val('width')<=0){goStep(5);widthErr.textContent='عرض پارچه باید بیشتر از صفر باشد.';widthErr.classList.add('show');return}
  calculate();
  document.getElementById('wizardResult').innerHTML=document.getElementById('result').innerHTML;
  goStep(6);
