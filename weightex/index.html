@@ -109,7 +109,7 @@ body{font-family:Inter,Tahoma,"Segoe UI",sans-serif;background:radial-gradient(e
   </div><div class="error" id="mainError"></div><div class="wizardnav"><button class="primary" onclick="nextFromSetup()">ادامه به مشخصات تار ←</button></div></section>
   <section class="wizardpage" id="page2"><p class="modalintro">برای هر سیستم تار، نام نخ، نمره نخ و واحد نمره رو وارد کن.</p><div class="yarnlist" id="warpList"></div><div class="wizardnav"><button class="secondary" onclick="goStep(1)">قبلی</button><button class="primary" onclick="goStep(3)">ادامه به مشخصات پود ←</button></div></section>
   <section class="wizardpage" id="page3"><p class="modalintro">حالا سیستم‌های پود رو جداگانه تعریف کن.</p><div class="yarnlist" id="weftList"></div><div class="error" id="yarnError"></div><div class="wizardnav"><button class="secondary" onclick="goStep(2)">قبلی</button><button class="primary" onclick="calculateWizard()">محاسبه وزن ←</button></div></section>
-  <section class="wizardpage" id="page4"><div id="wizardResult"></div><div class="wizardnav"><button class="secondary" onclick="goStep(3)">ویرایش مشخصات</button><button class="primary" onclick="resetWizard()">محاسبه جدید</button></div></section>
+  <section class="wizardpage" id="page4"><div id="result" class="result" style="display:none!important"></div><div id="wizardResult"></div><div class="wizardnav"><button class="secondary" onclick="goStep(3)">ویرایش مشخصات</button><button class="primary" onclick="resetWizard()">محاسبه جدید</button></div></section>
  </div>
 </div>
 </div>
@@ -148,7 +148,7 @@ function openYarns(){
 function cards(side,n){
  let html='';
  for(let i=1;i<=n;i++){
-  html+='<div class="yarn"><div class="yarnhead"><span>'+(side==='warp'?'تار ':'پود ')+fmt(i,0)+'</span><span style="color:#899398;font-weight:normal">سیستم '+fmt(i,0)+'</span></div><div class="yarnfields"><select aria-label="نوع نخ">'+types.map((t,j)=>'<option '+(j===(side==='warp'?0:1)?'selected':'')+'>'+t+'</option>').join('')+'</select><input type="number" min="0.0001" step="any" placeholder="نمره نخ" aria-label="نمره نخ"><select aria-label="واحد نمره">'+units.map(u=>'<option value="'+u[0]+'" '+(u[0]==='Nm'?'selected':'')+'>'+u[1]+'</option>').join('')+'</select></div></div>';
+  html+='<div class="yarn"><div class="yarnhead"><span>'+(side==='warp'?'تار ':'پود ')+fmt(i,0)+'</span><span style="color:#9ba8bb;font-weight:normal">سیستم '+fmt(i,0)+'</span></div><div class="yarnfields"><input type="text" placeholder="نام نخ (مثلاً شانل)" aria-label="نام نخ"><input type="number" min="0.0001" step="any" placeholder="نمره نخ" aria-label="نمره نخ"><select aria-label="واحد نمره">'+units.map(u=>'<option value="'+u[0]+'" '+(u[0]==='Nm'?'selected':'')+'>'+u[1]+'</option>').join('')+'</select></div></div>';
  }
  return html;
 }
@@ -173,16 +173,16 @@ function calculate(){
   const list=[...document.querySelectorAll('#'+side+'List .yarn')];
   const density=(side==='warp'?warpDensity:weftDensity)/list.length;
   list.forEach((card,i)=>{
-   const selects=card.querySelectorAll('select'),input=card.querySelector('input[type=number]');
-   const type=selects[0].value,number=Number(input.value),unit=selects[1].value;
-   if(!number||number<=0||!Number.isFinite(number)){systems.push({invalid:true,label:(side==='warp'?'تار ':'پود ')+(i+1)});return}
+   const selects=card.querySelectorAll('select'),inputs=card.querySelectorAll('input');
+   const type=inputs[0].value.trim(),number=Number(inputs[1].value),unit=selects[0].value;
+   if(!type||!number||number<=0||!Number.isFinite(number)){systems.push({invalid:true,label:(side==='warp'?'تار ':'پود ')+(i+1)});return}
    const gpm=gramsPerMeter(number,unit);
    const yarnLength=side==='warp'?density*width: (density*100)*widthM;
    const weight=yarnLength*gpm;
    systems.push({side,index:i+1,type,number,unit,gpm,yarnLength,weight});
   });
  }
- if(systems.some(s=>s.invalid)){err.textContent='لطفاً نمره نخ همه سیستم‌ها را با عددی بزرگ‌تر از صفر وارد کن.';err.classList.add('show');return}
+ if(systems.some(s=>s.invalid)){err.textContent='لطفاً نام و نمره نخ همه سیستم‌ها را کامل وارد کن.';err.classList.add('show');return}
  const total=systems.reduce((a,s)=>a+s.weight,0);
  const groups={};
  systems.forEach(s=>{const key=s.type;groups[key]=(groups[key]||0)+s.weight});
@@ -214,7 +214,7 @@ function nextFromSetup(){
 function calculateWizard(){
  const err=document.getElementById('weftError');err.classList.remove('show');
  const all=[...document.querySelectorAll('#warpList .yarn,#weftList .yarn')];
- if(all.some(card=>{const n=Number(card.querySelector('input[type=number]').value);return !n||n<=0})){err.textContent='لطفاً نمره نخ همه سیستم‌ها را با عددی بزرگ‌تر از صفر وارد کن.';err.classList.add('show');return}
+ if(all.some(card=>{const name=card.querySelector('input[type=text]').value.trim(),n=Number(card.querySelector('input[type=number]').value);return !name||!n||n<=0})){err.textContent='لطفاً نمره نخ همه سیستم‌ها را با عددی بزرگ‌تر از صفر وارد کن.';err.classList.add('show');return}
  calculate();
  document.getElementById('wizardResult').innerHTML=document.getElementById('result').innerHTML;
  goStep(4);
