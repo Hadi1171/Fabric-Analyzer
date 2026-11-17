@@ -1,0 +1,165 @@
+<!doctype html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#17232d">
+<title>WeighTex | محاسبه وزن پارچه</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%2317232d'/%3E%3Cpath d='M15 39h34l-4 12H19zM20 34l12-17 12 17z' fill='none' stroke='%23d4b783' stroke-width='3' stroke-linejoin='round'/%3E%3Cpath d='M25 28h14M22 34h20M32 17v-5m-5 0h10' stroke='%23d4b783' stroke-width='2.5' stroke-linecap='round'/%3E%3C/svg%3E">
+<style>
+:root{--bg:#f3f4f1;--paper:#fff;--ink:#202a30;--muted:#778187;--line:#e5e8e5;--dark:#17232d;--gold:#c5a56c;--gold2:#eadfc9;--green:#477b69;--shadow:0 18px 55px #1b2a3510}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:Tahoma,"Segoe UI",sans-serif;font-size:14px}button,input,select{font:inherit}button{cursor:pointer}.app{max-width:1040px;margin:auto;padding:24px 22px 60px}.top{display:flex;align-items:center;justify-content:space-between;margin-bottom:34px}.brand{display:flex;align-items:center;gap:12px}.mark{width:46px;height:46px;border-radius:14px;background:var(--dark);display:grid;place-items:center}.brandname{font-size:20px;font-weight:800;letter-spacing:.2px;direction:ltr;text-align:right}.tag{font-size:11px;color:var(--muted);margin-top:4px}.helpbtn{border:1px solid var(--line);background:#fff;color:var(--ink);padding:10px 15px;border-radius:12px}.hero{margin:0 0 22px}.eyebrow{color:var(--green);font-size:11px;font-weight:bold;letter-spacing:.5px}.hero h1{font-size:clamp(24px,4vw,34px);margin:10px 0 8px;letter-spacing:-1px}.hero p{color:var(--muted);line-height:2;margin:0;max-width:650px}.layout{display:grid;grid-template-columns:1.15fr .85fr;gap:16px}.card{background:var(--paper);border:1px solid var(--line);border-radius:20px;padding:22px;box-shadow:var(--shadow)}.card h2{font-size:16px;margin:0 0 18px}.fields{display:grid;grid-template-columns:1fr 1fr;gap:14px}.field label{display:block;font-size:12px;color:#5e696f;margin-bottom:8px}.field input,.field select{width:100%;height:46px;border:1px solid var(--line);border-radius:11px;background:#fbfcfa;padding:0 12px;color:var(--ink);outline:none}.field input:focus,.field select:focus{border-color:var(--gold)}.hint{font-size:10px;color:var(--muted);margin-top:6px}.unit{display:flex;align-items:center;gap:8px}.unit span{color:var(--muted);font-size:12px;white-space:nowrap}.note{margin-top:16px;background:#f7f6f1;border-radius:12px;padding:12px 14px;color:#6d685e;font-size:11px;line-height:1.9}.primary{border:0;background:var(--dark);color:#fff;border-radius:12px;padding:14px 18px;font-weight:bold;width:100%;margin-top:18px;transition:.2s}.primary:hover{background:#263b49;transform:translateY(-1px)}.side{background:var(--dark);color:#fff;position:relative;overflow:hidden}.side:after{content:"";position:absolute;width:190px;height:190px;border:1px solid #ffffff13;border-radius:50%;left:-75px;bottom:-95px}.side h2{color:#fff}.side p{color:#c4cdd1;line-height:2;font-size:12px}.mini{border-top:1px solid #ffffff1b;margin-top:18px;padding-top:15px;display:grid;gap:12px}.minirow{display:flex;align-items:center;gap:10px;color:#e8eceb;font-size:12px}.dot{width:7px;height:7px;border-radius:50%;background:var(--gold);flex:none}.footer{text-align:center;color:#9aa2a3;font-size:10px;margin-top:28px;direction:ltr}
+.overlay{position:fixed;inset:0;background:#101820a8;z-index:10;display:none;align-items:center;justify-content:center;padding:16px}.overlay.show{display:flex}.modal{background:#f7f8f5;width:min(820px,100%);max-height:92dvh;overflow:auto;border-radius:20px;box-shadow:0 25px 90px #0004}.modalhead{position:sticky;top:0;background:#f7f8f5;z-index:2;padding:18px 22px;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between}.modalhead h2{font-size:17px;margin:0}.close{border:0;background:#e9ece8;width:34px;height:34px;border-radius:10px;font-size:20px}.modalbody{padding:20px 22px}.modalintro{font-size:12px;color:var(--muted);line-height:1.9;margin:0 0 16px}.systemtitle{font-size:13px;font-weight:bold;margin:20px 0 10px;display:flex;justify-content:space-between}.yarnlist{display:grid;grid-template-columns:1fr 1fr;gap:10px}.yarn{background:#fff;border:1px solid var(--line);border-radius:14px;padding:13px}.yarnhead{font-size:12px;font-weight:bold;margin-bottom:10px;display:flex;justify-content:space-between}.yarnfields{display:grid;grid-template-columns:1fr 1fr;gap:8px}.yarnfields input,.yarnfields select{width:100%;height:40px;border:1px solid var(--line);border-radius:9px;background:#fbfcfa;padding:0 9px;min-width:0;font-size:12px}.yarnfields .wide{grid-column:1/-1}.modalactions{display:flex;gap:10px;margin-top:18px}.modalactions button{margin:0}.secondary{border:1px solid var(--line);background:#fff;border-radius:12px;padding:13px 17px;color:var(--ink)}.result{display:none;margin-top:18px}.result.show{display:block}.resulttop{background:var(--dark);color:#fff;padding:18px;border-radius:15px}.resulttop small{color:#c4cdd1}.total{font-size:30px;font-weight:800;margin:8px 0;direction:ltr;text-align:right}.resulttop p{font-size:11px;color:#c4cdd1;margin:0;line-height:1.9}.breakdown{background:#fff;border:1px solid var(--line);border-radius:14px;margin-top:12px;padding:16px}.breakdown h3{font-size:13px;margin:0 0 12px}.item{display:flex;justify-content:space-between;gap:12px;padding:9px 0;border-bottom:1px solid #f0f1ef;font-size:12px}.item:last-child{border:0}.item b{direction:ltr}.sentence{background:#f5f1e8;border-radius:12px;padding:14px;margin-top:12px;line-height:2;font-size:12px}.sentence strong{color:#785f34}.helpgrid{display:grid;grid-template-columns:1fr 1fr;gap:10px}.helpitem{background:#fff;border:1px solid var(--line);border-radius:12px;padding:13px}.helpitem b{font-size:12px}.helpitem p{font-size:11px;line-height:1.9;color:var(--muted);margin:7px 0 0}.error{color:#a43e36;font-size:11px;margin-top:10px;display:none}.error.show{display:block}
+@media(max-width:720px){.app{padding:17px 14px 40px}.layout{grid-template-columns:1fr}.side{order:2}.card{padding:18px}.fields{gap:11px}.yarnlist,.helpgrid{grid-template-columns:1fr}.modalbody{padding:16px}.modalhead{padding:15px 17px}.hero h1{font-size:26px}}
+@media(max-width:380px){.fields{grid-template-columns:1fr}.brandname{font-size:18px}}
+</style>
+</head>
+<body>
+<div class="app">
+<header class="top">
+ <div class="brand">
+  <div class="mark"><svg width="31" height="31" viewBox="0 0 40 40" fill="none" aria-hidden="true"><path d="M7 25h26l-3.2 9H10.2L7 25Z" stroke="#D7BC8A" stroke-width="2" stroke-linejoin="round"/><path d="m11 22 9-13 9 13H11Z" stroke="#D7BC8A" stroke-width="2" stroke-linejoin="round"/><path d="M14 18h12M16 14h8M20 9V5m-4 0h8" stroke="#D7BC8A" stroke-width="1.7" stroke-linecap="round"/><path d="M13 29h14" stroke="#D7BC8A" stroke-width="1.5" stroke-linecap="round"/></svg></div>
+  <div><div class="brandname">WeighTex</div><div class="tag">محاسبه‌گر وزن پارچه</div></div>
+ </div>
+ <button class="helpbtn" onclick="openHelp()">راهنمای نمره نخ‌ها ؟</button>
+</header>
+<section class="hero">
+ <div class="eyebrow">TEXTILE WEIGHT CALCULATOR</div>
+ <h1>وزن پارچه‌ات رو دقیق حساب کن.</h1>
+ <p>تعداد سیستم‌های تار و پود، تراکم کل و عرض پارچه رو وارد کن؛ بعد مشخصات هر نخ رو ثبت کن تا وزن مصرفی هر نوع نخ در یک متر طول پارچه محاسبه بشه.</p>
+</section>
+<div class="layout">
+ <section class="card">
+  <h2>مشخصات پارچه</h2>
+  <div class="fields">
+   <div class="field"><label>تعداد سیستم‌های تار</label><input id="warpN" type="number" min="1" max="12" value="3"></div>
+   <div class="field"><label>تعداد سیستم‌های پود</label><input id="weftN" type="number" min="1" max="12" value="2"></div>
+   <div class="field"><label>تراکم کل تار</label><input id="warpD" type="number" min="0.01" step="any" value="66"><div class="hint">تار در هر سانتی‌متر</div></div>
+   <div class="field"><label>تراکم کل پود</label><input id="weftD" type="number" min="0.01" step="any" value="6"><div class="hint">پود در هر سانتی‌متر</div></div>
+   <div class="field"><label>عرض پارچه</label><input id="width" type="number" min="0.01" step="any" value="150"><div class="hint">سانتی‌متر</div></div>
+   <div class="field"><label>طول محاسبه</label><input value="۱ متر" disabled><div class="hint">ثابت و غیرقابل تغییر</div></div>
+  </div>
+  <div class="note">تراکم هر سیستم به‌صورت مساوی و خودکار از تراکم کل تقسیم می‌شود. سهم تراکم جداگانه‌ای لازم نیست وارد کنی.</div>
+  <button class="primary" onclick="openYarns()">ثبت مشخصات نخ‌ها و محاسبه <span aria-hidden="true">←</span></button>
+  <div class="error" id="mainError"></div>
+ </section>
+ <aside class="card side">
+  <h2>محاسبه ساده، نتیجه کاربردی</h2>
+  <p>WeighTex مصرف نخ را برای طول ثابت یک متر و عرض دلخواه پارچه محاسبه می‌کند؛ هم وزن کل را می‌بینی و هم مقدار مصرف هر نوع نخ را جداگانه.</p>
+  <div class="mini">
+   <div class="minirow"><i class="dot"></i> تقسیم خودکار تراکم بین سیستم‌ها</div>
+   <div class="minirow"><i class="dot"></i> واحدهای متنوع نمره نخ</div>
+   <div class="minirow"><i class="dot"></i> گزارش مصرف شانل، سوپر و سایر نخ‌ها</div>
+   <div class="minirow"><i class="dot"></i> بدون محاسبه جمع‌شدگی</div>
+  </div>
+ </aside>
+</div>
+<div class="footer">WEIGHTEX · TEXTILE CALCULATION</div>
+</div>
+
+<div class="overlay" id="yarnOverlay" onclick="backdropClose(event,'yarnOverlay')">
+ <section class="modal" role="dialog" aria-modal="true" aria-label="مشخصات نخ‌ها">
+  <header class="modalhead"><h2>مشخصات نخ‌های پارچه</h2><button class="close" onclick="closeModal('yarnOverlay')" aria-label="بستن">×</button></header>
+  <div class="modalbody">
+   <p class="modalintro" id="yarnIntro">برای هر سیستم، نوع نخ و نمره آن را وارد کن. واحد نمره می‌تواند برای هر ردیف متفاوت باشد.</p>
+   <div class="systemtitle">سیستم‌های تار <span id="warpDensityLabel"></span></div><div class="yarnlist" id="warpList"></div>
+   <div class="systemtitle">سیستم‌های پود <span id="weftDensityLabel"></span></div><div class="yarnlist" id="weftList"></div>
+   <div class="error" id="yarnError"></div>
+   <div class="modalactions"><button class="primary" onclick="calculate()">محاسبه وزن پارچه</button><button class="secondary" onclick="closeModal('yarnOverlay')">بازگشت</button></div>
+   <div class="result" id="result"></div>
+  </div>
+ </section>
+</div>
+<div class="overlay" id="helpOverlay" onclick="backdropClose(event,'helpOverlay')">
+ <section class="modal" role="dialog" aria-modal="true" aria-label="راهنمای نمره نخ">
+  <header class="modalhead"><h2>راهنمای نوع نخ و واحد نمره</h2><button class="close" onclick="closeModal('helpOverlay')" aria-label="بستن">×</button></header>
+  <div class="modalbody">
+   <p class="modalintro">این مثال‌ها برای شناخت واحدها هستند؛ واحد واقعی را مطابق مشخصات فنی نخ یا برگه تولید انتخاب کن.</p>
+   <div class="helpgrid">
+    <div class="helpitem"><b>شانل (Chenille) · معمولاً Nm</b><p>برای بیان نمره نخ شانل در بسیاری از مشخصات نساجی از سیستم متریک Nm استفاده می‌شود؛ عدد بالاتر یعنی نخ ظریف‌تر.</p></div>
+    <div class="helpitem"><b>سوپر / سوپر شانل · Nm یا Tex</b><p>بسته به کارخانه و برگه مشخصات ممکن است با Nm یا جرم خطی Tex اعلام شود؛ واحد درج‌شده روی لیبل را وارد کن.</p></div>
+    <div class="helpitem"><b>پلی‌استر فیلامنت · Den یا dTex</b><p>نمره نخ‌های فیلامنت مصنوعی معمولاً با دنیر یا دسی‌تکس بیان می‌شود؛ عدد بالاتر یعنی نخ سنگین‌تر.</p></div>
+    <div class="helpitem"><b>پنبه‌ای ریسیده · Ne</b><p>نمره انگلیسی پنبه‌ای رایج است؛ در این سیستم عدد بالاتر نشان‌دهنده نخ ظریف‌تر است.</p></div>
+    <div class="helpitem"><b>نخ لینن · NeL</b><p>سیستم شمارش مخصوص نخ کتان/لینن است و با Ne پنبه‌ای یکسان نیست؛ حتماً واحد درست را انتخاب کن.</p></div>
+    <div class="helpitem"><b>Worsted Count</b><p>برای برخی نخ‌های پشمی شانه‌شده به‌کار می‌رود؛ مبنای طول و وزن آن با Nm متفاوت است.</p></div>
+    <div class="helpitem"><b>Woolen Count</b><p>برای نخ‌های پشمی فاستونی/ریسیده‌شده در سیستم پشمی استفاده می‌شود و ضریب تبدیل مستقل دارد.</p></div>
+    <div class="helpitem"><b>Tex</b><p>گرم در هر ۱۰۰۰ متر است؛ مثلاً ۲۰ Tex یعنی ۲۰ گرم در ۱۰۰۰ متر نخ.</p></div>
+    <div class="helpitem"><b>dTex</b><p>گرم در هر ۱۰٬۰۰۰ متر است؛ در نخ‌های فیلامنتی و مصنوعی کاربرد زیادی دارد.</p></div>
+    <div class="helpitem"><b>Den (Denier)</b><p>گرم در هر ۹۰۰۰ متر است؛ مثلاً ۳۰۰ Den یعنی ۳۰۰ گرم در ۹۰۰۰ متر نخ.</p></div>
+   </div>
+   <div class="note">تبدیل‌ها بر اساس تعریف استاندارد واحدها انجام می‌شوند. خروجی، وزن نظری نخ مصرف‌شده است و عواملی مثل پرزدهی، ضایعات و جمع‌شدگی در آن لحاظ نمی‌شوند.</div>
+  </div>
+ </section>
+</div>
+<script>
+const units=[
+ ['Nm','Nm'],['Den','Den'],['Tex','Tex'],['dTex','dTex'],['Ne','Ne (پنبه‌ای)'],['NeL','NeL (لینن)'],['Worsted','Worsted'],['Woolen','Woolen']
+];
+const types=['شانل','سوپر','سوپر شانل','پلی‌استر','پنبه','ویسکوز','اکریلیک','لینن','سایر'];
+const fmt=(n,d=2)=>new Intl.NumberFormat('fa-IR',{maximumFractionDigits:d}).format(n);
+function val(id){return Number(document.getElementById(id).value)}
+function closeModal(id){document.getElementById(id).classList.remove('show')}
+function openHelp(){document.getElementById('helpOverlay').classList.add('show')}
+function backdropClose(e,id){if(e.target.id===id)closeModal(id)}
+function openYarns(){
+ const wn=val('warpN'),fn=val('weftN'),wd=val('warpD'),fd=val('weftD'),w=val('width');
+ const err=document.getElementById('mainError');err.classList.remove('show');
+ if(!Number.isInteger(wn)||!Number.isInteger(fn)||wn<1||fn<1||wn>12||fn>12||wd<=0||fd<=0||w<=0){err.textContent='تعداد سیستم‌ها باید بین ۱ تا ۱۲ و تراکم و عرض باید بیشتر از صفر باشند.';err.classList.add('show');return}
+ document.getElementById('warpDensityLabel').textContent='تراکم هر سیستم: '+fmt(wd/wn,3)+' تار/cm';
+ document.getElementById('weftDensityLabel').textContent='تراکم هر سیستم: '+fmt(fd/fn,3)+' پود/cm';
+ document.getElementById('warpList').innerHTML=cards('warp',wn);
+ document.getElementById('weftList').innerHTML=cards('weft',fn);
+ document.getElementById('result').classList.remove('show');
+ document.getElementById('yarnError').classList.remove('show');
+ document.getElementById('yarnOverlay').classList.add('show');
+}
+function cards(side,n){
+ let html='';
+ for(let i=1;i<=n;i++){
+  html+='<div class="yarn"><div class="yarnhead"><span>'+(side==='warp'?'تار ':'پود ')+fmt(i,0)+'</span><span style="color:#899398;font-weight:normal">سیستم '+fmt(i,0)+'</span></div><div class="yarnfields"><select aria-label="نوع نخ">'+types.map((t,j)=>'<option '+(j===(side==='warp'?0:1)?'selected':'')+'>'+t+'</option>').join('')+'</select><input type="number" min="0.0001" step="any" placeholder="نمره نخ" aria-label="نمره نخ"><select aria-label="واحد نمره">'+units.map(u=>'<option value="'+u[0]+'" '+(u[0]==='Nm'?'selected':'')+'>'+u[1]+'</option>').join('')+'</select><input class="wide" value="'+(side==='warp'?'تراکم خودکار: ':'تراکم خودکار: ')+fmt((side==='warp'?val('warpD')/val('warpN'):val('weftD')/val('weftN')),3)+'" disabled></div></div>';
+ }
+ return html;
+}
+function gramsPerMeter(number,unit){
+ switch(unit){
+  case 'Nm':return 1/number;
+  case 'Den':return number/9000;
+  case 'Tex':return number/1000;
+  case 'dTex':return number/10000;
+  case 'Ne':return 0.5905/number;
+  case 'NeL':return 453.59237/(number*274.32);
+  case 'Worsted':return 453.59237/(number*512.064);
+  case 'Woolen':return 453.59237/(number*233.472);
+  default:return NaN;
+ }
+}
+function calculate(){
+ const err=document.getElementById('yarnError');err.classList.remove('show');
+ const width=val('width'),widthM=width/100,warpDensity=val('warpD'),weftDensity=val('weftD');
+ const systems=[];
+ for(const side of ['warp','weft']){
+  const list=[...document.querySelectorAll('#'+side+'List .yarn')];
+  const density=(side==='warp'?warpDensity:weftDensity)/list.length;
+  list.forEach((card,i)=>{
+   const selects=card.querySelectorAll('select'),input=card.querySelector('input[type=number]');
+   const type=selects[0].value,number=Number(input.value),unit=selects[1].value;
+   if(!number||number<=0||!Number.isFinite(number)){systems.push({invalid:true,label:(side==='warp'?'تار ':'پود ')+(i+1)});return}
+   const gpm=gramsPerMeter(number,unit);
+   const yarnLength=side==='warp'?density*width: (density*100)*widthM;
+   const weight=yarnLength*gpm;
+   systems.push({side,index:i+1,type,number,unit,gpm,yarnLength,weight});
+  });
+ }
+ if(systems.some(s=>s.invalid)){err.textContent='لطفاً نمره نخ همه سیستم‌ها را با عددی بزرگ‌تر از صفر وارد کن.';err.classList.add('show');return}
+ const total=systems.reduce((a,s)=>a+s.weight,0);
+ const groups={};
+ systems.forEach(s=>{const key=s.type;groups[key]=(groups[key]||0)+s.weight});
+ const summary=Object.entries(groups).sort((a,b)=>b[1]-a[1]).map(([type,weight])=>'<div class="item"><span>مصرف '+type+'</span><b>'+fmt(weight,3)+' گرم</b></div>').join('');
+ const detail=systems.map(s=>'<div class="item"><span>'+(s.side==='warp'?'تار ':'پود ')+fmt(s.index,0)+' · '+s.type+' ('+s.unit+' '+fmt(s.number,3)+')</span><b>'+fmt(s.weight,3)+' g</b></div>').join('');
+ const sentence=Object.entries(groups).sort((a,b)=>b[1]-a[1]).map(([type,weight])=>'<strong>'+type+'</strong>: '+fmt(weight,3)+' گرم').join('، ');
+ const html='<div class="resulttop"><small>وزن کل نظری در یک متر طول پارچه</small><div class="total">'+fmt(total,3)+' g</div><p>عرض پارچه: '+fmt(width,2)+' سانتی‌متر · طول محاسبه: ۱ متر</p></div><div class="breakdown"><h3>مصرف هر نوع نخ در یک متر</h3>'+summary+'</div><div class="breakdown"><h3>جزئیات سیستم‌ها</h3>'+detail+'</div><div class="sentence">در یک متر طول پارچه با عرض '+fmt(width,2)+' سانتی‌متر به کار رفته است:<br>'+sentence+'.</div>';
+ const result=document.getElementById('result');result.innerHTML=html;result.classList.add('show');result.scrollIntoView({behavior:'smooth',block:'nearest'});
+}
+</script>
+</body>
+</html>
