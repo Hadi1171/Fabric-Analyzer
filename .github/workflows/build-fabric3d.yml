@@ -35,12 +35,12 @@ jobs:
       - name: Upload installer
         uses: actions/upload-artifact@v4
         with:
-          name: Fabric-3D-Setup-v0.2.0-Windows
-          path: fabric3d/dist/Fabric-3D-Setup-v0.2.0.exe
+          name: Fabric-3D-Setup-v0.3.0-Windows
+          path: fabric3d/dist/Fabric-3D-Setup-v0.3.0.exe
           if-no-files-found: error
       - name: Upload portable EXE
         uses: actions/upload-artifact@v4
         with:
-          name: Fabric-3D-Portable-v0.2.0
+          name: Fabric-3D-Portable-v0.3.0
           path: fabric3d/dist/Fabric 3D.exe
           if-no-files-found: error
