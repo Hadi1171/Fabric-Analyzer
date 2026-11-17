@@ -1,43 +1,21 @@
 # Fabric 3D
+**A 3D Jacquard Fabric Simulator** · **H4D1AM** · Version **0.2.0**
 
-**A 3D Jacquard Fabric Simulator**  
-Author: **H4D1AM**  
-Version: **0.1.0**  
-Platform: Windows 10/11
+## Windows installer
+Download the GitHub Actions artifact named **Fabric-3D-Setup-v0.2.0-Windows**. Run the setup EXE; the Inno Setup wizard lets you change the installation folder and optionally create a desktop shortcut.
 
-## Version 0.1.0
+## Workflow
+Intro → Welcome → New Fabric → six guided steps:
+1. Load red/white BMP map (red = warp, white = weft).
+2. Warp and weft system counts.
+3. Total warp and weft density.
+4. Warp and weft repeat rhythms (e.g. 1.2.1.3).
+5. Individual warp yarn type, count, unit (Nm / Den / Tex / Ne), color.
+6. Individual weft yarn type, count, unit (Nm / Den / Tex / Ne), color.
+Then Create Fabric opens a project confirmation and save option.
 
-This is the first desktop foundation milestone. It provides:
-- English dark desktop UI.
-- BMP import and map inspection.
-- Red = warp, white = weft convention.
-- Independent warp/weft system counts and total densities.
-- Repeat input such as `1.2.1.3`, validated against the relevant system count.
-- Repeat controls disabled when that family has one system.
-- Per-system yarn type, count, unit (Nm, Den, Tex, Ne), color picker, and optional manual diameter.
-- Save/open project settings as JSON.
+## Design
+Premium dark interface with black surfaces, red actions/highlights, white text, and a custom woven app icon.
 
-### Pixel scaling rule
-
-- Horizontal scale = total weft density / number of weft systems.
-- Vertical scale = total warp density / number of warp systems.
-
-These are relative cell scaling values for the map display and must be calibrated against the actual loom/map convention before being treated as physical dimensions.
-
-## Run
-
-1. Install Python 3.11 or newer.
-2. Double-click `run_windows.bat`.
-3. Import a red-and-white BMP.
-
-## Build EXE
-
-After running the app once and installing dependencies, run `build_windows.bat`. The executable is generated under `dist`.
-
-## Important status
-
-This version is a functional UI/configuration prototype, **not yet the 3D yarn renderer**. JPEG export currently saves a high-quality diagnostic image of the imported map. It does not claim to render chenille pile, super-yarn sheen, metallic reflections, or true yarn interlacing yet. Those are the next development milestone.
-
-## Yarn model roadmap
-
-Automatic yarn diameter will use the selected count system as an initial estimate, with manual diameter override. Exact physical diameter cannot be derived from yarn count alone; fiber type, twist, construction, and packing density also affect it. The color picker is independent for every warp and weft system.
+## Important
+Version 0.2.0 implements the guided configuration workflow and installer. It does **not yet implement true 3D yarn interlacing or physically rendered chenille/super/metallic materials**. The final screen confirms the inputs; it is not a completed 3D render.
