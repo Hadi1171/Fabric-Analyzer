@@ -15,8 +15,8 @@ async function main() {
 
   let html = fs.readFileSync(source, "utf8");
   // The Android build is fully offline: remove remote Google Fonts requests.
-  html = html.replace(/<link[^>]+fonts\\.googleapis\\.com[^>]*>\\s*/gi, "");
-  html = html.replace(/<link[^>]+fonts\\.gstatic\\.com[^>]*>\\s*/gi, "");
+  html = html.replace(/<link[^>]+fonts\.googleapis\.com[^>]*>\s*/gi, "");
+  html = html.replace(/<link[^>]+fonts\.gstatic\.com[^>]*>\s*/gi, "");
   fs.writeFileSync(path.join(webDir, "index.html"), html, "utf8");
 
   for (const name of ["icon.svg", "manifest.json"]) {
