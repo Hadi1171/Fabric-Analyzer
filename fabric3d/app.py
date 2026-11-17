@@ -13,7 +13,7 @@ UNITS=["Nm","Den","Tex","Ne"]
 
 def repeat_values(s,n):
     if n<=1:return []
-    parts=[x for x in re.split(r"[.\\s,;]+",s.strip()) if x]
+    parts=[x for x in re.split(r"[.\s,;]+",s.strip()) if x]
     if not parts or any(not x.isdigit() for x in parts): raise ValueError("Use a repeat such as 1.2.1.3")
     vals=[int(x) for x in parts]
     if any(x<1 or x>n for x in vals): raise ValueError(f"Repeat values must be between 1 and {n}.")
