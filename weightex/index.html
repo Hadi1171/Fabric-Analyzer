@@ -257,9 +257,11 @@ body:has(.wizard.show) .exitbtn{display:grid}
  <div class="intro-loom" aria-hidden="true">
  <svg viewBox="0 0 240 190" role="presentation">
   <defs>
-   <linearGradient id="fabricFace" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#53647a"/><stop offset="1" stop-color="#29384d"/></linearGradient>
+   <linearGradient id="fabricFace" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#718096"/><stop offset=".48" stop-color="#465a72"/><stop offset="1" stop-color="#26364c"/></linearGradient>
+   <linearGradient id="fabricFold" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#172538" stop-opacity=".05"/><stop offset=".5" stop-color="#d7e0ec" stop-opacity=".2"/><stop offset="1" stop-color="#172538" stop-opacity=".22"/></linearGradient>
+   <pattern id="wovenTexture" width="10" height="10" patternUnits="userSpaceOnUse"><path d="M1 0V10M4 0V10M7 0V10" stroke="#e6d3b2" stroke-opacity=".28" stroke-width="1.15"/><path d="M0 2H10M0 5H10M0 8H10" stroke="#101d2c" stroke-opacity=".34" stroke-width="1.15"/><path d="M0 1H10M0 7H10" stroke="#f2e4cc" stroke-opacity=".12" stroke-width=".65"/></pattern>
    <filter id="fabricShadow" x="-40%" y="-40%" width="180%" height="200%"><feGaussianBlur stdDeviation="3"/></filter>
-   <clipPath id="swatchClip"><path d="M69 -68 Q120 -76 171 -68 L165 7 Q120 16 75 7Z"/></clipPath>
+   <clipPath id="swatchClip"><path d="M68 -67 Q120 -77 172 -67 Q169 -29 168 5 Q120 15 72 5 Q70 -30 68 -67Z"/></clipPath>
   </defs>
   <g class="scale-body" fill="none" stroke="#8795a9" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
    <path d="M120 116V148M105 148H135"/>
@@ -272,12 +274,14 @@ body:has(.wizard.show) .exitbtn{display:grid}
   </g>
   <path class="fabric-shadow" d="M73 116Q120 124 167 116L162 121Q120 130 78 121Z" fill="#000" opacity=".35" filter="url(#fabricShadow)"/>
   <g class="falling-fabric">
-   <path d="M69 -68 Q120 -76 171 -68 L165 7 Q120 16 75 7Z" fill="url(#fabricFace)" stroke="#e2bd7e" stroke-width="2.2"/>
-   <g clip-path="url(#swatchClip)" opacity=".95">
-    <g stroke="#e4c58f" stroke-width="2"><path d="M77 -76 83 20M90 -76 96 20M103 -76 109 20M116 -76 122 20M129 -76 135 20M142 -76 148 20M155 -76 161 20"/></g>
-    <g stroke="#b6c2d1" stroke-width="2"><path d="M60 -58H180M60 -46H180M60 -34H180M60 -22H180M60 -10H180M60 2H180"/></g>
+   <path d="M68 -67 Q120 -77 172 -67 Q169 -29 168 5 Q120 15 72 5 Q70 -30 68 -67Z" fill="url(#fabricFace)" stroke="#d8b77f" stroke-width="1.8"/>
+   <g clip-path="url(#swatchClip)">
+    <rect x="62" y="-80" width="116" height="105" fill="url(#wovenTexture)"/>
+    <path d="M73 -67Q89 -48 82 8M97 -71Q110 -44 105 12M145 -70Q131 -39 140 10M168 -65Q153 -30 162 5" fill="none" stroke="url(#fabricFold)" stroke-width="9" opacity=".8"/>
+    <path d="M68 -58Q120 -48 172 -58M69 -22Q120 -12 169 -22M71 1Q120 10 168 1" fill="none" stroke="#dce4ed" stroke-opacity=".14" stroke-width="1.2"/>
    </g>
-   <path d="M69 -68Q120 -57 171 -68" fill="none" stroke="#f1d19b" stroke-width="2" opacity=".8"/>
+   <path d="M68 -67Q120 -77 172 -67" fill="none" stroke="#f2dfbd" stroke-width="2" opacity=".9"/>
+   <path d="M72 5Q120 15 168 5" fill="none" stroke="#18273a" stroke-width="2" opacity=".55"/>
   </g>
   <g class="scale-indicator" fill="none" stroke="#d8ad68" stroke-width="2.5" stroke-linecap="round"><path d="M120 112V104M112 108H128"/><circle cx="120" cy="104" r="3" fill="#f1d19b" stroke="none"/></g>
  </svg>
