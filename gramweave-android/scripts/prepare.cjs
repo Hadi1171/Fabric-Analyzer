@@ -31,7 +31,10 @@ async function main() {
   if (!fs.existsSync(iconSource)) throw new Error("No launcher icon source was found.");
 
   if (fs.existsSync(uploadedIcon)) {
+    // Keep both the short icon name and the original uploaded filename because
+    // index.html references the original file in the header.
     fs.copyFileSync(uploadedIcon, path.join(webDir, "icon.png"));
+    fs.copyFileSync(uploadedIcon, path.join(webDir, path.basename(uploadedIcon)));
   }
 
   const res = path.join(project, "android", "app", "src", "main", "res");
