@@ -24,8 +24,13 @@ async function main() {
     if (fs.existsSync(from)) fs.copyFileSync(from, path.join(webDir, name));
   }
 
-  // Create native launcher icons from the actual Gram Weave mark.
+  // Prefer the user's newly uploaded launcher artwork; keep the SVG as fallback.
+  const uploadedIcon = path.join(repo, "weightex", "file_00000000ace88210b5975889446341b5.png");
   const iconSvg = path.join(repo, "weightex", "icon.svg");
+  const iconSource = fs.existsSync(uploadedIcon) ? uploadedIcon : iconSvg;
+  if (fs.existsSync(uploadedIcon)) {
+    fs.copyFileSync(uploadedIcon, path.join(webDir, "icon.png"));
+  }
   const res = path.join(project, "android", "app", "src", "main", "res");
   const sizes = {
     "mipmap-mdpi": 48,
@@ -34,7 +39,7 @@ async function main() {
     "mipmap-xxhdpi": 144,
     "mipmap-xxxhdpi": 192
   };
-  if (fs.existsSync(iconSvg) && fs.existsSync(res)) {
+  if (fs.existsSync(iconSource) && fs.existsSync(res)) {
     for (const [folder, size] of Object.entries(sizes)) {
       const dir = path.join(res, folder);
       fs.mkdirSync(dir, { recursive: true });
@@ -44,24 +49,9 @@ async function main() {
 
     // Android 8+ launchers use adaptive icons, not the legacy mipmap PNGs.
     // Keep the woven mark inside the adaptive-icon safe zone on every density.
-    const foregroundSvg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
-      <defs>
-        <linearGradient id="thread" x1="115" y1="95" x2="400" y2="420" gradientUnits="userSpaceOnUse">
-          <stop stop-color="#eee5ff"/><stop offset=".48" stop-color="#c4a9ff"/><stop offset="1" stop-color="#8b6be8"/>
-        </linearGradient>
-        <clipPath id="gClip">
-          <path d="M354 157C326 127 289 111 246 111C160 111 99 173 99 256C99 339 161 401 246 401C329 401 389 342 389 260V246H258"/>
-        </clipPath>
-      </defs>
-      <path d="M354 157C326 127 289 111 246 111C160 111 99 173 99 256C99 339 161 401 246 401C329 401 389 342 389 260V246H258"
-        fill="none" stroke="url(#thread)" stroke-width="47" stroke-linecap="round" stroke-linejoin="round"/>
-      <g clip-path="url(#gClip)" fill="none" stroke="#f4efff" stroke-opacity=".7" stroke-width="9" stroke-linecap="round">
-        <path d="M70 210H420M70 292H420"/>
-      </g>
-      <path d="M258 246H389" fill="none" stroke="#eee5ff" stroke-width="29" stroke-linecap="round"/>
-      <path d="M258 246H389" fill="none" stroke="#8b6be8" stroke-width="7" stroke-linecap="round" stroke-dasharray="20 18"/>
-      <circle cx="246" cy="256" r="13" fill="#f7f2ff"/>
-    </svg>`
+    const foregroundBuffer = await sharp(iconSource)
+      .resize(320, 320, { fit: "contain", background: { r: 0, g: 0, b: 0, alpha: 0 } })
+      .png().toBuffer();
     for (const [folder, size] of Object.entries(sizes)) {
       const dir = path.join(res, folder);
       await sharp(Buffer.from(foregroundSvg)).resize(size, size).png()
