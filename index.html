@@ -2060,7 +2060,7 @@ document.addEventListener("keydown",e=>{
  const prev=document.getElementById("weightPrev"),next=document.getElementById("weightNext");
  if(!screen)return;
  const units=[["Nm","Metric count"],["Den","Denier"],["Tex","Tex"],["dTex","Decitex"],["Ne","English cotton count"],["NeK","Worsted count"]];
- let step=0,data={warpCount:3,weftCount:2,width:150,warpDensity:66,weftDensity:6,warp:[],weft:[]};
+ let step=0,calculated=false,data={warpCount:3,weftCount:2,width:150,warpDensity:66,weftDensity:6,warp:[],weft:[]};
  const fa=()=>document.documentElement.lang==="fa";
  const t=(en,pr)=>fa()?pr:en;
  const field=(label,id,value,help="")=>'<div class="weight-field"><label for="'+id+'">'+label+'</label><input id="'+id+'" type="number" min="0.0001" step="any" value="'+value+'">'+(help?'<small>'+help+'</small>':'')+'</div>';
@@ -2094,12 +2094,12 @@ document.addEventListener("keydown",e=>{
   if(invalid.length){content.insertAdjacentHTML("beforeend",'<div class="weight-note">'+t("Enter a valid yarn count and density for: ","برای این ردیف‌ها نمره نخ و تراکم معتبر وارد کن: ")+invalid.join("، ")+'</div>');return;}
   const total=warp+weft,area=widthM>0?total/widthM:0;
   content.innerHTML='<div class="weight-results"><div class="weight-result"><span>'+t("Warp weight / linear meter","وزن تار / متر طول")+'</span><strong>'+warp.toFixed(2)+' g/m</strong></div><div class="weight-result"><span>'+t("Weft weight / linear meter","وزن پود / متر طول")+'</span><strong>'+weft.toFixed(2)+' g/m</strong></div><div class="weight-result primary-result"><span>'+t("Total fabric weight / linear meter","وزن کل پارچه / متر طول")+'</span><strong>'+total.toFixed(2)+' g/m</strong></div><div class="weight-result primary-result"><span>'+t("Fabric areal weight","وزن سطحی پارچه")+'</span><strong>'+area.toFixed(2)+' g/m²</strong></div></div><div class="weight-breakdown"><h3>'+t("Yarn-by-yarn breakdown","ریز محاسبات نخ‌به‌نخ")+'</h3>'+rows.map(r=>'<div class="weight-breakdown-row"><span>'+esc(r.name)+'</span><strong>'+r.mass.toFixed(3)+' g/m</strong></div>').join("")+'</div><div class="weight-note">'+t("Theoretical estimate based on entered density and yarn count. No crimp or shrinkage allowance is applied.","برآورد تئوری بر اساس تراکم و نمره نخ واردشده است. هیچ درصد جمع‌شدگی یا مصرف اضافه‌ای اعمال نشده است.")+'</div>';
-  next.textContent=t("Start again","شروع مجدد");next.onclick=()=>{step=0;data.warp=[];data.weft=[];render();next.onclick=advance;};
+  calculated=true;next.textContent=t("Start again","شروع مجدد");
  }
- function advance(){if(step===0){saveSetup();step=1;render();return;}if(step===1){saveSetup();initRows();step=2;render();return;}collectRows();calculate();}
+ function advance(){if(calculated){step=0;calculated=false;data.warp=[];data.weft=[];render();return;}if(step===0){saveSetup();step=1;render();return;}if(step===1){saveSetup();initRows();step=2;render();return;}collectRows();calculate();}
  next.addEventListener("click",advance);prev.addEventListener("click",()=>{if(step>0){if(step===2)collectRows();step--;render();}});
  document.getElementById("weightClose").addEventListener("click",()=>{screen.classList.remove("show");screen.setAttribute("aria-hidden","true");});
- document.getElementById("fabricWeightTool").addEventListener("click",()=>{step=0;data={warpCount:3,weftCount:2,width:150,warpDensity:66,weftDensity:6,warp:[],weft:[]};next.onclick=advance;render();screen.classList.add("show");screen.setAttribute("aria-hidden","false");});
+ document.getElementById("fabricWeightTool").addEventListener("click",()=>{step=0;calculated=false;data={warpCount:3,weftCount:2,width:150,warpDensity:66,weftDensity:6,warp:[],weft:[]};render();screen.classList.add("show");screen.setAttribute("aria-hidden","false");});
  content.addEventListener("input",e=>{if(e.target.matches("[data-yarn]")){const y=data[e.target.dataset.yarn][Number(e.target.dataset.i)];y[e.target.dataset.k]=e.target.dataset.k==="value"||e.target.dataset.k==="density"?Number(e.target.value):e.target.value;}});
  content.addEventListener("change",e=>{if(e.target.matches("[data-yarn]")){const y=data[e.target.dataset.yarn][Number(e.target.dataset.i)];y[e.target.dataset.k]=e.target.value;}});
 })();
