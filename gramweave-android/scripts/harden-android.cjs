@@ -29,7 +29,25 @@ if (/buildTypes\s*\{/.test(gradle)) {
 } else {
   throw new Error("Could not locate Android buildTypes block.");
 }
+
+if (!/signingConfigs\\s*\\{/.test(gradle)) {
+  gradle = gradle.replace(/android\\s*\\{/, `android {
+    signingConfigs {
+      release {
+        storeFile file("release-key.jks")
+        storePassword System.getenv("ANDROID_KEYSTORE_PASSWORD")
+        keyAlias System.getenv("ANDROID_KEY_ALIAS")
+        keyPassword System.getenv("ANDROID_KEY_PASSWORD")
+      }
+    }`);
+}
+if (!/release\\s*\\{[^}]*signingConfig\\s+signingConfigs\\.release/s.test(gradle)) {
+  gradle = gradle.replace(/buildTypes\\s*\\{/, 'buildTypes {\\n        release { signingConfig signingConfigs.release; minifyEnabled false }');
+}
+gradle = gradle.replace(/versionCode\\s+\\d+/, 'versionCode ' + (process.env.VERSION_CODE || '2'));
+gradle = gradle.replace(/versionName\\s+"[^"]*"/, 'versionName "' + (process.env.VERSION_NAME || '1.1.0') + '"');
 fs.writeFileSync(gradlePath, gradle, "utf8");
+
 
 // Fail closed if a future plugin reintroduces network/device permissions.
 if (/<uses-permission\b/i.test(manifest)) {
