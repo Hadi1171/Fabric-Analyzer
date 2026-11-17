@@ -1,10 +1,15 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
-<rect width="512" height="512" rx="112" fill="#17232d"/>
-<g fill="none" stroke="#d7bc8a" stroke-linecap="round" stroke-linejoin="round">
-<path stroke-width="22" d="M112 314h288l-38 104H150z"/>
-<path stroke-width="22" d="m156 280 100-142 100 142H156z"/>
-<path stroke-width="18" d="M190 236h132M211 200h90M256 138V91m-48 0h96"/>
-<path stroke-width="15" d="M178 356h156"/>
+<defs>
+ <linearGradient id="bg" x1="52" y1="28" x2="455" y2="488" gradientUnits="userSpaceOnUse"><stop stop-color="#242139"/><stop offset="1" stop-color="#11131d"/></linearGradient>
+ <linearGradient id="thread" x1="115" y1="110" x2="399" y2="400" gradientUnits="userSpaceOnUse"><stop stop-color="#d9c7ff"/><stop offset="1" stop-color="#9878ed"/></linearGradient>
+</defs>
+<rect width="512" height="512" rx="112" fill="url(#bg)"/>
+<rect x="1.5" y="1.5" width="509" height="509" rx="110.5" stroke="#c9b6ff" stroke-opacity=".13" stroke-width="3"/>
+<g fill="none" stroke="url(#thread)" stroke-width="27" stroke-linecap="round" stroke-linejoin="round">
+ <path d="M151 135v242c0 14 18 19 25 7l160-254c8-13 28-7 28 8v239"/>
+ <path d="M132 210h248M132 302h248"/>
 </g>
-<path d="M194 274h124l-13 28H207z" fill="#d7bc8a" opacity=".22"/>
+<path d="M132 210h248" stroke="#f1eaff" stroke-width="12" stroke-linecap="round" stroke-dasharray="52 26"/>
+<path d="M132 302h248" stroke="#8e70df" stroke-width="12" stroke-linecap="round" stroke-dasharray="52 26"/>
+<circle cx="256" cy="256" r="18" fill="#f1eaff"/>
 </svg>
