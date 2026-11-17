@@ -28,8 +28,6 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: "22"
-          cache: npm
-          cache-dependency-path: gramweave-android/package.json
 
       - name: Set up Java
         uses: actions/setup-java@v4
@@ -58,6 +56,10 @@ jobs:
       - name: Generate Capacitor Android project
         working-directory: gramweave-android
         run: npx cap add android
+
+      - name: Generate native Gram Weave icons
+        working-directory: gramweave-android
+        run: npm run prepare:web
 
       - name: Apply Android security hardening
         working-directory: gramweave-android
