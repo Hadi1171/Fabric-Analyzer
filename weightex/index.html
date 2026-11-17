@@ -242,7 +242,8 @@ body:has(.wizard.show) .exitbtn{display:grid}
 const units=[
  ['Nm','Nm'],['Den','Den'],['Tex','Tex'],['dTex','dTex'],['Ne','Ne (پنبه‌ای)'],['NeL','NeL (لینن)'],['Worsted','Worsted'],['Woolen','Woolen']
 ];
-const CALC_LENGTH_M=1; // fixed calculation length: one metre; intentionally not shown as an input\nconst types=['شانل','سوپر','سوپر شانل','پلی‌استر','پنبه','ویسکوز','اکریلیک','لینن','سایر'];
+const CALC_LENGTH_M=1; // fixed calculation length: one metre; intentionally not shown as an input
+const types=['شانل','سوپر','سوپر شانل','پلی‌استر','پنبه','ویسکوز','اکریلیک','لینن','سایر'];
 const fmt=(n,d=2)=>new Intl.NumberFormat('fa-IR',{maximumFractionDigits:d}).format(n);
 function val(id){return Number(document.getElementById(id).value)}
 function closeModal(id){document.getElementById(id).classList.remove('show')}
