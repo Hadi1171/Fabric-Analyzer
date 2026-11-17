@@ -278,6 +278,17 @@ body:has(.wizard.show) .exitbtn{display:grid}
  .unit-menu{z-index:2001}
 }
 
+
+/* Unit menu must sit above navigation and open upward on mobile */
+@media(max-width:768px){
+  .wizardpage.active{position:relative;z-index:100}
+  .wizardnav{z-index:2}
+  .yarnlist{isolation:auto}
+  .yarn:focus-within{position:relative;z-index:10010}
+  .yarnfields,.yarnfield,.unit-picker{overflow:visible}
+  .unit-picker:focus-within{z-index:10020}
+  .unit-menu{top:auto!important;bottom:calc(100% + 7px)!important;z-index:10030!important;max-height:min(230px,42dvh);box-shadow:0 18px 42px #000e}
+}
 </style>
 </head>
 <body>
@@ -379,7 +390,7 @@ function openYarns(){
 function cards(side,n){
  let html='';
  for(let i=1;i<=n;i++){
-  html+='<div class="yarn"><div class="yarnhead"><span>'+(side==='warp'?'تار ':'پود ')+fmt(i,0)+'</span><span style="color:#9ba8bb;font-weight:normal">سیستم '+fmt(i,0)+'</span></div><div class="yarnfields"><div class="yarnfield"><label>اسم نخ:</label><input type="text" placeholder="مثلاً شانل" aria-label="اسم نخ"></div><div class="yarnfield"><label>نمره نخ:</label><input type="number" min="0.0001" step="any" placeholder="مثلاً ۲٫۵" aria-label="نمره نخ"></div><div class="yarnfield"><label>محاسبه بر اساس:</label><select class="native-unit" aria-label="نوع محاسبه"><option value="" selected disabled>مثلاً Nm</option>'+units.map(u=>'<option value="'+u[0]+'">'+u[1]+'</option>').join('')+'</select><div class="unit-picker"><button class="unit-trigger" type="button" aria-label="انتخاب نوع محاسبه" aria-expanded="false" onclick="toggleUnitPicker(this)" data-value=""><span class="unit-current">مثلاً Nm</span><svg viewBox="0 0 20 20" aria-hidden="true"><path d="m5 7 5 5-5 5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></button><div class="unit-menu" hidden>'+units.map(u=>'<button type="button" class="unit-option" data-value="'+u[0]+'" onclick="chooseUnit(this)"><span>'+u[1]+'</span><i></i></button>').join('')+'</div></div></div></div></div>';
+  html+='<div class="yarn"><div class="yarnhead"><span>'+(side==='warp'?'تار ':'پود ')+fmt(i,0)+'</span><span style="color:#9ba8bb;font-weight:normal">سیستم '+fmt(i,0)+'</span></div><div class="yarnfields"><div class="yarnfield"><label>اسم نخ:</label><input type="text" placeholder="مثلاً شانل" aria-label="اسم نخ"></div><div class="yarnfield"><label>نمره نخ:</label><input type="number" min="0.0001" step="any" placeholder="مثلاً ۲٫۵" aria-label="نمره نخ"></div><div class="yarnfield"><label>محاسبه بر اساس:</label><select class="native-unit" aria-label="نوع محاسبه"><option value="" selected disabled></option>'+units.map(u=>'<option value="'+u[0]+'">'+u[1]+'</option>').join('')+'</select><div class="unit-picker"><button class="unit-trigger" type="button" aria-label="انتخاب نوع محاسبه" aria-expanded="false" onclick="toggleUnitPicker(this)" data-value=""><span class="unit-current"></span><svg viewBox="0 0 20 20" aria-hidden="true"><path d="m5 7 5 5-5 5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></button><div class="unit-menu" hidden>'+units.map(u=>'<button type="button" class="unit-option" data-value="'+u[0]+'" onclick="chooseUnit(this)"><span>'+u[1]+'</span><i></i></button>').join('')+'</div></div></div></div></div>';
  }
  return html;
 }
