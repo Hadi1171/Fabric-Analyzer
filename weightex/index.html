@@ -363,6 +363,7 @@ body:has(.wizard.show) .exitbtn{display:grid}
 <div class="helpitem"><b>لینن · NeL</b><p>سیستم شمارش مخصوص نخ لینن و متفاوت از Ne پنبه‌ای.</p></div>
 <div class="helpitem"><b>Worsted / Woolen</b><p>سیستم‌های شمارش برای نخ‌های پشمی؛ ضرایب تبدیل با هم متفاوت‌اند.</p></div>
 <div class="helpitem"><b>Tex / dTex / Den</b><p>به‌ترتیب گرم در ۱۰۰۰، ۱۰۰۰۰ و ۹۰۰۰ متر نخ.</p></div>
+<div class="helpitem"><b>راهنمای ظرافت نخ در Nm</b><p>این دسته‌بندی تقریبی و برای تشخیص ظرافت نخ است، نه محدودیت رسمی ورود عدد:<br>۱ تا ۵: بسیار ضخیم<br>بیشتر از ۵ تا ۱۰: ضخیم<br>بیشتر از ۱۰ تا ۲۰: متوسط رو به ضخیم<br>بیشتر از ۲۰ تا ۳۰: متوسط<br>بیشتر از ۳۰ تا ۴۰: نسبتاً ظریف<br>بیشتر از ۴۰ تا ۶۰: ظریف<br>بیشتر از ۶۰ تا ۱۰۰: بسیار ظریف<br>بالاتر از ۱۰۰: فوق‌ظریف و تخصصی<br><br>در Nm هرچه عدد بزرگ‌تر باشد، نخ ظریف‌تر است. مقادیر خارج از این دسته‌ها هم قابل ورود و محاسبه‌اند.</p></div>
 </div></div></section></div>
 <script>
 const units=[
@@ -490,11 +491,8 @@ function selectedYarnUnit(card){
  return window.matchMedia('(max-width:560px)').matches?mobile.dataset.value:native.value;
 }
 function yarnCountRangeMessage(number,unit){
- const range=yarnCountLimits[unit];
- if(!range)return 'واحد محاسبه را انتخاب کن.';
- if(!Number.isFinite(number)||number<range.min||number>range.max){
-  return unit+' باید بین '+fmt(range.min,3)+' تا '+fmt(range.max,3)+' باشد.';
- }
+ if(!unit)return 'واحد محاسبه را انتخاب کن.';
+ if(!Number.isFinite(number)||number<=0)return 'نمره نخ باید عددی بزرگ‌تر از صفر باشد.';
  return '';
 }
 function validateYarnStep(side,next){
