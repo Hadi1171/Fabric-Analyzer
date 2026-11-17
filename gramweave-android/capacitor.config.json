@@ -1,0 +1,12 @@
+{
+  "appId": "com.hadi1171.gramweave",
+  "appName": "Gram Weave",
+  "webDir": "www",
+  "server": {
+    "androidScheme": "https"
+  },
+  "android": {
+    "allowMixedContent": false,
+    "webContentsDebuggingEnabled": false
+  }
+}
