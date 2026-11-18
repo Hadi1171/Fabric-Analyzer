@@ -20,17 +20,15 @@ function addYarnTube(paths,pointCount,pointAt,acrossRadius,heightRadius,warp,mat
 function isChenilleType(type){const t=String(type||"").toLowerCase();return t.includes("chenille")||t.includes("شانل");}
 function addChenillePile(paths,pointCount,pointAt,radius,tex,warp,material){
  if(!paths.length||pointCount<2||!(radius>0))return;
- // Very dense chenille halo: more fibers around each yarn and tighter sampling along its length.
+ // Place chenille pile at a fixed six-pixel interval along EVERY yarn path.
+ // Keep every yarn path represented; do not thin the fabric into sparse columns.
  const texFactor=THREE.MathUtils.clamp(Math.sqrt(Math.max(1,Number(tex)||1)/100),.62,1.65);
- const around=Math.round(48+texFactor*16);
- const sampleCount=Math.min(pointCount,128);
- const sampleStep=Math.max(1,Math.ceil(pointCount/sampleCount));
- const selectedSamples=Math.ceil(pointCount/sampleStep);
- // High-detail cap keeps large JC5 maps practical while greatly increasing pile coverage.
- const targetFibers=900000;
- const pathStep=Math.max(1,Math.ceil(paths.length*selectedSamples*around/targetFibers));
- const selectedPaths=Math.ceil(paths.length/pathStep);
- const count=selectedPaths*selectedSamples*around;
+ const around=24;
+ const sampleStep=6;
+ const sampleIndices=[];
+ for(let j=0;j<pointCount;j+=sampleStep)sampleIndices.push(j);
+ if(sampleIndices[sampleIndices.length-1]!==pointCount-1)sampleIndices.push(pointCount-1);
+ const count=paths.length*sampleIndices.length*around;
  if(!count)return;
  const fiberLength=radius*(1.18+.38*texFactor),baseRadius=radius*.17;
  const geometry=new THREE.ConeGeometry(baseRadius,fiberLength,4,1);
@@ -40,17 +38,15 @@ function addChenillePile(paths,pointCount,pointAt,radius,tex,warp,material){
  const up=new THREE.Vector3(0,1,0),normal=new THREE.Vector3(),position=new THREE.Vector3(),scale=new THREE.Vector3(1,1,1),quaternion=new THREE.Quaternion(),matrix=new THREE.Matrix4();
  const color=new THREE.Color(),base=material.color?material.color.clone():new THREE.Color(0xb0a090);
  let index=0;
- for(let p=0;p<paths.length;p+=pathStep){
-  for(let j=0;j<pointCount;j+=sampleStep){
-   const center=pointAt(paths[p],j);
+ for(let p=0;p<paths.length;p++){
+  for(let si=0;si<sampleIndices.length;si++){
+   const j=sampleIndices[si],center=pointAt(paths[p],j);
    for(let k=0;k<around;k++){
-    // Build transverse horizontal rows, not repeated longitudinal columns.
-    // Alternate each row by half a fiber pitch so adjacent rows interlock like chenille pile.
-    const rowPhase=(j%2)*Math.PI/around;
+    // Stagger adjacent six-pixel rows to avoid longitudinal pile columns.
+    const rowPhase=(si%2)*Math.PI/around;
     const angle=(k/around)*Math.PI*2+rowPhase+(p%7)*.17;
     normal.set(warp?Math.cos(angle):0,Math.sin(angle),warp?0:Math.cos(angle)).normalize();
     const length=fiberLength*(.86+((p*13+j*7+k*17)%19)/100);
-    // Dense roots overlap slightly, concealing the yarn core beneath a continuous plush surface.
     position.set(center.x+normal.x*(radius+length*.28),center.y+normal.y*(radius+length*.28),center.z+normal.z*(radius+length*.28));
     quaternion.setFromUnitVectors(up,normal);
     scale.set(1,length/fiberLength,1);
