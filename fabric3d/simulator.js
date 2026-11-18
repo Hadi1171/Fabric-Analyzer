@@ -20,20 +20,38 @@ function countToTex(y){const n=Number(y?.count),raw=String(y?.unit||"Nm").trim()
  return{tex,diameterMm,radius:spacing*radiusRatio};
 }
 function makeFiberTexture(){
- const c=document.createElement("canvas");c.width=256;c.height=128;
- const x=c.getContext("2d");x.fillStyle="#808080";x.fillRect(0,0,c.width,c.height);
- // Fine, mostly lengthwise fibers with gentle irregularity; no glitter, pile or bright flecks.
- for(let i=0;i<1900;i++){
-  const y=Math.random()*c.height,px=Math.random()*c.width,len=5+Math.random()*38;
-  const shade=Math.random()>.5?"rgba(255,255,255,"+(0.035+Math.random()*.09)+")":"rgba(0,0,0,"+(0.035+Math.random()*.10)+")";
-  x.strokeStyle=shade;x.lineWidth=.35+Math.random()*.8;x.beginPath();
-  x.moveTo(px,y);x.quadraticCurveTo(px+len*.5,y+(Math.random()-.5)*1.8,px+len,y+(Math.random()-.5)*2);x.stroke();
+ const c=document.createElement("canvas");c.width=512;c.height=256;
+ const x=c.getContext("2d");
+ x.fillStyle="#808080";x.fillRect(0,0,c.width,c.height);
+ // Multi-scale yarn grain: soft longitudinal bundles, fine staple fibers and subtle
+ // irregularity. This adds surface detail only; the JC5 interlacement is untouched.
+ for(let i=0;i<18000;i++){
+  const y=Math.random()*c.height,px=Math.random()*c.width;
+  const len=3+Math.random()*72,curve=(Math.random()-.5)*3.2;
+  const alpha=.012+Math.random()*.055;
+  const light=Math.random()>.48;
+  x.strokeStyle=light?"rgba(255,255,255,"+alpha+")":"rgba(0,0,0,"+alpha+")";
+  x.lineWidth=.25+Math.random()*.75;x.beginPath();
+  x.moveTo(px,y);
+  x.bezierCurveTo(px+len*.28,y+curve,px+len*.72,y-curve,px+len,y+(Math.random()-.5)*1.5);
+  x.stroke();
  }
- const t=new THREE.CanvasTexture(c);t.wrapS=t.wrapT=THREE.RepeatWrapping;t.colorSpace=THREE.NoColorSpace;return t;
+ // Faint, broken fiber bundles create the soft spun-yarn character without pile.
+ for(let i=0;i<950;i++){
+  const y=Math.random()*c.height,px=Math.random()*c.width,len=12+Math.random()*105;
+  x.strokeStyle=Math.random()>.5?"rgba(255,255,255,.075)":"rgba(25,25,25,.065)";
+  x.lineWidth=.7+Math.random()*1.1;x.beginPath();
+  x.moveTo(px,y);x.quadraticCurveTo(px+len*.5,y+(Math.random()-.5)*2.5,px+len,y+(Math.random()-.5)*2);x.stroke();
+ }
+ const t=new THREE.CanvasTexture(c);t.wrapS=t.wrapT=THREE.RepeatWrapping;
+ t.colorSpace=THREE.NoColorSpace;t.anisotropy=8;return t;
 }
 const fiberTexture=makeFiberTexture();
 function materialFor(hex){
- return new THREE.MeshStandardMaterial({color:new THREE.Color(hex),roughness:.96,metalness:0,bumpMap:fiberTexture,bumpScale:.028});
+ return new THREE.MeshStandardMaterial({
+  color:new THREE.Color(hex),roughness:.94,roughnessMap:fiberTexture,
+  metalness:0,bumpMap:fiberTexture,bumpScale:.052
+ });
 }
 function init(){if(renderer)return;const host=$("simViewport");scene=new THREE.Scene();scene.background=new THREE.Color("#0b0f16");camera=new THREE.PerspectiveCamera(38,1,.001,1000);camera.position.set(7,6,8);renderer=new THREE.WebGLRenderer({antialias:true,preserveDrawingBuffer:true});renderer.setPixelRatio(Math.min(devicePixelRatio,1.75));renderer.setSize(host.clientWidth,host.clientHeight);renderer.shadowMap.enabled=false;renderer.outputColorSpace=THREE.SRGBColorSpace;renderer.toneMapping=THREE.ACESFilmicToneMapping;renderer.toneMappingExposure=1.12;host.appendChild(renderer.domElement);controls=new OrbitControls(camera,renderer.domElement);controls.enableDamping=true;scene.add(new THREE.HemisphereLight(0xf1f3f5,0x555b64,1.7));const key=new THREE.DirectionalLight(0xffffff,2.1);key.position.set(3,9,5);key.castShadow=true;key.shadow.mapSize.set(2048,2048);key.shadow.camera.left=-9;key.shadow.camera.right=9;key.shadow.camera.top=9;key.shadow.camera.bottom=-9;key.shadow.camera.near=.1;key.shadow.camera.far=30;key.shadow.bias=-0.00018;key.shadow.normalBias=.025;key.shadow.radius=3;scene.add(key);const fill=new THREE.DirectionalLight(0xcbdcff,1.2);fill.position.set(-6,4,3);scene.add(fill);root=new THREE.Group();scene.add(root);resizeObserver=new ResizeObserver(()=>{const w=Math.max(1,host.clientWidth),h=Math.max(1,host.clientHeight);camera.aspect=w/h;camera.updateProjectionMatrix();renderer.setSize(w,h);});resizeObserver.observe(host);(function loop(){requestAnimationFrame(loop);controls.update();renderer.render(scene,camera);})();}
 function readMap(file){return file.arrayBuffer().then(buf=>{const b=new Uint8Array(buf);if(b.length<133||b[0]!==0x81||b[1]!==0xfe||b[2]!==0x01||b[3]!==0x01)throw Error("Invalid or unsupported JC5 file. Use an EAT OpenWeave Converter JC5 file.");const head=new TextDecoder().decode(b.slice(0,132)),match=head.match(new RegExp("Area\\s+1:\\s*(\\d+)\\s+hooks","i"));if(!match)throw Error("JC5 header does not contain an Area 1 hook count.");const width=Number(match[1]),stride=Math.ceil(width/8),payload=b.length-132;if(!Number.isInteger(width)||width<1||payload<=0||payload%stride!==0)throw Error("JC5 hook matrix dimensions are invalid or incomplete.");const height=payload/stride,cells=new Uint8Array(width*height);let warpLift=0,weftLift=0;for(let y=0;y<height;y++){const row=132+(height-1-y)*stride;for(let x=0;x<width;x++){const bit=(b[row+(x>>3)]>>(x&7))&1;const i=y*width+x;if(bit){cells[i]=1;warpLift++;}else{cells[i]=2;weftLift++;}}}return{width,height,cells,warpLift,weftLift,invalid:0,total:width*height,sourceFormat:"JC5 EAT",sourceBits:1};});}
