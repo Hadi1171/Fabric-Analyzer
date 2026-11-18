@@ -18,14 +18,23 @@ function readMap(file){return file.arrayBuffer().then(buf=>{const b=new Uint8Arr
 function disposeRoot(){root.traverse(o=>{if(o.geometry)o.geometry.dispose();if(o.material){if(Array.isArray(o.material))o.material.forEach(m=>m.dispose());else o.material.dispose();}});root.clear();}
 function addYarnTube(paths,pointCount,pointAt,acrossRadius,heightRadius,warp,material,radialSegments,subdivisions){if(!paths.length||pointCount<2)return;const sides=radialSegments,steps=Math.max(1,subdivisions||1),sampleCount=(pointCount-1)*steps+1,vertexCount=paths.length*sampleCount*sides,indexCount=paths.length*(sampleCount-1)*sides*6,positions=new Float32Array(vertexCount*3),uvs=new Float32Array(vertexCount*2),indices=new Uint32Array(indexCount);let vi=0,ii=0;for(let p=0;p<paths.length;p++){for(let j=0;j<sampleCount;j++){const t=j/steps,seg=Math.min(pointCount-2,Math.floor(t)),f=t-seg,e=f*f*(3-2*f),a=pointAt(paths[p],seg),b=pointAt(paths[p],seg+1),cx=a.x+(b.x-a.x)*e,cy=a.y+(b.y-a.y)*e,cz=a.z+(b.z-a.z)*e,u=(j/(sampleCount-1))*Math.max(1,(pointCount-1)/12);for(let k=0;k<sides;k++){const angle=(k/sides)*Math.PI*2,across=Math.cos(angle)*acrossRadius,vertical=Math.sin(angle)*heightRadius,base=vi*3;if(warp){positions[base]=cx+across;positions[base+1]=cy+vertical;positions[base+2]=cz;}else{positions[base]=cx;positions[base+1]=cy+vertical;positions[base+2]=cz+across;}uvs[vi*2]=u;uvs[vi*2+1]=k/sides;vi++;}if(j>0){const current=(p*sampleCount+j)*sides,previous=current-sides;for(let k=0;k<sides;k++){const next=(k+1)%sides,a=previous+k,b=previous+next,c=current+k,d=current+next;if(warp){indices[ii++]=a;indices[ii++]=b;indices[ii++]=c;indices[ii++]=b;indices[ii++]=d;indices[ii++]=c;}else{indices[ii++]=a;indices[ii++]=c;indices[ii++]=b;indices[ii++]=b;indices[ii++]=c;indices[ii++]=d;}}}}}const geo=new THREE.BufferGeometry();geo.setAttribute("position",new THREE.BufferAttribute(positions,3));geo.setAttribute("uv",new THREE.BufferAttribute(uvs,2));geo.setIndex(new THREE.BufferAttribute(indices,1));geo.computeVertexNormals();const yarnMaterial=material.clone();yarnMaterial.side=THREE.DoubleSide;const mesh=new THREE.Mesh(geo,yarnMaterial);mesh.castShadow=true;mesh.receiveShadow=true;root.add(mesh);}
 function isChenilleType(type){const t=String(type||"").toLowerCase();return t.includes("chenille")||t.includes("شانل");}
-function addChenillePile(paths,pointCount,pointAt,radius,warp,material){
+function addChenillePile(paths,pointCount,pointAt,radius,tex,warp,material){
  if(!paths.length||pointCount<2||!(radius>0))return;
- const pathStep=Math.max(1,Math.ceil(paths.length/150)),sampleStep=Math.max(1,Math.ceil(pointCount/28)),around=8;
- const count=Math.ceil(paths.length/pathStep)*Math.ceil(pointCount/sampleStep)*around;
+ // Coarser yarns (higher Tex) get longer, fuller pile; finer yarns stay shorter.
+ const texFactor=THREE.MathUtils.clamp(Math.sqrt(Math.max(1,Number(tex)||1)/100),.62,1.65);
+ const around=Math.round(14+texFactor*4);
+ const sampleCount=Math.min(pointCount,64);
+ const sampleStep=Math.max(1,Math.ceil(pointCount/sampleCount));
+ const selectedSamples=Math.ceil(pointCount/sampleStep);
+ // Keep the instanced pile bounded for large JC5 files without sacrificing coverage on small maps.
+ const targetFibers=180000;
+ const pathStep=Math.max(1,Math.ceil(paths.length*selectedSamples*around/targetFibers));
+ const selectedPaths=Math.ceil(paths.length/pathStep);
+ const count=selectedPaths*selectedSamples*around;
  if(!count)return;
- const fiberLength=radius*.82,baseRadius=radius*.105;
- const geometry=new THREE.ConeGeometry(baseRadius,fiberLength,3,1);
- const pileMaterial=new THREE.MeshStandardMaterial({color:material.color||0xb0a090,roughness:.98,metalness:0});
+ const fiberLength=radius*(1.12+.34*texFactor),baseRadius=radius*.14;
+ const geometry=new THREE.ConeGeometry(baseRadius,fiberLength,4,1);
+ const pileMaterial=new THREE.MeshStandardMaterial({color:material.color||0xb0a090,roughness:.99,metalness:0});
  const pile=new THREE.InstancedMesh(geometry,pileMaterial,count);
  pile.castShadow=false;pile.receiveShadow=true;
  const up=new THREE.Vector3(0,1,0),normal=new THREE.Vector3(),position=new THREE.Vector3(),scale=new THREE.Vector3(1,1,1),quaternion=new THREE.Quaternion(),matrix=new THREE.Matrix4();
@@ -37,12 +46,13 @@ function addChenillePile(paths,pointCount,pointAt,radius,warp,material){
    for(let k=0;k<around;k++){
     const angle=(k/around)*Math.PI*2+(p%7)*.17+(j%5)*.11;
     normal.set(warp?Math.cos(angle):0,Math.sin(angle),warp?0:Math.cos(angle)).normalize();
-    const length=fiberLength*(.68+((p*13+j*7+k*17)%31)/100);
-    position.set(center.x+normal.x*(radius+length*.38),center.y+normal.y*(radius+length*.38),center.z+normal.z*(radius+length*.38));
+    const length=fiberLength*(.82+((p*13+j*7+k*17)%25)/100);
+    // Sink the pile roots slightly into the core so the chenille body is visually hidden.
+    position.set(center.x+normal.x*(radius+length*.34),center.y+normal.y*(radius+length*.34),center.z+normal.z*(radius+length*.34));
     quaternion.setFromUnitVectors(up,normal);
     scale.set(1,length/fiberLength,1);
     matrix.compose(position,quaternion,scale);pile.setMatrixAt(index,matrix);
-    color.copy(base).multiplyScalar(.78+((p*19+j*11+k*23)%37)/100);pile.setColorAt(index,color);
+    color.copy(base).multiplyScalar(.78+((p*19+j*11+k*23)%30)/100);pile.setColorAt(index,color);
     index++;
    }
   }
@@ -55,8 +65,8 @@ for(let x=0;x<data.width;x++){const si=sequenceIndex(warpSeq,x,warpN);if(si<0)th
 for(let y=0;y<data.height;y++){const si=sequenceIndex(weftSeq,y,weftN);if(si<0)throw Error("Weft rhythm refers to a system that is not configured.");weftBy[si].push(y);}
 const warpMat=[],weftMat=[];for(let i=0;i<warpN;i++)warpMat.push(materialFor(yarnColor(p.warpYarns,i,"#eeeeee"),yarnType(p.warpYarns,i),"auto"));for(let i=0;i<weftN;i++)weftMat.push(materialFor(yarnColor(p.weftYarns,i,"#d92d3a"),yarnType(p.weftYarns,i),"auto"));
 for(const m of warpMat){m.roughness=Math.max(m.roughness??0,.84);if("clearcoat" in m)m.clearcoat=Math.min(m.clearcoat??0,.18);if("sheen" in m)m.sheen=Math.min(m.sheen??0,.22);if("metalness" in m)m.metalness=Math.min(m.metalness??0,.12);if("bumpScale" in m)m.bumpScale*=.72;}
-const midX=(data.width-1)/2,midZ=(data.height-1)/2;for(let s=0;s<warpN;s++){const d=warpDims[s],pointAt=(x,y)=>{const cell=data.cells[y*data.width+x];return new THREE.Vector3((x-midX)*sx,cell===1?d.radius:cell===2?-d.radius:0,(y-midZ)*sz);};addYarnTube(warpBy[s],data.height,pointAt,d.radius,d.radius,true,warpMat[s],radialSegments,curveSubdivisions);if(isChenilleType(yarnType(p.warpYarns,s)))addChenillePile(warpBy[s],data.height,pointAt,d.radius,true,warpMat[s]);}
-for(let s=0;s<weftN;s++){const d=weftDims[s],pointAt=(y,x)=>{const cell=data.cells[y*data.width+x];return new THREE.Vector3((x-midX)*sx,cell===2?d.radius:cell===1?-d.radius:0,(y-midZ)*sz);};addYarnTube(weftBy[s],data.width,pointAt,d.radius,d.radius,false,weftMat[s],radialSegments,curveSubdivisions);if(isChenilleType(yarnType(p.weftYarns,s)))addChenillePile(weftBy[s],data.width,pointAt,d.radius,false,weftMat[s]);}
+const midX=(data.width-1)/2,midZ=(data.height-1)/2;for(let s=0;s<warpN;s++){const d=warpDims[s],pointAt=(x,y)=>{const cell=data.cells[y*data.width+x];return new THREE.Vector3((x-midX)*sx,cell===1?d.radius:cell===2?-d.radius:0,(y-midZ)*sz);};addYarnTube(warpBy[s],data.height,pointAt,d.radius,d.radius,true,warpMat[s],radialSegments,curveSubdivisions);if(isChenilleType(yarnType(p.warpYarns,s)))addChenillePile(warpBy[s],data.height,pointAt,d.radius,d.tex,true,warpMat[s]);}
+for(let s=0;s<weftN;s++){const d=weftDims[s],pointAt=(y,x)=>{const cell=data.cells[y*data.width+x];return new THREE.Vector3((x-midX)*sx,cell===2?d.radius:cell===1?-d.radius:0,(y-midZ)*sz);};addYarnTube(weftBy[s],data.width,pointAt,d.radius,d.radius,false,weftMat[s],radialSegments,curveSubdivisions);if(isChenilleType(yarnType(p.weftYarns,s)))addChenillePile(weftBy[s],data.width,pointAt,d.radius,d.tex,false,weftMat[s]);}
 const fabricWidth=Math.max(sx,xSpan),fabricLength=Math.max(sz,zSpan);
 const box=new THREE.Box3().setFromObject(root);if(!box.isEmpty()){const center=box.getCenter(new THREE.Vector3());root.position.sub(center);const sphere=box.getBoundingSphere(new THREE.Sphere()),vFov=THREE.MathUtils.degToRad(camera.fov),aspect=Math.max(.5,$("simViewport").clientWidth/Math.max(1,$("simViewport").clientHeight)),hFov=2*Math.atan(Math.tan(vFov/2)*aspect),limitingFov=Math.min(vFov,hFov),distance=(sphere.radius/Math.sin(limitingFov/2))*1.08,dir=new THREE.Vector3(.22,.42,1).normalize();camera.position.copy(dir.multiplyScalar(distance));controls.target.set(0,0,0);camera.lookAt(0,0,0);controls.minDistance=Math.max(.015,distance*.004);controls.maxDistance=distance*12;controls.update();}
 $("simStats").innerHTML='<b>Source:</b> EAT JC5 · '+data.width.toLocaleString()+' × '+data.height.toLocaleString()+' hooks/picks<br><b>Complete matrix:</b> '+data.total.toLocaleString()+' crossings processed · 100% width and height<br><b>Warp density:</b> '+wd+' ends/cm · <b>Weft density:</b> '+fd+' picks/cm<br><b>Fabric footprint:</b> '+xSpan.toFixed(3)+' × '+zSpan.toFixed(3)+' cm<br><b>Rendered yarns:</b> '+data.width.toLocaleString()+' warp ends · '+data.height.toLocaleString()+' weft picks';const note=$("simAccuracyNote");if(note)note.textContent="Full JC5 matrix rendered. Warp and weft are built as continuous rounded yarn tubes with smoothed over-under transitions, corrected warp surface normals, and fiber-texture UVs; yarn deformation and fiber microstructure remain visual approximations, not a physical textile solver.";}
