@@ -21,27 +21,36 @@ function countToTex(y){const n=Number(y?.count),raw=String(y?.unit||"Nm").trim()
 }
 function makeFiberTexture(){
  const c=document.createElement("canvas");c.width=512;c.height=256;
- const x=c.getContext("2d");
+ const x=c.getContext("2d",{alpha:false});
  x.fillStyle="#808080";x.fillRect(0,0,c.width,c.height);
- // Multi-scale yarn grain: soft longitudinal bundles, fine staple fibers and subtle
- // irregularity. This adds surface detail only; the JC5 interlacement is untouched.
- for(let i=0;i<18000;i++){
-  const y=Math.random()*c.height,px=Math.random()*c.width;
-  const len=3+Math.random()*72,curve=(Math.random()-.5)*3.2;
-  const alpha=.012+Math.random()*.055;
-  const light=Math.random()>.48;
-  x.strokeStyle=light?"rgba(255,255,255,"+alpha+")":"rgba(0,0,0,"+alpha+")";
-  x.lineWidth=.25+Math.random()*.75;x.beginPath();
-  x.moveTo(px,y);
-  x.bezierCurveTo(px+len*.28,y+curve,px+len*.72,y-curve,px+len,y+(Math.random()-.5)*1.5);
-  x.stroke();
+ // Deterministic fine spun-yarn grain. Fibers follow the yarn axis but drift
+ // slightly around the surface, avoiding the artificial parallel-rib look.
+ let seed=0x4f1bbcdc;
+ const rand=()=>{seed=(seed*1664525+1013904223)>>>0;return seed/4294967296;};
+ // Very low-contrast fiber bed at several scales.
+ for(let i=0;i<12500;i++){
+  const px=rand()*c.width,y=rand()*c.height,len=4+rand()*58;
+  const drift=(rand()-.5)*5,alpha=.012+rand()*.035;
+  x.strokeStyle=rand()>.5?"rgba(255,255,255,"+alpha+")":"rgba(20,20,20,"+alpha+")";
+  x.lineWidth=.2+rand()*.55;x.beginPath();x.moveTo(px,y);
+  x.bezierCurveTo(px+len*.3,y+drift,px+len*.72,y-drift*.35,px+len,y+(rand()-.5)*1.2);x.stroke();
  }
- // Faint, broken fiber bundles create the soft spun-yarn character without pile.
- for(let i=0;i<950;i++){
-  const y=Math.random()*c.height,px=Math.random()*c.width,len=12+Math.random()*105;
-  x.strokeStyle=Math.random()>.5?"rgba(255,255,255,.075)":"rgba(25,25,25,.065)";
-  x.lineWidth=.7+Math.random()*1.1;x.beginPath();
-  x.moveTo(px,y);x.quadraticCurveTo(px+len*.5,y+(Math.random()-.5)*2.5,px+len,y+(Math.random()-.5)*2);x.stroke();
+ // Occasional soft fiber bundles; deliberately sparse so they read as yarn,
+ // not fuzz, glitter or a repeated embossed stripe.
+ for(let i=0;i<620;i++){
+  const px=rand()*c.width,y=rand()*c.height,len=10+rand()*92;
+  const alpha=.018+rand()*.028;
+  x.strokeStyle=rand()>.5?"rgba(255,255,255,"+alpha+")":"rgba(18,18,18,"+alpha+")";
+  x.lineWidth=.45+rand()*.75;x.beginPath();x.moveTo(px,y);
+  x.quadraticCurveTo(px+len*.48,y+(rand()-.5)*3,px+len,y+(rand()-.5)*2);x.stroke();
+ }
+ // Subtle broken diagonal flecks suggest fibers wrapping through the yarn twist.
+ for(let i=0;i<1150;i++){
+  const px=rand()*c.width,y=rand()*c.height,len=2+rand()*13;
+  const alpha=.012+rand()*.025;
+  x.strokeStyle=rand()>.5?"rgba(255,255,255,"+alpha+")":"rgba(16,16,16,"+alpha+")";
+  x.lineWidth=.25+rand()*.45;x.beginPath();x.moveTo(px,y);
+  x.lineTo(px+len,y+(rand()-.5)*2.4);x.stroke();
  }
  const t=new THREE.CanvasTexture(c);t.wrapS=t.wrapT=THREE.RepeatWrapping;
  t.colorSpace=THREE.NoColorSpace;t.anisotropy=8;return t;
@@ -49,8 +58,8 @@ function makeFiberTexture(){
 const fiberTexture=makeFiberTexture();
 function materialFor(hex){
  return new THREE.MeshStandardMaterial({
-  color:new THREE.Color(hex),roughness:.94,roughnessMap:fiberTexture,
-  metalness:0,bumpMap:fiberTexture,bumpScale:.052
+  color:new THREE.Color(hex),roughness:.97,roughnessMap:fiberTexture,
+  metalness:0,bumpMap:fiberTexture,bumpScale:.026
  });
 }
 function init(){if(renderer)return;const host=$("simViewport");scene=new THREE.Scene();scene.background=new THREE.Color("#0b0f16");camera=new THREE.PerspectiveCamera(38,1,.001,1000);camera.position.set(7,6,8);renderer=new THREE.WebGLRenderer({antialias:true,preserveDrawingBuffer:true});renderer.setPixelRatio(Math.min(devicePixelRatio,1.75));renderer.setSize(host.clientWidth,host.clientHeight);renderer.shadowMap.enabled=false;renderer.outputColorSpace=THREE.SRGBColorSpace;renderer.toneMapping=THREE.ACESFilmicToneMapping;renderer.toneMappingExposure=1.12;host.appendChild(renderer.domElement);controls=new OrbitControls(camera,renderer.domElement);controls.enableDamping=true;scene.add(new THREE.HemisphereLight(0xf1f3f5,0x555b64,1.7));const key=new THREE.DirectionalLight(0xffffff,2.1);key.position.set(3,9,5);key.castShadow=true;key.shadow.mapSize.set(2048,2048);key.shadow.camera.left=-9;key.shadow.camera.right=9;key.shadow.camera.top=9;key.shadow.camera.bottom=-9;key.shadow.camera.near=.1;key.shadow.camera.far=30;key.shadow.bias=-0.00018;key.shadow.normalBias=.025;key.shadow.radius=3;scene.add(key);const fill=new THREE.DirectionalLight(0xcbdcff,1.2);fill.position.set(-6,4,3);scene.add(fill);root=new THREE.Group();scene.add(root);resizeObserver=new ResizeObserver(()=>{const w=Math.max(1,host.clientWidth),h=Math.max(1,host.clientHeight);camera.aspect=w/h;camera.updateProjectionMatrix();renderer.setSize(w,h);});resizeObserver.observe(host);(function loop(){requestAnimationFrame(loop);controls.update();renderer.render(scene,camera);})();}
@@ -58,7 +67,7 @@ function readMap(file){return file.arrayBuffer().then(buf=>{const b=new Uint8Arr
 function disposeRoot(){root.traverse(o=>{if(o.geometry)o.geometry.dispose();if(o.material){if(Array.isArray(o.material))o.material.forEach(m=>m.dispose());else o.material.dispose();}});root.clear();}
 function addYarnTube(paths,pointCount,pointAt,acrossRadius,heightRadius,warp,material,radialSegments,subdivisions){if(!paths.length||pointCount<2)return;const sides=radialSegments,steps=Math.max(1,subdivisions||1),sampleCount=(pointCount-1)*steps+1,vertexCount=paths.length*sampleCount*sides,indexCount=paths.length*(sampleCount-1)*sides*6,positions=new Float32Array(vertexCount*3),uvs=new Float32Array(vertexCount*2),indices=new Uint32Array(indexCount);let vi=0,ii=0;for(let p=0;p<paths.length;p++){for(let j=0;j<sampleCount;j++){const t=j/steps,seg=Math.min(pointCount-2,Math.floor(t)),f=t-seg,e=f*f*(3-2*f),a=pointAt(paths[p],seg),b=pointAt(paths[p],seg+1),cx=a.x+(b.x-a.x)*e,cy=a.y+(b.y-a.y)*e,cz=a.z+(b.z-a.z)*e,u=(j/(sampleCount-1))*Math.max(1,(pointCount-1)/12);for(let k=0;k<sides;k++){const angle=(k/sides)*Math.PI*2,across=Math.cos(angle)*acrossRadius,vertical=Math.sin(angle)*heightRadius,base=vi*3;if(warp){positions[base]=cx+across;positions[base+1]=cy+vertical;positions[base+2]=cz;}else{positions[base]=cx;positions[base+1]=cy+vertical;positions[base+2]=cz+across;}uvs[vi*2]=u;uvs[vi*2+1]=k/sides;vi++;}if(j>0){const current=(p*sampleCount+j)*sides,previous=current-sides;for(let k=0;k<sides;k++){const next=(k+1)%sides,a=previous+k,b=previous+next,c=current+k,d=current+next;if(warp){indices[ii++]=a;indices[ii++]=b;indices[ii++]=c;indices[ii++]=b;indices[ii++]=d;indices[ii++]=c;}else{indices[ii++]=a;indices[ii++]=c;indices[ii++]=b;indices[ii++]=b;indices[ii++]=c;indices[ii++]=d;}}}}}const geo=new THREE.BufferGeometry();geo.setAttribute("position",new THREE.BufferAttribute(positions,3));geo.setAttribute("uv",new THREE.BufferAttribute(uvs,2));geo.setIndex(new THREE.BufferAttribute(indices,1));geo.computeVertexNormals();const yarnMaterial=material.clone();yarnMaterial.side=THREE.DoubleSide;const mesh=new THREE.Mesh(geo,yarnMaterial);mesh.castShadow=true;mesh.receiveShadow=true;root.add(mesh);}
 
-function build(data,p){disposeRoot();const wd=Number(p.warpDensity),fd=Number(p.weftDensity);if(!(wd>0&&fd>0&&Number.isFinite(wd)&&Number.isFinite(fd)))throw Error("Warp and weft densities must both be greater than zero.");const dx=1/wd,dz=1/fd,xSpan=(data.width-1)*dx,zSpan=(data.height-1)*dz,maxSpan=Math.max(xSpan,zSpan,.01),displayScale=6/maxSpan,sx=dx*displayScale,sz=dz*displayScale,warpN=Math.max(1,Number(p.warpSystems)||1),weftN=Math.max(1,Number(p.weftSystems)||1),warpSeq=parseSequence(p.warpRhythm),weftSeq=parseSequence(p.weftRhythm),warpBy=Array.from({length:warpN},()=>[]),weftBy=Array.from({length:weftN},()=>[]),radialSegments=data.total>500000?4:data.total>150000?6:10,curveSubdivisions=data.total>500000?1:data.total>150000?2:3;const warpDims=Array.from({length:warpN},(_,i)=>yarnDimensions(listItem(p.warpYarns,i),wd,sx)),weftDims=Array.from({length:weftN},(_,i)=>yarnDimensions(listItem(p.weftYarns,i),fd,sz));
+function build(data,p){disposeRoot();const wd=Number(p.warpDensity),fd=Number(p.weftDensity);if(!(wd>0&&fd>0&&Number.isFinite(wd)&&Number.isFinite(fd)))throw Error("Warp and weft densities must both be greater than zero.");const dx=1/wd,dz=1/fd,xSpan=(data.width-1)*dx,zSpan=(data.height-1)*dz,maxSpan=Math.max(xSpan,zSpan,.01),displayScale=6/maxSpan,sx=dx*displayScale,sz=dz*displayScale,warpN=Math.max(1,Number(p.warpSystems)||1),weftN=Math.max(1,Number(p.weftSystems)||1),warpSeq=parseSequence(p.warpRhythm),weftSeq=parseSequence(p.weftRhythm),warpBy=Array.from({length:warpN},()=>[]),weftBy=Array.from({length:weftN},()=>[]),radialSegments=data.total>500000?6:data.total>150000?8:12,curveSubdivisions=data.total>500000?1:data.total>150000?2:3;const warpDims=Array.from({length:warpN},(_,i)=>yarnDimensions(listItem(p.warpYarns,i),wd,sx)),weftDims=Array.from({length:weftN},(_,i)=>yarnDimensions(listItem(p.weftYarns,i),fd,sz));
 for(let x=0;x<data.width;x++){const si=sequenceIndex(warpSeq,x,warpN);if(si<0)throw Error("Warp rhythm refers to a system that is not configured.");warpBy[si].push(x);}
 for(let y=0;y<data.height;y++){const si=sequenceIndex(weftSeq,y,weftN);if(si<0)throw Error("Weft rhythm refers to a system that is not configured.");weftBy[si].push(y);}
 const warpMat=[],weftMat=[];for(let i=0;i<warpN;i++)warpMat.push(materialFor(yarnColor(p.warpYarns,i,"#eeeeee")));for(let i=0;i<weftN;i++)weftMat.push(materialFor(yarnColor(p.weftYarns,i,"#d92d3a")));
