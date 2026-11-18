@@ -44,7 +44,10 @@ function addChenillePile(paths,pointCount,pointAt,radius,tex,warp,material){
   for(let j=0;j<pointCount;j+=sampleStep){
    const center=pointAt(paths[p],j);
    for(let k=0;k<around;k++){
-    const angle=(k/around)*Math.PI*2+(p%7)*.17+(j%5)*.11;
+    // Build transverse horizontal rows, not repeated longitudinal columns.
+    // Alternate each row by half a fiber pitch so adjacent rows interlock like chenille pile.
+    const rowPhase=(j%2)*Math.PI/around;
+    const angle=(k/around)*Math.PI*2+rowPhase+(p%7)*.17;
     normal.set(warp?Math.cos(angle):0,Math.sin(angle),warp?0:Math.cos(angle)).normalize();
     const length=fiberLength*(.86+((p*13+j*7+k*17)%19)/100);
     // Dense roots overlap slightly, concealing the yarn core beneath a continuous plush surface.
