@@ -11,10 +11,13 @@ function sequenceIndex(sequence,index,count){if(!count)return -1;if(!sequence.le
 function countToTex(y){const n=Number(y?.count),raw=String(y?.unit||"Nm").trim().toLowerCase().replace(/[\s._-]/g,"");if(!(n>0&&Number.isFinite(n)))return null;switch(raw){case"nm":case"metric":return 1000/n;case"ne":case"nec":case"englishcotton":return 590.541/n;case"tex":return n;case"dtex":case"decitex":return n/10;case"den":case"denier":case"d":return n/9;case"nw":case"worsted":return 885.811/n;case"lea":case"linen":return 1652.62/n;default:return null;}}function yarnDimensions(y,density,spacing){
  const tex=countToTex(y),rho=1400;
  if(!tex)return{tex:null,radius:spacing*.48};
+ // Convert linear density (Tex) to an estimated physical yarn diameter.
+ // Keep the rendered diameter proportional to the real diameter, capped
+ // at the available pitch so neighboring yarns do not overlap excessively.
  const diameterMm=Math.sqrt(4*tex/(Math.PI*rho));
  const pitchMm=10/density;
- const packing=Math.log1p(diameterMm/pitchMm);
- return{tex,radius:spacing*(.49+.10*packing)};
+ const radiusRatio=THREE.MathUtils.clamp(diameterMm/(2*pitchMm),.025,.49);
+ return{tex,diameterMm,radius:spacing*radiusRatio};
 }
 function makeFiberTexture(){
  const c=document.createElement("canvas");c.width=256;c.height=128;
