@@ -20,21 +20,21 @@ function addYarnTube(paths,pointCount,pointAt,acrossRadius,heightRadius,warp,mat
 function isChenilleType(type){const t=String(type||"").toLowerCase();return t.includes("chenille")||t.includes("شانل");}
 function addChenillePile(paths,pointCount,pointAt,radius,tex,warp,material){
  if(!paths.length||pointCount<2||!(radius>0))return;
- // Coarser yarns (higher Tex) get longer, fuller pile; finer yarns stay shorter.
+ // Very dense chenille halo: more fibers around each yarn and tighter sampling along its length.
  const texFactor=THREE.MathUtils.clamp(Math.sqrt(Math.max(1,Number(tex)||1)/100),.62,1.65);
- const around=Math.round(14+texFactor*4);
- const sampleCount=Math.min(pointCount,64);
+ const around=Math.round(48+texFactor*16);
+ const sampleCount=Math.min(pointCount,128);
  const sampleStep=Math.max(1,Math.ceil(pointCount/sampleCount));
  const selectedSamples=Math.ceil(pointCount/sampleStep);
- // Keep the instanced pile bounded for large JC5 files without sacrificing coverage on small maps.
- const targetFibers=180000;
+ // High-detail cap keeps large JC5 maps practical while greatly increasing pile coverage.
+ const targetFibers=900000;
  const pathStep=Math.max(1,Math.ceil(paths.length*selectedSamples*around/targetFibers));
  const selectedPaths=Math.ceil(paths.length/pathStep);
  const count=selectedPaths*selectedSamples*around;
  if(!count)return;
- const fiberLength=radius*(1.12+.34*texFactor),baseRadius=radius*.14;
+ const fiberLength=radius*(1.18+.38*texFactor),baseRadius=radius*.17;
  const geometry=new THREE.ConeGeometry(baseRadius,fiberLength,4,1);
- const pileMaterial=new THREE.MeshStandardMaterial({color:material.color||0xb0a090,roughness:.99,metalness:0});
+ const pileMaterial=new THREE.MeshStandardMaterial({color:material.color||0xb0a090,roughness:1,metalness:0});
  const pile=new THREE.InstancedMesh(geometry,pileMaterial,count);
  pile.castShadow=false;pile.receiveShadow=true;
  const up=new THREE.Vector3(0,1,0),normal=new THREE.Vector3(),position=new THREE.Vector3(),scale=new THREE.Vector3(1,1,1),quaternion=new THREE.Quaternion(),matrix=new THREE.Matrix4();
@@ -46,13 +46,13 @@ function addChenillePile(paths,pointCount,pointAt,radius,tex,warp,material){
    for(let k=0;k<around;k++){
     const angle=(k/around)*Math.PI*2+(p%7)*.17+(j%5)*.11;
     normal.set(warp?Math.cos(angle):0,Math.sin(angle),warp?0:Math.cos(angle)).normalize();
-    const length=fiberLength*(.82+((p*13+j*7+k*17)%25)/100);
-    // Sink the pile roots slightly into the core so the chenille body is visually hidden.
-    position.set(center.x+normal.x*(radius+length*.34),center.y+normal.y*(radius+length*.34),center.z+normal.z*(radius+length*.34));
+    const length=fiberLength*(.86+((p*13+j*7+k*17)%19)/100);
+    // Dense roots overlap slightly, concealing the yarn core beneath a continuous plush surface.
+    position.set(center.x+normal.x*(radius+length*.28),center.y+normal.y*(radius+length*.28),center.z+normal.z*(radius+length*.28));
     quaternion.setFromUnitVectors(up,normal);
     scale.set(1,length/fiberLength,1);
     matrix.compose(position,quaternion,scale);pile.setMatrixAt(index,matrix);
-    color.copy(base).multiplyScalar(.78+((p*19+j*11+k*23)%30)/100);pile.setColorAt(index,color);
+    color.copy(base).multiplyScalar(.82+((p*19+j*11+k*23)%24)/100);pile.setColorAt(index,color);
     index++;
    }
   }
