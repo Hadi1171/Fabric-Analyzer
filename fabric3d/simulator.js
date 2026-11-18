@@ -8,7 +8,7 @@ function listItem(list,index){return list?.[index]||{};}
 function yarnColor(list,index,fallback){return listItem(list,index).color||fallback;}
 function parseSequence(value){return String(value||"").trim().split(/[.,;\s]+/).filter(Boolean).map(Number);}
 function sequenceIndex(sequence,index,count){if(!count)return -1;if(!sequence.length)return index%count;const raw=sequence[index%sequence.length];return Number.isInteger(raw)&&raw>=1&&raw<=count?raw-1:-1;}
-function countToTex(y){const n=Number(y?.count),raw=String(y?.unit||"Nm").trim().toLowerCase().replace(/[\s._-]/g,"");if(!(n>0&&Number.isFinite(n)))return null;const aliases={nm:"nm",metric:"nm",ne:"ne",nec:"ne",englishcotton:"ne",tex:"tex",dtex:"dtex",decitex:"dtex",den:"den",denier:"den",d:"den",nw:"nw",worsted:"nw",lea:"lea",linen:"lea"};const u=aliases[raw];if(!u)return null;const f={nm:1000,ne:590.541,tex:1,dtex:.1,den:1/9,nw:885.811,lea:1652.62};return f[u]/n;}function yarnDimensions(y,density,spacing){
+function countToTex(y){const n=Number(y?.count),raw=String(y?.unit||"Nm").trim().toLowerCase().replace(/[\s._-]/g,"");if(!(n>0&&Number.isFinite(n)))return null;switch(raw){case"nm":case"metric":return 1000/n;case"ne":case"nec":case"englishcotton":return 590.541/n;case"tex":return n;case"dtex":case"decitex":return n/10;case"den":case"denier":case"d":return n/9;case"nw":case"worsted":return 885.811/n;case"lea":case"linen":return 1652.62/n;default:return null;}}function yarnDimensions(y,density,spacing){
  const tex=countToTex(y),rho=1400;
  if(!tex)return{tex:null,radius:spacing*.48};
  const diameterMm=Math.sqrt(4*tex/(Math.PI*rho));
