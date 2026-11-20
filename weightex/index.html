@@ -650,6 +650,7 @@ function calculate(){
  const err=document.getElementById('yarnError');if(err)err.classList.remove('show');
  const width=val('width'),widthM=width/100,warpDensity=val('warpD'),weftDensity=val('weftD');
  const systems=[];
+ const WASTE_FACTOR=1.07; // 7% yarn waste, distributed proportionally across every yarn system.
  for(const side of ['warp','weft']){
   const list=[...document.querySelectorAll('#'+side+'List .yarn')];
   const density=(side==='warp'?warpDensity:weftDensity)/list.length;
@@ -659,7 +660,7 @@ function calculate(){
    if(!type||!number||number<=0||!Number.isFinite(number)){systems.push({invalid:true,label:(side==='warp'?'تار ':'پود ')+(i+1)});return}
    const gpm=gramsPerMeter(number,unit);
    const yarnLength=side==='warp'?density*width*CALC_LENGTH_M: (density*(CALC_LENGTH_M*100))*widthM;
-   const weight=yarnLength*gpm;
+   const weight=yarnLength*gpm*WASTE_FACTOR;
    if(!Number.isFinite(gpm)||gpm<=0||!Number.isFinite(weight)||weight<0){systems.push({invalid:true,label:(side==='warp'?'تار ':'پود ')+(i+1)});return}
    systems.push({side,index:i+1,type,number,unit,gpm,yarnLength,weight});
   });
@@ -681,7 +682,7 @@ function calculate(){
  const summary=sortedGroups.map(g=>'<div class="item"><span>مصرف '+escapeHTML(groupLabel(g))+'</span><b>'+fmt(g.weight,3)+' گرم</b></div>').join('');
  const detail=systems.map(s=>'<div class="item"><span>'+(s.side==='warp'?'تار ':'پود ')+fmt(s.index,0)+' · '+escapeHTML(s.type)+' ('+s.unit+' '+fmt(s.number,3)+')</span><b>'+fmt(s.weight,3)+' g</b></div>').join('');
  const sentence=sortedGroups.map(g=>'<strong>'+escapeHTML(groupLabel(g))+'</strong>: '+fmt(g.weight,3)+' گرم').join('، ');
- const resultHtml='<div class="resulttop"><small>وزن کل نظری پارچه</small><div class="total">'+fmt(total,3)+' g</div><p>عرض پارچه: '+fmt(width,2)+' سانتی‌متر · طول مبنا: ۱ متر</p></div><div class="breakdown"><h3>مصرف هر نوع نخ</h3>'+summary+'</div><div class="breakdown"><h3>جزئیات سیستم‌ها</h3>'+detail+'</div><div class="sentence">در طول مبنای محاسبه با عرض '+fmt(width,2)+' سانتی‌متر به کار رفته است:<br>'+sentence+'.</div><button class="primary export-jpeg" type="button" onclick="exportJpeg()">دریافت گزارش تصویری JPEG <span class="btn-arrow">↗</span></button>';
+ const resultHtml='<div class="resulttop"><small>وزن کل پارچه با احتساب ۷٪ ضایعات</small><div class="total">'+fmt(total,3)+' g</div><p>عرض پارچه: '+fmt(width,2)+' سانتی‌متر · طول مبنا: ۱ متر</p></div><div class="breakdown"><h3>مصرف هر نوع نخ</h3>'+summary+'</div><div class="breakdown"><h3>جزئیات سیستم‌ها</h3>'+detail+'</div><div class="sentence">در طول مبنای محاسبه با عرض '+fmt(width,2)+' سانتی‌متر به کار رفته است:<br>'+sentence+'.</div><button class="primary export-jpeg" type="button" onclick="exportJpeg()">دریافت گزارش تصویری JPEG <span class="btn-arrow">↗</span></button>';
  window.lastCalculation={total,width,warpDensity,weftDensity,systems:systems.map(x=>({...x})),groups:sortedGroups.map(g=>({...g,label:groupLabel(g)}))};
  const html=resultHtml;
  const result=document.getElementById('result');result.innerHTML=html;result.classList.add('show');result.scrollIntoView({behavior:'smooth',block:'nearest'});
